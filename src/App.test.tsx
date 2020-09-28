@@ -8,16 +8,29 @@ expect.extend(toHaveNoViolations);
 test("renders the component", () => {
   const { container } = render(<App />);
   expect(container.firstChild).toMatchInlineSnapshot(`
-    <div
-      class="App"
-    >
-      Hey
+    <div>
+      <ul>
+        <li>
+          <a
+            href="/"
+          >
+            Home
+          </a>
+        </li>
+        <li>
+          <a
+            href="/login"
+          >
+            Login
+          </a>
+        </li>
+      </ul>
+      <hr />
     </div>
   `);
 });
 
 test("has no axe violations", async () => {
   const { container } = render(<App />);
-  const axeResults = await axe(container);
-  expect(axeResults).toHaveNoViolations();
+  expect(await axe(container)).toHaveNoViolations();
 });
