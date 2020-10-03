@@ -14,6 +14,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+// firebase.auth().languageCode = "pt";// TODO: set locale here once it's available
 export const auth = firebase.auth();
 export const db = firebase.database();
 export const firestore = firebase.firestore();
