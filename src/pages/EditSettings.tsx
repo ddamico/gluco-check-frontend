@@ -10,17 +10,14 @@ interface EditSettingsProps {
 }
 
 export default function EditSettings({ user }: EditSettingsProps) {
-  const [document, loading, error] = useDocument(
-    firestore.doc(`users/${user.uid}`)
-  );
-
-  console.log(document, loading, error);
+  const documentPath = `users/${user.email}`;
+  const [document, loading, error] = useDocument(firestore.doc(documentPath));
 
   return (
     <Container>
       {loading && <>Loading stuff!</>}
-      {error && <>Something has gone horribly wrong</>}
-      {document && <SettingsForm />}
+      {error && <>Something has gone horribly wrong: {error.message}</>}
+      {document && <SettingsForm userData={document} />}
     </Container>
   );
 }
