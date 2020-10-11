@@ -5941,6 +5941,11 @@ firebaseui@^4.1.0:
     dialog-polyfill "^0.4.7"
     material-design-lite "^1.2.0"
 
+firestore-jest-mock@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/firestore-jest-mock/-/firestore-jest-mock-0.6.0.tgz#2b62ebd863ac984efa084b3812266da16e490398"
+  integrity sha512-CUgTeBUUeNxsR6m1TCEynKh9YrfoSTh99p4bWmwkfaKlvJ5L2azS1kG0w0k5l440e9yj7pBnG2Glxua9whjToQ==
+
 flat-cache@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-2.0.1.tgz#5d296d6f04bda44a4630a301413bdbc2ec085ec0"

@@ -5,12 +5,14 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
 import EditSettings from "./pages/EditSettings";
+import { getDocumentPathForUser } from "./lib/firebase-helpers";
 
 export default function App() {
   const [user, loading] = useAuthState(auth);
   let Content: React.ReactElement | null = null;
   if (user) {
-    Content = <EditSettings user={user} />;
+    const docPath = getDocumentPathForUser(user)
+    Content = <EditSettings userDocumentPath={docPath} />;
   } else {
     if (!loading) {
       Content = <Landing />;

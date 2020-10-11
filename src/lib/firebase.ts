@@ -2,6 +2,8 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 import "firebase/firestore";
+import { BloodGlucoseUnits } from "./enums";
+import { GlucoCheckUserDocument } from "./types";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,

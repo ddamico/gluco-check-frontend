@@ -1,33 +1,28 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import {
-  FIRESTORE_FIELD_PATH_GLUCOSE_UNITS,
-  FIRESTORE_FIELD_PATH_NIGHTSCOUT_TOKEN,
-  FIRESTORE_FIELD_PATH_NIGHTSCOUT_URL,
-} from "../lib/constants";
 import { BloodGlucoseUnits } from "../lib/enums";
+import { SettingsFormData } from "../lib/types";
 
 type SettingsFormProps = {
-  userData?: firebase.firestore.DocumentData;
+  // @TODO: pull these out into an object I think
+  nightscoutUrl: string
+  nightscoutToken: string
+  glucoseUnit: BloodGlucoseUnits
+  onSubmit: (data: SettingsFormData) => {}
 };
 
-type SettingsFormData = {
-  nightscoutUrl: string;
-  nightscoutToken: string;
-  glucoseUnit: BloodGlucoseUnits;
-};
-
-export default function SettingsForm({ userData }: SettingsFormProps) {
+export default function SettingsForm({ nightscoutUrl, nightscoutToken, glucoseUnit, onSubmit }: SettingsFormProps) {
   const { register, handleSubmit, watch, errors } = useForm<SettingsFormData>();
-  const onSubmit = (data: SettingsFormData) => {
-    console.log(data);
+  const onFormSubmit = async (data: SettingsFormData) => {
+    try {
+      await onSubmit(data)
+    } catch (e) {
+      console.log('something has gone horribly wrong')
+    }
   };
 
-  const nightscoutUrl = userData?.get(FIRESTORE_FIELD_PATH_NIGHTSCOUT_URL);
-  const nightscoutToken = userData?.get(FIRESTORE_FIELD_PATH_NIGHTSCOUT_TOKEN);
-  const glucoseUnit = userData?.get(FIRESTORE_FIELD_PATH_GLUCOSE_UNITS);
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onFormSubmit)}>
       <label>
         Nightscout URL
         <input
