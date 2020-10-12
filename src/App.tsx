@@ -7,12 +7,18 @@ import Landing from "./pages/Landing";
 import EditSettings from "./pages/EditSettings";
 import { getDocumentPathForUser } from "./lib/firebase-helpers";
 
+export const FirebaseUserDocumentContext = React.createContext("");
+
 export default function App() {
   const [user, loading] = useAuthState(auth);
   let Content: React.ReactElement | null = null;
   if (user) {
-    const docPath = getDocumentPathForUser(user)
-    Content = <EditSettings userDocumentPath={docPath} />;
+    const docPath = getDocumentPathForUser(user);
+    Content = (
+      <FirebaseUserDocumentContext.Provider value={docPath}>
+        <EditSettings />;
+      </FirebaseUserDocumentContext.Provider>
+    );
   } else {
     if (!loading) {
       Content = <Landing />;

@@ -4,10 +4,9 @@ import { axe, toHaveNoViolations } from "jest-axe";
 import * as firestoreHooks from "react-firebase-hooks/firestore";
 import EditSettings, { returnHandleSettingsSave } from "./EditSettings";
 import { mockFirebase } from "firestore-jest-mock";
-import { mockUser, mockUserDocument } from '../lib/__mocks__/firebase';
+import { mockUser, mockUserDocument } from "../lib/__mocks__/firebase";
 
 expect.extend(toHaveNoViolations);
-// jest.mock("../lib/firebase.ts");
 
 afterEach(() => {
   cleanup();
@@ -18,10 +17,10 @@ beforeEach(() => {
   mockFirebase({
     database: {
       users: {
-        "alf@melmac.com": mockUserDocument
-      }
-    }
-  })
+        "alf@melmac.com": mockUserDocument,
+      },
+    },
+  });
 });
 
 describe("EditSettings", () => {
@@ -32,25 +31,27 @@ describe("EditSettings", () => {
       .mockReturnValue([undefined, true, undefined]);
 
     // @ts-ignore
-    const { container } = render(<EditSettings userDocumentPath="users/alf@melmac.com" />);
+    const { container } = render(
+      <EditSettings userDocumentPath="users/alf@melmac.com" />
+    );
     expect(container.firstChild).toMatchSnapshot();
 
     expect(await axe(container)).toHaveNoViolations();
   });
 
-  it("Renders the component when in error state, with no axe violations", async () => { })
+  it("Renders the component when in error state, with no axe violations", async () => {});
 
   it("Renders the component with data, with no axe violations", async () => {
     const mockDocument = {
-      get: jest.fn().mockReturnValue('mock data')
-    }
-  })
+      get: jest.fn().mockReturnValue("mock data"),
+    };
+  });
 });
 
-describe('returnHandleSettingsSave', () => {
-  it('returns a submit handler', () => {
+describe("returnHandleSettingsSave", () => {
+  it("returns a submit handler", () => {
     // @ts-ignore
-    const handler = returnHandleSettingsSave(mockUser)
-    expect(handler).toBeInstanceOf(Function)
-  })
-})
+    const handler = returnHandleSettingsSave(mockUser);
+    expect(handler).toBeInstanceOf(Function);
+  });
+});
