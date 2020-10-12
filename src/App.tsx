@@ -16,12 +16,12 @@ export default function App() {
     const docPath = getDocumentPathForUser(user);
     Content = (
       <FirebaseUserDocumentContext.Provider value={docPath}>
-        <EditSettings />;
+        <EditSettings />
       </FirebaseUserDocumentContext.Provider>
     );
   } else {
     if (!loading) {
-      Content = <Landing />;
+      Content = <Landing />
     }
   }
   return (

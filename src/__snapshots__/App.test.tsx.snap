@@ -47,7 +47,6 @@ exports[`App component renders the component when user loaded 1`] = `
   <div>
     EditSettings
   </div>
-  ;
 </div>
 `;
 
