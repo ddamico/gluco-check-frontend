@@ -2,29 +2,30 @@ import React from "react";
 import {
   cleanup,
   render,
-  act,
+  waitFor,
+  screen,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe, toHaveNoViolations } from "jest-axe";
 import { BloodGlucoseUnits } from "../lib/enums";
 import SettingsForm from "./SettingsForm";
-import { SUBMIT_SETTINGS_FORM } from "../lib/strings";
 
 expect.extend(toHaveNoViolations);
 
 afterEach(() => {
-  jest.clearAllMocks();
+  jest.resetAllMocks();
   cleanup();
 });
 
 describe("SettingsForm component", () => {
+
   const mockNsUrl = "https://example.com";
   const mockNsToken = "token123";
   const mockGlucoseUnits = BloodGlucoseUnits.mgdl;
   const mockOnSubmit = jest.fn();
 
   it("renders the component", async () => {
-    const { container, findByText, findByLabelText } = render(
+    const { container } = render(
       <SettingsForm
         nightscoutToken={mockNsToken}
         nightscoutUrl={mockNsUrl}
@@ -32,10 +33,10 @@ describe("SettingsForm component", () => {
         onSubmit={mockOnSubmit}
       />
     );
-    const submitButton = await findByText(SUBMIT_SETTINGS_FORM);
-    const tokenField = await findByLabelText("Nightscout Token");
-    const urlField = await findByLabelText("Nightscout URL");
-    const glucoseUnitsSelect = await findByLabelText("Glucose Units");
+    const submitButton = await screen.findByTestId("settings-form-submit");
+    const tokenField = await screen.findByTestId("settings-form-field-token");
+    const urlField = await screen.findByTestId("settings-form-field-url");
+    const glucoseUnitsSelect = await screen.findByTestId("settings-form-field-bg");
 
     expect(container.firstChild).toMatchSnapshot();
     expect(submitButton).not.toBeEnabled();
@@ -44,19 +45,18 @@ describe("SettingsForm component", () => {
     expect(glucoseUnitsSelect).toHaveValue(mockGlucoseUnits);
   });
 
-  it("submits the form with the correct values", async () => {
-    expect.assertions(1);
+  it("submits the form and saves settings", async () => {
+    expect.assertions(6);
     mockOnSubmit.mockImplementationOnce(async (data) => {
-      expect(data).toMatchInlineSnapshot(`
-        Object {
-          "glucoseUnit": "mg/dl",
-          "nightscoutToken": "token123token",
-          "nightscoutUrl": "https://example.com",
-        }
-      `);
+      expect(data.nightscoutUrl).toBe(mockNsUrl);
+      expect(data.glucoseUnit).toBe(mockGlucoseUnits);
+      expect(data.nightscoutToken).toMatchInlineSnapshot(
+        `"token123token"`
+      );
+      return Promise.resolve()
     });
 
-    const { findByText, findByLabelText } = render(
+    render(
       <SettingsForm
         nightscoutToken={mockNsToken}
         nightscoutUrl={mockNsUrl}
@@ -64,28 +64,25 @@ describe("SettingsForm component", () => {
         onSubmit={mockOnSubmit}
       />
     );
-    const submitButton = await findByText(SUBMIT_SETTINGS_FORM);
-    const tokenField = await findByLabelText("Nightscout Token");
-
-    act(() => {
-      userEvent.type(tokenField, "token");
-    });
-    act(() => {
+    expect(screen.getByTestId("settings-form")).toBeInTheDocument();
+    const submitButton = await screen.findByTestId("settings-form-submit");
+    const tokenField = await screen.findByTestId("settings-form-field-token");
+    await userEvent.type(tokenField, "token");
+    await waitFor(() => {
       userEvent.click(submitButton);
+    });
+    expect(mockOnSubmit).toHaveBeenCalled();
+
+    await waitFor(() => {
+      expect(screen.getByTestId("settings-form-submitted")).toBeInTheDocument();
     });
   });
 
-  fit("handles an error on form submit", async () => {
-    expect.assertions(1);
-    mockOnSubmit.mockImplementationOnce(async () => {
-      throw new Error("To err is human.");
-    });
-    // @ts-ignore
-    jest.spyOn(global.console, "log").mockImplementationOnce((message) => {
-      expect(message).toMatchInlineSnapshot(`"threw on form submit"`);
-    });
+  it("attempts to save settings and handles submission error", async () => {
+    expect.assertions(3);
+    mockOnSubmit.mockRejectedValueOnce(new Error("To err is human"));
 
-    const { findByText, findByLabelText } = render(
+    render(
       <SettingsForm
         nightscoutToken={mockNsToken}
         nightscoutUrl={mockNsUrl}
@@ -93,15 +90,19 @@ describe("SettingsForm component", () => {
         onSubmit={mockOnSubmit}
       />
     );
-    const submitButton = await findByText(SUBMIT_SETTINGS_FORM);
-    const tokenField = await findByLabelText("Nightscout Token");
-
-    act(() => {
-      userEvent.type(tokenField, "token");
-    });
-    act(() => {
+    expect(screen.getByTestId("settings-form")).toBeInTheDocument();
+    const submitButton = await screen.findByTestId("settings-form-submit");
+    const tokenField = await screen.findByTestId("settings-form-field-token");
+    await userEvent.type(tokenField, "token");
+    await waitFor(() => {
       userEvent.click(submitButton);
     });
+    expect(mockOnSubmit).toHaveBeenCalled();
+
+    await waitFor(() => {
+      expect(screen.getByTestId("settings-form-error")).toBeInTheDocument();
+    });
+
   });
 
   it("has no axe violations", async () => {

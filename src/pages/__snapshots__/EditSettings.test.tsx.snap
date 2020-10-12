@@ -2,10 +2,13 @@
 
 exports[`EditSettings Renders the component when loading, with no axe violations 1`] = `
 <div>
-  <form>
+  <form
+    data-testid="settings-form"
+  >
     <label>
       Nightscout URL
       <input
+        data-testid="settings-form-field-url"
         name="nightscoutUrl"
         value="a value"
       />
@@ -14,6 +17,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
     <label>
       Nightscout Token
       <input
+        data-testid="settings-form-field-token"
         name="nightscoutToken"
         value="a value"
       />
@@ -22,6 +26,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
     <label>
       Glucose Units
       <select
+        data-testid="settings-form-field-bg"
         name="glucoseUnit"
       >
         <option
@@ -38,6 +43,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
     </label>
     <br />
     <button
+      data-testid="settings-form-submit"
       disabled=""
       type="submit"
     >

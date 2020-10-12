@@ -1,10 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SettingsForm component renders the component 1`] = `
-<form>
+<form
+  data-testid="settings-form"
+>
   <label>
     Nightscout URL
     <input
+      data-testid="settings-form-field-url"
       name="nightscoutUrl"
       value="https://example.com"
     />
@@ -13,6 +16,7 @@ exports[`SettingsForm component renders the component 1`] = `
   <label>
     Nightscout Token
     <input
+      data-testid="settings-form-field-token"
       name="nightscoutToken"
       value="token123"
     />
@@ -21,6 +25,7 @@ exports[`SettingsForm component renders the component 1`] = `
   <label>
     Glucose Units
     <select
+      data-testid="settings-form-field-bg"
       name="glucoseUnit"
     >
       <option
@@ -38,6 +43,7 @@ exports[`SettingsForm component renders the component 1`] = `
   </label>
   <br />
   <button
+    data-testid="settings-form-submit"
     disabled=""
     type="submit"
   >
