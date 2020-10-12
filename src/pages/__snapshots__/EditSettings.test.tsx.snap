@@ -2,6 +2,60 @@
 
 exports[`EditSettings Renders the component when loading, with no axe violations 1`] = `
 <div>
+  <form>
+    <label>
+      Nightscout URL
+      <input
+        name="nightscoutUrl"
+        value="a value"
+      />
+    </label>
+    <br />
+    <label>
+      Nightscout Token
+      <input
+        name="nightscoutToken"
+        value="a value"
+      />
+    </label>
+    <br />
+    <label>
+      Glucose Units
+      <select
+        name="glucoseUnit"
+      >
+        <option
+          id="mg/dl"
+        >
+          mg/dl
+        </option>
+        <option
+          id="mmol/L"
+        >
+          mmol/L
+        </option>
+      </select>
+    </label>
+    <br />
+    <button
+      disabled=""
+      type="submit"
+    >
+      Save Settings
+    </button>
+  </form>
+</div>
+`;
+
+exports[`EditSettings Renders the component when loading, with no axe violations 2`] = `
+<div>
   Loading stuff!
+</div>
+`;
+
+exports[`EditSettings Renders the component with error, with no axe violations 1`] = `
+<div>
+  Something has gone horribly wrong: 
+  you blew it
 </div>
 `;

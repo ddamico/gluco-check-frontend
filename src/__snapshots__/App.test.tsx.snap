@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App component renders the component when user loaded 1`] = `
+<div>
+  <ul>
+    <li>
+      <a
+        href="/"
+      >
+        Home
+      </a>
+    </li>
+    <li>
+      <button>
+        Logout
+      </button>
+    </li>
+  </ul>
+  <hr />
+  <div>
+    Loading stuff!
+  </div>
+  ;
+</div>
+`;
+
+exports[`App component renders the component when user loading 1`] = `
+<div>
+  <ul>
+    <li>
+      <a
+        href="/"
+      >
+        Home
+      </a>
+    </li>
+    <li>
+      <a
+        href="/login"
+      >
+        Login
+      </a>
+    </li>
+  </ul>
+  <hr />
+</div>
+`;

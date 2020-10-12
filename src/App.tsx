@@ -37,13 +37,15 @@ export default function App() {
             </li>
           )}
           {user && (
-            <button
-              onClick={() => {
-                auth.signOut();
-              }}
-            >
-              Logout
-            </button>
+            <li>
+              <button
+                onClick={() => {
+                  auth.signOut();
+                }}
+              >
+                  Logout
+              </button>
+            </li>
           )}
         </ul>
 

@@ -23,7 +23,7 @@ export const returnHandleSettingsSave = (userDocumentPath: string) => {
         ...formDataAsDocument,
       });
     } catch (e) {
-      console.log("error saving document", e);
+      throw new Error(`error saving document ${e.message}`);
     }
   };
 };
@@ -31,8 +31,10 @@ export const returnHandleSettingsSave = (userDocumentPath: string) => {
 // @TODO: add success and error states to this, and set them in the handler?
 export default function EditSettings() {
   const userDocumentPath = useContext(FirebaseUserDocumentContext);
+  const userDocumentReference = firestore.doc(userDocumentPath);
+
   const [document, loading, error] = useDocument(
-    firestore.doc(userDocumentPath)
+    userDocumentReference
   );
 
   const nightscoutUrl =
