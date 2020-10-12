@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { BloodGlucoseUnits } from "../lib/enums";
 import { SUBMIT_SETTINGS_FORM } from "../lib/strings";
@@ -17,6 +17,7 @@ export default function SettingsForm({
   glucoseUnit,
   onSubmit,
 }: SettingsFormProps) {
+  // eslint-disable-next-line
   const { register, handleSubmit, formState, watch, errors } = useForm<
     SettingsFormData
   >();
