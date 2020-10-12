@@ -24,10 +24,7 @@ export default function SettingsForm({
     try {
       await onSubmit(data);
     } catch (e) {
-      // TODO: probably can't just throw here, figure
-      // out what hook form will do with this error
       console.log("threw on form submit");
-      throw e;
     }
   };
 

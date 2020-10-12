@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Landing page renders the component 1`] = `
+<div>
+  <h2>
+    Gluco Check
+  </h2>
+</div>
+`;

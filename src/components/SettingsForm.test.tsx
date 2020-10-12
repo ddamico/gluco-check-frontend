@@ -1,10 +1,8 @@
 import React from "react";
 import {
   cleanup,
-  findByRole,
   render,
   act,
-  prettyDOM,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe, toHaveNoViolations } from "jest-axe";
@@ -77,9 +75,14 @@ describe("SettingsForm component", () => {
     });
   });
 
-  it("whatever, error", async () => {
+  fit("handles an error on form submit", async () => {
+    expect.assertions(1);
     mockOnSubmit.mockImplementationOnce(async () => {
       throw new Error("To err is human.");
+    });
+    // @ts-ignore
+    jest.spyOn(global.console, "log").mockImplementationOnce((message) => {
+      expect(message).toMatchInlineSnapshot(`"threw on form submit"`);
     });
 
     const { findByText, findByLabelText } = render(
