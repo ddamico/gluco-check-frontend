@@ -8,15 +8,18 @@
     "react-dom": "^16.13.1",
     "react-firebase-hooks": "^2.2.0",
     "react-firebaseui": "^4.1.0",
+    "react-hook-form": "^6.8.6",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "typescript": "~3.7.2"
+    "typescript": "~4.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:cov": "npm test -- --coverage",
+    "test:cov": "npm test a -- --coverage",
     "test:ci": "CI=true npm run test -- --coverage",
+    "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -35,17 +38,21 @@
     ]
   },
   "devDependencies": {
-    "husky": "^4.3.0",
-    "lint-staged": "^10.4.0",
+    "@testing-library/dom": "^7.24.5",
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
+    "@testing-library/react": "^10.4.7",
+    "@testing-library/user-event": "^12.1.7",
     "@types/jest": "^24.0.0",
     "@types/jest-axe": "^3.5.0",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/react-router-dom": "^5.1.5",
+    "firestore-jest-mock": "^0.6.0",
+    "husky": "^4.3.0",
     "jest-axe": "^4.0.0",
+    "lint-staged": "^10.4.0",
+    "mutationobserver-shim": "^0.3.7",
     "prettier": "^2.1.2"
   },
   "husky": {
