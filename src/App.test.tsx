@@ -1,5 +1,5 @@
 import React from "react";
-import { render, cleanup, prettyDOM } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import { axe, toHaveNoViolations } from "jest-axe";
 import userEvent from "@testing-library/user-event";
 import { auth } from "./lib/firebase";
