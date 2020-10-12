@@ -1,14 +1,18 @@
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
+import { render, cleanup, prettyDOM } from "@testing-library/react";
 import { axe, toHaveNoViolations } from "jest-axe";
+import userEvent from "@testing-library/user-event";
 import { auth } from "./lib/firebase";
 import * as firebaseAuthHooks from "react-firebase-hooks/auth";
 import App from "./App";
 import { mockUser } from "./lib/__mocks__/firebase"
+import { act } from "react-dom/test-utils";
 
 jest.mock("./lib/firebase.ts", () => {
   return {
-    auth: jest.fn().mockReturnThis(),
+    auth: {
+      signOut: jest.fn()
+    },
   };
 });
 
@@ -32,7 +36,10 @@ jest.mock("./pages/Login.tsx", () => {
 
 expect.extend(toHaveNoViolations);
 
-afterEach(cleanup);
+afterEach(() => {
+  jest.clearAllMocks();
+  cleanup();
+});
 
 describe("App component", () => {
   it("renders the component when user loading", () => {
@@ -42,9 +49,22 @@ describe("App component", () => {
     expect(container.firstChild).toMatchSnapshot();
   });
 
-  it("renders the component when user loaded", () => {
+  it("renders the component when user loaded", async () => {
     // @ts-ignore
     firebaseAuthHooks.useAuthState = jest.fn().mockReturnValue([mockUser, false]);
+    const { container, findByText } = render(<App />);
+    expect(container.firstChild).toMatchSnapshot();
+
+    const logoutButton = await findByText('Logout');
+    act(() => {
+      userEvent.click(logoutButton);
+    });
+    expect(auth.signOut as jest.Mock).toHaveBeenCalled()
+  });
+
+  it("renders the component when no user and no loading", () => {
+    // @ts-ignore
+    firebaseAuthHooks.useAuthState = jest.fn().mockReturnValue([undefined, false]);
     const { container } = render(<App />);
     expect(container.firstChild).toMatchSnapshot();
   });
