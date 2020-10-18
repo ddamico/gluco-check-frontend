@@ -5,6 +5,7 @@
   "dependencies": {
     "firebase": "^7.21.1",
     "i18next": "^19.8.2",
+    "i18next-http-backend": "^1.0.21",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-firebase-hooks": "^2.2.0",
