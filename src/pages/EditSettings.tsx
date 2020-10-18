@@ -13,6 +13,7 @@ import {
 } from "../lib/constants";
 import { userSettingsFormDataToUserSettingsDocument } from "../lib/transform";
 import { FirebaseUserDocumentContext } from "../App";
+import { useTranslation } from "react-i18next";
 
 export const returnHandleSettingsSave = (userDocumentPath: string) => {
   return async (data: SettingsFormData) => {
@@ -33,9 +34,9 @@ export default function EditSettings() {
   const userDocumentPath = useContext(FirebaseUserDocumentContext);
   const userDocumentReference = firestore.doc(userDocumentPath);
 
-  const [document, loading, error] = useDocument(
-    userDocumentReference
-  );
+  const [document, loading, error] = useDocument(userDocumentReference);
+
+  const { t } = useTranslation();
 
   const nightscoutUrl =
     document?.get(FIRESTORE_FIELD_PATH_NIGHTSCOUT_URL) ?? "";
@@ -45,6 +46,7 @@ export default function EditSettings() {
 
   return (
     <Container>
+      <h2>{t("settings.title")}</h2>
       {loading && <>Loading stuff!</>}
       {error && <>Something has gone horribly wrong: {error.message}</>}
       {document && (

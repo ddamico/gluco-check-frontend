@@ -3,6 +3,7 @@ import * as firebase from "firebase/app";
 import * as firebaseui from "firebaseui";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { auth } from "../lib/firebase";
+import { useTranslation } from "react-i18next";
 
 function Login() {
   const firebaseUIConfig = {
@@ -19,9 +20,11 @@ function Login() {
     ],
   };
 
+  const { t } = useTranslation();
+
   return (
     <div>
-      <h2>Login</h2>
+      <h2>{t("login.title")}</h2>
       <StyledFirebaseAuth uiConfig={firebaseUIConfig} firebaseAuth={auth} />
     </div>
   );

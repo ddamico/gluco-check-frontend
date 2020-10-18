@@ -2,6 +2,9 @@
 
 exports[`EditSettings Renders the component when loading, with no axe violations 1`] = `
 <div>
+  <h2>
+    settings.title
+  </h2>
   <form
     data-testid="settings-form"
   >
@@ -55,12 +58,18 @@ exports[`EditSettings Renders the component when loading, with no axe violations
 
 exports[`EditSettings Renders the component when loading, with no axe violations 2`] = `
 <div>
+  <h2>
+    settings.title
+  </h2>
   Loading stuff!
 </div>
 `;
 
 exports[`EditSettings Renders the component with error, with no axe violations 1`] = `
 <div>
+  <h2>
+    settings.title
+  </h2>
   Something has gone horribly wrong: 
   you blew it
 </div>
