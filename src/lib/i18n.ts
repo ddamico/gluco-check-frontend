@@ -13,6 +13,9 @@ i18n
     debug: process.env.REACT_APP_I18N_DEBUG === 'true' || false,
     interpolation: {
       escapeValue: false,
+    },
+    react: {
+      useSuspense: false
     }
   });
 
