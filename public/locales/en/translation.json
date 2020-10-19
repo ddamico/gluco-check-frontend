@@ -1,4 +1,10 @@
 {
+  "status": {
+    "general": {
+      "loading": "Loading",
+      "error": "Something has gone horribly wrong"
+    }
+  },
   "landing": {
     "title": "Welcome to Gluco Check",
     "introduction": {
@@ -17,7 +23,19 @@
   },
   "settings": {
     "title": "Edit Settings",
-    "form": {}
+    "form": {
+      "labels": {
+        "nightscoutUrl": "Nightscout URL",
+        "nightscoutToken": "Nightscout Token",
+        "glucoseUnits": "Glucose Units"
+      },
+      "submitButton": "Save Settings",
+      "submitStatus": {
+        "submitting": "Saving your settings",
+        "submitted": "Saved your settings",
+        "error": "Something has gone horribly wrong saving your settings"
+      }
+    }
   },
   "navigation": {
     "home": "Home",

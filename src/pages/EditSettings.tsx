@@ -29,7 +29,6 @@ export const returnHandleSettingsSave = (userDocumentPath: string) => {
   };
 };
 
-// @TODO: add success and error states to this, and set them in the handler?
 export default function EditSettings() {
   const userDocumentPath = useContext(FirebaseUserDocumentContext);
   const userDocumentReference = firestore.doc(userDocumentPath);
@@ -47,8 +46,12 @@ export default function EditSettings() {
   return (
     <Container>
       <h2>{t("settings.title")}</h2>
-      {loading && <>Loading stuff!</>}
-      {error && <>Something has gone horribly wrong: {error.message}</>}
+      {loading && <>{t("status.general.loading")}</>}
+      {error && (
+        <>
+          {t("status.general.error")}: {error.message}
+        </>
+      )}
       {document && (
         <SettingsForm
           nightscoutUrl={nightscoutUrl}

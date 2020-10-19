@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { BloodGlucoseUnits } from "../lib/enums";
-import { SETTINGS_FORM_GLUCOSE_UNITS_FIELD_LABEL, SETTINGS_FORM_NSTOKEN_FIELD_LABEL, SETTINGS_FORM_NSURL_FIELD_LABEL, SETTINGS_FORM_SUBMITTED_STATUS_ERROR, SETTINGS_FORM_SUBMITTED_STATUS_TEXT, SETTINGS_FORM_SUBMITTING_STATUS_TEXT, SETTINGS_FORM_SUBMIT_BUTTON_LABEL } from "../lib/strings";
 import { SettingsFormData } from "../lib/types";
 
 type SettingsFormProps = {
@@ -19,11 +19,12 @@ export default function SettingsForm({
 }: SettingsFormProps) {
   // eslint-disable-next-line
   const { register, handleSubmit, formState, watch, errors } = useForm<
-  SettingsFormData
+    SettingsFormData
   >();
+  const { t } = useTranslation();
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
-  const canEditFields = !formState.isSubmitting
-  const canSubmitForm = formState.isDirty && !formState.isSubmitting
+  const canEditFields = !formState.isSubmitting;
+  const canSubmitForm = formState.isDirty && !formState.isSubmitting;
 
   const onFormSubmit = async (data: SettingsFormData) => {
     try {
@@ -37,7 +38,7 @@ export default function SettingsForm({
   const SettingsForm = (
     <form onSubmit={handleSubmit(onFormSubmit)} data-testid="settings-form">
       <label>
-        {SETTINGS_FORM_NSURL_FIELD_LABEL}
+        {t("settings.form.labels.nightscoutUrl")}
         <input
           name="nightscoutUrl"
           defaultValue={nightscoutUrl}
@@ -48,7 +49,7 @@ export default function SettingsForm({
       </label>
       <br />
       <label>
-        {SETTINGS_FORM_NSTOKEN_FIELD_LABEL}
+        {t("settings.form.labels.nightscoutToken")}
         <input
           name="nightscoutToken"
           defaultValue={nightscoutToken}
@@ -59,7 +60,7 @@ export default function SettingsForm({
       </label>
       <br />
       <label>
-        {SETTINGS_FORM_GLUCOSE_UNITS_FIELD_LABEL}
+        {t("settings.form.labels.glucoseUnits")}
         <select
           name="glucoseUnit"
           defaultValue={glucoseUnit}
@@ -75,17 +76,33 @@ export default function SettingsForm({
         </select>
       </label>
       <br />
-      <button type="submit" disabled={!canSubmitForm} data-testid="settings-form-submit">
-        {SETTINGS_FORM_SUBMIT_BUTTON_LABEL}
+      <button
+        type="submit"
+        disabled={!canSubmitForm}
+        data-testid="settings-form-submit"
+      >
+        {t("settings.form.submitButton")}
       </button>
     </form>
   );
 
   return (
     <>
-      {formState.isSubmitting && <p data-testid="settings-form-submitting">{SETTINGS_FORM_SUBMITTING_STATUS_TEXT}</p>}
-      {formState.isSubmitted && <p data-testid="settings-form-submitted">{SETTINGS_FORM_SUBMITTED_STATUS_TEXT}</p>}
-      {formHasSubmissionError && <p data-testid="settings-form-error">{SETTINGS_FORM_SUBMITTED_STATUS_ERROR}</p>}
+      {formState.isSubmitting && (
+        <p data-testid="settings-form-submitting">
+          {t("settings.form.submitStatus.submitting")}
+        </p>
+      )}
+      {formState.isSubmitted && (
+        <p data-testid="settings-form-submitted">
+          {t("settings.form.submitStatus.submitted")}
+        </p>
+      )}
+      {formHasSubmissionError && (
+        <p data-testid="settings-form-error">
+          {t("settings.form.submitStatus.error")}
+        </p>
+      )}
       {SettingsForm}
     </>
   );
