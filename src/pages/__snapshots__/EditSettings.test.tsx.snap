@@ -2,11 +2,14 @@
 
 exports[`EditSettings Renders the component when loading, with no axe violations 1`] = `
 <div>
+  <h2>
+    settings.title
+  </h2>
   <form
     data-testid="settings-form"
   >
     <label>
-      Nightscout URL
+      settings.form.labels.nightscoutUrl
       <input
         data-testid="settings-form-field-url"
         name="nightscoutUrl"
@@ -15,7 +18,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
     </label>
     <br />
     <label>
-      Nightscout Token
+      settings.form.labels.nightscoutToken
       <input
         data-testid="settings-form-field-token"
         name="nightscoutToken"
@@ -24,7 +27,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
     </label>
     <br />
     <label>
-      Glucose Units
+      settings.form.labels.glucoseUnits
       <select
         data-testid="settings-form-field-bg"
         name="glucoseUnit"
@@ -47,7 +50,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
       disabled=""
       type="submit"
     >
-      Save Settings
+      settings.form.submitButton
     </button>
   </form>
 </div>
@@ -55,13 +58,20 @@ exports[`EditSettings Renders the component when loading, with no axe violations
 
 exports[`EditSettings Renders the component when loading, with no axe violations 2`] = `
 <div>
-  Loading stuff!
+  <h2>
+    settings.title
+  </h2>
+  status.general.loading
 </div>
 `;
 
 exports[`EditSettings Renders the component with error, with no axe violations 1`] = `
 <div>
-  Something has gone horribly wrong: 
+  <h2>
+    settings.title
+  </h2>
+  status.general.error
+  : 
   you blew it
 </div>
 `;

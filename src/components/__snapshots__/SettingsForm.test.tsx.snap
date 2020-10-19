@@ -5,7 +5,7 @@ exports[`SettingsForm component renders the component 1`] = `
   data-testid="settings-form"
 >
   <label>
-    Nightscout URL
+    settings.form.labels.nightscoutUrl
     <input
       data-testid="settings-form-field-url"
       name="nightscoutUrl"
@@ -14,7 +14,7 @@ exports[`SettingsForm component renders the component 1`] = `
   </label>
   <br />
   <label>
-    Nightscout Token
+    settings.form.labels.nightscoutToken
     <input
       data-testid="settings-form-field-token"
       name="nightscoutToken"
@@ -23,7 +23,7 @@ exports[`SettingsForm component renders the component 1`] = `
   </label>
   <br />
   <label>
-    Glucose Units
+    settings.form.labels.glucoseUnits
     <select
       data-testid="settings-form-field-bg"
       name="glucoseUnit"
@@ -47,7 +47,7 @@ exports[`SettingsForm component renders the component 1`] = `
     disabled=""
     type="submit"
   >
-    Save Settings
+    settings.form.submitButton
   </button>
 </form>
 `;

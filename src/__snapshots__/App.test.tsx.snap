@@ -7,22 +7,48 @@ exports[`App component renders the component when no user and no loading 1`] = `
       <a
         href="/"
       >
-        Home
+        navigation.home
       </a>
     </li>
     <li>
       <a
         href="/login"
       >
-        Login
+        navigation.login
       </a>
     </li>
   </ul>
   <hr />
   <div>
     <h2>
-      Gluco Check
+      landing.title
     </h2>
+    <p>
+      landing.introduction.p1
+    </p>
+    <ul>
+      <li>
+        landing.introduction.features1
+      </li>
+      <li>
+        landing.introduction.features2
+      </li>
+      <li>
+        landing.introduction.features3
+      </li>
+      <li>
+        landing.introduction.features4
+      </li>
+      <li>
+        landing.introduction.features5
+      </li>
+      <li>
+        landing.introduction.features6
+      </li>
+      <li>
+        landing.introduction.features7
+      </li>
+    </ul>
   </div>
 </div>
 `;
@@ -34,12 +60,14 @@ exports[`App component renders the component when user loaded 1`] = `
       <a
         href="/"
       >
-        Home
+        navigation.home
       </a>
     </li>
     <li>
-      <button>
-        Logout
+      <button
+        data-testid="logout"
+      >
+        navigation.logout
       </button>
     </li>
   </ul>
@@ -57,14 +85,14 @@ exports[`App component renders the component when user loading 1`] = `
       <a
         href="/"
       >
-        Home
+        navigation.home
       </a>
     </li>
     <li>
       <a
         href="/login"
       >
-        Login
+        navigation.login
       </a>
     </li>
   </ul>

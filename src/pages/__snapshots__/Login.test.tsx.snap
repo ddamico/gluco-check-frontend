@@ -3,7 +3,7 @@
 exports[`Login page renders the component 1`] = `
 <div>
   <h2>
-    Login
+    login.title
   </h2>
   This is where the login would be
 </div>

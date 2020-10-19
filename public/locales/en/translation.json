@@ -1,0 +1,45 @@
+{
+  "status": {
+    "general": {
+      "loading": "Loading",
+      "error": "Something has gone horribly wrong"
+    }
+  },
+  "landing": {
+    "title": "Welcome to Gluco Check",
+    "introduction": {
+      "p1": "Gluco Check brings Nightscout to your Google Assistant. Ask it things like Hey Google, ask Gluco Check...",
+      "features1": "my blood sugar / my BG / my glucose / ...",
+      "features2": "my insulin on board / IOB / insulin",
+      "features3": "my carbs on board / COB / carbs",
+      "features4": "pump battery",
+      "features5": "How old is my cannula / When did I insert my cannula?",
+      "features6": "What's the sensor's age?",
+      "features7": "Everything / all values"
+    }
+  },
+  "login": {
+    "title": "Login"
+  },
+  "settings": {
+    "title": "Edit Settings",
+    "form": {
+      "labels": {
+        "nightscoutUrl": "Nightscout URL",
+        "nightscoutToken": "Nightscout Token",
+        "glucoseUnits": "Glucose Units"
+      },
+      "submitButton": "Save Settings",
+      "submitStatus": {
+        "submitting": "Saving your settings",
+        "submitted": "Saved your settings",
+        "error": "Something has gone horribly wrong saving your settings"
+      }
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "login": "Login",
+    "logout": "Logout"
+  }
+}
