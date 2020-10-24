@@ -20,7 +20,13 @@ type SettingsFormProps = {
   onSubmit: (data: SettingsFormData) => {};
 };
 
-const useButtonContainerStyles = makeStyles((theme) => {});
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiTextField-root": {
+      marginInline: theme.spacing(1),
+    },
+  },
+}));
 
 export default function SettingsForm({
   nightscoutUrl,
@@ -28,6 +34,7 @@ export default function SettingsForm({
   glucoseUnit,
   onSubmit,
 }: SettingsFormProps) {
+  const classes = useStyles();
   // eslint-disable-next-line
   const { register, handleSubmit, formState, watch, errors } = useForm<
     SettingsFormData
@@ -52,7 +59,11 @@ export default function SettingsForm({
   };
 
   const SettingsForm = (
-    <form onSubmit={handleSubmit(onFormSubmit)} data-testid="settings-form">
+    <form
+      className={classes.root}
+      onSubmit={handleSubmit(onFormSubmit)}
+      data-testid="settings-form"
+    >
       <TextField
         data-testid="settings-form-field-url"
         defaultValue={nightscoutUrl}
