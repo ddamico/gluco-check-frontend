@@ -1,7 +1,13 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
+import { CircularProgress } from "@material-ui/core";
 import App from "./App";
 
 import "./lib/i18n";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Suspense fallback={<CircularProgress />}>
+    <App />
+  </Suspense>,
+  document.getElementById("root")
+);
