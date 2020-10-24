@@ -13,7 +13,7 @@ import {
 import { userSettingsFormDataToUserSettingsDocument } from "../lib/transform";
 import { FirebaseUserDocumentContext } from "../App";
 import { useTranslation } from "react-i18next";
-import { Container } from "@material-ui/core";
+import { Container, makeStyles, Typography } from "@material-ui/core";
 
 export const returnHandleSettingsSave = (userDocumentPath: string) => {
   return async (data: SettingsFormData) => {
@@ -29,7 +29,16 @@ export const returnHandleSettingsSave = (userDocumentPath: string) => {
   };
 };
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& h2": {
+      marginBottom: theme.spacing(2),
+    },
+  },
+}));
+
 export default function EditSettings() {
+  const classes = useStyles();
   const userDocumentPath = useContext(FirebaseUserDocumentContext);
   const userDocumentReference = firestore.doc(userDocumentPath);
 
@@ -44,8 +53,10 @@ export default function EditSettings() {
   const glucoseUnit = document?.get(FIRESTORE_FIELD_PATH_GLUCOSE_UNITS) ?? "";
 
   return (
-    <Container maxWidth="lg">
-      <h2>{t("settings.title")}</h2>
+    <Container maxWidth="lg" className={classes.root}>
+      <Typography variant="h3" component="h2">
+        {t("settings.title")}
+      </Typography>
       {loading && <>{t("status.general.loading")}</>}
       {error && (
         <>

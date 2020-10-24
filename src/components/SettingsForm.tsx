@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import {
   Button,
   Container,
+  FormControl,
   InputAdornment,
+  InputLabel,
   makeStyles,
   MenuItem,
+  Select,
   TextField,
 } from "@material-ui/core";
 import { Lock } from "@material-ui/icons";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { BloodGlucoseUnits } from "../lib/enums";
 import { SettingsFormData } from "../lib/types";
@@ -22,8 +25,8 @@ type SettingsFormProps = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiTextField-root": {
-      marginInline: theme.spacing(1),
+    "& .MuiFormControl-root": {
+      marginBottom: theme.spacing(4),
     },
   },
 }));
@@ -36,18 +39,20 @@ export default function SettingsForm({
 }: SettingsFormProps) {
   const classes = useStyles();
   // eslint-disable-next-line
-  const { register, handleSubmit, formState, watch, errors } = useForm<
+  const { register, handleSubmit, formState, control, watch, errors } = useForm<
     SettingsFormData
   >();
   const { t } = useTranslation();
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
+
   const canEditFields = !formState.isSubmitting;
   const canSubmitForm = formState.isDirty && !formState.isSubmitting;
 
   const glucoseUnits = Object.entries(BloodGlucoseUnits).map(([k, v]) => {
     return { label: v, value: v };
   });
-  console.log(glucoseUnits);
+
+  console.log(formState);
 
   const onFormSubmit = async (data: SettingsFormData) => {
     try {
@@ -82,7 +87,7 @@ export default function SettingsForm({
         helperText={t("settings.form.helperText.nightscoutToken")}
         InputProps={{
           startAdornment: (
-            <InputAdornment position="end">
+            <InputAdornment position="start">
               <Lock />
             </InputAdornment>
           ),
@@ -91,28 +96,42 @@ export default function SettingsForm({
         label={t("settings.form.labels.nightscoutToken")}
         name="nightscoutToken"
       />
-      <TextField
-        data-testid="settings-form-field-bg"
-        defaultValue={glucoseUnit}
-        disabled={!canEditFields}
-        fullWidth={true}
-        inputRef={register({ required: true })}
-        label={t("settings.form.labels.glucoseUnits")}
-        name="glucoseUnit"
-        select
-      >
-        {glucoseUnits.map((item) => (
-          <MenuItem value={item.value} key={item.value}>
-            {item.label}
-          </MenuItem>
-        ))}
-      </TextField>
 
-      <Container
-        disableGutters={true}
-        maxWidth="lg"
-        style={{ margin: "1em 0" }}
-      >
+      <FormControl fullWidth={true} className="MaterialSelect">
+        <InputLabel>{t("settings.form.labels.glucoseUnits")}</InputLabel>
+        <Controller
+          name="glucoseUnit"
+          rules={{ required: true }}
+          control={control}
+          defaultValue={glucoseUnit}
+          as={
+            <Select
+              data-testid="settings-form-field-bg"
+              fullWidth={true}
+              disabled={!canEditFields}
+            >
+              {glucoseUnits.map((item) => (
+                <MenuItem value={item.value} key={item.value}>
+                  {item.label}
+                </MenuItem>
+              ))}
+            </Select>
+          }
+        />
+      </FormControl>
+
+      {/* <TextField
+
+        defaultValue={glucoseUnit}
+
+
+        InputProps={{
+          name: "glucoseUnit",
+        }}
+        select
+      ></TextField> */}
+
+      <Container disableGutters={true} maxWidth="lg">
         <Button
           variant="contained"
           color="primary"
