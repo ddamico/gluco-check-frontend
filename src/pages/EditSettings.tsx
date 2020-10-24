@@ -3,7 +3,6 @@ import { useDocument } from "react-firebase-hooks/firestore";
 import { firestore } from "../lib/firebase";
 import { DEFAULT_USER_DOCUMENT } from "../lib/firebase-helpers";
 
-import Container from "../components/Container";
 import SettingsForm from "../components/SettingsForm";
 import { SettingsFormData } from "../lib/types";
 import {
@@ -14,6 +13,7 @@ import {
 import { userSettingsFormDataToUserSettingsDocument } from "../lib/transform";
 import { FirebaseUserDocumentContext } from "../App";
 import { useTranslation } from "react-i18next";
+import { Container } from "@material-ui/core";
 
 export const returnHandleSettingsSave = (userDocumentPath: string) => {
   return async (data: SettingsFormData) => {
@@ -44,7 +44,7 @@ export default function EditSettings() {
   const glucoseUnit = document?.get(FIRESTORE_FIELD_PATH_GLUCOSE_UNITS) ?? "";
 
   return (
-    <Container>
+    <Container maxWidth="lg">
       <h2>{t("settings.title")}</h2>
       {loading && <>{t("status.general.loading")}</>}
       {error && (

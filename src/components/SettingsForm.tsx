@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import {
   Button,
-  FormLabel,
-  Input,
+  Container,
+  InputAdornment,
+  makeStyles,
   MenuItem,
-  Select,
   TextField,
 } from "@material-ui/core";
+import { Lock } from "@material-ui/icons";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { BloodGlucoseUnits } from "../lib/enums";
@@ -18,6 +19,8 @@ type SettingsFormProps = {
   glucoseUnit: BloodGlucoseUnits;
   onSubmit: (data: SettingsFormData) => {};
 };
+
+const useButtonContainerStyles = makeStyles((theme) => {});
 
 export default function SettingsForm({
   nightscoutUrl,
@@ -34,6 +37,11 @@ export default function SettingsForm({
   const canEditFields = !formState.isSubmitting;
   const canSubmitForm = formState.isDirty && !formState.isSubmitting;
 
+  const glucoseUnits = Object.entries(BloodGlucoseUnits).map(([k, v]) => {
+    return { label: v, value: v };
+  });
+  console.log(glucoseUnits);
+
   const onFormSubmit = async (data: SettingsFormData) => {
     try {
       setFormHasSubmissionError(false);
@@ -49,6 +57,8 @@ export default function SettingsForm({
         data-testid="settings-form-field-url"
         defaultValue={nightscoutUrl}
         disabled={!canEditFields}
+        fullWidth={true}
+        helperText={t("settings.form.helperText.nightscoutUrl")}
         inputRef={register}
         label={t("settings.form.labels.nightscoutUrl")}
         name="nightscoutUrl"
@@ -57,35 +67,51 @@ export default function SettingsForm({
         data-testid="settings-form-field-token"
         defaultValue={nightscoutToken}
         disabled={!canEditFields}
+        fullWidth={true}
         helperText={t("settings.form.helperText.nightscoutToken")}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="end">
+              <Lock />
+            </InputAdornment>
+          ),
+        }}
         inputRef={register}
         label={t("settings.form.labels.nightscoutToken")}
         name="nightscoutToken"
       />
-      <Select
+      <TextField
         data-testid="settings-form-field-bg"
         defaultValue={glucoseUnit}
         disabled={!canEditFields}
+        fullWidth={true}
+        inputRef={register({ required: true })}
         label={t("settings.form.labels.glucoseUnits")}
         name="glucoseUnit"
-        ref={register({ required: true })}
+        select
       >
-        {Object.entries(BloodGlucoseUnits).map(([value, key]) => (
-          <MenuItem value={key} key={key}>
-            {key}
+        {glucoseUnits.map((item) => (
+          <MenuItem value={item.value} key={item.value}>
+            {item.label}
           </MenuItem>
         ))}
-      </Select>
+      </TextField>
 
-      <Button
-        variant="contained"
-        color="primary"
-        type="submit"
-        disabled={!canSubmitForm}
-        data-testid="settings-form-submit"
+      <Container
+        disableGutters={true}
+        maxWidth="lg"
+        style={{ margin: "1em 0" }}
       >
-        {t("settings.form.submitButton")}
-      </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          disabled={!canSubmitForm}
+          data-testid="settings-form-submit"
+        >
+          {t("settings.form.submitButton")}
+        </Button>
+      </Container>
     </form>
   );
 

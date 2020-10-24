@@ -25,12 +25,13 @@
     "title": "Edit Settings",
     "form": {
       "labels": {
-        "nightscoutUrl": "Nightscout URL",
+        "glucoseUnits": "Glucose Units",
         "nightscoutToken": "Nightscout Token",
-        "glucoseUnits": "Glucose Units"
+        "nightscoutUrl": "Nightscout URL"
       },
       "helperText": {
-        "nightscoutToken": "Helper text for the token which launches the multi-step wizard"
+        "nightscoutToken": "Helper text for the token which launches the multi-step wizard",
+        "nightscoutUrl": "URL of your Nightscout site (just the base URL, no /api)"
       },
       "submitButton": "Save Settings",
       "submitStatus": {
