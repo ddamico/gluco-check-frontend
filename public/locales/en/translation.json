@@ -29,6 +29,9 @@
         "nightscoutToken": "Nightscout Token",
         "glucoseUnits": "Glucose Units"
       },
+      "helperText": {
+        "nightscoutToken": "Helper text for the token which launches the multi-step wizard"
+      },
       "submitButton": "Save Settings",
       "submitStatus": {
         "submitting": "Saving your settings",

@@ -1,4 +1,12 @@
 import React, { useState } from "react";
+import {
+  Button,
+  FormLabel,
+  Input,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { BloodGlucoseUnits } from "../lib/enums";
@@ -37,52 +45,47 @@ export default function SettingsForm({
 
   const SettingsForm = (
     <form onSubmit={handleSubmit(onFormSubmit)} data-testid="settings-form">
-      <label>
-        {t("settings.form.labels.nightscoutUrl")}
-        <input
-          name="nightscoutUrl"
-          defaultValue={nightscoutUrl}
-          ref={register}
-          disabled={!canEditFields}
-          data-testid="settings-form-field-url"
-        />
-      </label>
-      <br />
-      <label>
-        {t("settings.form.labels.nightscoutToken")}
-        <input
-          name="nightscoutToken"
-          defaultValue={nightscoutToken}
-          ref={register}
-          disabled={!canEditFields}
-          data-testid="settings-form-field-token"
-        />
-      </label>
-      <br />
-      <label>
-        {t("settings.form.labels.glucoseUnits")}
-        <select
-          name="glucoseUnit"
-          defaultValue={glucoseUnit}
-          ref={register({ required: true })}
-          disabled={!canEditFields}
-          data-testid="settings-form-field-bg"
-        >
-          {Object.entries(BloodGlucoseUnits).map(([value, key]) => (
-            <option id={key} key={key}>
-              {key}
-            </option>
-          ))}
-        </select>
-      </label>
-      <br />
-      <button
+      <TextField
+        data-testid="settings-form-field-url"
+        defaultValue={nightscoutUrl}
+        disabled={!canEditFields}
+        inputRef={register}
+        label={t("settings.form.labels.nightscoutUrl")}
+        name="nightscoutUrl"
+      />
+      <TextField
+        data-testid="settings-form-field-token"
+        defaultValue={nightscoutToken}
+        disabled={!canEditFields}
+        helperText={t("settings.form.helperText.nightscoutToken")}
+        inputRef={register}
+        label={t("settings.form.labels.nightscoutToken")}
+        name="nightscoutToken"
+      />
+      <Select
+        data-testid="settings-form-field-bg"
+        defaultValue={glucoseUnit}
+        disabled={!canEditFields}
+        label={t("settings.form.labels.glucoseUnits")}
+        name="glucoseUnit"
+        ref={register({ required: true })}
+      >
+        {Object.entries(BloodGlucoseUnits).map(([value, key]) => (
+          <MenuItem value={key} key={key}>
+            {key}
+          </MenuItem>
+        ))}
+      </Select>
+
+      <Button
+        variant="contained"
+        color="primary"
         type="submit"
         disabled={!canSubmitForm}
         data-testid="settings-form-submit"
       >
         {t("settings.form.submitButton")}
-      </button>
+      </Button>
     </form>
   );
 
