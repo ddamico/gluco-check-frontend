@@ -4,6 +4,7 @@ import {
   render,
   waitFor,
   screen,
+  prettyDOM,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe, toHaveNoViolations } from "jest-axe";
@@ -18,7 +19,6 @@ afterEach(() => {
 });
 
 describe("SettingsForm component", () => {
-
   const mockNsUrl = "https://example.com";
   const mockNsToken = "token123";
   const mockGlucoseUnits = BloodGlucoseUnits.mgdl;
@@ -36,7 +36,9 @@ describe("SettingsForm component", () => {
     const submitButton = await screen.findByTestId("settings-form-submit");
     const tokenField = await screen.findByTestId("settings-form-field-token");
     const urlField = await screen.findByTestId("settings-form-field-url");
-    const glucoseUnitsSelect = await screen.findByTestId("settings-form-field-bg");
+    const glucoseUnitsSelect = await screen.findByTestId(
+      "settings-form-field-bg"
+    );
 
     expect(container.firstChild).toMatchSnapshot();
     expect(submitButton).not.toBeEnabled();
@@ -50,10 +52,8 @@ describe("SettingsForm component", () => {
     mockOnSubmit.mockImplementationOnce(async (data) => {
       expect(data.nightscoutUrl).toBe(mockNsUrl);
       expect(data.glucoseUnit).toBe(mockGlucoseUnits);
-      expect(data.nightscoutToken).toMatchInlineSnapshot(
-        `"token123token"`
-      );
-      return Promise.resolve()
+      expect(data.nightscoutToken).toMatchInlineSnapshot(`"token123token"`);
+      return Promise.resolve();
     });
 
     render(
@@ -102,7 +102,6 @@ describe("SettingsForm component", () => {
     await waitFor(() => {
       expect(screen.getByTestId("settings-form-error")).toBeInTheDocument();
     });
-
   });
 
   it("has no axe violations", async () => {

@@ -8,13 +8,16 @@ import {
   makeStyles,
   MenuItem,
   Select,
+  Snackbar,
   TextField,
 } from "@material-ui/core";
 import { Lock } from "@material-ui/icons";
+import MuiAlert from "@material-ui/lab/Alert";
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { BloodGlucoseUnits } from "../lib/enums";
 import { SettingsFormData } from "../lib/types";
+import { ALERT_AUTOHIDE_DURATION } from "../lib/constants";
 
 type SettingsFormProps = {
   nightscoutUrl: string;
@@ -23,8 +26,12 @@ type SettingsFormProps = {
   onSubmit: (data: SettingsFormData) => {};
 };
 
+const SettingsFormAlert = (props: any) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
+
 const useStyles = makeStyles((theme) => ({
-  root: {
+  form: {
     "& .MuiFormControl-root": {
       marginBottom: theme.spacing(4),
     },
@@ -39,9 +46,15 @@ export default function SettingsForm({
 }: SettingsFormProps) {
   const classes = useStyles();
   // eslint-disable-next-line
-  const { register, handleSubmit, formState, control, watch, errors } = useForm<
-    SettingsFormData
-  >();
+  const {
+    control,
+    errors,
+    formState,
+    handleSubmit,
+    register,
+    reset: resetForm,
+    watch,
+  } = useForm<SettingsFormData>();
   const { t } = useTranslation();
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
 
@@ -52,40 +65,56 @@ export default function SettingsForm({
     return { label: v, value: v };
   });
 
-  console.log(formState);
-
   const onFormSubmit = async (data: SettingsFormData) => {
     try {
       setFormHasSubmissionError(false);
       await onSubmit(data);
+      formReset();
     } catch (e) {
       setFormHasSubmissionError(true);
     }
   };
 
+  const formReset = () => {
+    setFormHasSubmissionError(false);
+    resetForm();
+  };
+
+  const handleFormAlertClose = () => {
+    formReset();
+  };
+
   const SettingsForm = (
     <form
-      className={classes.root}
+      className={classes.form}
       onSubmit={handleSubmit(onFormSubmit)}
       data-testid="settings-form"
     >
       <TextField
-        data-testid="settings-form-field-url"
         defaultValue={nightscoutUrl}
         disabled={!canEditFields}
         fullWidth={true}
         helperText={t("settings.form.helperText.nightscoutUrl")}
+        id="settings-form-field-url"
         inputRef={register}
+        InputProps={{
+          inputProps: {
+            "data-testid": "settings-form-field-url",
+          },
+        }}
         label={t("settings.form.labels.nightscoutUrl")}
         name="nightscoutUrl"
       />
       <TextField
-        data-testid="settings-form-field-token"
         defaultValue={nightscoutToken}
         disabled={!canEditFields}
         fullWidth={true}
         helperText={t("settings.form.helperText.nightscoutToken")}
+        id="settings-form-field-token"
         InputProps={{
+          inputProps: {
+            "data-testid": "settings-form-field-token",
+          },
           startAdornment: (
             <InputAdornment position="start">
               <Lock />
@@ -106,9 +135,12 @@ export default function SettingsForm({
           defaultValue={glucoseUnit}
           as={
             <Select
-              data-testid="settings-form-field-bg"
-              fullWidth={true}
               disabled={!canEditFields}
+              fullWidth={true}
+              inputProps={{
+                "data-testid": "settings-form-field-bg",
+              }}
+              id="settings-form-field-bg"
             >
               {glucoseUnits.map((item) => (
                 <MenuItem value={item.value} key={item.value}>
@@ -120,24 +152,13 @@ export default function SettingsForm({
         />
       </FormControl>
 
-      {/* <TextField
-
-        defaultValue={glucoseUnit}
-
-
-        InputProps={{
-          name: "glucoseUnit",
-        }}
-        select
-      ></TextField> */}
-
       <Container disableGutters={true} maxWidth="lg">
         <Button
-          variant="contained"
           color="primary"
-          type="submit"
-          disabled={!canSubmitForm}
           data-testid="settings-form-submit"
+          disabled={!canSubmitForm}
+          type="submit"
+          variant="contained"
         >
           {t("settings.form.submitButton")}
         </Button>
@@ -147,21 +168,40 @@ export default function SettingsForm({
 
   return (
     <>
-      {formState.isSubmitting && (
-        <p data-testid="settings-form-submitting">
+      <Snackbar
+        autoHideDuration={ALERT_AUTOHIDE_DURATION}
+        onClose={handleFormAlertClose}
+        open={formState.isSubmitting}
+      >
+        <SettingsFormAlert
+          data-testid="settings-form-submitting"
+          severity="warning"
+        >
           {t("settings.form.submitStatus.submitting")}
-        </p>
-      )}
-      {formState.isSubmitted && (
-        <p data-testid="settings-form-submitted">
+        </SettingsFormAlert>
+      </Snackbar>
+      <Snackbar
+        autoHideDuration={ALERT_AUTOHIDE_DURATION}
+        onClose={handleFormAlertClose}
+        open={formState.isSubmitted}
+      >
+        <SettingsFormAlert
+          data-testid="settings-form-submitted"
+          severity="success"
+        >
           {t("settings.form.submitStatus.submitted")}
-        </p>
-      )}
-      {formHasSubmissionError && (
-        <p data-testid="settings-form-error">
+        </SettingsFormAlert>
+      </Snackbar>
+      <Snackbar
+        autoHideDuration={ALERT_AUTOHIDE_DURATION}
+        onClose={handleFormAlertClose}
+        open={formHasSubmissionError}
+      >
+        <SettingsFormAlert data-testid="settings-form-error" severity="error">
           {t("settings.form.submitStatus.error")}
-        </p>
-      )}
+        </SettingsFormAlert>
+      </Snackbar>
+
       {SettingsForm}
     </>
   );

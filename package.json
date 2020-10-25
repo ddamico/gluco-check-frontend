@@ -8,6 +8,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "firebase": "^7.21.1",
     "i18next": "^19.8.2",
     "i18next-browser-languagedetector": "^6.0.1",
