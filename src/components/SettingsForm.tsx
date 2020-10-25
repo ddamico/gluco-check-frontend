@@ -48,12 +48,10 @@ export default function SettingsForm({
   // eslint-disable-next-line
   const {
     control,
-    errors,
     formState,
     handleSubmit,
     register,
     reset: resetForm,
-    watch,
   } = useForm<SettingsFormData>();
   const { t } = useTranslation();
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
