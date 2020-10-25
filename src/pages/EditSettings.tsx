@@ -30,7 +30,8 @@ export const returnHandleSettingsSave = (userDocumentPath: string) => {
 };
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  container: {
+    paddingTop: theme.spacing(2),
     "& h2": {
       marginBottom: theme.spacing(2),
     },
@@ -53,10 +54,11 @@ export default function EditSettings() {
   const glucoseUnit = document?.get(FIRESTORE_FIELD_PATH_GLUCOSE_UNITS) ?? "";
 
   return (
-    <Container maxWidth="lg" className={classes.root}>
+    <Container maxWidth="lg" className={classes.container}>
       <Typography variant="h6" component="h2">
         {t("settings.title")}
       </Typography>
+      <p>{t("settings.content")}</p>
       {loading && <>{t("status.general.loading")}</>}
       {error && (
         <>

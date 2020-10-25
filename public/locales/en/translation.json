@@ -19,11 +19,16 @@
       "features7": "Everything / all values"
     }
   },
+  "welcome": {
+    "title": "Welcome to Gluco Check",
+    "content": "Content about the product, more practical scenarios featuring ways to use it in your life in novel ways."
+  },
   "login": {
     "title": "Login"
   },
   "settings": {
     "title": "Edit Settings",
+    "content": "Content about how the product must connect to your nightscout site in order to work.",
     "form": {
       "labels": {
         "glucoseUnits": "Glucose Units",

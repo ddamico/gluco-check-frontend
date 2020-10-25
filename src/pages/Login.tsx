@@ -2,10 +2,18 @@ import React from "react";
 import * as firebase from "firebase/app";
 import * as firebaseui from "firebaseui";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { Container, makeStyles, Typography } from "@material-ui/core";
 import { auth } from "../lib/firebase";
 import { useTranslation } from "react-i18next";
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    paddingTop: theme.spacing(2),
+  },
+}));
+
 function Login() {
+  const classes = useStyles();
   const firebaseUIConfig = {
     credentialHelper: firebaseui.auth.CredentialHelper.NONE,
     signInFlow: "redirect",
@@ -23,10 +31,12 @@ function Login() {
   const { t } = useTranslation();
 
   return (
-    <div>
-      <h2>{t("login.title")}</h2>
+    <Container maxWidth="xl" className={classes.container}>
+      <Typography variant="h6" component="h2">
+        {t("login.title")}
+      </Typography>
       <StyledFirebaseAuth uiConfig={firebaseUIConfig} firebaseAuth={auth} />
-    </div>
+    </Container>
   );
 }
 

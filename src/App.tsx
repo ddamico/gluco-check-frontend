@@ -15,12 +15,15 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { ExitToApp, Home, Settings } from "@material-ui/icons";
+import { ExitToApp, Home, MeetingRoom, Settings } from "@material-ui/icons";
 
 export const FirebaseUserDocumentContext = React.createContext("");
 
 const useStyles = makeStyles((theme) => ({
   root: {},
+  container: {
+    paddingTop: theme.spacing(2),
+  },
   leftToolbar: {},
   rightToolbar: {
     marginLeft: "auto", // switch to logical
@@ -41,17 +44,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function App() {
+  const classes = useStyles();
   const [user, loading] = useAuthState(auth);
   const { t } = useTranslation();
-  const classes = useStyles();
   let Content: React.ReactElement | null = null;
   const docPath = user ? getDocumentPathForUser(user) : ""; // TODO: we don't want this empty path to be possible, AND we want to auth protect any other authed routes
   if (user) {
+    // @TODO: extract
     Content = (
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" className={classes.container}>
         <Typography variant="h6" component="h2">
-          Welcome
+          {t("welcome.title")}
         </Typography>
+        <p>{t("welcome.content")}</p>
       </Container>
     );
   } else {
@@ -120,9 +125,9 @@ export default function App() {
                     color="inherit"
                     component={Link}
                     data-testid="navigation-login"
-                    to="/home"
+                    to="/login"
                   >
-                    <Login />
+                    <MeetingRoom />
                   </IconButton>
                 </li>
               )}
