@@ -2,13 +2,16 @@
 
 exports[`EditSettings Renders the component when loading, with no axe violations 1`] = `
 <div
-  class="MuiContainer-root makeStyles-root-1 MuiContainer-maxWidthLg"
+  class="MuiContainer-root makeStyles-container-1 MuiContainer-maxWidthLg"
 >
   <h2
-    class="MuiTypography-root MuiTypography-h3"
+    class="MuiTypography-root MuiTypography-h6"
   >
     settings.title
   </h2>
+  <p>
+    settings.content
+  </p>
   <form
     class="makeStyles-form-2"
     data-testid="settings-form"
@@ -158,26 +161,32 @@ exports[`EditSettings Renders the component when loading, with no axe violations
 
 exports[`EditSettings Renders the component when loading, with no axe violations 2`] = `
 <div
-  class="MuiContainer-root makeStyles-root-3 MuiContainer-maxWidthLg"
+  class="MuiContainer-root makeStyles-container-3 MuiContainer-maxWidthLg"
 >
   <h2
-    class="MuiTypography-root MuiTypography-h3"
+    class="MuiTypography-root MuiTypography-h6"
   >
     settings.title
   </h2>
+  <p>
+    settings.content
+  </p>
   status.general.loading
 </div>
 `;
 
 exports[`EditSettings Renders the component with error, with no axe violations 1`] = `
 <div
-  class="MuiContainer-root makeStyles-root-4 MuiContainer-maxWidthLg"
+  class="MuiContainer-root makeStyles-container-4 MuiContainer-maxWidthLg"
 >
   <h2
-    class="MuiTypography-root MuiTypography-h3"
+    class="MuiTypography-root MuiTypography-h6"
   >
     settings.title
   </h2>
+  <p>
+    settings.content
+  </p>
   status.general.error
   : 
   you blew it
