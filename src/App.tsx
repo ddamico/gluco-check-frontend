@@ -21,8 +21,12 @@ export const FirebaseUserDocumentContext = React.createContext("");
 
 const useStyles = makeStyles((theme) => ({
   root: {},
+  leftToolbar: {},
+  rightToolbar: {
+    marginLeft: "auto", // switch to logical
+    marginRight: -12,
+  },
   nav: {
-    alignItems: "flex-end",
     "&, & > li": {
       margin: 0,
       padding: 0,
@@ -32,13 +36,8 @@ const useStyles = makeStyles((theme) => ({
       display: "inline-block",
     },
   },
-  toolbar: {
-    display: "flex",
-    flexGrow: 1,
-  },
-  navTitle: {
-    alignItems: "flex-start",
-  },
+  toolbar: {},
+  navTitle: {},
 }));
 
 export default function App() {
@@ -48,7 +47,13 @@ export default function App() {
   let Content: React.ReactElement | null = null;
   const docPath = user ? getDocumentPathForUser(user) : ""; // TODO: we don't want this empty path to be possible, AND we want to auth protect any other authed routes
   if (user) {
-    Content = <>Welcome</>;
+    Content = (
+      <Container maxWidth="xl">
+        <Typography variant="h6" component="h2">
+          Welcome
+        </Typography>
+      </Container>
+    );
   } else {
     if (!loading) {
       Content = <Landing />;
@@ -58,80 +63,88 @@ export default function App() {
     <Router>
       <AppBar position="static">
         <Toolbar variant="regular" className={classes.toolbar}>
-          <Typography
-            variant="h6"
-            component="h1"
-            color="inherit"
-            className={classes.navTitle}
-          >
-            {t("title")}
-          </Typography>
-          <ul className={classes.nav}>
-            <li>
-              <IconButton
-                aria-label={t("navigation.home")}
-                color="inherit"
-                component={Link}
-                data-testid="navigation-home"
-                to="/home"
-              >
-                <Home />
-              </IconButton>
-            </li>
-            {!user && (
-              <li>
-                <Link to="/login" data-testid="navigation-login">
-                  {t("navigation.login")}
-                </Link>
-              </li>
-            )}
-            {user && (
+          <section className={classes.leftToolbar}>
+            <Typography
+              variant="h6"
+              component="h1"
+              color="inherit"
+              className={classes.navTitle}
+            >
+              {t("title")}
+            </Typography>
+          </section>
+          <section className={classes.rightToolbar}>
+            <ul className={classes.nav}>
               <li>
                 <IconButton
-                  aria-label={t("navigation.settings")}
+                  aria-label={t("navigation.home")}
                   color="inherit"
                   component={Link}
-                  data-testid="navigation-settings"
-                  to="/settings"
+                  data-testid="navigation-home"
+                  to="/"
                 >
-                  <Settings />
+                  <Home />
                 </IconButton>
               </li>
-            )}
-            {user && (
-              <li>
-                <IconButton
-                  aria-label={t("navigation.logout")}
-                  color="inherit"
-                  onClick={() => {
-                    auth.signOut();
-                  }}
-                  data-testid="logout"
-                >
-                  <ExitToApp />
-                </IconButton>
-              </li>
-            )}
-          </ul>
+              {user && (
+                <li>
+                  <IconButton
+                    aria-label={t("navigation.settings")}
+                    color="inherit"
+                    component={Link}
+                    data-testid="navigation-settings"
+                    to="/settings"
+                  >
+                    <Settings />
+                  </IconButton>
+                </li>
+              )}
+              {user && (
+                <li>
+                  <IconButton
+                    aria-label={t("navigation.logout")}
+                    color="inherit"
+                    onClick={() => {
+                      auth.signOut();
+                    }}
+                    data-testid="logout"
+                  >
+                    <ExitToApp />
+                  </IconButton>
+                </li>
+              )}
+              {!user && (
+                <li>
+                  <IconButton
+                    aria-label={t("navigation.login")}
+                    color="inherit"
+                    component={Link}
+                    data-testid="navigation-login"
+                    to="/home"
+                  >
+                    <Login />
+                  </IconButton>
+                </li>
+              )}
+            </ul>
+          </section>
         </Toolbar>
       </AppBar>
-      <Container maxWidth="xl">
-        <Switch>
-          <Route exact path="/">
-            {Content}
+      <Switch>
+        <Route exact path="/">
+          {Content}
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        {user && (
+          <Route path="/settings">
+            <FirebaseUserDocumentContext.Provider value={docPath}>
+              <EditSettings />
+            </FirebaseUserDocumentContext.Provider>
           </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          {user && (
-            <Route path="/settings">
-              <FirebaseUserDocumentContext.Provider value={docPath}>
-                <EditSettings />
-              </FirebaseUserDocumentContext.Provider>
-            </Route>
-          )}
-        </Switch>
-      </Container>
+        )}
+      </Switch>
     </Router>
   );
 }

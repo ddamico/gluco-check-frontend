@@ -54,7 +54,7 @@ export default function EditSettings() {
 
   return (
     <Container maxWidth="lg" className={classes.root}>
-      <Typography variant="h3" component="h2">
+      <Typography variant="h6" component="h2">
         {t("settings.title")}
       </Typography>
       {loading && <>{t("status.general.loading")}</>}
