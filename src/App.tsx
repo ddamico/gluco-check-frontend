@@ -7,20 +7,48 @@ import Landing from "./pages/Landing";
 import EditSettings from "./pages/EditSettings";
 import { getDocumentPathForUser } from "./lib/firebase-helpers";
 import { useTranslation } from "react-i18next";
+import {
+  AppBar,
+  Container,
+  IconButton,
+  makeStyles,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
+import { ExitToApp, Home, Settings } from "@material-ui/icons";
 
 export const FirebaseUserDocumentContext = React.createContext("");
+
+const useStyles = makeStyles((theme) => ({
+  root: {},
+  nav: {
+    alignItems: "flex-end",
+    "&, & > li": {
+      margin: 0,
+      padding: 0,
+      listStyle: "none",
+    },
+    "& > li": {
+      display: "inline-block",
+    },
+  },
+  toolbar: {
+    display: "flex",
+    flexGrow: 1,
+  },
+  navTitle: {
+    alignItems: "flex-start",
+  },
+}));
 
 export default function App() {
   const [user, loading] = useAuthState(auth);
   const { t } = useTranslation();
+  const classes = useStyles();
   let Content: React.ReactElement | null = null;
+  const docPath = user ? getDocumentPathForUser(user) : ""; // TODO: we don't want this empty path to be possible, AND we want to auth protect any other authed routes
   if (user) {
-    const docPath = getDocumentPathForUser(user);
-    Content = (
-      <FirebaseUserDocumentContext.Provider value={docPath}>
-        <EditSettings />
-      </FirebaseUserDocumentContext.Provider>
-    );
+    Content = <>Welcome</>;
   } else {
     if (!loading) {
       Content = <Landing />;
@@ -28,31 +56,66 @@ export default function App() {
   }
   return (
     <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/">{t("navigation.home")}</Link>
-          </li>
-          {!user && (
+      <AppBar position="static">
+        <Toolbar variant="regular" className={classes.toolbar}>
+          <Typography
+            variant="h6"
+            component="h1"
+            color="inherit"
+            className={classes.navTitle}
+          >
+            {t("title")}
+          </Typography>
+          <ul className={classes.nav}>
             <li>
-              <Link to="/login">{t("navigation.login")}</Link>
-            </li>
-          )}
-          {user && (
-            <li>
-              <button
-                onClick={() => {
-                  auth.signOut();
-                }}
-                data-testid="logout"
+              <IconButton
+                aria-label={t("navigation.home")}
+                color="inherit"
+                component={Link}
+                data-testid="navigation-home"
+                to="/home"
               >
-                {t("navigation.logout")}
-              </button>
+                <Home />
+              </IconButton>
             </li>
-          )}
-        </ul>
-
-        <hr />
+            {!user && (
+              <li>
+                <Link to="/login" data-testid="navigation-login">
+                  {t("navigation.login")}
+                </Link>
+              </li>
+            )}
+            {user && (
+              <li>
+                <IconButton
+                  aria-label={t("navigation.settings")}
+                  color="inherit"
+                  component={Link}
+                  data-testid="navigation-settings"
+                  to="/settings"
+                >
+                  <Settings />
+                </IconButton>
+              </li>
+            )}
+            {user && (
+              <li>
+                <IconButton
+                  aria-label={t("navigation.logout")}
+                  color="inherit"
+                  onClick={() => {
+                    auth.signOut();
+                  }}
+                  data-testid="logout"
+                >
+                  <ExitToApp />
+                </IconButton>
+              </li>
+            )}
+          </ul>
+        </Toolbar>
+      </AppBar>
+      <Container maxWidth="xl">
         <Switch>
           <Route exact path="/">
             {Content}
@@ -60,8 +123,15 @@ export default function App() {
           <Route path="/login">
             <Login />
           </Route>
+          {user && (
+            <Route path="/settings">
+              <FirebaseUserDocumentContext.Provider value={docPath}>
+                <EditSettings />
+              </FirebaseUserDocumentContext.Provider>
+            </Route>
+          )}
         </Switch>
-      </div>
+      </Container>
     </Router>
   );
 }
