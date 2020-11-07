@@ -3,7 +3,6 @@ import { useDocument } from "react-firebase-hooks/firestore";
 import { firestore } from "../lib/firebase";
 import { DEFAULT_USER_DOCUMENT } from "../lib/firebase-helpers";
 
-import Container from "../components/Container";
 import SettingsForm from "../components/SettingsForm";
 import { SettingsFormData } from "../lib/types";
 import {
@@ -14,6 +13,7 @@ import {
 import { userSettingsFormDataToUserSettingsDocument } from "../lib/transform";
 import { FirebaseUserDocumentContext } from "../App";
 import { useTranslation } from "react-i18next";
+import { Container, makeStyles, Typography } from "@material-ui/core";
 
 export const returnHandleSettingsSave = (userDocumentPath: string) => {
   return async (data: SettingsFormData) => {
@@ -29,7 +29,17 @@ export const returnHandleSettingsSave = (userDocumentPath: string) => {
   };
 };
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    paddingTop: theme.spacing(2),
+    "& h2": {
+      marginBottom: theme.spacing(2),
+    },
+  },
+}));
+
 export default function EditSettings() {
+  const classes = useStyles();
   const userDocumentPath = useContext(FirebaseUserDocumentContext);
   const userDocumentReference = firestore.doc(userDocumentPath);
 
@@ -44,8 +54,11 @@ export default function EditSettings() {
   const glucoseUnit = document?.get(FIRESTORE_FIELD_PATH_GLUCOSE_UNITS) ?? "";
 
   return (
-    <Container>
-      <h2>{t("settings.title")}</h2>
+    <Container maxWidth="lg" className={classes.container}>
+      <Typography variant="h6" component="h2">
+        {t("settings.title")}
+      </Typography>
+      <p>{t("settings.content")}</p>
       {loading && <>{t("status.general.loading")}</>}
       {error && (
         <>

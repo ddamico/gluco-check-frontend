@@ -1,4 +1,5 @@
 {
+  "title": "Gluco Check",
   "status": {
     "general": {
       "loading": "Loading",
@@ -18,16 +19,25 @@
       "features7": "Everything / all values"
     }
   },
+  "welcome": {
+    "title": "Welcome to Gluco Check",
+    "content": "Content about the product, more practical scenarios featuring ways to use it in your life in novel ways."
+  },
   "login": {
     "title": "Login"
   },
   "settings": {
     "title": "Edit Settings",
+    "content": "Content about how the product must connect to your nightscout site in order to work.",
     "form": {
       "labels": {
-        "nightscoutUrl": "Nightscout URL",
+        "glucoseUnits": "Glucose Units",
         "nightscoutToken": "Nightscout Token",
-        "glucoseUnits": "Glucose Units"
+        "nightscoutUrl": "Nightscout URL"
+      },
+      "helperText": {
+        "nightscoutToken": "Helper text for the token which launches the multi-step wizard",
+        "nightscoutUrl": "URL of your Nightscout site (just the base URL, no /api)"
       },
       "submitButton": "Save Settings",
       "submitStatus": {
@@ -40,6 +50,7 @@
   "navigation": {
     "home": "Home",
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "settings": "Settings"
   }
 }

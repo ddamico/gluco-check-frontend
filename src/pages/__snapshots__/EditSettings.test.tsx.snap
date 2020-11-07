@@ -1,75 +1,192 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EditSettings Renders the component when loading, with no axe violations 1`] = `
-<div>
-  <h2>
+<div
+  class="MuiContainer-root makeStyles-container-1 MuiContainer-maxWidthLg"
+>
+  <h2
+    class="MuiTypography-root MuiTypography-h6"
+  >
     settings.title
   </h2>
+  <p>
+    settings.content
+  </p>
   <form
+    class="makeStyles-form-2"
     data-testid="settings-form"
   >
-    <label>
-      settings.form.labels.nightscoutUrl
-      <input
-        data-testid="settings-form-field-url"
-        name="nightscoutUrl"
-        value="a value"
-      />
-    </label>
-    <br />
-    <label>
-      settings.form.labels.nightscoutToken
-      <input
-        data-testid="settings-form-field-token"
-        name="nightscoutToken"
-        value="a value"
-      />
-    </label>
-    <br />
-    <label>
-      settings.form.labels.glucoseUnits
-      <select
-        data-testid="settings-form-field-bg"
-        name="glucoseUnit"
-      >
-        <option
-          id="mg/dl"
-        >
-          mg/dl
-        </option>
-        <option
-          id="mmol/L"
-        >
-          mmol/L
-        </option>
-      </select>
-    </label>
-    <br />
-    <button
-      data-testid="settings-form-submit"
-      disabled=""
-      type="submit"
+    <div
+      class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
     >
-      settings.form.submitButton
-    </button>
+      <label
+        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
+        data-shrink="true"
+        for="settings-form-field-url"
+        id="settings-form-field-url-label"
+      >
+        settings.form.labels.nightscoutUrl
+      </label>
+      <div
+        class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+      >
+        <input
+          aria-describedby="settings-form-field-url-helper-text"
+          aria-invalid="false"
+          class="MuiInputBase-input MuiInput-input"
+          data-testid="settings-form-field-url"
+          id="settings-form-field-url"
+          name="nightscoutUrl"
+          type="text"
+          value="a value"
+        />
+      </div>
+      <p
+        class="MuiFormHelperText-root MuiFormHelperText-filled"
+        id="settings-form-field-url-helper-text"
+      >
+        settings.form.helperText.nightscoutUrl
+      </p>
+    </div>
+    <div
+      class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+    >
+      <label
+        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
+        data-shrink="true"
+        for="settings-form-field-token"
+        id="settings-form-field-token-label"
+      >
+        settings.form.labels.nightscoutToken
+      </label>
+      <div
+        class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+      >
+        <div
+          class="MuiInputAdornment-root MuiInputAdornment-positionStart"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"
+            />
+          </svg>
+        </div>
+        <input
+          aria-describedby="settings-form-field-token-helper-text"
+          aria-invalid="false"
+          class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+          data-testid="settings-form-field-token"
+          id="settings-form-field-token"
+          name="nightscoutToken"
+          type="text"
+          value="a value"
+        />
+      </div>
+      <p
+        class="MuiFormHelperText-root MuiFormHelperText-filled"
+        id="settings-form-field-token-helper-text"
+      >
+        settings.form.helperText.nightscoutToken
+      </p>
+    </div>
+    <div
+      class="MuiFormControl-root MaterialSelect MuiFormControl-fullWidth"
+    >
+      <label
+        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
+        data-shrink="true"
+      >
+        settings.form.labels.glucoseUnits
+      </label>
+      <div
+        class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+      >
+        <div
+          aria-haspopup="listbox"
+          aria-labelledby="settings-form-field-bg"
+          class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+          id="settings-form-field-bg"
+          role="button"
+          tabindex="0"
+        >
+          <span>
+            ​
+          </span>
+        </div>
+        <input
+          aria-hidden="true"
+          class="MuiSelect-nativeInput"
+          data-testid="settings-form-field-bg"
+          name="glucoseUnit"
+          tabindex="-1"
+          value="a value"
+        />
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSelect-icon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M7 10l5 5 5-5z"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      class="MuiContainer-root MuiContainer-disableGutters MuiContainer-maxWidthLg"
+    >
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary Mui-disabled Mui-disabled"
+        data-testid="settings-form-submit"
+        disabled=""
+        tabindex="-1"
+        type="submit"
+      >
+        <span
+          class="MuiButton-label"
+        >
+          settings.form.submitButton
+        </span>
+      </button>
+    </div>
   </form>
 </div>
 `;
 
 exports[`EditSettings Renders the component when loading, with no axe violations 2`] = `
-<div>
-  <h2>
+<div
+  class="MuiContainer-root makeStyles-container-3 MuiContainer-maxWidthLg"
+>
+  <h2
+    class="MuiTypography-root MuiTypography-h6"
+  >
     settings.title
   </h2>
+  <p>
+    settings.content
+  </p>
   status.general.loading
 </div>
 `;
 
 exports[`EditSettings Renders the component with error, with no axe violations 1`] = `
-<div>
-  <h2>
+<div
+  class="MuiContainer-root makeStyles-container-4 MuiContainer-maxWidthLg"
+>
+  <h2
+    class="MuiTypography-root MuiTypography-h6"
+  >
     settings.title
   </h2>
+  <p>
+    settings.content
+  </p>
   status.general.error
   : 
   you blew it
