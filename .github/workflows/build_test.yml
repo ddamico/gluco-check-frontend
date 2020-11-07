@@ -35,7 +35,7 @@ jobs:
       - name: Install modules
         run: yarn install
       - name: Test
-        run: yarn test:cov
+        run: yarn test:ci
       - name: CodeCov
         uses: codecov/codecov-action@v1
         with:
