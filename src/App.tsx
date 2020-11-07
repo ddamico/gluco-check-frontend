@@ -64,77 +64,82 @@ export default function App() {
       Content = <Landing />;
     }
   }
-  return (
-    <Router>
-      <AppBar position="static">
-        <Toolbar variant="regular" className={classes.toolbar}>
-          <section className={classes.leftToolbar}>
-            <Typography
-              variant="h6"
-              component="h1"
-              color="inherit"
-              className={classes.navTitle}
-            >
-              {t("title")}
-            </Typography>
-          </section>
-          <section className={classes.rightToolbar}>
-            <ul className={classes.nav}>
+
+  const navigation = (
+    <AppBar position="static">
+      <Toolbar variant="regular" className={classes.toolbar}>
+        <section className={classes.leftToolbar}>
+          <Typography
+            variant="h6"
+            component="h1"
+            color="inherit"
+            className={classes.navTitle}
+          >
+            {t("title")}
+          </Typography>
+        </section>
+        <section className={classes.rightToolbar}>
+          <ul className={classes.nav}>
+            <li>
+              <IconButton
+                aria-label={t("navigation.home")}
+                color="inherit"
+                component={Link}
+                data-testid="navigation-home"
+                to="/"
+              >
+                <Home />
+              </IconButton>
+            </li>
+            {user && (
               <li>
                 <IconButton
-                  aria-label={t("navigation.home")}
+                  aria-label={t("navigation.settings")}
                   color="inherit"
                   component={Link}
-                  data-testid="navigation-home"
-                  to="/"
+                  data-testid="navigation-settings"
+                  to="/settings"
                 >
-                  <Home />
+                  <Settings />
                 </IconButton>
               </li>
-              {user && (
-                <li>
-                  <IconButton
-                    aria-label={t("navigation.settings")}
-                    color="inherit"
-                    component={Link}
-                    data-testid="navigation-settings"
-                    to="/settings"
-                  >
-                    <Settings />
-                  </IconButton>
-                </li>
-              )}
-              {user && (
-                <li>
-                  <IconButton
-                    aria-label={t("navigation.logout")}
-                    color="inherit"
-                    onClick={() => {
-                      auth.signOut();
-                    }}
-                    data-testid="logout"
-                  >
-                    <ExitToApp />
-                  </IconButton>
-                </li>
-              )}
-              {!user && (
-                <li>
-                  <IconButton
-                    aria-label={t("navigation.login")}
-                    color="inherit"
-                    component={Link}
-                    data-testid="navigation-login"
-                    to="/login"
-                  >
-                    <MeetingRoom />
-                  </IconButton>
-                </li>
-              )}
-            </ul>
-          </section>
-        </Toolbar>
-      </AppBar>
+            )}
+            {user && (
+              <li>
+                <IconButton
+                  aria-label={t("navigation.logout")}
+                  color="inherit"
+                  onClick={() => {
+                    auth.signOut();
+                  }}
+                  data-testid="logout"
+                >
+                  <ExitToApp />
+                </IconButton>
+              </li>
+            )}
+            {!user && (
+              <li>
+                <IconButton
+                  aria-label={t("navigation.login")}
+                  color="inherit"
+                  component={Link}
+                  data-testid="navigation-login"
+                  to="/login"
+                >
+                  <MeetingRoom />
+                </IconButton>
+              </li>
+            )}
+          </ul>
+        </section>
+      </Toolbar>
+    </AppBar>
+  );
+
+  return (
+    <Router>
+      {navigation}
       <Switch>
         <Route exact path="/">
           {Content}
