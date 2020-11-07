@@ -1,0 +1,56 @@
+{
+  "title": "[Gluco Check]",
+  "status": {
+    "general": {
+      "loading": "[Loading]",
+      "error": "[Something has gone horribly wrong]"
+    }
+  },
+  "landing": {
+    "title": "[Welcome to Gluco Check]",
+    "introduction": {
+      "p1": "[Gluco Check brings Nightscout to your Google Assistant. Ask it things like Hey Google, ask Gluco Check...]",
+      "features1": "[my blood sugar / my BG / my glucose / ...]",
+      "features2": "[my insulin on board / IOB / insulin]",
+      "features3": "[my carbs on board / COB / carbs]",
+      "features4": "[pump battery]",
+      "features5": "[How old is my cannula / When did I insert my cannula?]",
+      "features6": "[What's the sensor's age?]",
+      "features7": "[Everything / all value]s"
+    }
+  },
+  "welcome": {
+    "title": "[Welcome to Gluco Check]",
+    "content": "[Content about the product, more practical scenarios featuring ways to use it in your life in novel ways]."
+  },
+  "login": {
+    "title": "[Login]"
+  },
+  "settings": {
+    "title": "[Edit Settings]",
+    "content": "[Content about how the product must connect to your nightscout site in order to work.]",
+    "form": {
+      "labels": {
+        "glucoseUnits": "[Glucose Units]",
+        "nightscoutToken": "[Nightscout Token]",
+        "nightscoutUrl": "[Nightscout URL]"
+      },
+      "helperText": {
+        "nightscoutToken": "[Helper text for the token which launches the multi-step wizard]",
+        "nightscoutUrl": "[URL of your Nightscout site (just the base URL, no /api)]"
+      },
+      "submitButton": "[Save Settings]",
+      "submitStatus": {
+        "submitting": "[Saving your settings]",
+        "submitted": "[Saved your settings]",
+        "error": "[Something has gone horribly wrong saving your settings]"
+      }
+    }
+  },
+  "navigation": {
+    "home": "[Home]",
+    "login": "[Login]",
+    "logout": "[Logout]",
+    "settings": "[Settings]"
+  }
+}

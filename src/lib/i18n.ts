@@ -10,11 +10,16 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: process.env.REACT_APP_I18N_FALLBACK_LANGUAGE || 'en',
+    detection: {
+      // this is just the defaults with navigator moved to the front of the line
+      order: ['navigator', 'querystring', 'cookie', 'localStorage', 'sessionStorage', 'htmlTag', 'path', 'subdomain'],
+    },
     debug: process.env.REACT_APP_I18N_DEBUG === 'true' || false,
     interpolation: {
       escapeValue: false,
     },
   });
 
+i18n.on('languageChanged', (lng) => {document.documentElement.setAttribute('lang', lng);})
 
 export default i18n;
