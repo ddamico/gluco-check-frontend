@@ -49,10 +49,11 @@ export default function TokenSetup() {
     setActiveStep(0);
   };
 
-  // TODO: get this out of here, move it into the actual strings file. too expensive.
-  const tokenSteps = t("tokenSetup.steps", {
-    returnObjects: true,
-  }) as TokenStep[];
+  const tokenSteps: TokenStep[] =
+    t("tokenDialog.steps", {
+      returnObjects: true,
+    }) ?? [];
+
   return (
     <>
       <Stepper activeStep={activeStep} orientation="vertical">

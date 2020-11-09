@@ -80,7 +80,12 @@ exports[`SettingsForm component renders the component 1`] = `
       class="MuiFormHelperText-root MuiFormHelperText-filled"
       id="settings-form-field-token-helper-text"
     >
-      settings.form.helperText.nightscoutToken
+      <button
+        class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiLink-button MuiTypography-colorPrimary"
+        type="button"
+      >
+        settings.form.helperText.nightscoutToken
+      </button>
     </p>
   </div>
   <div

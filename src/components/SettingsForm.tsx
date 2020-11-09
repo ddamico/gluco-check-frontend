@@ -6,8 +6,6 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
-  FormHelperText,
-  Input,
   InputAdornment,
   InputLabel,
   Link,
@@ -122,32 +120,36 @@ export default function SettingsForm({
         label={t("settings.form.labels.nightscoutUrl")}
         name="nightscoutUrl"
       />
-      <FormControl fullWidth={true}>
-        <InputLabel>{t("settings.form.labels.nightscoutToken")}</InputLabel>
-        <Input
-          data-testid="settings-form-field-token"
-          defaultValue={nightscoutToken}
-          disabled={!canEditFields}
-          id="settings-form-field-token"
-          name="nightscoutToken"
-          ref={register}
-          startAdornment={
-            <InputAdornment position="start">
-              <Lock />
-            </InputAdornment>
-          }
-        />
-        <FormHelperText>
+      <TextField
+        defaultValue={nightscoutToken}
+        disabled={!canEditFields}
+        fullWidth={true}
+        helperText={
           <Link
             component="button"
+            type="button"
             onClick={() => {
               setTokenDialogOpen(!tokenDialogOpen);
             }}
           >
             {t("settings.form.helperText.nightscoutToken")}
           </Link>
-        </FormHelperText>
-      </FormControl>
+        }
+        id="settings-form-field-token"
+        InputProps={{
+          inputProps: {
+            "data-testid": "settings-form-field-token",
+          },
+          startAdornment: (
+            <InputAdornment position="start">
+              <Lock />
+            </InputAdornment>
+          ),
+        }}
+        inputRef={register}
+        label={t("settings.form.labels.nightscoutToken")}
+        name="nightscoutToken"
+      />
 
       <FormControl fullWidth={true} className="MaterialSelect">
         <InputLabel>{t("settings.form.labels.glucoseUnits")}</InputLabel>

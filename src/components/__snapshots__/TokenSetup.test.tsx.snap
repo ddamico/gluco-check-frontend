@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Container component renders the component 1`] = `
+<div
+  class="MuiPaper-root MuiStepper-root MuiStepper-vertical MuiPaper-elevation0"
+>
+  <div
+    class="MuiStep-root MuiStep-vertical"
+  >
+    <span
+      class="MuiStepLabel-root MuiStepLabel-vertical"
+    >
+      <span
+        class="MuiStepLabel-iconContainer"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiStepIcon-root MuiStepIcon-active"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            cx="12"
+            cy="12"
+            r="12"
+          />
+          <text
+            class="MuiStepIcon-text"
+            text-anchor="middle"
+            x="12"
+            y="16"
+          >
+            1
+          </text>
+        </svg>
+      </span>
+      <span
+        class="MuiStepLabel-labelContainer"
+      >
+        <span
+          class="MuiTypography-root MuiStepLabel-label MuiStepLabel-active MuiTypography-body2 MuiTypography-displayBlock"
+        >
+          Step 1 label
+        </span>
+      </span>
+    </span>
+    <div
+      class="MuiStepContent-root"
+      icon="1"
+    >
+      <div
+        class="MuiCollapse-container MuiStepContent-transition MuiCollapse-entered"
+        style="min-height: 0px;"
+      >
+        <div
+          class="MuiCollapse-wrapper"
+        >
+          <div
+            class="MuiCollapse-wrapperInner"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body1"
+            >
+              Step 1 description
+            </p>
+            <div
+              class="makeStyles-actionsContainer-3"
+            >
+              <div>
+                <button
+                  class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-2"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="MuiButton-label"
+                  >
+                    Continue
+                  </span>
+                  <span
+                    class="MuiTouchRipple-root"
+                  />
+                </button>
+                <button
+                  class="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-2 Mui-disabled Mui-disabled"
+                  disabled=""
+                  tabindex="-1"
+                  type="button"
+                >
+                  <span
+                    class="MuiButton-label"
+                  >
+                    Back
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="MuiStepConnector-root MuiStepConnector-vertical Mui-disabled"
+  >
+    <span
+      class="MuiStepConnector-line MuiStepConnector-lineVertical"
+    />
+  </div>
+  <div
+    class="MuiStep-root MuiStep-vertical"
+  >
+    <span
+      class="MuiStepLabel-root MuiStepLabel-vertical Mui-disabled"
+    >
+      <span
+        class="MuiStepLabel-iconContainer"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiStepIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            cx="12"
+            cy="12"
+            r="12"
+          />
+          <text
+            class="MuiStepIcon-text"
+            text-anchor="middle"
+            x="12"
+            y="16"
+          >
+            2
+          </text>
+        </svg>
+      </span>
+      <span
+        class="MuiStepLabel-labelContainer"
+      >
+        <span
+          class="MuiTypography-root MuiStepLabel-label MuiTypography-body2 MuiTypography-displayBlock"
+        >
+          Step 2 label
+        </span>
+      </span>
+    </span>
+    <div
+      class="MuiStepContent-root MuiStepContent-last"
+      disabled=""
+      icon="2"
+    />
+  </div>
+</div>
+`;

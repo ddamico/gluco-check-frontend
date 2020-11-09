@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  cleanup,
-  render,
-  waitFor,
-  screen,
-  prettyDOM,
-} from "@testing-library/react";
+import { cleanup, render, waitFor, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe, toHaveNoViolations } from "jest-axe";
 import { BloodGlucoseUnits } from "../lib/enums";
