@@ -3,7 +3,7 @@ import { cleanup, render, waitFor, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe, toHaveNoViolations } from "jest-axe";
 import { BloodGlucoseUnits } from "../lib/enums";
-import SettingsForm from "./SettingsForm";
+import SettingsForm, { returnHandleOpenTokenDialog } from "./SettingsForm";
 
 expect.extend(toHaveNoViolations);
 
@@ -108,5 +108,16 @@ describe("SettingsForm component", () => {
       />
     );
     expect(await axe(container)).toHaveNoViolations();
+  });
+});
+
+describe("returnHandleOpenTokenDialog", () => {
+  it("returns the curried handler", () => {
+    const mockHandler = jest.fn();
+    const mockState = true;
+    const handler = returnHandleOpenTokenDialog(mockState, mockHandler);
+    expect(handler).toMatchInlineSnapshot(`[Function]`);
+    handler();
+    expect(mockHandler).toHaveBeenCalledWith(!mockState);
   });
 });

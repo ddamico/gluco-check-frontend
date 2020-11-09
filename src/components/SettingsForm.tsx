@@ -43,6 +43,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+export const returnHandleOpenTokenDialog = (
+  tokenDialogOpen: boolean,
+  setTokenDialogOpen: Function
+) => {
+  return () => {
+    setTokenDialogOpen(!tokenDialogOpen);
+  };
+};
+
 export default function SettingsForm({
   nightscoutUrl,
   nightscoutToken,
@@ -128,9 +137,10 @@ export default function SettingsForm({
           <Link
             component="button"
             type="button"
-            onClick={() => {
-              setTokenDialogOpen(!tokenDialogOpen);
-            }}
+            onClick={returnHandleOpenTokenDialog(
+              tokenDialogOpen,
+              setTokenDialogOpen
+            )}
           >
             {t("settings.form.helperText.nightscoutToken")}
           </Link>
