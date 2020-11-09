@@ -98,7 +98,11 @@ export default function SettingsForm({
   };
 
   const TokenDialog = (
-    <Dialog open={tokenDialogOpen} aria-labelledby="token-dialog-title">
+    <Dialog
+      open={tokenDialogOpen}
+      aria-labelledby="token-dialog-title"
+      maxWidth="xl"
+    >
       <DialogTitle id="token-dialog-title">
         {t("tokenDialog.title")}
       </DialogTitle>

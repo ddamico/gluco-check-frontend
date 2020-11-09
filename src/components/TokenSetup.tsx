@@ -42,6 +42,7 @@ export default function TokenSetup() {
   };
 
   const handleBack = () => {
+    console.log("handleback");
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
@@ -54,39 +55,35 @@ export default function TokenSetup() {
       returnObjects: true,
     }) ?? [];
 
+  const steps = tokenSteps.map((step) => step.label);
+  const stepContent = tokenSteps.map((step) => step.description);
+
   return (
-    <>
+    <div className={classes.root}>
       <Stepper activeStep={activeStep} orientation="vertical">
-        {tokenSteps.map((step, index) => (
-          <Step key={step.label}>
-            <StepLabel
-              optional={
-                index === 2 ? (
-                  <Typography variant="caption">Last step</Typography>
-                ) : null
-              }
-            >
-              {step.label}
-            </StepLabel>
+        {steps.map((label, index) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
             <StepContent>
-              <Typography>{step.description}</Typography>
+              <Typography>{stepContent[index]}</Typography>
               <div className={classes.actionsContainer}>
                 <div>
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === tokenSteps.length - 1
-                      ? "Finish"
-                      : "Continue"}
-                  </Button>
                   <Button
                     disabled={activeStep === 0}
                     onClick={handleBack}
                     className={classes.button}
+                    data-testid="token-stepper-back"
                   >
                     Back
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    className={classes.button}
+                    data-testid="token-stepper-next"
+                  >
+                    {activeStep === steps.length - 1 ? "Finish" : "Next"}
                   </Button>
                 </div>
               </div>
@@ -94,14 +91,18 @@ export default function TokenSetup() {
           </Step>
         ))}
       </Stepper>
-      {activeStep === tokenSteps.length && (
+      {activeStep === steps.length && (
         <Paper square elevation={0} className={classes.resetContainer}>
           <Typography>All steps completed - you&apos;re finished</Typography>
-          <Button onClick={handleReset} className={classes.button}>
+          <Button
+            onClick={handleReset}
+            className={classes.button}
+            data-testid="token-stepper-reset"
+          >
             Reset
           </Button>
         </Paper>
       )}
-    </>
+    </div>
   );
 }
