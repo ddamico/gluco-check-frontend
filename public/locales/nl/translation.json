@@ -2,14 +2,14 @@
   "title": "Gluco Check",
   "status": {
     "general": {
-      "loading": "Bezig met laden",
+      "loading": "Loading",
       "error": "Er liep iets mis"
     }
   },
   "landing": {
     "title": "Welkom bij Gluco Check",
     "introduction": {
-      "p1": "Gluco Check brengt Nightscout op je Google Assistant. Vraag dingen zoals: Hey Google, vraag Gluco Check...]",
+      "p1": "Gluco Check brengt Nightscout naar je Google Assistant. Vraag dingen zoals: Hey Google, vraag Gluco Check...",
       "features1": "mijn suiker / bloedsuiker / glucose",
       "features2": "mijn insuline / insuline aan boord",
       "features3": "mijn koolhydraten / koolhydraten aan boord",
@@ -41,8 +41,8 @@
       },
       "submitButton": "Instellingen opslaan",
       "submitStatus": {
-        "submitting": "Je instellingen worden bewaard",
-        "submitted": "Je instellingen zijn bewaard",
+        "submitting": "Je instellingen worden opgeslagen",
+        "submitted": "Je instellingen zijn opgeslagen",
         "error": "Er liep iets mis bij het opslaan van je instellingen"
       }
     }
