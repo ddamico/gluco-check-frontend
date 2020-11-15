@@ -55,11 +55,13 @@
   },
   "tokenDialog": {
     "title": "Generating a Nightscout token",
-    "preamble": "Some features of Gluco-Check (list them) require a token from your Nightscout site. Here's how you get one!",
+    "preamble": "Gluco-Check features beyond checking current BG require a token from your Nightscout site, and version 3 of the Nightscout API.",
     "steps": [
       {
         "label": "Step 1",
-        "description": "Make sure your site is on (minimum version) of Nightscout. You can check the version by clicking on the hamburger menu... ...and then scrolling down to the about box."
+        "description": "Make sure your site is on at least version 14 of Nightscout. You can check the version here by clicking on the hamburger menu button and looking here...",
+        "image": "",
+        "image_alt": ""
       },
       {
         "label": "Step 2",
@@ -67,23 +69,25 @@
       },
       {
         "label": "Step 3",
-        "description": "Click on the hamburger menu... (image)"
+        "description": "Click on the hamburger menu, then \"Admin Tools\"."
       },
       {
         "label": "Step 4",
-        "description": "Click on \"Admin Tools\" (image)"
+        "description": "Click on \"Add new Role\", populate the Role with the values pictured below, and click save.",
+        "image": "token-1-add-new-role.png",
+        "image_alt": ""
       },
       {
         "label": "Step 5",
-        "description": "Click on \"Add new Role\", populate the Role with the values pictured below, and click save."
+        "description": "Click on \"Add new Subject\", populate the Subject with the values pictured below, and click save.",
+        "image": "token-1-add-new-subject.png",
+        "image_alt": ""
       },
       {
         "label": "Step 6",
-        "description": "Click on \"Add new Subject\", populate the Subject with the values pictured below, and click save."
-      },
-      {
-        "label": "Step 7",
-        "description": "Copy the value in the \"Access Token\" column, paste it into the Nightscout Token field in [Gluco-Check Settings](url to that), and click save."
+        "description": "Copy the value in the \"Access Token\" column, paste it into the Nightscout Token field in [Gluco-Check Settings](url to that), and click save.",
+        "image": "token-3.png",
+        "image_alt": ""
       }
     ]
   }

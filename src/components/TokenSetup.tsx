@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Box,
   Button,
   makeStyles,
   Paper,
@@ -10,6 +11,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
+// import image1 from "../img/token-instructions/"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +32,11 @@ const useStyles = makeStyles((theme) => ({
 interface TokenStep {
   label: string;
   description: string;
+  image?: string;
+  image_alt?: string;
 }
+
+const TOKEN_IMAGE_PATH = "../img/token-instructions";
 
 export default function TokenSetup() {
   const { t } = useTranslation();
@@ -60,36 +66,44 @@ export default function TokenSetup() {
 
   return (
     <div className={classes.root}>
+      <Typography>{t("tokenDialog.preamble")}</Typography>
       <Stepper activeStep={activeStep} orientation="vertical">
-        {steps.map((label, index) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-            <StepContent>
-              <Typography>{stepContent[index]}</Typography>
-              <div className={classes.actionsContainer}>
-                <div>
-                  <Button
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    className={classes.button}
-                    data-testid="token-stepper-back"
-                  >
-                    Back
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                    data-testid="token-stepper-next"
-                  >
-                    {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                  </Button>
+        {steps.map((label, index) => {
+          const step = tokenSteps[index];
+          const stepImage = step.image
+            ? require(`${TOKEN_IMAGE_PATH}/${step.image}`)
+            : undefined;
+          return (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+              <StepContent>
+                <Typography>{step.description}</Typography>
+                {stepImage && <img src={stepImage} alt={step.image_alt} />}
+                <div className={classes.actionsContainer}>
+                  <div>
+                    <Button
+                      disabled={activeStep === 0}
+                      onClick={handleBack}
+                      className={classes.button}
+                      data-testid="token-stepper-back"
+                    >
+                      Back
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNext}
+                      className={classes.button}
+                      data-testid="token-stepper-next"
+                    >
+                      {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </StepContent>
-          </Step>
-        ))}
+              </StepContent>
+            </Step>
+          );
+        })}
       </Stepper>
       {activeStep === steps.length && (
         <Paper square elevation={0} className={classes.resetContainer}>
