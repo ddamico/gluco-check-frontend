@@ -6,6 +6,7 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
+  IconButton,
   InputAdornment,
   InputLabel,
   Link,
@@ -15,7 +16,7 @@ import {
   Snackbar,
   TextField,
 } from "@material-ui/core";
-import { Lock } from "@material-ui/icons";
+import { Close, Lock } from "@material-ui/icons";
 import MuiAlert from "@material-ui/lab/Alert";
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -36,6 +37,12 @@ const SettingsFormAlert = (props: any) => {
 };
 
 const useStyles = makeStyles((theme) => ({
+  closeButton: {
+    position: "absolute",
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
   form: {
     "& .MuiFormControl-root": {
       marginBottom: theme.spacing(4),
@@ -105,6 +112,16 @@ export default function SettingsForm({
     >
       <DialogTitle id="token-dialog-title">
         {t("tokenDialog.title")}
+        <IconButton
+          aria-label="close"
+          className={classes.closeButton}
+          onClick={returnHandleOpenTokenDialog(
+            tokenDialogOpen,
+            setTokenDialogOpen
+          )}
+        >
+          <Close />
+        </IconButton>
       </DialogTitle>
       <DialogContent>
         <TokenSetup />

@@ -1,11 +1,30 @@
 import React from "react";
-import { cleanup, render, waitFor, screen } from "@testing-library/react";
+import {
+  cleanup,
+  render,
+  waitFor,
+  screen,
+  prettyDOM,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe, toHaveNoViolations } from "jest-axe";
 import { BloodGlucoseUnits } from "../lib/enums";
 import SettingsForm, { returnHandleOpenTokenDialog } from "./SettingsForm";
 
 expect.extend(toHaveNoViolations);
+
+jest.mock("react-i18next", () => ({
+  useTranslation: () => {
+    return {
+      t: jest.fn().mockImplementation((i) => {
+        return i;
+      }),
+    };
+  },
+  Trans: () => {
+    return <span>Trans</span>;
+  },
+}));
 
 afterEach(() => {
   jest.resetAllMocks();

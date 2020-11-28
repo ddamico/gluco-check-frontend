@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  makeStyles,
-  Paper,
-  Step,
-  StepContent,
-  StepLabel,
-  Stepper,
-  Typography,
-} from "@material-ui/core";
+import { Box, makeStyles, Typography } from "@material-ui/core";
 import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 

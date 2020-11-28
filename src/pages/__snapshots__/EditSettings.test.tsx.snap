@@ -13,7 +13,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
     settings.content
   </p>
   <form
-    class="makeStyles-form-2"
+    class="makeStyles-form-3"
     data-testid="settings-form"
   >
     <div
@@ -166,7 +166,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
 
 exports[`EditSettings Renders the component when loading, with no axe violations 2`] = `
 <div
-  class="MuiContainer-root makeStyles-container-3 MuiContainer-maxWidthLg"
+  class="MuiContainer-root makeStyles-container-4 MuiContainer-maxWidthLg"
 >
   <h2
     class="MuiTypography-root MuiTypography-h6"
@@ -182,7 +182,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
 
 exports[`EditSettings Renders the component with error, with no axe violations 1`] = `
 <div
-  class="MuiContainer-root makeStyles-container-4 MuiContainer-maxWidthLg"
+  class="MuiContainer-root makeStyles-container-5 MuiContainer-maxWidthLg"
 >
   <h2
     class="MuiTypography-root MuiTypography-h6"
