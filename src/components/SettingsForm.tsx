@@ -2,22 +2,28 @@ import React, { useState } from "react";
 import {
   Button,
   Container,
+  Dialog,
+  DialogContent,
+  DialogTitle,
   FormControl,
+  IconButton,
   InputAdornment,
   InputLabel,
+  Link,
   makeStyles,
   MenuItem,
   Select,
   Snackbar,
   TextField,
 } from "@material-ui/core";
-import { Lock } from "@material-ui/icons";
+import { Close, Lock } from "@material-ui/icons";
 import MuiAlert from "@material-ui/lab/Alert";
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { BloodGlucoseUnits } from "../lib/enums";
 import { SettingsFormData } from "../lib/types";
 import { ALERT_AUTOHIDE_DURATION } from "../lib/constants";
+import TokenSetup from "../components/TokenSetup";
 
 type SettingsFormProps = {
   nightscoutUrl: string;
@@ -31,12 +37,27 @@ const SettingsFormAlert = (props: any) => {
 };
 
 const useStyles = makeStyles((theme) => ({
+  closeButton: {
+    position: "absolute",
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
   form: {
     "& .MuiFormControl-root": {
       marginBottom: theme.spacing(4),
     },
   },
 }));
+
+export const returnHandleOpenTokenDialog = (
+  tokenDialogOpen: boolean,
+  setTokenDialogOpen: Function
+) => {
+  return () => {
+    setTokenDialogOpen(!tokenDialogOpen);
+  };
+};
 
 export default function SettingsForm({
   nightscoutUrl,
@@ -55,6 +76,7 @@ export default function SettingsForm({
   } = useForm<SettingsFormData>();
   const { t } = useTranslation();
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
+  const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
 
   const canEditFields = !formState.isSubmitting;
   const canSubmitForm = formState.isDirty && !formState.isSubmitting;
@@ -82,6 +104,31 @@ export default function SettingsForm({
     formReset();
   };
 
+  const TokenDialog = (
+    <Dialog
+      open={tokenDialogOpen}
+      aria-labelledby="token-dialog-title"
+      fullWidth
+    >
+      <DialogTitle id="token-dialog-title">
+        {t("tokenDialog.title")}
+        <IconButton
+          aria-label="close"
+          className={classes.closeButton}
+          onClick={returnHandleOpenTokenDialog(
+            tokenDialogOpen,
+            setTokenDialogOpen
+          )}
+        >
+          <Close />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent>
+        <TokenSetup />
+      </DialogContent>
+    </Dialog>
+  );
+
   const SettingsForm = (
     <form
       className={classes.form}
@@ -107,7 +154,18 @@ export default function SettingsForm({
         defaultValue={nightscoutToken}
         disabled={!canEditFields}
         fullWidth={true}
-        helperText={t("settings.form.helperText.nightscoutToken")}
+        helperText={
+          <Link
+            component="button"
+            type="button"
+            onClick={returnHandleOpenTokenDialog(
+              tokenDialogOpen,
+              setTokenDialogOpen
+            )}
+          >
+            {t("settings.form.helperText.nightscoutToken")}
+          </Link>
+        }
         id="settings-form-field-token"
         InputProps={{
           inputProps: {
@@ -201,6 +259,7 @@ export default function SettingsForm({
       </Snackbar>
 
       {SettingsForm}
+      {TokenDialog}
     </>
   );
 }
