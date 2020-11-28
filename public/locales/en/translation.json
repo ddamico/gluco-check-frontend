@@ -36,7 +36,7 @@
         "nightscoutUrl": "Nightscout URL"
       },
       "helperText": {
-        "nightscoutToken": "Helper text for the token which launches the multi-step wizard",
+        "nightscoutToken": "Not sure how to get a token? Read on!",
         "nightscoutUrl": "URL of your Nightscout site (just the base URL, no /api)"
       },
       "submitButton": "Save Settings",
@@ -52,5 +52,16 @@
     "login": "Login",
     "logout": "Logout",
     "settings": "Settings"
+  },
+  "tokenDialog": {
+    "title": "How to get a token",
+    "preamble": "Some features of Gluco-Check (list them) require a token from your Nightscout site. Here's how you get one!",
+    "step1": "Make sure your site is on (minimum version) of Nightscout. You can check the version by clicking on the hamburger menu... ...and then scrolling down to the about box.",
+    "step2": "If you need an upgrade, you can read more about how to do that [here](http://www.nightscout.info/wiki/welcome/how-to-update-to-latest-cgm-remote-monitor-aka-cookie). If you do not need an upgrade... let's goooooo!",
+    "step3": "Click on the hamburger menu... (image)",
+    "step4": "Click on \"Admin Tools\" (image)",
+    "step5": "Click on \"Add new Role\", populate the Role with the values pictured below, and click save.",
+    "step6": "Click on \"Add new Subject\", populate the Subject with the values pictured below, and click save.",
+    "step7": "Copy the value in the \"Access Token\" column, paste it into the Nightscout Token field in [Gluco-Check Settings](url to that), and click save."
   }
 }

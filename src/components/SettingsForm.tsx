@@ -2,9 +2,16 @@ import React, { useState } from "react";
 import {
   Button,
   Container,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
+  FormHelperText,
+  Input,
   InputAdornment,
   InputLabel,
+  Link,
   makeStyles,
   MenuItem,
   Select,
@@ -18,6 +25,7 @@ import { useTranslation } from "react-i18next";
 import { BloodGlucoseUnits } from "../lib/enums";
 import { SettingsFormData } from "../lib/types";
 import { ALERT_AUTOHIDE_DURATION } from "../lib/constants";
+import TokenSetup from "../components/TokenSetup";
 
 type SettingsFormProps = {
   nightscoutUrl: string;
@@ -55,6 +63,7 @@ export default function SettingsForm({
   } = useForm<SettingsFormData>();
   const { t } = useTranslation();
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
+  const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
 
   const canEditFields = !formState.isSubmitting;
   const canSubmitForm = formState.isDirty && !formState.isSubmitting;
@@ -82,6 +91,19 @@ export default function SettingsForm({
     formReset();
   };
 
+  const TokenDialog = (
+    <Dialog open={tokenDialogOpen} aria-labelledby="token-dialog-title">
+      <DialogTitle id="token-dialog-title">
+        {t("tokenDialog.title")}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          <TokenSetup />
+        </DialogContentText>
+      </DialogContent>
+    </Dialog>
+  );
+
   const SettingsForm = (
     <form
       className={classes.form}
@@ -103,26 +125,32 @@ export default function SettingsForm({
         label={t("settings.form.labels.nightscoutUrl")}
         name="nightscoutUrl"
       />
-      <TextField
-        defaultValue={nightscoutToken}
-        disabled={!canEditFields}
-        fullWidth={true}
-        helperText={t("settings.form.helperText.nightscoutToken")}
-        id="settings-form-field-token"
-        InputProps={{
-          inputProps: {
-            "data-testid": "settings-form-field-token",
-          },
-          startAdornment: (
+      <FormControl fullWidth={true}>
+        <InputLabel>{t("settings.form.labels.nightscoutToken")}</InputLabel>
+        <Input
+          data-testid="settings-form-field-token"
+          defaultValue={nightscoutToken}
+          disabled={!canEditFields}
+          id="settings-form-field-token"
+          name="nightscoutToken"
+          ref={register}
+          startAdornment={
             <InputAdornment position="start">
               <Lock />
             </InputAdornment>
-          ),
-        }}
-        inputRef={register}
-        label={t("settings.form.labels.nightscoutToken")}
-        name="nightscoutToken"
-      />
+          }
+        />
+        <FormHelperText>
+          <Link
+            component="button"
+            onClick={() => {
+              setTokenDialogOpen(!tokenDialogOpen);
+            }}
+          >
+            {t("settings.form.helperText.nightscoutToken")}
+          </Link>
+        </FormHelperText>
+      </FormControl>
 
       <FormControl fullWidth={true} className="MaterialSelect">
         <InputLabel>{t("settings.form.labels.glucoseUnits")}</InputLabel>
@@ -201,6 +229,7 @@ export default function SettingsForm({
       </Snackbar>
 
       {SettingsForm}
+      {TokenDialog}
     </>
   );
 }
