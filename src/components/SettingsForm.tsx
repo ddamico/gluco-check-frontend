@@ -4,7 +4,6 @@ import {
   Container,
   Dialog,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   FormControl,
   FormHelperText,
@@ -97,9 +96,7 @@ export default function SettingsForm({
         {t("tokenDialog.title")}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          <TokenSetup />
-        </DialogContentText>
+        <TokenSetup />
       </DialogContent>
     </Dialog>
   );
