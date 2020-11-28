@@ -23,7 +23,7 @@ exports[`TokenSetup component renders the component 1`] = `
       </span>
       <img
         alt=""
-        src="/locales/en/images/token-instructions/tokenDialog.step1.image"
+        src="/images/token-instructions/tokenDialog.step1.image"
       />
     </dd>
     <dt
@@ -53,7 +53,7 @@ exports[`TokenSetup component renders the component 1`] = `
       >
         <img
           alt="tokenDialog.step4.image_alt"
-          src="/locales/en/images/token-instructions/tokenDialog.step4.image"
+          src="/images/token-instructions/tokenDialog.step4.image"
         />
       </div>
       <p>
@@ -61,7 +61,7 @@ exports[`TokenSetup component renders the component 1`] = `
       </p>
       <img
         alt="tokenDialog.step5.image_alt"
-        src="/locales/en/images/token-instructions/tokenDialog.step5.image"
+        src="/images/token-instructions/tokenDialog.step5.image"
       />
       <p>
         <span>
@@ -70,7 +70,7 @@ exports[`TokenSetup component renders the component 1`] = `
       </p>
       <img
         alt="tokenDialog.step6.image_alt"
-        src="/locales/en/images/token-instructions/tokenDialog.step6.image"
+        src="/images/token-instructions/tokenDialog.step6.image"
       />
     </dd>
   </dl>

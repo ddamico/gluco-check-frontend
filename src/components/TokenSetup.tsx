@@ -41,8 +41,7 @@ interface TokenStep {
   image_alt?: string;
 }
 
-// @TODO: either need to localize this or move the images out of the locales
-const TOKEN_IMAGE_PATH = `${process.env.PUBLIC_URL}/locales/en/images/token-instructions`;
+const TOKEN_IMAGE_PATH = `${process.env.PUBLIC_URL}/images/token-instructions`;
 
 export default function TokenSetup() {
   const { t } = useTranslation();
