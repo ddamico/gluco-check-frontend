@@ -101,7 +101,7 @@ export default function SettingsForm({
     <Dialog
       open={tokenDialogOpen}
       aria-labelledby="token-dialog-title"
-      maxWidth="xl"
+      fullWidth
     >
       <DialogTitle id="token-dialog-title">
         {t("tokenDialog.title")}

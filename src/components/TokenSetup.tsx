@@ -10,12 +10,27 @@ import {
   Stepper,
   Typography,
 } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
-// import image1 from "../img/token-instructions/"
+import { Trans, useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 400,
+    maxWidth: "100%",
+  },
+  definitionList: {
+    "& dd, & dt": {
+      margin: "0px",
+      padding: "0px",
+    },
+    "& dt": {
+      fontWeight: "bold",
+    },
+    "& dd": {
+      marginBottom: "1rem",
+    },
+    "& dd img": {
+      maxWidth: "100%",
+    },
   },
   button: {
     marginTop: theme.spacing(1),
@@ -36,87 +51,79 @@ interface TokenStep {
   image_alt?: string;
 }
 
-const TOKEN_IMAGE_PATH = "../img/token-instructions";
+// @TODO: either need to localize this or move the images out of the locales
+const TOKEN_IMAGE_PATH = `${process.env.PUBLIC_URL}/locales/en/images/token-instructions`;
 
 export default function TokenSetup() {
   const { t } = useTranslation();
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    console.log("handleback");
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
-  const tokenSteps: TokenStep[] =
-    t("tokenDialog.steps", {
-      returnObjects: true,
-    }) ?? [];
-
-  const steps = tokenSteps.map((step) => step.label);
-  const stepContent = tokenSteps.map((step) => step.description);
 
   return (
     <div className={classes.root}>
       <Typography>{t("tokenDialog.preamble")}</Typography>
-      <Stepper activeStep={activeStep} orientation="vertical">
-        {steps.map((label, index) => {
-          const step = tokenSteps[index];
-          const stepImage = step.image
-            ? require(`${TOKEN_IMAGE_PATH}/${step.image}`)
-            : undefined;
-          return (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-              <StepContent>
-                <Typography>{step.description}</Typography>
-                {stepImage && <img src={stepImage} alt={step.image_alt} />}
-                <div className={classes.actionsContainer}>
-                  <div>
-                    <Button
-                      disabled={activeStep === 0}
-                      onClick={handleBack}
-                      className={classes.button}
-                      data-testid="token-stepper-back"
-                    >
-                      Back
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleNext}
-                      className={classes.button}
-                      data-testid="token-stepper-next"
-                    >
-                      {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                    </Button>
-                  </div>
-                </div>
-              </StepContent>
-            </Step>
-          );
-        })}
-      </Stepper>
-      {activeStep === steps.length && (
-        <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography>All steps completed - you&apos;re finished</Typography>
-          <Button
-            onClick={handleReset}
-            className={classes.button}
-            data-testid="token-stepper-reset"
-          >
-            Reset
-          </Button>
-        </Paper>
-      )}
+      <dl className={classes.definitionList}>
+        <Typography variant="h5" component="dt">
+          {t("tokenDialog.step1.label")}
+        </Typography>
+        <dd>
+          <Trans i18nKey="tokenDialog.step1.description">
+            Make sure your site is on at least{" "}
+            <a href={t("tokenDialog.links.nightscoutMinimumVersion")}>
+              version 14 of Nightscout
+            </a>
+            . You can check the version here by clicking on the hamburger menu
+            button and looking here...
+          </Trans>
+          <img
+            src={`${TOKEN_IMAGE_PATH}/${t("tokenDialog.step1.image")}`}
+            alt=""
+          />
+        </dd>
+
+        <Typography variant="h5" component="dt">
+          {t("tokenDialog.step2.label")}
+        </Typography>
+        <dd>
+          <Trans i18nKey="tokenDialog.step2.description">
+            If you need an upgrade, you can read more about how to do that{" "}
+            <a href={t("tokenDialog.links.howToUpdateNightscout")}>here</a>. If
+            you do not need an upgrade... let's goooooo!
+          </Trans>
+        </dd>
+
+        <Typography variant="h5" component="dt">
+          {t("tokenDialog.step3.label")}
+        </Typography>
+        <dd>
+          <p>{t("tokenDialog.step3.description")}</p>
+          <p>{t("tokenDialog.step4.description")}</p>
+          <Box>
+            <img
+              src={`${TOKEN_IMAGE_PATH}/${t("tokenDialog.step4.image")}`}
+              alt={t("tokenDialog.step4.image_alt")}
+            />
+          </Box>
+          <p>{t("tokenDialog.step5.description")}</p>
+          <img
+            src={`${TOKEN_IMAGE_PATH}/${t("tokenDialog.step5.image")}`}
+            alt={t("tokenDialog.step5.image_alt")}
+          />
+          <p>
+            <Trans i18nKey="tokenDialog.step6.description">
+              Copy the value in the "Access Token" column, paste it into the
+              Nightscout Token field in{" "}
+              <Link to={t("tokenDialog.links.glucoCheckSettings") as string}>
+                Gluco-Check Settings
+              </Link>
+              , and click save.
+            </Trans>
+          </p>
+          <img
+            src={`${TOKEN_IMAGE_PATH}/${t("tokenDialog.step6.image")}`}
+            alt={t("tokenDialog.step6.image_alt")}
+          />
+        </dd>
+      </dl>
     </div>
   );
 }
