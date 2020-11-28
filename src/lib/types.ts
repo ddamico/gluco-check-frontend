@@ -1,7 +1,7 @@
-import { BloodGlucoseUnits } from "./enums";
+import { BloodGlucoseUnits, DiabetesPointer } from "./enums";
 
 export interface GlucoCheckUserDocument {
-  defaultPointers: string[];
+  defaultPointers: DiabetesPointer[];
   glucoseUnit: BloodGlucoseUnits;
   nightscout: {
     token: string;
@@ -10,6 +10,7 @@ export interface GlucoCheckUserDocument {
 }
 
 export type SettingsFormData = {
+  defaultPointers: DiabetesPointer[];
   nightscoutUrl: string;
   nightscoutToken: string;
   glucoseUnit: BloodGlucoseUnits;

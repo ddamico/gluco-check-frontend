@@ -20,7 +20,7 @@ import { Close, Lock } from "@material-ui/icons";
 import MuiAlert from "@material-ui/lab/Alert";
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { BloodGlucoseUnits } from "../lib/enums";
+import { BloodGlucoseUnits, DiabetesPointer } from "../lib/enums";
 import { SettingsFormData } from "../lib/types";
 import { ALERT_AUTOHIDE_DURATION } from "../lib/constants";
 import TokenSetup from "../components/TokenSetup";
@@ -29,6 +29,7 @@ type SettingsFormProps = {
   nightscoutUrl: string;
   nightscoutToken: string;
   glucoseUnit: BloodGlucoseUnits;
+  defaultPointers?: DiabetesPointer[]; // @TODO: not optional
   onSubmit: (data: SettingsFormData) => {};
 };
 
@@ -63,6 +64,7 @@ export default function SettingsForm({
   nightscoutUrl,
   nightscoutToken,
   glucoseUnit,
+  defaultPointers = [],
   onSubmit,
 }: SettingsFormProps) {
   const classes = useStyles();
@@ -135,6 +137,25 @@ export default function SettingsForm({
       onSubmit={handleSubmit(onFormSubmit)}
       data-testid="settings-form"
     >
+      <FormControl fullWidth={true} className="MaterialSelect">
+        <InputLabel>{t("settings.form.labels.defaultPointers")}</InputLabel>
+        <Controller
+          name="defaultPointers"
+          rules={{ required: true }}
+          control={control}
+          defaultValue={defaultPointers}
+          as={
+            <Select
+              disabled={!canEditFields}
+              fullWidth={true}
+              inputProps={{
+                "data-testid": "settings-form-field-metrics",
+              }}
+              id="settings-form-field-metrics"
+            ></Select>
+          }
+        />
+      </FormControl>
       <TextField
         defaultValue={nightscoutUrl}
         disabled={!canEditFields}
