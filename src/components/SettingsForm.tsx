@@ -34,7 +34,7 @@ type SettingsFormProps = {
   nightscoutUrl: string;
   nightscoutToken: string;
   glucoseUnit: BloodGlucoseUnits;
-  defaultPointers: DiabetesPointer[]; // @TODO: not optional
+  defaultPointers: DiabetesPointer[];
   onSubmit: (data: SettingsFormData) => {};
 };
 
