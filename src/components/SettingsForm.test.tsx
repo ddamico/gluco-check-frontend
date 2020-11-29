@@ -8,7 +8,7 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe, toHaveNoViolations } from "jest-axe";
-import { BloodGlucoseUnits } from "../lib/enums";
+import { BloodGlucoseUnits, DiabetesPointer } from "../lib/enums";
 import SettingsForm, { returnHandleOpenTokenDialog } from "./SettingsForm";
 
 expect.extend(toHaveNoViolations);
@@ -35,6 +35,7 @@ describe("SettingsForm component", () => {
   const mockNsUrl = "https://example.com";
   const mockNsToken = "token123";
   const mockGlucoseUnits = BloodGlucoseUnits.mgdl;
+  const mockDefaultPointers = [DiabetesPointer.BloodSugar];
   const mockOnSubmit = jest.fn();
 
   it("renders the component", async () => {
@@ -43,6 +44,7 @@ describe("SettingsForm component", () => {
         nightscoutToken={mockNsToken}
         nightscoutUrl={mockNsUrl}
         glucoseUnit={mockGlucoseUnits}
+        defaultPointers={mockDefaultPointers}
         onSubmit={mockOnSubmit}
       />
     );
@@ -74,6 +76,7 @@ describe("SettingsForm component", () => {
         nightscoutToken={mockNsToken}
         nightscoutUrl={mockNsUrl}
         glucoseUnit={mockGlucoseUnits}
+        defaultPointers={mockDefaultPointers}
         onSubmit={mockOnSubmit}
       />
     );
@@ -100,6 +103,7 @@ describe("SettingsForm component", () => {
         nightscoutToken={mockNsToken}
         nightscoutUrl={mockNsUrl}
         glucoseUnit={mockGlucoseUnits}
+        defaultPointers={mockDefaultPointers}
         onSubmit={mockOnSubmit}
       />
     );
@@ -123,6 +127,7 @@ describe("SettingsForm component", () => {
         nightscoutToken={mockNsToken}
         nightscoutUrl={mockNsUrl}
         glucoseUnit={mockGlucoseUnits}
+        defaultPointers={mockDefaultPointers}
         onSubmit={mockOnSubmit}
       />
     );

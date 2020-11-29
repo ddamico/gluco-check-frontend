@@ -8,6 +8,9 @@ describe("userSettingsFormDataToUserSettingsDocument", () => {
     );
     expect(resultDocument).toMatchInlineSnapshot(`
       Object {
+        "defaultPointers": Array [
+          "blood sugar",
+        ],
         "glucoseUnit": "mg/dl",
         "nightscout": Object {
           "token": "I am a token",

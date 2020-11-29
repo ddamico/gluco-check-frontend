@@ -34,7 +34,7 @@ type SettingsFormProps = {
   nightscoutUrl: string;
   nightscoutToken: string;
   glucoseUnit: BloodGlucoseUnits;
-  defaultPointers?: DiabetesPointer[]; // @TODO: not optional
+  defaultPointers: DiabetesPointer[]; // @TODO: not optional
   onSubmit: (data: SettingsFormData) => {};
 };
 
@@ -76,7 +76,7 @@ export default function SettingsForm({
   nightscoutUrl,
   nightscoutToken,
   glucoseUnit,
-  defaultPointers = [],
+  defaultPointers,
   onSubmit,
 }: SettingsFormProps) {
   const classes = useStyles();
