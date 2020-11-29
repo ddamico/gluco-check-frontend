@@ -84,6 +84,7 @@ export default function SettingsForm({
   const {
     control,
     formState,
+    getValues,
     handleSubmit,
     register,
     reset: resetForm,
@@ -92,10 +93,14 @@ export default function SettingsForm({
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
   const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
 
-  const canEditFields = !formState.isSubmitting;
+  const canEditFields = !formState.isSubmitting && !formState.isSubmitted;
   const canSubmitForm = formState.isDirty && !formState.isSubmitting;
 
-  const glucoseUnits = Object.entries(BloodGlucoseUnits).map(([k, v]) => {
+  const glucoseUnits = Object.entries(BloodGlucoseUnits).map(([_, v]) => {
+    return { label: v, value: v };
+  });
+
+  const pointers = Object.entries(DiabetesPointer).map(([_, v]) => {
     return { label: v, value: v };
   });
 
@@ -116,6 +121,14 @@ export default function SettingsForm({
 
   const handleFormAlertClose = () => {
     formReset();
+  };
+
+  const handleCheck = (newPointer: DiabetesPointer) => {
+    const { defaultPointers } = getValues();
+    const newPointers = defaultPointers?.includes(newPointer)
+      ? defaultPointers?.filter((pointer) => pointer !== newPointer)
+      : [...(defaultPointers ?? []), newPointer];
+    return newPointers;
   };
 
   const TokenDialog = (
@@ -153,25 +166,32 @@ export default function SettingsForm({
         <FormLabel component="legend">
           {t("settings.form.labels.defaultPointers")}
         </FormLabel>
-        <FormGroup className={classes.checkboxArray}>
-          {Object.entries(DiabetesPointer).map((entry) => {
-            const [name, label] = entry;
-            return (
-              <Controller
-                key={name}
-                name={name}
-                as={
-                  <FormControlLabel
-                    control={<Checkbox value={name} />}
-                    label={label}
-                  />
-                }
-                valueName="checked"
-                type="checkbox"
-                control={control}
-              />
-            );
-          })}
+        <FormGroup row>
+          {/* see https://github.com/react-hook-form/react-hook-form/issues/1517,
+          https://codesandbox.io/s/material-demo-forked-8lbmn?file=/demo.js:1808-1847 */}
+          <Controller
+            control={control}
+            name="defaultPointers"
+            defaultValue={defaultPointers}
+            // @ts-ignore
+            render={(props) => {
+              return pointers.map((pointer) => (
+                <FormControlLabel
+                  disabled={!canEditFields}
+                  control={
+                    <Checkbox
+                      onChange={() =>
+                        props.onChange(handleCheck(pointer.value))
+                      }
+                      checked={props.value.includes(pointer.value)}
+                    />
+                  }
+                  key={pointer.value}
+                  label={pointer.value}
+                />
+              ));
+            }}
+          />
         </FormGroup>
         <FormHelperText>
           {t("settings.form.helperText.defaultPointers")}

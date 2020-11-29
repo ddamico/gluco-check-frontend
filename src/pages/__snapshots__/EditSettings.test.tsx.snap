@@ -25,7 +25,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
         settings.form.labels.defaultPointers
       </legend>
       <div
-        class="MuiFormGroup-root makeStyles-checkboxArray-4"
+        class="MuiFormGroup-root MuiFormGroup-row"
       >
         <label
           class="MuiFormControlLabel-root"
@@ -40,9 +40,8 @@ exports[`EditSettings Renders the component when loading, with no axe violations
               <input
                 class="PrivateSwitchBase-input-8"
                 data-indeterminate="false"
-                name="defaultPointers"
                 type="checkbox"
-                value="everything"
+                value=""
               />
               <svg
                 aria-hidden="true"
@@ -78,9 +77,8 @@ exports[`EditSettings Renders the component when loading, with no axe violations
               <input
                 class="PrivateSwitchBase-input-8"
                 data-indeterminate="false"
-                name="defaultPointers"
                 type="checkbox"
-                value="blood sugar"
+                value=""
               />
               <svg
                 aria-hidden="true"
@@ -116,9 +114,8 @@ exports[`EditSettings Renders the component when loading, with no axe violations
               <input
                 class="PrivateSwitchBase-input-8"
                 data-indeterminate="false"
-                name="defaultPointers"
                 type="checkbox"
-                value="insulin on board"
+                value=""
               />
               <svg
                 aria-hidden="true"
@@ -154,9 +151,8 @@ exports[`EditSettings Renders the component when loading, with no axe violations
               <input
                 class="PrivateSwitchBase-input-8"
                 data-indeterminate="false"
-                name="defaultPointers"
                 type="checkbox"
-                value="carbs on board"
+                value=""
               />
               <svg
                 aria-hidden="true"
@@ -192,9 +188,8 @@ exports[`EditSettings Renders the component when loading, with no axe violations
               <input
                 class="PrivateSwitchBase-input-8"
                 data-indeterminate="false"
-                name="defaultPointers"
                 type="checkbox"
-                value="sensor age"
+                value=""
               />
               <svg
                 aria-hidden="true"
@@ -230,9 +225,8 @@ exports[`EditSettings Renders the component when loading, with no axe violations
               <input
                 class="PrivateSwitchBase-input-8"
                 data-indeterminate="false"
-                name="defaultPointers"
                 type="checkbox"
-                value="cannula age"
+                value=""
               />
               <svg
                 aria-hidden="true"
@@ -268,9 +262,8 @@ exports[`EditSettings Renders the component when loading, with no axe violations
               <input
                 class="PrivateSwitchBase-input-8"
                 data-indeterminate="false"
-                name="defaultPointers"
                 type="checkbox"
-                value="pump battery"
+                value=""
               />
               <svg
                 aria-hidden="true"
