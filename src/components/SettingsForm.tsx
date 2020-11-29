@@ -172,8 +172,6 @@ export default function SettingsForm({
           {t("settings.form.labels.defaultPointers")}
         </FormLabel>
         <FormGroup row className={classes.checkboxArray}>
-          {/* see https://github.com/react-hook-form/react-hook-form/issues/1517,
-          https://codesandbox.io/s/material-demo-forked-8lbmn?file=/demo.js:1808-1847 */}
           <Controller
             control={control}
             name="defaultPointers"
