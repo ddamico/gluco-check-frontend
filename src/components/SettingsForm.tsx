@@ -91,9 +91,10 @@ export default function SettingsForm({
   } = useForm<SettingsFormData>();
   const { t } = useTranslation();
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
+  const [formHasSubmittedSuccess, setFormHasSubmittedSuccess] = useState(false);
   const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
 
-  const canEditFields = !formState.isSubmitting && !formState.isSubmitted;
+  const canEditFields = !formState.isSubmitting;
   const canSubmitForm = formState.isDirty && !formState.isSubmitting;
 
   const glucoseUnits = Object.entries(BloodGlucoseUnits).map(([_, v]) => {
@@ -108,6 +109,7 @@ export default function SettingsForm({
     try {
       setFormHasSubmissionError(false);
       await onSubmit(data);
+      setFormHasSubmittedSuccess(true);
       formReset();
     } catch (e) {
       setFormHasSubmissionError(true);
@@ -120,7 +122,7 @@ export default function SettingsForm({
   };
 
   const handleFormAlertClose = () => {
-    formReset();
+    setFormHasSubmittedSuccess(false);
   };
 
   const handleCheck = (newPointer: DiabetesPointer) => {
@@ -301,7 +303,7 @@ export default function SettingsForm({
       <Snackbar
         autoHideDuration={ALERT_AUTOHIDE_DURATION}
         onClose={handleFormAlertClose}
-        open={formState.isSubmitted}
+        open={formHasSubmittedSuccess}
       >
         <SettingsFormAlert
           data-testid="settings-form-submitted"
