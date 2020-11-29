@@ -18,6 +18,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
   >
     <fieldset
       class="MuiFormControl-root"
+      data-testid="settings-form-fieldset-metrics"
     >
       <legend
         class="MuiFormLabel-root"

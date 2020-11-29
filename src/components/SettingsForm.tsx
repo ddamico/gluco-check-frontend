@@ -129,7 +129,7 @@ export default function SettingsForm({
     const { defaultPointers } = getValues();
     const newPointers = defaultPointers?.includes(newPointer)
       ? defaultPointers?.filter((pointer) => pointer !== newPointer)
-      : [...(defaultPointers ?? []), newPointer];
+      : [...defaultPointers, newPointer];
     return newPointers;
   };
 
@@ -164,7 +164,10 @@ export default function SettingsForm({
       onSubmit={handleSubmit(onFormSubmit)}
       data-testid="settings-form"
     >
-      <FormControl component="fieldset">
+      <FormControl
+        component="fieldset"
+        data-testid="settings-form-fieldset-metrics"
+      >
         <FormLabel component="legend">
           {t("settings.form.labels.defaultPointers")}
         </FormLabel>

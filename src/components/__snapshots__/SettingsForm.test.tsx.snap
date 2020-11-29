@@ -7,6 +7,7 @@ exports[`SettingsForm component renders the component 1`] = `
 >
   <fieldset
     class="MuiFormControl-root"
+    data-testid="settings-form-fieldset-metrics"
   >
     <legend
       class="MuiFormLabel-root"
