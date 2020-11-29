@@ -5,6 +5,8 @@ export enum BloodGlucoseUnits {
 
 // @TODO: once this repo is properly part of the workspace,
 // pull this in from gluco-check-core instead
+// These are mapped to translations directly by case name,
+// additions or changes here need to be reflected there
 export enum DiabetesPointer {
   Everything = "everything",
   BloodSugar = "blood sugar",

@@ -55,6 +55,15 @@
     "logout": "Logout",
     "settings": "Settings"
   },
+  "diabetesMetrics": {
+    "Everything": "everything",
+    "BloodSugar": "blood sugar",
+    "InsulinOnBoard": "insulin on board",
+    "CarbsOnBoard": "carbs on board",
+    "SensorAge": "sensor age",
+    "CannulaAge": "cannula age",
+    "PumpBattery": "pump battery"
+  },
   "tokenDialog": {
     "title": "Generating a Nightscout token",
     "preamble": "For basic features like checking your numbers, your Nightscout url is enough. For more advanced features, you're going to need a token with full api read permissions. If you don't know what that means, don't sweat it! We'll go through it one step at a time.",

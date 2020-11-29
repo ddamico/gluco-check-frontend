@@ -26,7 +26,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
         settings.form.labels.defaultPointers
       </legend>
       <div
-        class="MuiFormGroup-root MuiFormGroup-row"
+        class="MuiFormGroup-root makeStyles-checkboxArray-4 MuiFormGroup-row"
       >
         <label
           class="MuiFormControlLabel-root"

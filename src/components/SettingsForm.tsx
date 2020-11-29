@@ -55,8 +55,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   checkboxArray: {
-    display: "flex",
-    flexDirection: "row",
     "& label": {
       textTransform: "capitalize",
     },
@@ -101,9 +99,11 @@ export default function SettingsForm({
     return { label: v, value: v };
   });
 
-  const pointers = Object.entries(DiabetesPointer).map(([_, v]) => {
-    return { label: v, value: v };
-  });
+  const pointers = Object.entries(DiabetesPointer).map(
+    ([enumCase, enumValue]) => {
+      return { label: t(`diabetesMetrics.${enumCase}`), value: enumValue };
+    }
+  );
 
   const onFormSubmit = async (data: SettingsFormData) => {
     try {
@@ -171,7 +171,7 @@ export default function SettingsForm({
         <FormLabel component="legend">
           {t("settings.form.labels.defaultPointers")}
         </FormLabel>
-        <FormGroup row>
+        <FormGroup row className={classes.checkboxArray}>
           {/* see https://github.com/react-hook-form/react-hook-form/issues/1517,
           https://codesandbox.io/s/material-demo-forked-8lbmn?file=/demo.js:1808-1847 */}
           <Controller
