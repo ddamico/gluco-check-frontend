@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import {
   Button,
+  Checkbox,
   Container,
   Dialog,
   DialogContent,
   DialogTitle,
   FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  FormLabel,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -47,6 +52,13 @@ const useStyles = makeStyles((theme) => ({
   form: {
     "& .MuiFormControl-root": {
       marginBottom: theme.spacing(4),
+    },
+  },
+  checkboxArray: {
+    display: "flex",
+    flexDirection: "row",
+    "& label": {
+      textTransform: "capitalize",
     },
   },
 }));
@@ -137,24 +149,33 @@ export default function SettingsForm({
       onSubmit={handleSubmit(onFormSubmit)}
       data-testid="settings-form"
     >
-      <FormControl fullWidth={true} className="MaterialSelect">
-        <InputLabel>{t("settings.form.labels.defaultPointers")}</InputLabel>
-        <Controller
-          name="defaultPointers"
-          rules={{ required: true }}
-          control={control}
-          defaultValue={defaultPointers}
-          as={
-            <Select
-              disabled={!canEditFields}
-              fullWidth={true}
-              inputProps={{
-                "data-testid": "settings-form-field-metrics",
-              }}
-              id="settings-form-field-metrics"
-            ></Select>
-          }
-        />
+      <FormControl component="fieldset">
+        <FormLabel component="legend">
+          {t("settings.form.labels.defaultPointers")}
+        </FormLabel>
+        <FormGroup className={classes.checkboxArray}>
+          {Object.entries(DiabetesPointer).map((entry) => {
+            const [name, label] = entry;
+            return (
+              <Controller
+                key={name}
+                name={name}
+                as={
+                  <FormControlLabel
+                    control={<Checkbox value={name} />}
+                    label={label}
+                  />
+                }
+                valueName="checked"
+                type="checkbox"
+                control={control}
+              />
+            );
+          })}
+        </FormGroup>
+        <FormHelperText>
+          {t("settings.form.helperText.defaultPointers")}
+        </FormHelperText>
       </FormControl>
       <TextField
         defaultValue={nightscoutUrl}
