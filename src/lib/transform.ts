@@ -1,11 +1,14 @@
-import { GlucoCheckUserDocument, SettingsFormData } from "./types"
+import { GlucoCheckUserDocument, SettingsFormData } from "./types";
 
-export const userSettingsFormDataToUserSettingsDocument = (data: SettingsFormData): Partial<GlucoCheckUserDocument> => {
-    return {
-        glucoseUnit: data.glucoseUnit,
-        nightscout: {
-            token: data.nightscoutToken,
-            url: data.nightscoutUrl
-        }
-    }
-}
+export const userSettingsFormDataToUserSettingsDocument = (
+  data: SettingsFormData
+): Partial<GlucoCheckUserDocument> => {
+  return {
+    defaultPointers: data.defaultPointers,
+    glucoseUnit: data.glucoseUnit,
+    nightscout: {
+      token: data.nightscoutToken,
+      url: data.nightscoutUrl,
+    },
+  };
+};

@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import {
   Button,
+  Checkbox,
   Container,
   Dialog,
   DialogContent,
   DialogTitle,
   FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  FormLabel,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -20,7 +25,7 @@ import { Close, Lock } from "@material-ui/icons";
 import MuiAlert from "@material-ui/lab/Alert";
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { BloodGlucoseUnits } from "../lib/enums";
+import { BloodGlucoseUnits, DiabetesPointer } from "../lib/enums";
 import { SettingsFormData } from "../lib/types";
 import { ALERT_AUTOHIDE_DURATION } from "../lib/constants";
 import TokenSetup from "../components/TokenSetup";
@@ -29,6 +34,7 @@ type SettingsFormProps = {
   nightscoutUrl: string;
   nightscoutToken: string;
   glucoseUnit: BloodGlucoseUnits;
+  defaultPointers: DiabetesPointer[];
   onSubmit: (data: SettingsFormData) => {};
 };
 
@@ -48,6 +54,11 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: theme.spacing(4),
     },
   },
+  checkboxArray: {
+    "& label": {
+      textTransform: "capitalize",
+    },
+  },
 }));
 
 export const returnHandleOpenTokenDialog = (
@@ -63,6 +74,7 @@ export default function SettingsForm({
   nightscoutUrl,
   nightscoutToken,
   glucoseUnit,
+  defaultPointers,
   onSubmit,
 }: SettingsFormProps) {
   const classes = useStyles();
@@ -70,25 +82,34 @@ export default function SettingsForm({
   const {
     control,
     formState,
+    getValues,
     handleSubmit,
     register,
     reset: resetForm,
   } = useForm<SettingsFormData>();
   const { t } = useTranslation();
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
+  const [formHasSubmittedSuccess, setFormHasSubmittedSuccess] = useState(false);
   const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
 
   const canEditFields = !formState.isSubmitting;
   const canSubmitForm = formState.isDirty && !formState.isSubmitting;
 
-  const glucoseUnits = Object.entries(BloodGlucoseUnits).map(([k, v]) => {
+  const glucoseUnits = Object.entries(BloodGlucoseUnits).map(([_, v]) => {
     return { label: v, value: v };
   });
+
+  const pointers = Object.entries(DiabetesPointer).map(
+    ([enumCase, enumValue]) => {
+      return { label: t(`diabetesMetrics.${enumCase}`), value: enumValue };
+    }
+  );
 
   const onFormSubmit = async (data: SettingsFormData) => {
     try {
       setFormHasSubmissionError(false);
       await onSubmit(data);
+      setFormHasSubmittedSuccess(true);
       formReset();
     } catch (e) {
       setFormHasSubmissionError(true);
@@ -101,7 +122,15 @@ export default function SettingsForm({
   };
 
   const handleFormAlertClose = () => {
-    formReset();
+    setFormHasSubmittedSuccess(false);
+  };
+
+  const handleCheck = (newPointer: DiabetesPointer) => {
+    const { defaultPointers } = getValues();
+    const newPointers = defaultPointers?.includes(newPointer)
+      ? defaultPointers?.filter((pointer) => pointer !== newPointer)
+      : [...defaultPointers, newPointer];
+    return newPointers;
   };
 
   const TokenDialog = (
@@ -135,6 +164,42 @@ export default function SettingsForm({
       onSubmit={handleSubmit(onFormSubmit)}
       data-testid="settings-form"
     >
+      <FormControl
+        component="fieldset"
+        data-testid="settings-form-fieldset-metrics"
+      >
+        <FormLabel component="legend">
+          {t("settings.form.labels.defaultPointers")}
+        </FormLabel>
+        <FormGroup row className={classes.checkboxArray}>
+          <Controller
+            control={control}
+            name="defaultPointers"
+            defaultValue={defaultPointers}
+            // @ts-ignore
+            render={(props) => {
+              return pointers.map((pointer) => (
+                <FormControlLabel
+                  disabled={!canEditFields}
+                  control={
+                    <Checkbox
+                      onChange={() =>
+                        props.onChange(handleCheck(pointer.value))
+                      }
+                      checked={props.value.includes(pointer.value)}
+                    />
+                  }
+                  key={pointer.value}
+                  label={pointer.value}
+                />
+              ));
+            }}
+          />
+        </FormGroup>
+        <FormHelperText>
+          {t("settings.form.helperText.defaultPointers")}
+        </FormHelperText>
+      </FormControl>
       <TextField
         defaultValue={nightscoutUrl}
         disabled={!canEditFields}
@@ -239,7 +304,7 @@ export default function SettingsForm({
       <Snackbar
         autoHideDuration={ALERT_AUTOHIDE_DURATION}
         onClose={handleFormAlertClose}
-        open={formState.isSubmitted}
+        open={formHasSubmittedSuccess}
       >
         <SettingsFormAlert
           data-testid="settings-form-submitted"

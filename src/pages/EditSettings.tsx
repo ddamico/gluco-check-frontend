@@ -6,6 +6,7 @@ import { DEFAULT_USER_DOCUMENT } from "../lib/firebase-helpers";
 import SettingsForm from "../components/SettingsForm";
 import { SettingsFormData } from "../lib/types";
 import {
+  FIRESTORE_FIELD_PATH_DEFAULT_POINTERS,
   FIRESTORE_FIELD_PATH_GLUCOSE_UNITS,
   FIRESTORE_FIELD_PATH_NIGHTSCOUT_TOKEN,
   FIRESTORE_FIELD_PATH_NIGHTSCOUT_URL,
@@ -51,6 +52,8 @@ export default function EditSettings() {
     document?.get(FIRESTORE_FIELD_PATH_NIGHTSCOUT_URL) ?? "";
   const nightscoutToken =
     document?.get(FIRESTORE_FIELD_PATH_NIGHTSCOUT_TOKEN) ?? "";
+  const defaultPointers =
+    document?.get(FIRESTORE_FIELD_PATH_DEFAULT_POINTERS) ?? [];
   const glucoseUnit = document?.get(FIRESTORE_FIELD_PATH_GLUCOSE_UNITS) ?? "";
 
   return (
@@ -70,6 +73,7 @@ export default function EditSettings() {
           nightscoutUrl={nightscoutUrl}
           nightscoutToken={nightscoutToken}
           glucoseUnit={glucoseUnit}
+          defaultPointers={defaultPointers}
           onSubmit={returnHandleSettingsSave(userDocumentPath)}
         />
       )}

@@ -1,14 +1,8 @@
 import React from "react";
-import {
-  cleanup,
-  render,
-  waitFor,
-  screen,
-  prettyDOM,
-} from "@testing-library/react";
+import { cleanup, render, waitFor, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe, toHaveNoViolations } from "jest-axe";
-import { BloodGlucoseUnits } from "../lib/enums";
+import { BloodGlucoseUnits, DiabetesPointer } from "../lib/enums";
 import SettingsForm, { returnHandleOpenTokenDialog } from "./SettingsForm";
 
 expect.extend(toHaveNoViolations);
@@ -35,6 +29,7 @@ describe("SettingsForm component", () => {
   const mockNsUrl = "https://example.com";
   const mockNsToken = "token123";
   const mockGlucoseUnits = BloodGlucoseUnits.mgdl;
+  const mockDefaultPointers = [DiabetesPointer.BloodSugar];
   const mockOnSubmit = jest.fn();
 
   it("renders the component", async () => {
@@ -43,6 +38,7 @@ describe("SettingsForm component", () => {
         nightscoutToken={mockNsToken}
         nightscoutUrl={mockNsUrl}
         glucoseUnit={mockGlucoseUnits}
+        defaultPointers={mockDefaultPointers}
         onSubmit={mockOnSubmit}
       />
     );
@@ -74,12 +70,22 @@ describe("SettingsForm component", () => {
         nightscoutToken={mockNsToken}
         nightscoutUrl={mockNsUrl}
         glucoseUnit={mockGlucoseUnits}
+        defaultPointers={mockDefaultPointers}
         onSubmit={mockOnSubmit}
       />
     );
     expect(screen.getByTestId("settings-form")).toBeInTheDocument();
     const submitButton = await screen.findByTestId("settings-form-submit");
     const tokenField = await screen.findByTestId("settings-form-field-token");
+    const checkbox1 = await screen.getByLabelText("everything", {
+      exact: false,
+    });
+    const checkbox2 = await screen.getByLabelText("blood sugar", {
+      exact: false,
+    });
+    await userEvent.click(checkbox1);
+    await userEvent.click(checkbox2);
+
     await userEvent.type(tokenField, "token");
     await waitFor(() => {
       userEvent.click(submitButton);
@@ -100,6 +106,7 @@ describe("SettingsForm component", () => {
         nightscoutToken={mockNsToken}
         nightscoutUrl={mockNsUrl}
         glucoseUnit={mockGlucoseUnits}
+        defaultPointers={mockDefaultPointers}
         onSubmit={mockOnSubmit}
       />
     );
@@ -123,6 +130,7 @@ describe("SettingsForm component", () => {
         nightscoutToken={mockNsToken}
         nightscoutUrl={mockNsUrl}
         glucoseUnit={mockGlucoseUnits}
+        defaultPointers={mockDefaultPointers}
         onSubmit={mockOnSubmit}
       />
     );

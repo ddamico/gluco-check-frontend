@@ -33,11 +33,13 @@
       "labels": {
         "glucoseUnits": "Glucose Eenheden",
         "nightscoutToken": "Nightscout Token",
-        "nightscoutUrl": "Nightscout URL"
+        "nightscoutUrl": "Nightscout URL",
+        "defaultPointers": "[Default Metrics]"
       },
       "helperText": {
         "nightscoutToken": "[Helper text for the token which launches the multi-step wizard]",
-        "nightscoutUrl": "URL van je Nightscout site (zonder '/api')"
+        "nightscoutUrl": "URL van je Nightscout site (zonder '/api')",
+        "defaultPointers": "[Assistant will read these items to you by default]"
       },
       "submitButton": "Instellingen opslaan",
       "submitStatus": {
@@ -52,6 +54,15 @@
     "login": "Aanmelden",
     "logout": "Afmelden",
     "settings": "Instellingen"
+  },
+  "diabetesMetrics": {
+    "Everything": "[everything]",
+    "BloodSugar": "[blood sugar]",
+    "InsulinOnBoard": "[insulin on board]",
+    "CarbsOnBoard": "[carbs on board]",
+    "SensorAge": "[sensor age]",
+    "CannulaAge": "[cannula age]",
+    "PumpBattery": "[pump battery]"
   },
   "tokenDialog": {
     "title": "[Generating a Nightscout token]",
