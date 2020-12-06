@@ -42,7 +42,6 @@ describe("SettingsForm component", () => {
         onSubmit={mockOnSubmit}
       />
     );
-    const submitButton = await screen.findByTestId("settings-form-submit");
     const tokenField = await screen.findByTestId("settings-form-field-token");
     const urlField = await screen.findByTestId("settings-form-field-url");
     const glucoseUnitsSelect = await screen.findByTestId(
@@ -50,7 +49,6 @@ describe("SettingsForm component", () => {
     );
 
     expect(container.firstChild).toMatchSnapshot();
-    expect(submitButton).not.toBeEnabled();
     expect(tokenField).toHaveValue(mockNsToken);
     expect(urlField).toHaveValue(mockNsUrl);
     expect(glucoseUnitsSelect).toHaveValue(mockGlucoseUnits);
