@@ -79,21 +79,15 @@ export default function SettingsForm({
 }: SettingsFormProps) {
   const classes = useStyles();
   // eslint-disable-next-line
-  const {
-    control,
-    formState,
-    getValues,
-    handleSubmit,
-    register,
-    reset: resetForm,
-  } = useForm<SettingsFormData>();
+  const { control, formState, getValues, handleSubmit, register } = useForm<
+    SettingsFormData
+  >();
   const { t } = useTranslation();
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
   const [formHasSubmittedSuccess, setFormHasSubmittedSuccess] = useState(false);
   const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
 
   const canEditFields = !formState.isSubmitting;
-  const canSubmitForm = formState.isDirty && !formState.isSubmitting;
 
   const glucoseUnits = Object.entries(BloodGlucoseUnits).map(([_, v]) => {
     return { label: v, value: v };
@@ -118,7 +112,7 @@ export default function SettingsForm({
 
   const formReset = () => {
     setFormHasSubmissionError(false);
-    resetForm();
+    setFormHasSubmittedSuccess(false);
   };
 
   const handleFormAlertClose = () => {
@@ -275,7 +269,6 @@ export default function SettingsForm({
         <Button
           color="primary"
           data-testid="settings-form-submit"
-          disabled={!canSubmitForm}
           type="submit"
           variant="contained"
         >
