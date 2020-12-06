@@ -23,7 +23,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
       <legend
         class="MuiFormLabel-root"
       >
-        settings.form.labels.defaultPointers
+        settings.form.labels.defaultMetrics
       </legend>
       <div
         class="MuiFormGroup-root makeStyles-checkboxArray-4 MuiFormGroup-row"
@@ -291,7 +291,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
       <p
         class="MuiFormHelperText-root"
       >
-        settings.form.helperText.defaultPointers
+        settings.form.helperText.defaultMetrics
       </p>
     </fieldset>
     <div

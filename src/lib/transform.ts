@@ -4,7 +4,7 @@ export const userSettingsFormDataToUserSettingsDocument = (
   data: SettingsFormData
 ): Partial<GlucoCheckUserDocument> => {
   return {
-    defaultPointers: data.defaultPointers,
+    defaultMetrics: data.defaultMetrics,
     glucoseUnit: data.glucoseUnit,
     nightscout: {
       token: data.nightscoutToken,
