@@ -93,6 +93,8 @@ export default function SettingsForm({
     return { label: v, value: v };
   });
 
+  let everythingIsSelected = defaultMetrics.includes(DiabetesMetric.Everything);
+
   const metrics = Object.entries(DiabetesMetric).map(
     ([enumCase, enumValue]) => {
       return { label: t(`diabetesMetrics.${enumCase}`), value: enumValue };
@@ -121,9 +123,18 @@ export default function SettingsForm({
 
   const handleCheck = (newMetric: DiabetesMetric) => {
     const { defaultMetrics } = getValues();
-    const newMetrics = defaultMetrics?.includes(newMetric)
+    let newMetrics = defaultMetrics?.includes(newMetric)
       ? defaultMetrics?.filter((metric) => metric !== newMetric)
       : [...defaultMetrics, newMetric];
+
+    // if user is selecting everything, then return ONLY everything
+    // and set everything selected flag to true
+    if (newMetrics.includes(DiabetesMetric.Everything)) {
+      newMetrics = [DiabetesMetric.Everything];
+      everythingIsSelected = true;
+    } else {
+      everythingIsSelected = false;
+    }
     return newMetrics;
   };
 
@@ -174,7 +185,11 @@ export default function SettingsForm({
             render={(props) => {
               return metrics.map((metric) => (
                 <FormControlLabel
-                  disabled={!canEditFields}
+                  disabled={
+                    !canEditFields ||
+                    (everythingIsSelected &&
+                      metric.value !== DiabetesMetric.Everything)
+                  }
                   control={
                     <Checkbox
                       onChange={() => props.onChange(handleCheck(metric.value))}
