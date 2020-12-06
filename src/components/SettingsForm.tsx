@@ -118,16 +118,35 @@ export default function SettingsForm({
     formReset();
   };
 
+  let lastKnownMetricsState: DiabetesMetric[];
+
   const handleCheck = (newMetric: DiabetesMetric) => {
     const { defaultMetrics } = getValues();
-    let newMetrics = defaultMetrics?.includes(newMetric)
-      ? defaultMetrics?.filter((metric) => metric !== newMetric)
-      : [...defaultMetrics, newMetric];
+    const isTogglingOn = !defaultMetrics?.includes(newMetric);
 
-    // if user is selecting everything, then return ONLY everything
-    if (newMetrics.includes(DiabetesMetric.Everything)) {
-      newMetrics = [DiabetesMetric.Everything];
+    let newMetrics: DiabetesMetric[];
+
+    if (newMetric === DiabetesMetric.Everything) {
+      if (isTogglingOn) {
+        // if we are toggling everything on, tuck
+        // the current state away so that we can
+        // restore it if everything is unchecked,
+        // and then check ONLY everything
+        lastKnownMetricsState = defaultMetrics;
+        newMetrics = [newMetric];
+      } else {
+        // if we are toggling everything off, try
+        // to return to last known state
+        newMetrics = lastKnownMetricsState ?? [];
+      }
+    } else {
+      // if we are not chaning everything, then just
+      // do normal check/uncheck behaviour
+      newMetrics = isTogglingOn
+        ? [...defaultMetrics, newMetric]
+        : defaultMetrics?.filter((metric) => metric !== newMetric);
     }
+
     return newMetrics;
   };
 
