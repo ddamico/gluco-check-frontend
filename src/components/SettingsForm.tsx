@@ -104,7 +104,6 @@ export default function SettingsForm({
       setFormHasSubmissionError(false);
       await onSubmit(data);
       setFormHasSubmittedSuccess(true);
-      formReset();
     } catch (e) {
       setFormHasSubmissionError(true);
     }
@@ -116,7 +115,7 @@ export default function SettingsForm({
   };
 
   const handleFormAlertClose = () => {
-    setFormHasSubmittedSuccess(false);
+    formReset();
   };
 
   const handleCheck = (newMetric: DiabetesMetric) => {
