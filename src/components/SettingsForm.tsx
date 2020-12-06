@@ -93,8 +93,6 @@ export default function SettingsForm({
     return { label: v, value: v };
   });
 
-  let everythingIsSelected = defaultMetrics.includes(DiabetesMetric.Everything);
-
   const metrics = Object.entries(DiabetesMetric).map(
     ([enumCase, enumValue]) => {
       return { label: t(`diabetesMetrics.${enumCase}`), value: enumValue };
@@ -128,12 +126,8 @@ export default function SettingsForm({
       : [...defaultMetrics, newMetric];
 
     // if user is selecting everything, then return ONLY everything
-    // and set everything selected flag to true
     if (newMetrics.includes(DiabetesMetric.Everything)) {
       newMetrics = [DiabetesMetric.Everything];
-      everythingIsSelected = true;
-    } else {
-      everythingIsSelected = false;
     }
     return newMetrics;
   };
@@ -183,6 +177,11 @@ export default function SettingsForm({
             defaultValue={defaultMetrics}
             // @ts-ignore
             render={(props) => {
+              const { defaultMetrics: formStateDefaultMetrics } = getValues();
+              const everythingIsSelected = formStateDefaultMetrics
+                ? formStateDefaultMetrics.includes(DiabetesMetric.Everything)
+                : defaultMetrics.includes(DiabetesMetric.Everything);
+
               return metrics.map((metric) => (
                 <FormControlLabel
                   disabled={
