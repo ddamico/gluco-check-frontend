@@ -7,7 +7,7 @@ export enum BloodGlucoseUnits {
 // pull this in from gluco-check-core instead
 // These are mapped to translations directly by case name,
 // additions or changes here need to be reflected there
-export enum DiabetesPointer {
+export enum DiabetesMetric {
   Everything = "everything",
   BloodSugar = "blood sugar",
   InsulinOnBoard = "insulin on board",

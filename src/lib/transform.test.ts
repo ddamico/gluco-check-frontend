@@ -8,7 +8,7 @@ describe("userSettingsFormDataToUserSettingsDocument", () => {
     );
     expect(resultDocument).toMatchInlineSnapshot(`
       Object {
-        "defaultPointers": Array [
+        "defaultMetrics": Array [
           "blood sugar",
         ],
         "glucoseUnit": "mg/dl",

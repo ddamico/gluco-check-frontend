@@ -25,7 +25,7 @@ import { Close, Lock } from "@material-ui/icons";
 import MuiAlert from "@material-ui/lab/Alert";
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { BloodGlucoseUnits, DiabetesPointer } from "../lib/enums";
+import { BloodGlucoseUnits, DiabetesMetric } from "../lib/enums";
 import { SettingsFormData } from "../lib/types";
 import { ALERT_AUTOHIDE_DURATION } from "../lib/constants";
 import TokenSetup from "../components/TokenSetup";
@@ -34,7 +34,7 @@ type SettingsFormProps = {
   nightscoutUrl: string;
   nightscoutToken: string;
   glucoseUnit: BloodGlucoseUnits;
-  defaultPointers: DiabetesPointer[];
+  defaultMetrics: DiabetesMetric[];
   onSubmit: (data: SettingsFormData) => {};
 };
 
@@ -74,7 +74,7 @@ export default function SettingsForm({
   nightscoutUrl,
   nightscoutToken,
   glucoseUnit,
-  defaultPointers,
+  defaultMetrics,
   onSubmit,
 }: SettingsFormProps) {
   const classes = useStyles();
@@ -99,7 +99,7 @@ export default function SettingsForm({
     return { label: v, value: v };
   });
 
-  const pointers = Object.entries(DiabetesPointer).map(
+  const metrics = Object.entries(DiabetesMetric).map(
     ([enumCase, enumValue]) => {
       return { label: t(`diabetesMetrics.${enumCase}`), value: enumValue };
     }
@@ -125,12 +125,12 @@ export default function SettingsForm({
     setFormHasSubmittedSuccess(false);
   };
 
-  const handleCheck = (newPointer: DiabetesPointer) => {
-    const { defaultPointers } = getValues();
-    const newPointers = defaultPointers?.includes(newPointer)
-      ? defaultPointers?.filter((pointer) => pointer !== newPointer)
-      : [...defaultPointers, newPointer];
-    return newPointers;
+  const handleCheck = (newMetric: DiabetesMetric) => {
+    const { defaultMetrics } = getValues();
+    const newMetrics = defaultMetrics?.includes(newMetric)
+      ? defaultMetrics?.filter((metric) => metric !== newMetric)
+      : [...defaultMetrics, newMetric];
+    return newMetrics;
   };
 
   const TokenDialog = (
@@ -169,35 +169,33 @@ export default function SettingsForm({
         data-testid="settings-form-fieldset-metrics"
       >
         <FormLabel component="legend">
-          {t("settings.form.labels.defaultPointers")}
+          {t("settings.form.labels.defaultMetrics")}
         </FormLabel>
         <FormGroup row className={classes.checkboxArray}>
           <Controller
             control={control}
-            name="defaultPointers"
-            defaultValue={defaultPointers}
+            name="defaultMetrics"
+            defaultValue={defaultMetrics}
             // @ts-ignore
             render={(props) => {
-              return pointers.map((pointer) => (
+              return metrics.map((metric) => (
                 <FormControlLabel
                   disabled={!canEditFields}
                   control={
                     <Checkbox
-                      onChange={() =>
-                        props.onChange(handleCheck(pointer.value))
-                      }
-                      checked={props.value.includes(pointer.value)}
+                      onChange={() => props.onChange(handleCheck(metric.value))}
+                      checked={props.value.includes(metric.value)}
                     />
                   }
-                  key={pointer.value}
-                  label={pointer.value}
+                  key={metric.value}
+                  label={metric.value}
                 />
               ));
             }}
           />
         </FormGroup>
         <FormHelperText>
-          {t("settings.form.helperText.defaultPointers")}
+          {t("settings.form.helperText.defaultMetrics")}
         </FormHelperText>
       </FormControl>
       <TextField

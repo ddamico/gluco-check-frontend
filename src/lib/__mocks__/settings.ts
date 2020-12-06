@@ -1,8 +1,8 @@
-import { BloodGlucoseUnits, DiabetesPointer } from "../enums";
+import { BloodGlucoseUnits, DiabetesMetric } from "../enums";
 import { SettingsFormData } from "../types";
 
 export const mockFormData: SettingsFormData = {
-  defaultPointers: [DiabetesPointer.BloodSugar],
+  defaultMetrics: [DiabetesMetric.BloodSugar],
   nightscoutToken: "I am a token",
   nightscoutUrl: "https://example.com",
   glucoseUnit: BloodGlucoseUnits.mgdl,

@@ -34,12 +34,12 @@
         "glucoseUnits": "Glucose Eenheden",
         "nightscoutToken": "Nightscout Token",
         "nightscoutUrl": "Nightscout URL",
-        "defaultPointers": "[Default Metrics]"
+        "defaultMetrics": "[Default Metrics]"
       },
       "helperText": {
         "nightscoutToken": "[Helper text for the token which launches the multi-step wizard]",
         "nightscoutUrl": "URL van je Nightscout site (zonder '/api')",
-        "defaultPointers": "[Assistant will read these items to you by default]"
+        "defaultMetrics": "[Assistant will read these items to you by default]"
       },
       "submitButton": "Instellingen opslaan",
       "submitStatus": {
