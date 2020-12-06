@@ -23,10 +23,13 @@ export const returnHandleSettingsSave = (userDocumentPath: string) => {
   return async (data: SettingsFormData) => {
     const formDataAsDocument = userSettingsFormDataToUserSettingsDocument(data);
     try {
-      await firestore.doc(userDocumentPath).set({
-        ...DEFAULT_USER_DOCUMENT,
-        ...formDataAsDocument,
-      });
+      await firestore.doc(userDocumentPath).set(
+        {
+          ...DEFAULT_USER_DOCUMENT,
+          ...formDataAsDocument,
+        },
+        FIRESTORE_DEFAULT_SET_OPTIONS
+      );
     } catch (e) {
       throw new Error(`error saving document ${e.message}`);
     }
