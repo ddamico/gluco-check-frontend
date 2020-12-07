@@ -4,6 +4,14 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
+        "source": "/api/v1/validate-nightscout",
+        "function": "validateNightscoutUrl"
+      },
+      {
+        "source": "/api/v1/handle-conversation",
+        "function": "conversation"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
