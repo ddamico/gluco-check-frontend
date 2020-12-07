@@ -126,7 +126,7 @@ export default function SettingsForm({
 
     // if user is selecting everything, then return ONLY everything
     if (newMetrics.includes(DiabetesMetric.Everything)) {
-      newMetrics = [DiabetesMetric.Everything];
+      newMetrics = Object.values(DiabetesMetric);
     }
     return newMetrics;
   };
@@ -191,7 +191,10 @@ export default function SettingsForm({
                   control={
                     <Checkbox
                       onChange={() => props.onChange(handleCheck(metric.value))}
-                      checked={props.value.includes(metric.value)}
+                      checked={
+                        everythingIsSelected ||
+                        props.value.includes(metric.value)
+                      }
                     />
                   }
                   key={metric.value}

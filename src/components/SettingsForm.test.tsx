@@ -55,7 +55,7 @@ describe("SettingsForm component", () => {
   });
 
   it("submits the form and saves settings", async () => {
-    expect.assertions(10);
+    expect.assertions(12);
     mockOnSubmit.mockImplementationOnce(async (data) => {
       expect(data.nightscoutUrl).toBe(mockNsUrl);
       expect(data.glucoseUnit).toBe(mockGlucoseUnits);
@@ -87,7 +87,9 @@ describe("SettingsForm component", () => {
 
     await userEvent.click(checkboxEverything);
     expect(checkbox1).toBeDisabled();
+    expect(checkbox1).toBeChecked();
     expect(checkbox2).toBeDisabled();
+    expect(checkbox2).toBeChecked();
 
     await userEvent.click(checkboxEverything);
     expect(checkbox1).not.toBeDisabled();
