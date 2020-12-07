@@ -55,7 +55,7 @@ describe("SettingsForm component", () => {
   });
 
   it("submits the form and saves settings", async () => {
-    expect.assertions(6);
+    expect.assertions(12);
     mockOnSubmit.mockImplementationOnce(async (data) => {
       expect(data.nightscoutUrl).toBe(mockNsUrl);
       expect(data.glucoseUnit).toBe(mockGlucoseUnits);
@@ -75,12 +75,26 @@ describe("SettingsForm component", () => {
     expect(screen.getByTestId("settings-form")).toBeInTheDocument();
     const submitButton = await screen.findByTestId("settings-form-submit");
     const tokenField = await screen.findByTestId("settings-form-field-token");
-    const checkbox1 = await screen.getByLabelText("everything", {
+    const checkboxEverything = await screen.getByLabelText("everything", {
+      exact: false,
+    });
+    const checkbox1 = await screen.getByLabelText("insulin on board", {
       exact: false,
     });
     const checkbox2 = await screen.getByLabelText("blood sugar", {
       exact: false,
     });
+
+    await userEvent.click(checkboxEverything);
+    expect(checkbox1).toBeDisabled();
+    expect(checkbox1).toBeChecked();
+    expect(checkbox2).toBeDisabled();
+    expect(checkbox2).toBeChecked();
+
+    await userEvent.click(checkboxEverything);
+    expect(checkbox1).not.toBeDisabled();
+    expect(checkbox2).not.toBeDisabled();
+
     await userEvent.click(checkbox1);
     await userEvent.click(checkbox2);
 

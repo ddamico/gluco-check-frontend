@@ -104,7 +104,6 @@ export default function SettingsForm({
       setFormHasSubmissionError(false);
       await onSubmit(data);
       setFormHasSubmittedSuccess(true);
-      formReset();
     } catch (e) {
       setFormHasSubmissionError(true);
     }
@@ -116,14 +115,19 @@ export default function SettingsForm({
   };
 
   const handleFormAlertClose = () => {
-    setFormHasSubmittedSuccess(false);
+    formReset();
   };
 
   const handleCheck = (newMetric: DiabetesMetric) => {
     const { defaultMetrics } = getValues();
-    const newMetrics = defaultMetrics?.includes(newMetric)
+    let newMetrics = defaultMetrics?.includes(newMetric)
       ? defaultMetrics?.filter((metric) => metric !== newMetric)
       : [...defaultMetrics, newMetric];
+
+    // if user is selecting everything, then return ONLY everything
+    if (newMetrics.includes(DiabetesMetric.Everything)) {
+      newMetrics = Object.values(DiabetesMetric);
+    }
     return newMetrics;
   };
 
@@ -172,13 +176,25 @@ export default function SettingsForm({
             defaultValue={defaultMetrics}
             // @ts-ignore
             render={(props) => {
+              const { defaultMetrics: formStateDefaultMetrics } = getValues();
+              const everythingIsSelected = formStateDefaultMetrics
+                ? formStateDefaultMetrics.includes(DiabetesMetric.Everything)
+                : defaultMetrics.includes(DiabetesMetric.Everything);
+
               return metrics.map((metric) => (
                 <FormControlLabel
-                  disabled={!canEditFields}
+                  disabled={
+                    !canEditFields ||
+                    (everythingIsSelected &&
+                      metric.value !== DiabetesMetric.Everything)
+                  }
                   control={
                     <Checkbox
                       onChange={() => props.onChange(handleCheck(metric.value))}
-                      checked={props.value.includes(metric.value)}
+                      checked={
+                        everythingIsSelected ||
+                        props.value.includes(metric.value)
+                      }
                     />
                   }
                   key={metric.value}
