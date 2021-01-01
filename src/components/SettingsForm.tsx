@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -27,8 +27,12 @@ import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { BloodGlucoseUnits, DiabetesMetric } from "../lib/enums";
 import { SettingsFormData } from "../lib/types";
-import { ALERT_AUTOHIDE_DURATION } from "../lib/constants";
+import {
+  ALERT_AUTOHIDE_DURATION,
+  NIGHTSCOUT_VALIDATION_ENDPOINT_URL,
+} from "../lib/constants";
 import TokenSetup from "../components/TokenSetup";
+import { NightscoutValidationClient } from "../lib/NightscoutValidationClient";
 
 type SettingsFormProps = {
   nightscoutUrl: string;
@@ -70,6 +74,26 @@ export const returnHandleOpenTokenDialog = (
   };
 };
 
+const useNightscoutValidator = (nsvClient: NightscoutValidationClient) =>
+  useCallback(
+    async (data) => {
+      try {
+        const validationResponse = await nsvClient.fetchValidationStatus(
+          data.nightscoutUrl,
+          data.nightscoutToken
+        );
+        console.log(validationResponse);
+      } catch (errors) {
+        console.log(errors);
+      }
+      return {
+        values: {},
+        errors: {},
+      };
+    },
+    [nsvClient]
+  );
+
 export default function SettingsForm({
   nightscoutUrl,
   nightscoutToken,
@@ -78,14 +102,31 @@ export default function SettingsForm({
   onSubmit,
 }: SettingsFormProps) {
   const classes = useStyles();
+
+  // attempting to do something similar to https://react-hook-form.com/advanced-usage/#CustomHookwithResolver
+  const nsvClient = new NightscoutValidationClient({
+    endpointUrl: NIGHTSCOUT_VALIDATION_ENDPOINT_URL,
+  });
+  const resolver = useNightscoutValidator(nsvClient);
+
   // eslint-disable-next-line
-  const { control, formState, getValues, handleSubmit, register } = useForm<
-    SettingsFormData
-  >();
+  const {
+    control,
+    formState,
+    getValues,
+    handleSubmit,
+    register,
+    setError,
+    errors,
+  } = useForm<SettingsFormData>({ resolver });
   const { t } = useTranslation();
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
   const [formHasSubmittedSuccess, setFormHasSubmittedSuccess] = useState(false);
   const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
+
+  // nightscout validation state
+  const [nightscoutUrlIsValid, setNightscoutUrlIsValid] = useState(false);
+  const [nightscoutTokenIsValid, setNightscoutTokenIsValid] = useState(false);
 
   const canEditFields = !formState.isSubmitting;
 
@@ -212,7 +253,6 @@ export default function SettingsForm({
         defaultValue={nightscoutUrl}
         disabled={!canEditFields}
         fullWidth={true}
-        helperText={t("settings.form.helperText.nightscoutUrl")}
         id="settings-form-field-url"
         inputRef={register}
         InputProps={{
@@ -222,6 +262,8 @@ export default function SettingsForm({
         }}
         label={t("settings.form.labels.nightscoutUrl")}
         name="nightscoutUrl"
+        error
+        helperText="URL does not point to a valid Nightscout site"
       />
       <TextField
         defaultValue={nightscoutToken}
