@@ -21,6 +21,7 @@ import {
   Snackbar,
   TextField,
 } from "@material-ui/core";
+import semver from "semver";
 import { Close, Lock } from "@material-ui/icons";
 import MuiAlert from "@material-ui/lab/Alert";
 import { useForm, Controller, DeepMap, FieldError } from "react-hook-form";
@@ -79,9 +80,9 @@ export const returnHandleOpenTokenDialog = (
   };
 };
 
-// const nsvClient = new NightscoutValidationClient({
-//   endpointUrl: NIGHTSCOUT_VALIDATION_ENDPOINT_URL,
-// });
+const nsvClient = new NightscoutValidationClient({
+  endpointUrl: NIGHTSCOUT_VALIDATION_ENDPOINT_URL,
+});
 
 export default function SettingsForm({
   nightscoutUrl,
@@ -105,8 +106,12 @@ export default function SettingsForm({
     mode: "onBlur",
     // TODO: extract
     resolver: async (data) => {
-      // TODO: switch to actual api request
-      const nsvResponse = MOCK_NSV_RESPONSE_NON_NS_URL;
+      const nsvResponse = await nsvClient.fetchValidationStatus(
+        data.nightscoutUrl,
+        data.nightscoutToken
+      );
+      // console.log(nsvResponse);
+      // const nsvResponse = MOCK_NSV_RESPONSE_NON_NS_URL;
       let errors: DeepMap<SettingsFormData, FieldError> = {};
       if (!nsvResponse.url.pointsToNightscout) {
         errors.nightscoutUrl = {
@@ -127,9 +132,32 @@ export default function SettingsForm({
             message: "Chosen unit differs from your Nightscout site's units",
           };
         }
-        // TODO: if version less than minimum supported
+        if (
+          semver.lt(
+            nsvResponse.nightscout.version,
+            nsvResponse.nightscout.minSupportedVersion
+          )
+        ) {
+          // TODO: this especially will require some funny business to localize
+          errors.nightscoutUrl = {
+            type: "validation",
+            message: `Your Nightscout site requires an upgrade to work with Gluco Check, please update to at least ${nsvResponse?.nightscout?.minSupportedVersion}`,
+          };
+        }
       }
-      // TODO: if you have selected metrics not supported by your site
+
+      const userHasSelectedUnsupportedMetrics = true;
+      // const userHasSelectedUnsupportedMetrics = data.defaultMetrics?
+      //   .map((metric) => nsvResponse.discoveredMetrics.includes(metric))?
+      //   .includes(false);
+      if (userHasSelectedUnsupportedMetrics === true) {
+        errors.defaultMetrics = [
+          {
+            type: "validation",
+            message: `Some selected metrics are not supported by your Nightscout site, and/or require a valid token. To enable full support, please update Nightscout to at least ${nsvResponse?.nightscout?.minSupportedVersion} and enter a valid token`,
+          },
+        ];
+      }
 
       // TODO: verify we do not block submission on errors
       return {
@@ -354,6 +382,7 @@ export default function SettingsForm({
               ))}
             </Select>
           }
+          error={!!errors.glucoseUnit}
         />
       </FormControl>
 

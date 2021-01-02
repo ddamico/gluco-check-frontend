@@ -3,6 +3,16 @@ export enum BloodGlucoseUnit {
   mmoll = "mmol/L",
 }
 
+export enum NightscoutBloodGlucoseUnit {
+  mgdl = "mgdl",
+  mmol = "mmol"
+}
+
+export const NightscoutBloodGlucoseUnitMapping = {
+  [NightscoutBloodGlucoseUnit.mgdl]: BloodGlucoseUnit.mgdl,
+  [NightscoutBloodGlucoseUnit.mmol]: BloodGlucoseUnit.mmoll
+}
+
 // @TODO: once this repo is properly part of the workspace,
 // pull this in from gluco-check-core instead
 // These are mapped to translations directly by case name,

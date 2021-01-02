@@ -36,7 +36,7 @@ export class NightscoutValidationClient {
       headers,
     });
     if (this.validateResponse(response)) {
-      return response;
+      return await response.json();
     }
     throw new Error("Validation endpoint returned invalid response");
   }
