@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -23,7 +23,7 @@ import {
 } from "@material-ui/core";
 import { Close, Lock } from "@material-ui/icons";
 import MuiAlert from "@material-ui/lab/Alert";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, DeepMap, FieldError } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { BloodGlucoseUnit, DiabetesMetric } from "../lib/enums";
 import { SettingsFormData } from "../lib/types";
@@ -33,7 +33,11 @@ import {
 } from "../lib/constants";
 import TokenSetup from "../components/TokenSetup";
 import { NightscoutValidationClient } from "../lib/NightscoutValidationClient";
-import { MOCK_VALIDATION_ENDPOINT_RESPONSE_VALID } from "../lib/__mocks__/gluco-check.ts";
+import {
+  MOCK_NSV_RESPONSE_VALID,
+  MOCK_NSV_RESPONSE_NON_NS_URL,
+  MOCK_NSV_RESPONSE_INVALID_TOKEN,
+} from "../lib/__mocks__/gluco-check";
 
 type SettingsFormProps = {
   nightscoutUrl: string;
@@ -75,25 +79,9 @@ export const returnHandleOpenTokenDialog = (
   };
 };
 
-const useNightscoutValidator = (nsvClient: NightscoutValidationClient) =>
-  useCallback(
-    async (data) => {
-      try {
-        const validationResponse = await nsvClient.fetchValidationStatus(
-          data.nightscoutUrl,
-          data.nightscoutToken
-        );
-        console.log(validationResponse);
-      } catch (errors) {
-        console.log(errors);
-      }
-      return {
-        values: {},
-        errors: {},
-      };
-    },
-    [nsvClient]
-  );
+// const nsvClient = new NightscoutValidationClient({
+//   endpointUrl: NIGHTSCOUT_VALIDATION_ENDPOINT_URL,
+// });
 
 export default function SettingsForm({
   nightscoutUrl,
@@ -104,24 +92,58 @@ export default function SettingsForm({
 }: SettingsFormProps) {
   const classes = useStyles();
 
-  // attempting to do something similar to https://react-hook-form.com/advanced-usage/#CustomHookwithResolver
-  const nsvClient = new NightscoutValidationClient({
-    endpointUrl: NIGHTSCOUT_VALIDATION_ENDPOINT_URL,
-  });
-  const resolver = useNightscoutValidator(nsvClient);
-
-  const nightscoutValidationStatus = MOCK_VALIDATION_ENDPOINT_RESPONSE_VALID;
-
   // eslint-disable-next-line
   const {
     control,
+    errors,
     formState,
     getValues,
     handleSubmit,
     register,
-    setError,
-    errors,
-  } = useForm<SettingsFormData>({ resolver });
+    trigger,
+  } = useForm<SettingsFormData>({
+    mode: "onBlur",
+    // TODO: extract
+    resolver: async (data) => {
+      // TODO: switch to actual api request
+      const nsvResponse = MOCK_NSV_RESPONSE_NON_NS_URL;
+      let errors: DeepMap<SettingsFormData, FieldError> = {};
+      if (!nsvResponse.url.pointsToNightscout) {
+        errors.nightscoutUrl = {
+          type: "validation",
+          message: "This URL does not point to a Nightscout site",
+        };
+      }
+      if (nsvResponse.url.pointsToNightscout) {
+        if (!nsvResponse.token.isValid) {
+          errors.nightscoutToken = {
+            type: "validation",
+            message: "Your Nightscout site is not accepting this token",
+          };
+        }
+        if (nsvResponse.nightscout.glucoseUnit !== data.glucoseUnit) {
+          errors.glucoseUnit = {
+            type: "validation",
+            message: "Chosen unit differs from your Nightscout site's units",
+          };
+        }
+        // TODO: if version less than minimum supported
+      }
+      // TODO: if you have selected metrics not supported by your site
+
+      // TODO: verify we do not block submission on errors
+      return {
+        values: {}, // TODO: clarify meaning of values
+        errors,
+      };
+    },
+  });
+
+  // trigger form validation on first component render
+  useEffect(() => {
+    trigger();
+  }, [trigger]);
+
   const { t } = useTranslation();
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
   const [formHasSubmittedSuccess, setFormHasSubmittedSuccess] = useState(false);
@@ -265,25 +287,16 @@ export default function SettingsForm({
         }}
         label={t("settings.form.labels.nightscoutUrl")}
         name="nightscoutUrl"
-        error
-        helperText="URL does not point to a valid Nightscout site"
+        error={!!errors.nightscoutUrl}
+        helperText={
+          errors.nightscoutUrl ? errors.nightscoutUrl.message : undefined
+        }
+        variant={errors.nightscoutUrl ? "outlined" : undefined}
       />
       <TextField
         defaultValue={nightscoutToken}
         disabled={!canEditFields}
         fullWidth={true}
-        helperText={
-          <Link
-            component="button"
-            type="button"
-            onClick={returnHandleOpenTokenDialog(
-              tokenDialogOpen,
-              setTokenDialogOpen
-            )}
-          >
-            {t("settings.form.helperText.nightscoutToken")}
-          </Link>
-        }
         id="settings-form-field-token"
         InputProps={{
           inputProps: {
@@ -298,6 +311,24 @@ export default function SettingsForm({
         inputRef={register}
         label={t("settings.form.labels.nightscoutToken")}
         name="nightscoutToken"
+        error={!!errors.nightscoutToken}
+        helperText={
+          errors.nightscoutToken ? (
+            errors.nightscoutToken.message
+          ) : (
+            <Link
+              component="button"
+              type="button"
+              onClick={returnHandleOpenTokenDialog(
+                tokenDialogOpen,
+                setTokenDialogOpen
+              )}
+            >
+              {t("settings.form.helperText.nightscoutToken")}
+            </Link>
+          )
+        }
+        variant={errors.nightscoutToken ? "outlined" : undefined}
       />
 
       <FormControl fullWidth={true} className="MaterialSelect">

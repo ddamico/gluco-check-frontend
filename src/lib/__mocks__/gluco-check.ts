@@ -26,7 +26,7 @@ export const MOCK_NSV_RESPONSE_VALID: NightscoutValidationEndpointResponse = {
   ],
 };
 
-export const MOCK_NSV_RESPONSE_NON_NS_URL = {
+export const MOCK_NSV_RESPONSE_NON_NS_URL: NightscoutValidationEndpointResponse = {
   url: {
     parsed: "https://example.com",
     isValid: true,
@@ -44,7 +44,7 @@ export const MOCK_NSV_RESPONSE_NON_NS_URL = {
   discoveredMetrics: [],
 };
 
-export const MOCK_NSV_RESPONSE_INVALID_TOKEN = {
+export const MOCK_NSV_RESPONSE_INVALID_TOKEN: NightscoutValidationEndpointResponse = {
   url: {
     parsed: "https://example.com",
     isValid: true,

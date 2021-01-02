@@ -29,9 +29,9 @@ export type NightscoutValidationEndpointResponse = {
     parsed: string;
   };
   nightscout: {
-    glucoseUnit: BloodGlucoseUnit;
+    glucoseUnit: string;
     minSupportedVersion: string;
     version: string;
   };
-  discoveredMetrics: DiabetesMetric[];
+  discoveredMetrics: string[];
 };
