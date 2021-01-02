@@ -1,4 +1,4 @@
-import { DiabetesMetric } from "../enums";
+import { BloodGlucoseUnits, DiabetesMetric } from "../enums";
 import { NightscoutValidationEndpointResponse } from "../types";
 
 export const MOCK_VALIDATION_ENDPOINT_RESPONSE_VALID: NightscoutValidationEndpointResponse = {
@@ -6,9 +6,17 @@ export const MOCK_VALIDATION_ENDPOINT_RESPONSE_VALID: NightscoutValidationEndpoi
     isValid: true,
     parsed: "token123",
   },
+  url: {
+    isValid: true,
+    parsed: "",
+    pointsToNightscout: true
+  },
   nightscout: {
+    glucoseUnit: BloodGlucoseUnits.mmoll,
     minSupportedVersion: "13.0.0",
-    glucoseUnit: [
+    version: "14.0.7",
+  },
+  discoveredMetrics: [
       DiabetesMetric.BloodSugar,
       DiabetesMetric.BloodSugar,
       DiabetesMetric.InsulinOnBoard,
@@ -16,14 +24,5 @@ export const MOCK_VALIDATION_ENDPOINT_RESPONSE_VALID: NightscoutValidationEndpoi
       DiabetesMetric.SensorAge,
       DiabetesMetric.CannulaAge,
       DiabetesMetric.PumpBattery,
-    ],
-    version: "14.0.7",
-  },
-};
-
-export const MOCK_VALIDATION_ENDPOINT_RESPONSE_NOT_VALID: NightscoutValidationEndpointResponse = {
-  token: {
-    isValid: false,
-    parsed: "",
-  },
+    ]
 };
