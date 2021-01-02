@@ -1,4 +1,4 @@
-import { BloodGlucoseUnits, DiabetesMetric } from "../enums";
+import { BloodGlucoseUnit, DiabetesMetric } from "../enums";
 import { NightscoutValidationEndpointResponse } from "../types";
 
 export const MOCK_VALIDATION_ENDPOINT_RESPONSE_VALID: NightscoutValidationEndpointResponse = {
@@ -12,7 +12,7 @@ export const MOCK_VALIDATION_ENDPOINT_RESPONSE_VALID: NightscoutValidationEndpoi
     pointsToNightscout: true
   },
   nightscout: {
-    glucoseUnit: BloodGlucoseUnits.mmoll,
+    glucoseUnit: BloodGlucoseUnit.mmoll,
     minSupportedVersion: "13.0.0",
     version: "14.0.7",
   },

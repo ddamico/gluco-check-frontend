@@ -1,4 +1,4 @@
-import { BloodGlucoseUnits, DiabetesMetric } from "../enums";
+import { BloodGlucoseUnit, DiabetesMetric } from "../enums";
 import { GlucoCheckUserDocument } from "../types";
 
 export const mockUser: Partial<firebase.User> = {
@@ -8,7 +8,7 @@ export const mockUser: Partial<firebase.User> = {
 
 export const mockUserDocument: GlucoCheckUserDocument = {
   defaultMetrics: [DiabetesMetric.BloodSugar],
-  glucoseUnit: BloodGlucoseUnits.mgdl,
+  glucoseUnit: BloodGlucoseUnit.mgdl,
   nightscout: {
     url: "https://example.com",
     token: "nstoken123",

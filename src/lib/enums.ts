@@ -1,4 +1,4 @@
-export enum BloodGlucoseUnits {
+export enum BloodGlucoseUnit {
   mgdl = "mg/dl",
   mmoll = "mmol/L",
 }

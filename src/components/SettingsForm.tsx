@@ -25,7 +25,7 @@ import { Close, Lock } from "@material-ui/icons";
 import MuiAlert from "@material-ui/lab/Alert";
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { BloodGlucoseUnits, DiabetesMetric } from "../lib/enums";
+import { BloodGlucoseUnit, DiabetesMetric } from "../lib/enums";
 import { SettingsFormData } from "../lib/types";
 import {
   ALERT_AUTOHIDE_DURATION,
@@ -33,11 +33,12 @@ import {
 } from "../lib/constants";
 import TokenSetup from "../components/TokenSetup";
 import { NightscoutValidationClient } from "../lib/NightscoutValidationClient";
+import { MOCK_VALIDATION_ENDPOINT_RESPONSE_VALID } from "../lib/__mocks__/gluco-check.ts";
 
 type SettingsFormProps = {
   nightscoutUrl: string;
   nightscoutToken: string;
-  glucoseUnit: BloodGlucoseUnits;
+  glucoseUnit: BloodGlucoseUnit;
   defaultMetrics: DiabetesMetric[];
   onSubmit: (data: SettingsFormData) => {};
 };
@@ -109,6 +110,8 @@ export default function SettingsForm({
   });
   const resolver = useNightscoutValidator(nsvClient);
 
+  const nightscoutValidationStatus = MOCK_VALIDATION_ENDPOINT_RESPONSE_VALID;
+
   // eslint-disable-next-line
   const {
     control,
@@ -130,7 +133,7 @@ export default function SettingsForm({
 
   const canEditFields = !formState.isSubmitting;
 
-  const glucoseUnits = Object.entries(BloodGlucoseUnits).map(([_, v]) => {
+  const glucoseUnits = Object.entries(BloodGlucoseUnit).map(([_, v]) => {
     return { label: v, value: v };
   });
 

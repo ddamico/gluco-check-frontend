@@ -2,7 +2,7 @@ import React from "react";
 import { cleanup, render, waitFor, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe, toHaveNoViolations } from "jest-axe";
-import { BloodGlucoseUnits, DiabetesMetric } from "../lib/enums";
+import { BloodGlucoseUnit, DiabetesMetric } from "../lib/enums";
 import SettingsForm, { returnHandleOpenTokenDialog } from "./SettingsForm";
 
 expect.extend(toHaveNoViolations);
@@ -28,7 +28,7 @@ afterEach(() => {
 describe("SettingsForm component", () => {
   const mockNsUrl = "https://example.com";
   const mockNsToken = "token123";
-  const mockGlucoseUnits = BloodGlucoseUnits.mgdl;
+  const mockGlucoseUnits = BloodGlucoseUnit.mgdl;
   const mockDefaultMetrics = [DiabetesMetric.BloodSugar];
   const mockOnSubmit = jest.fn();
 
