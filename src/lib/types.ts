@@ -24,14 +24,14 @@ export type NightscoutValidationEndpointResponse = {
     parsed: string;
     pointsToNightscout: boolean;
   };
-  token?: {
+  token: {
     isValid: boolean;
     parsed: string;
   };
-  nightscout?: {
+  nightscout: {
     glucoseUnit: BloodGlucoseUnit;
     minSupportedVersion: string;
     version: string;
   };
-  discoveredMetrics?: DiabetesMetric[];
+  discoveredMetrics: DiabetesMetric[];
 };
