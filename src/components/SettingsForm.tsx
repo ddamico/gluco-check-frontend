@@ -372,7 +372,9 @@ export default function SettingsForm({
       />
 
       <FormControl fullWidth={true} className="MaterialSelect">
-        <InputLabel>{t("settings.form.labels.glucoseUnits")}</InputLabel>
+        <InputLabel htmlFor="settings-form-field-bg">
+          {t("settings.form.labels.glucoseUnits")}
+        </InputLabel>
         <Controller
           name="glucoseUnit"
           rules={{ required: true }}
