@@ -68,6 +68,7 @@
     "firestore-jest-mock": "^0.6.0",
     "husky": "^4.3.0",
     "jest-axe": "^4.0.0",
+    "jest-fetch-mock": "^3.0.3",
     "lint-staged": "^10.4.0",
     "mutationobserver-shim": "^0.3.7",
     "prettier": "^2.1.2",

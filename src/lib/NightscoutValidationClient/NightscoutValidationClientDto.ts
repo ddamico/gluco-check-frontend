@@ -40,16 +40,18 @@ export class NightscoutValidationEndpointResponseNightscout {
 }
 
 export class NightscoutValidationEndpointResponse {
-  @Type(() => NightscoutValidationEndpointResponseUrl)
+  @Type(returnNightscoutValidationEndpointResponseUrlType)
+  @ValidateNested()
   url!: NightscoutValidationEndpointResponseUrl;
 
-  @Type(() => NightscoutValidationEndpointResponseToken)
+  @Type(returnNightscoutValidationEndpointResponseTokenType)
+  @ValidateNested()
   token!: NightscoutValidationEndpointResponseToken;
 
-  @Type(() => NightscoutValidationEndpointResponseNightscout)
+  @Type(returnNightscoutValidationEndpointResponseNightscoutType)
+  @ValidateNested()
   nightscout!: NightscoutValidationEndpointResponseNightscout;
 
-  @IsEnum(DiabetesMetric)
-  @ValidateNested({ each: true })
+  @IsEnum(DiabetesMetric, { each: true })
   discoveredMetrics!: DiabetesMetric[];
 }

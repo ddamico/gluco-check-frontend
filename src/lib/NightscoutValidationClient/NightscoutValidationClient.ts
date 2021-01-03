@@ -3,6 +3,8 @@ import { plainToClass } from "class-transformer";
 import { NightscoutValidationClientOptions } from "./types";
 import { NightscoutValidationEndpointResponse } from "./NightscoutValidationClientDto";
 
+export const NSV_PATH = "/api/v1/validate-nightscout";
+
 export class NightscoutValidationClient {
   private endpointUrl: string;
 
@@ -23,7 +25,7 @@ export class NightscoutValidationClient {
 
     let response;
     try {
-      response = await fetch(this.endpointUrl, {
+      response = await fetch(`${this.endpointUrl}${NSV_PATH}`, {
         method: "POST",
         body: requestBodyRaw,
         redirect: "follow",
@@ -39,7 +41,12 @@ export class NightscoutValidationClient {
         NightscoutValidationEndpointResponse,
         responseJson
       );
-      await validate(classifiedResponse);
+
+      const errors = await validate(classifiedResponse);
+      if (errors.length) {
+        throw errors;
+      }
+
       return classifiedResponse;
     } catch (e) {
       throw new Error(`Invalid response from nsv endpoint: ${e}`);
