@@ -271,7 +271,6 @@ export default function SettingsForm({
         component="fieldset"
         data-testid="settings-form-fieldset-metrics"
         error={!!errors.defaultMetrics}
-        variant={errors.defaultMetrics ? "outlined" : undefined}
       >
         <FormLabel component="legend">
           {t("settings.form.labels.defaultMetrics")}
@@ -334,7 +333,6 @@ export default function SettingsForm({
         helperText={
           errors.nightscoutUrl ? errors.nightscoutUrl.message : undefined
         }
-        variant={errors.nightscoutUrl ? "outlined" : undefined}
       />
       <TextField
         defaultValue={nightscoutToken}
@@ -371,7 +369,6 @@ export default function SettingsForm({
             </Link>
           )
         }
-        variant={errors.nightscoutToken ? "outlined" : undefined}
       />
 
       <FormControl fullWidth={true} className="MaterialSelect">
