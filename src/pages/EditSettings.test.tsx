@@ -9,6 +9,8 @@ import { mockUserDocument } from "../lib/__mocks__/firebase";
 import { mockFormData } from "../lib/__mocks__/settings";
 import { FIRESTORE_DEFAULT_SET_OPTIONS } from "../lib/firebase-helpers";
 
+expect.extend(toHaveNoViolations);
+
 // move to __mocks__
 jest.mock("../lib/firebase.ts", () => {
   return {
@@ -20,7 +22,14 @@ jest.mock("../lib/firebase.ts", () => {
   };
 });
 
-expect.extend(toHaveNoViolations);
+jest.mock("../components/SettingsForm.tsx", () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return <div>SettingsForm</div>;
+    },
+  };
+});
 
 afterEach(() => {
   cleanup();

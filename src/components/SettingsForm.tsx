@@ -28,18 +28,9 @@ import { useForm, Controller, DeepMap, FieldError } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { BloodGlucoseUnit, DiabetesMetric } from "../lib/enums";
 import { SettingsFormData } from "../lib/types";
-import {
-  ALERT_AUTOHIDE_DURATION,
-  NIGHTSCOUT_VALIDATION_ENDPOINT_URL,
-} from "../lib/constants";
+import { ALERT_AUTOHIDE_DURATION } from "../lib/constants";
 import TokenSetup from "../components/TokenSetup";
 import { NightscoutValidationClient } from "../lib/NightscoutValidationClient/NightscoutValidationClient";
-import {
-  MOCK_NSV_RESPONSE_VALID,
-  MOCK_NSV_RESPONSE_NON_NS_URL,
-  MOCK_NSV_RESPONSE_INVALID_TOKEN,
-  MOCK_NSV_RESPONSE_NS_NEEDS_UPGRADE,
-} from "../lib/__mocks__/gluco-check";
 import { NightscoutBloodGlucoseUnitMapping } from "../lib/mappings";
 
 type SettingsFormProps = {
@@ -48,6 +39,7 @@ type SettingsFormProps = {
   glucoseUnit: BloodGlucoseUnit;
   defaultMetrics: DiabetesMetric[];
   onSubmit: (data: SettingsFormData) => {};
+  nightscoutValidator?: NightscoutValidationClient;
 };
 
 const SettingsFormAlert = (props: any) => {
@@ -82,16 +74,13 @@ export const returnHandleOpenTokenDialog = (
   };
 };
 
-const nsvClient = new NightscoutValidationClient({
-  endpointUrl: NIGHTSCOUT_VALIDATION_ENDPOINT_URL,
-});
-
 export default function SettingsForm({
   nightscoutUrl,
   nightscoutToken,
   glucoseUnit,
   defaultMetrics,
   onSubmit,
+  nightscoutValidator,
 }: SettingsFormProps) {
   const classes = useStyles();
   const [warnings, setWarnings] = useState<
@@ -110,69 +99,80 @@ export default function SettingsForm({
     mode: "onBlur",
     // TODO: extract
     resolver: async (data) => {
-      const nsvResponse = await nsvClient.fetchValidationStatus(
-        data.nightscoutUrl,
-        data.nightscoutToken
-      );
+      if (nightscoutValidator) {
+        const nsvResponse = await nightscoutValidator.fetchValidationStatus(
+          data.nightscoutUrl,
+          data.nightscoutToken
+        );
+        let warnings: DeepMap<SettingsFormData, FieldError> = {};
+        if (nsvResponse) {
+          if (!nsvResponse.url.pointsToNightscout) {
+            warnings.nightscoutUrl = {
+              type: "validation",
+              message: t(
+                "settings.form.validationText.nightscoutUrl.notNightscout"
+              ),
+            };
+          }
+          if (nsvResponse.url.pointsToNightscout) {
+            if (!nsvResponse.token.isValid) {
+              warnings.nightscoutToken = {
+                type: "validation",
+                message: t(
+                  "settings.form.validationText.nightscoutToken.invalid"
+                ),
+              };
+            }
+            if (
+              nsvResponse.nightscout.glucoseUnit !==
+              NightscoutBloodGlucoseUnitMapping[data.glucoseUnit]
+            ) {
+              warnings.glucoseUnit = {
+                type: "validation",
+                message: t(
+                  "settings.form.validationText.glucoseUnits.mismatch"
+                ),
+              };
+            }
+            if (
+              semver.lt(
+                nsvResponse.nightscout.version,
+                nsvResponse.nightscout.minSupportedVersion
+              )
+            ) {
+              warnings.nightscoutUrl = {
+                type: "validation",
+                message: t(
+                  "settings.form.validationText.nightscoutUrl.needsUpgrade",
+                  {
+                    version: nsvResponse.nightscout.minSupportedVersion.toString(),
+                  }
+                ),
+              };
+            }
+          }
 
-      let warnings: DeepMap<SettingsFormData, FieldError> = {};
-      if (!nsvResponse.url.pointsToNightscout) {
-        warnings.nightscoutUrl = {
-          type: "validation",
-          message: t(
-            "settings.form.validationText.nightscoutUrl.notNightscout"
-          ),
-        };
-      }
-      if (nsvResponse.url.pointsToNightscout) {
-        if (!nsvResponse.token.isValid) {
-          warnings.nightscoutToken = {
-            type: "validation",
-            message: t("settings.form.validationText.nightscoutToken.invalid"),
-          };
-        }
-        if (
-          nsvResponse.nightscout.glucoseUnit !==
-          NightscoutBloodGlucoseUnitMapping[data.glucoseUnit]
-        ) {
-          warnings.glucoseUnit = {
-            type: "validation",
-            message: t("settings.form.validationText.glucoseUnits.mismatch"),
-          };
-        }
-        if (
-          semver.lt(
-            nsvResponse.nightscout.version,
-            nsvResponse.nightscout.minSupportedVersion
-          )
-        ) {
-          warnings.nightscoutUrl = {
-            type: "validation",
-            message: t(
-              "settings.form.validationText.nightscoutUrl.needsUpgrade",
-              { version: nsvResponse.nightscout.minSupportedVersion.toString() }
-            ),
-          };
-        }
-      }
+          const userHasSelectedUnsupportedMetrics = data.defaultMetrics
+            .filter((metric) => metric !== DiabetesMetric.Everything)
+            .map((metric) => nsvResponse.discoveredMetrics.includes(metric))
+            .includes(false);
+          if (userHasSelectedUnsupportedMetrics === true) {
+            warnings.defaultMetrics = [
+              {
+                type: "validation",
+                message: t(
+                  "settings.form.validationText.defaultMetrics.notAvailable",
+                  {
+                    version: nsvResponse.nightscout.minSupportedVersion.toString(),
+                  }
+                ),
+              },
+            ];
+          }
 
-      const userHasSelectedUnsupportedMetrics = data.defaultMetrics
-        .filter((metric) => metric !== DiabetesMetric.Everything)
-        .map((metric) => nsvResponse.discoveredMetrics.includes(metric))
-        .includes(false);
-      if (userHasSelectedUnsupportedMetrics === true) {
-        warnings.defaultMetrics = [
-          {
-            type: "validation",
-            message: t(
-              "settings.form.validationText.defaultMetrics.notAvailable",
-              { version: nsvResponse.nightscout.minSupportedVersion.toString() }
-            ),
-          },
-        ];
+          setWarnings(warnings);
+        }
       }
-
-      setWarnings(warnings);
 
       // always return no errors, we are using resolver
       // for its lifecycle, but never want to block submission

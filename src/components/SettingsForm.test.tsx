@@ -4,6 +4,12 @@ import userEvent from "@testing-library/user-event";
 import { axe, toHaveNoViolations } from "jest-axe";
 import { BloodGlucoseUnit, DiabetesMetric } from "../lib/enums";
 import SettingsForm, { returnHandleOpenTokenDialog } from "./SettingsForm";
+import { NightscoutValidationClient } from "../lib/NightscoutValidationClient/NightscoutValidationClient";
+import {
+  mockNsvResponseDtoInvalidToken,
+  mockNsvResponseDtoNonNsUrl,
+  mockNsvResponseDtoNsNeedsUpgrade,
+} from "../lib/__mocks__/gluco-check";
 
 expect.extend(toHaveNoViolations);
 
@@ -26,7 +32,7 @@ afterEach(() => {
 });
 
 describe("SettingsForm component", () => {
-  const mockNsUrl = "https://example.com";
+  const mockNsUrl = "https://example.com/ns";
   const mockNsToken = "token123";
   const mockGlucoseUnits = BloodGlucoseUnit.mgdl;
   const mockDefaultMetrics = [DiabetesMetric.BloodSugar];
@@ -109,9 +115,11 @@ describe("SettingsForm component", () => {
     });
   });
 
-  it("attempts to save settings and handles submission error", async () => {
+  fit("attempts to save settings and handles submission error", async () => {
     expect.assertions(3);
-    mockOnSubmit.mockRejectedValueOnce(new Error("To err is human"));
+    mockOnSubmit
+      .mockRejectedValueOnce(new Error("To err is human"))
+      .mockRejectedValueOnce(new Error("But why am I erring twice?"));
 
     render(
       <SettingsForm
@@ -133,6 +141,115 @@ describe("SettingsForm component", () => {
 
     await waitFor(() => {
       expect(screen.getByTestId("settings-form-error")).toBeInTheDocument();
+    });
+  });
+
+  xdescribe("Nightscout validation", () => {
+    const mockNsvUrl = "https://example.com";
+    const nsvClient = new NightscoutValidationClient({
+      endpointUrl: mockNsvUrl,
+    });
+    const mockValidationMethodSpy = jest.spyOn(
+      nsvClient,
+      "fetchValidationStatus"
+    );
+
+    beforeEach(() => {
+      mockValidationMethodSpy.mockReset();
+    });
+
+    it("Displays warning message for not-a-nightscout site", async () => {
+      mockValidationMethodSpy.mockResolvedValue(mockNsvResponseDtoNonNsUrl);
+
+      render(
+        <SettingsForm
+          nightscoutToken={mockNsToken}
+          nightscoutUrl={mockNsUrl}
+          glucoseUnit={mockGlucoseUnits}
+          defaultMetrics={mockDefaultMetrics}
+          onSubmit={mockOnSubmit}
+          nightscoutValidator={nsvClient}
+        />
+      );
+
+      expect(
+        await screen.findByText(
+          "settings.form.validationText.nightscoutUrl.notNightscout"
+        )
+      ).toBeTruthy();
+    });
+
+    it("Displays warning message for a nightscout site below minimum version threshold", async () => {
+      mockValidationMethodSpy.mockResolvedValue(
+        mockNsvResponseDtoNsNeedsUpgrade
+      );
+
+      render(
+        <SettingsForm
+          nightscoutToken={mockNsToken}
+          nightscoutUrl={mockNsUrl}
+          glucoseUnit={mockGlucoseUnits}
+          defaultMetrics={mockDefaultMetrics}
+          onSubmit={mockOnSubmit}
+          nightscoutValidator={nsvClient}
+        />
+      );
+
+      expect(
+        await screen.findByText(
+          "settings.form.validationText.nightscoutUrl.needsUpgrade"
+        )
+      ).toBeTruthy();
+    });
+
+    it("Displays warning message for invalid token", async () => {
+      mockValidationMethodSpy.mockResolvedValue(mockNsvResponseDtoInvalidToken);
+
+      render(
+        <SettingsForm
+          nightscoutToken={mockNsToken}
+          nightscoutUrl={mockNsUrl}
+          glucoseUnit={mockGlucoseUnits}
+          defaultMetrics={mockDefaultMetrics}
+          onSubmit={mockOnSubmit}
+          nightscoutValidator={nsvClient}
+        />
+      );
+
+      expect(
+        await screen.findByText(
+          "settings.form.validationText.nightscoutToken.invalid"
+        )
+      ).toBeTruthy();
+    });
+
+    it("Displays warning message for unsupported metrics", async () => {
+      const allMetrics = [
+        DiabetesMetric.BloodSugar,
+        DiabetesMetric.CannulaAge,
+        DiabetesMetric.CarbsOnBoard,
+        DiabetesMetric.InsulinOnBoard,
+        DiabetesMetric.PumpBattery,
+        DiabetesMetric.SensorAge,
+      ];
+      mockValidationMethodSpy.mockResolvedValue(mockNsvResponseDtoInvalidToken);
+
+      render(
+        <SettingsForm
+          nightscoutToken={mockNsToken}
+          nightscoutUrl={mockNsUrl}
+          glucoseUnit={mockGlucoseUnits}
+          defaultMetrics={allMetrics}
+          onSubmit={mockOnSubmit}
+          nightscoutValidator={nsvClient}
+        />
+      );
+
+      expect(
+        await screen.findByText(
+          "settings.form.validationText.defaultMetrics.notAvailable"
+        )
+      ).toBeTruthy();
     });
   });
 

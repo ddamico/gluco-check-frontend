@@ -1,7 +1,8 @@
-import { BloodGlucoseUnit, DiabetesMetric } from "../enums";
-import { NightscoutValidationEndpointResponse } from "../types";
+import { plainToClass } from "class-transformer";
+import { DiabetesMetric } from "../enums";
+import { NightscoutValidationEndpointResponse } from "../NightscoutValidationClient/NightscoutValidationClientDto";
 
-export const MOCK_NSV_RESPONSE_VALID: NightscoutValidationEndpointResponse = {
+export const MOCK_NSV_RESPONSE_VALID = {
   token: {
     isValid: true,
     parsed: "token123",
@@ -17,16 +18,16 @@ export const MOCK_NSV_RESPONSE_VALID: NightscoutValidationEndpointResponse = {
     version: "14.0.7",
   },
   discoveredMetrics: [
-    DiabetesMetric.BloodSugar,
-    DiabetesMetric.InsulinOnBoard,
-    DiabetesMetric.CarbsOnBoard,
-    DiabetesMetric.SensorAge,
-    DiabetesMetric.CannulaAge,
-    DiabetesMetric.PumpBattery,
+    "blood sugar",
+    "insulin on board",
+    "carbs on board",
+    "sensor age",
+    "cannula age",
+    "pump battery",
   ],
 };
 
-export const MOCK_NSV_RESPONSE_NON_NS_URL: NightscoutValidationEndpointResponse = {
+export const MOCK_NSV_RESPONSE_NON_NS_URL = {
   url: {
     parsed: "https://example.com",
     isValid: true,
@@ -44,7 +45,7 @@ export const MOCK_NSV_RESPONSE_NON_NS_URL: NightscoutValidationEndpointResponse 
   discoveredMetrics: [],
 };
 
-export const MOCK_NSV_RESPONSE_NS_NEEDS_UPGRADE: NightscoutValidationEndpointResponse = {
+export const MOCK_NSV_RESPONSE_NS_NEEDS_UPGRADE = {
   token: {
     isValid: false,
     parsed: "token123",
@@ -62,7 +63,7 @@ export const MOCK_NSV_RESPONSE_NS_NEEDS_UPGRADE: NightscoutValidationEndpointRes
   discoveredMetrics: [],
 };
 
-export const MOCK_NSV_RESPONSE_INVALID_TOKEN: NightscoutValidationEndpointResponse = {
+export const MOCK_NSV_RESPONSE_INVALID_TOKEN = {
   url: {
     parsed: "https://example.com",
     isValid: true,
@@ -79,3 +80,23 @@ export const MOCK_NSV_RESPONSE_INVALID_TOKEN: NightscoutValidationEndpointRespon
   },
   discoveredMetrics: ["blood sugar"],
 };
+
+export const mockNsvResponseDtoValid = plainToClass(
+  NightscoutValidationEndpointResponse,
+  MOCK_NSV_RESPONSE_VALID
+);
+
+export const mockNsvResponseDtoNonNsUrl = plainToClass(
+  NightscoutValidationEndpointResponse,
+  MOCK_NSV_RESPONSE_NON_NS_URL
+);
+
+export const mockNsvResponseDtoNsNeedsUpgrade = plainToClass(
+  NightscoutValidationEndpointResponse,
+  MOCK_NSV_RESPONSE_NS_NEEDS_UPGRADE
+);
+
+export const mockNsvResponseDtoInvalidToken = plainToClass(
+  NightscoutValidationEndpointResponse,
+  MOCK_NSV_RESPONSE_INVALID_TOKEN
+);

@@ -299,22 +299,15 @@ exports[`SettingsForm component renders the component 1`] = `
       class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
     >
       <input
-        aria-describedby="settings-form-field-url-helper-text"
         aria-invalid="false"
         class="MuiInputBase-input MuiInput-input"
         data-testid="settings-form-field-url"
         id="settings-form-field-url"
         name="nightscoutUrl"
         type="text"
-        value="https://example.com"
+        value="https://example.com/ns"
       />
     </div>
-    <p
-      class="MuiFormHelperText-root MuiFormHelperText-filled"
-      id="settings-form-field-url-helper-text"
-    >
-      settings.form.helperText.nightscoutUrl
-    </p>
   </div>
   <div
     class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -373,6 +366,7 @@ exports[`SettingsForm component renders the component 1`] = `
     <label
       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
       data-shrink="true"
+      for="settings-form-field-bg"
     >
       settings.form.labels.glucoseUnits
     </label>

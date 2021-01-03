@@ -13,11 +13,13 @@ import {
   FIRESTORE_FIELD_PATH_GLUCOSE_UNITS,
   FIRESTORE_FIELD_PATH_NIGHTSCOUT_TOKEN,
   FIRESTORE_FIELD_PATH_NIGHTSCOUT_URL,
+  NIGHTSCOUT_VALIDATION_ENDPOINT_URL,
 } from "../lib/constants";
 import { userSettingsFormDataToUserSettingsDocument } from "../lib/transform";
 import { FirebaseUserDocumentContext } from "../App";
 import { useTranslation } from "react-i18next";
 import { Container, makeStyles, Typography } from "@material-ui/core";
+import { NightscoutValidationClient } from "../lib/NightscoutValidationClient/NightscoutValidationClient";
 
 export const returnHandleSettingsSave = (userDocumentPath: string) => {
   return async (data: SettingsFormData) => {
@@ -81,6 +83,11 @@ export default function EditSettings() {
           glucoseUnit={glucoseUnit}
           defaultMetrics={defaultMetrics}
           onSubmit={returnHandleSettingsSave(userDocumentPath)}
+          nightscoutValidator={
+            new NightscoutValidationClient({
+              endpointUrl: NIGHTSCOUT_VALIDATION_ENDPOINT_URL,
+            })
+          }
         />
       )}
     </Container>
