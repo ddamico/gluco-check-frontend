@@ -38,7 +38,7 @@
       },
       "helperText": {
         "nightscoutToken": "Not sure how to get a token? Read on!",
-        "nightscoutUrl": "URL of your Nightscout site (just the base URL, no /api)",
+        "nightscoutUrl": "URL of your Nightscout site",
         "defaultMetrics": "Assistant will read these items to you by default"
       },
       "validationText": {
