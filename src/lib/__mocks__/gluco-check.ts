@@ -12,7 +12,7 @@ export const MOCK_NSV_RESPONSE_VALID: NightscoutValidationEndpointResponse = {
     pointsToNightscout: true,
   },
   nightscout: {
-    glucoseUnit: BloodGlucoseUnit.mmoll,
+    glucoseUnit: "mmol",
     minSupportedVersion: "13.0.0",
     version: "14.0.7",
   },
@@ -40,6 +40,24 @@ export const MOCK_NSV_RESPONSE_NON_NS_URL: NightscoutValidationEndpointResponse 
     version: "",
     glucoseUnit: "",
     minSupportedVersion: "13.0.0",
+  },
+  discoveredMetrics: [],
+};
+
+export const MOCK_NSV_RESPONSE_NS_NEEDS_UPGRADE: NightscoutValidationEndpointResponse = {
+  token: {
+    isValid: false,
+    parsed: "token123",
+  },
+  url: {
+    isValid: true,
+    parsed: "https://example.com",
+    pointsToNightscout: true,
+  },
+  nightscout: {
+    glucoseUnit: "mmol",
+    minSupportedVersion: "13.0.0",
+    version: "12.9.9",
   },
   discoveredMetrics: [],
 };

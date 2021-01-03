@@ -1,16 +1,11 @@
 export enum BloodGlucoseUnit {
   mgdl = "mg/dl",
-  mmoll = "mmol/L",
+  mmol = "mmol/L",
 }
 
 export enum NightscoutBloodGlucoseUnit {
   mgdl = "mgdl",
-  mmol = "mmol"
-}
-
-export const NightscoutBloodGlucoseUnitMapping = {
-  [NightscoutBloodGlucoseUnit.mgdl]: BloodGlucoseUnit.mgdl,
-  [NightscoutBloodGlucoseUnit.mmol]: BloodGlucoseUnit.mmoll
+  mmol = "mmol",
 }
 
 // @TODO: once this repo is properly part of the workspace,

@@ -38,7 +38,9 @@ import {
   MOCK_NSV_RESPONSE_VALID,
   MOCK_NSV_RESPONSE_NON_NS_URL,
   MOCK_NSV_RESPONSE_INVALID_TOKEN,
+  MOCK_NSV_RESPONSE_NS_NEEDS_UPGRADE,
 } from "../lib/__mocks__/gluco-check";
+import { NightscoutBloodGlucoseUnitMapping } from "../lib/mappings";
 
 type SettingsFormProps = {
   nightscoutUrl: string;
@@ -110,26 +112,30 @@ export default function SettingsForm({
         data.nightscoutUrl,
         data.nightscoutToken
       );
-      // console.log(nsvResponse);
-      // const nsvResponse = MOCK_NSV_RESPONSE_NON_NS_URL;
+
       let errors: DeepMap<SettingsFormData, FieldError> = {};
       if (!nsvResponse.url.pointsToNightscout) {
         errors.nightscoutUrl = {
           type: "validation",
-          message: "This URL does not point to a Nightscout site",
+          message: t(
+            "settings.form.validationText.nightscoutUrl.notNightscout"
+          ),
         };
       }
       if (nsvResponse.url.pointsToNightscout) {
         if (!nsvResponse.token.isValid) {
           errors.nightscoutToken = {
             type: "validation",
-            message: "Your Nightscout site is not accepting this token",
+            message: t("settings.form.validationText.nightscoutToken.invalid"),
           };
         }
-        if (nsvResponse.nightscout.glucoseUnit !== data.glucoseUnit) {
+        if (
+          nsvResponse.nightscout.glucoseUnit !==
+          NightscoutBloodGlucoseUnitMapping[data.glucoseUnit]
+        ) {
           errors.glucoseUnit = {
             type: "validation",
-            message: "Chosen unit differs from your Nightscout site's units",
+            message: t("settings.form.validationText.glucoseUnits.mismatch"),
           };
         }
         if (
@@ -138,23 +144,28 @@ export default function SettingsForm({
             nsvResponse.nightscout.minSupportedVersion
           )
         ) {
-          // TODO: this especially will require some funny business to localize
           errors.nightscoutUrl = {
             type: "validation",
-            message: `Your Nightscout site requires an upgrade to work with Gluco Check, please update to at least ${nsvResponse?.nightscout?.minSupportedVersion}`,
+            message: t(
+              "settings.form.validationText.nightscoutUrl.needsUpgrade",
+              { version: nsvResponse.nightscout.minSupportedVersion.toString() }
+            ),
           };
         }
       }
 
-      const userHasSelectedUnsupportedMetrics = true;
-      // const userHasSelectedUnsupportedMetrics = data.defaultMetrics?
-      //   .map((metric) => nsvResponse.discoveredMetrics.includes(metric))?
-      //   .includes(false);
+      const userHasSelectedUnsupportedMetrics = data.defaultMetrics
+        .filter((metric) => metric !== DiabetesMetric.Everything)
+        .map((metric) => nsvResponse.discoveredMetrics.includes(metric))
+        .includes(false);
       if (userHasSelectedUnsupportedMetrics === true) {
         errors.defaultMetrics = [
           {
             type: "validation",
-            message: `Some selected metrics are not supported by your Nightscout site, and/or require a valid token. To enable full support, please update Nightscout to at least ${nsvResponse?.nightscout?.minSupportedVersion} and enter a valid token`,
+            message: t(
+              "settings.form.validationText.defaultMetrics.notAvailable",
+              { version: nsvResponse.nightscout.minSupportedVersion.toString() }
+            ),
           },
         ];
       }
@@ -259,6 +270,8 @@ export default function SettingsForm({
       <FormControl
         component="fieldset"
         data-testid="settings-form-fieldset-metrics"
+        error={!!errors.defaultMetrics}
+        variant={errors.defaultMetrics ? "outlined" : undefined}
       >
         <FormLabel component="legend">
           {t("settings.form.labels.defaultMetrics")}
@@ -299,7 +312,9 @@ export default function SettingsForm({
           />
         </FormGroup>
         <FormHelperText>
-          {t("settings.form.helperText.defaultMetrics")}
+          {errors.defaultMetrics
+            ? errors?.defaultMetrics[0]?.message
+            : t("settings.form.helperText.defaultMetrics")}
         </FormHelperText>
       </FormControl>
       <TextField
