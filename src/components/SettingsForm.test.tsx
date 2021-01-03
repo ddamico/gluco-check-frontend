@@ -1,5 +1,5 @@
 import React from "react";
-import { cleanup, render, waitFor, screen } from "@testing-library/react";
+import { cleanup, render, waitFor, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe, toHaveNoViolations } from "jest-axe";
 import { BloodGlucoseUnit, DiabetesMetric } from "../lib/enums";
@@ -37,6 +37,10 @@ describe("SettingsForm component", () => {
   const mockGlucoseUnits = BloodGlucoseUnit.mgdl;
   const mockDefaultMetrics = [DiabetesMetric.BloodSugar];
   const mockOnSubmit = jest.fn();
+
+  beforeEach(() => {
+    mockOnSubmit.mockReset();
+  });
 
   it("renders the component", async () => {
     const { container } = render(
@@ -91,35 +95,38 @@ describe("SettingsForm component", () => {
       exact: false,
     });
 
-    await userEvent.click(checkboxEverything);
+    await act(async () => {
+      await userEvent.click(checkboxEverything);
+    });
     expect(checkbox1).toBeDisabled();
     expect(checkbox1).toBeChecked();
     expect(checkbox2).toBeDisabled();
     expect(checkbox2).toBeChecked();
 
-    await userEvent.click(checkboxEverything);
+    await act(async () => {
+      await userEvent.click(checkboxEverything);
+    });
     expect(checkbox1).not.toBeDisabled();
     expect(checkbox2).not.toBeDisabled();
 
-    await userEvent.click(checkbox1);
-    await userEvent.click(checkbox2);
+    await act(async () => {
+      await userEvent.click(checkbox1);
+      await userEvent.click(checkbox2);
 
-    await userEvent.type(tokenField, "token");
-    await waitFor(() => {
-      userEvent.click(submitButton);
+      await userEvent.type(tokenField, "token");
+      await userEvent.click(submitButton);
     });
-    expect(mockOnSubmit).toHaveBeenCalled();
+    expect(mockOnSubmit).toHaveBeenCalledTimes(1);
 
     await waitFor(() => {
       expect(screen.getByTestId("settings-form-submitted")).toBeInTheDocument();
     });
   });
 
-  fit("attempts to save settings and handles submission error", async () => {
+  it("attempts to save settings and handles submission error", async () => {
+    // why are we calling submit handler twice in this test?
     expect.assertions(3);
-    mockOnSubmit
-      .mockRejectedValueOnce(new Error("To err is human"))
-      .mockRejectedValueOnce(new Error("But why am I erring twice?"));
+    mockOnSubmit.mockRejectedValueOnce(new Error("To err is human"));
 
     render(
       <SettingsForm
@@ -133,18 +140,19 @@ describe("SettingsForm component", () => {
     expect(screen.getByTestId("settings-form")).toBeInTheDocument();
     const submitButton = await screen.findByTestId("settings-form-submit");
     const tokenField = await screen.findByTestId("settings-form-field-token");
-    await userEvent.type(tokenField, "token");
-    await waitFor(() => {
-      userEvent.click(submitButton);
+
+    await act(async () => {
+      await userEvent.type(tokenField, "token");
+      await userEvent.click(submitButton);
     });
-    expect(mockOnSubmit).toHaveBeenCalled();
+    expect(mockOnSubmit).toHaveBeenCalledTimes(1);
 
     await waitFor(() => {
       expect(screen.getByTestId("settings-form-error")).toBeInTheDocument();
     });
   });
 
-  xdescribe("Nightscout validation", () => {
+  describe("Nightscout validation", () => {
     const mockNsvUrl = "https://example.com";
     const nsvClient = new NightscoutValidationClient({
       endpointUrl: mockNsvUrl,

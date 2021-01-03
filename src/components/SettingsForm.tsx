@@ -98,95 +98,97 @@ export default function SettingsForm({
   } = useForm<SettingsFormData>({
     mode: "onBlur",
     // TODO: extract
-    resolver: async (data) => {
-      if (nightscoutValidator) {
-        const nsvResponse = await nightscoutValidator.fetchValidationStatus(
-          data.nightscoutUrl,
-          data.nightscoutToken
-        );
-        let warnings: DeepMap<SettingsFormData, FieldError> = {};
-        if (nsvResponse) {
-          if (!nsvResponse.url.pointsToNightscout) {
-            warnings.nightscoutUrl = {
-              type: "validation",
-              message: t(
-                "settings.form.validationText.nightscoutUrl.notNightscout"
-              ),
-            };
-          }
-          if (nsvResponse.url.pointsToNightscout) {
-            if (!nsvResponse.token.isValid) {
-              warnings.nightscoutToken = {
-                type: "validation",
-                message: t(
-                  "settings.form.validationText.nightscoutToken.invalid"
-                ),
-              };
-            }
-            if (
-              nsvResponse.nightscout.glucoseUnit !==
-              NightscoutBloodGlucoseUnitMapping[data.glucoseUnit]
-            ) {
-              warnings.glucoseUnit = {
-                type: "validation",
-                message: t(
-                  "settings.form.validationText.glucoseUnits.mismatch"
-                ),
-              };
-            }
-            if (
-              semver.lt(
-                nsvResponse.nightscout.version,
-                nsvResponse.nightscout.minSupportedVersion
-              )
-            ) {
-              warnings.nightscoutUrl = {
-                type: "validation",
-                message: t(
-                  "settings.form.validationText.nightscoutUrl.needsUpgrade",
+    resolver: nightscoutValidator
+      ? async (data) => {
+          if (nightscoutValidator) {
+            const nsvResponse = await nightscoutValidator.fetchValidationStatus(
+              data.nightscoutUrl,
+              data.nightscoutToken
+            );
+            let warnings: DeepMap<SettingsFormData, FieldError> = {};
+            if (nsvResponse) {
+              if (!nsvResponse.url.pointsToNightscout) {
+                warnings.nightscoutUrl = {
+                  type: "validation",
+                  message: t(
+                    "settings.form.validationText.nightscoutUrl.notNightscout"
+                  ),
+                };
+              }
+              if (nsvResponse.url.pointsToNightscout) {
+                if (!nsvResponse.token.isValid) {
+                  warnings.nightscoutToken = {
+                    type: "validation",
+                    message: t(
+                      "settings.form.validationText.nightscoutToken.invalid"
+                    ),
+                  };
+                }
+                if (
+                  nsvResponse.nightscout.glucoseUnit !==
+                  NightscoutBloodGlucoseUnitMapping[data.glucoseUnit]
+                ) {
+                  warnings.glucoseUnit = {
+                    type: "validation",
+                    message: t(
+                      "settings.form.validationText.glucoseUnits.mismatch"
+                    ),
+                  };
+                }
+                if (
+                  semver.lt(
+                    nsvResponse.nightscout.version,
+                    nsvResponse.nightscout.minSupportedVersion
+                  )
+                ) {
+                  warnings.nightscoutUrl = {
+                    type: "validation",
+                    message: t(
+                      "settings.form.validationText.nightscoutUrl.needsUpgrade",
+                      {
+                        version: nsvResponse.nightscout.minSupportedVersion.toString(),
+                      }
+                    ),
+                  };
+                }
+              }
+
+              const userHasSelectedUnsupportedMetrics = data.defaultMetrics
+                .filter((metric) => metric !== DiabetesMetric.Everything)
+                .map((metric) => nsvResponse.discoveredMetrics.includes(metric))
+                .includes(false);
+              if (userHasSelectedUnsupportedMetrics === true) {
+                warnings.defaultMetrics = [
                   {
-                    version: nsvResponse.nightscout.minSupportedVersion.toString(),
-                  }
-                ),
-              };
+                    type: "validation",
+                    message: t(
+                      "settings.form.validationText.defaultMetrics.notAvailable",
+                      {
+                        version: nsvResponse.nightscout.minSupportedVersion.toString(),
+                      }
+                    ),
+                  },
+                ];
+              }
+
+              setWarnings(warnings);
             }
           }
 
-          const userHasSelectedUnsupportedMetrics = data.defaultMetrics
-            .filter((metric) => metric !== DiabetesMetric.Everything)
-            .map((metric) => nsvResponse.discoveredMetrics.includes(metric))
-            .includes(false);
-          if (userHasSelectedUnsupportedMetrics === true) {
-            warnings.defaultMetrics = [
-              {
-                type: "validation",
-                message: t(
-                  "settings.form.validationText.defaultMetrics.notAvailable",
-                  {
-                    version: nsvResponse.nightscout.minSupportedVersion.toString(),
-                  }
-                ),
-              },
-            ];
-          }
-
-          setWarnings(warnings);
+          // always return no errors, we are using resolver
+          // for its lifecycle, but never want to block submission
+          return {
+            values: data,
+            errors: {},
+          };
         }
-      }
-
-      // always return no errors, we are using resolver
-      // for its lifecycle, but never want to block submission
-      return {
-        values: data,
-        errors: {},
-      };
-    },
+      : undefined,
   });
 
   // trigger form validation on first component render
   useEffect(() => {
-    trigger();
-  }, [trigger]);
+    nightscoutValidator && trigger();
+  }, [nightscoutValidator, trigger]);
 
   const { t } = useTranslation();
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
