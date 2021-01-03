@@ -188,10 +188,6 @@ export default function SettingsForm({
   const [formHasSubmittedSuccess, setFormHasSubmittedSuccess] = useState(false);
   const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
 
-  // nightscout validation state
-  const [nightscoutUrlIsValid, setNightscoutUrlIsValid] = useState(false);
-  const [nightscoutTokenIsValid, setNightscoutTokenIsValid] = useState(false);
-
   const canEditFields = !formState.isSubmitting;
 
   const glucoseUnits = Object.entries(BloodGlucoseUnit).map(([_, v]) => {
