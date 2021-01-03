@@ -33,7 +33,7 @@ import {
   NIGHTSCOUT_VALIDATION_ENDPOINT_URL,
 } from "../lib/constants";
 import TokenSetup from "../components/TokenSetup";
-import { NightscoutValidationClient } from "../lib/NightscoutValidationClient";
+import { NightscoutValidationClient } from "../lib/NightscoutValidationClient/NightscoutValidationClient";
 import {
   MOCK_NSV_RESPONSE_VALID,
   MOCK_NSV_RESPONSE_NON_NS_URL,

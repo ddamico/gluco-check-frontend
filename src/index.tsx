@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import {
