@@ -94,11 +94,13 @@ export default function SettingsForm({
   onSubmit,
 }: SettingsFormProps) {
   const classes = useStyles();
+  const [warnings, setWarnings] = useState<
+    DeepMap<SettingsFormData, FieldError>
+  >({});
 
   // eslint-disable-next-line
   const {
     control,
-    errors,
     formState,
     getValues,
     handleSubmit,
@@ -113,9 +115,9 @@ export default function SettingsForm({
         data.nightscoutToken
       );
 
-      let errors: DeepMap<SettingsFormData, FieldError> = {};
+      let warnings: DeepMap<SettingsFormData, FieldError> = {};
       if (!nsvResponse.url.pointsToNightscout) {
-        errors.nightscoutUrl = {
+        warnings.nightscoutUrl = {
           type: "validation",
           message: t(
             "settings.form.validationText.nightscoutUrl.notNightscout"
@@ -124,7 +126,7 @@ export default function SettingsForm({
       }
       if (nsvResponse.url.pointsToNightscout) {
         if (!nsvResponse.token.isValid) {
-          errors.nightscoutToken = {
+          warnings.nightscoutToken = {
             type: "validation",
             message: t("settings.form.validationText.nightscoutToken.invalid"),
           };
@@ -133,7 +135,7 @@ export default function SettingsForm({
           nsvResponse.nightscout.glucoseUnit !==
           NightscoutBloodGlucoseUnitMapping[data.glucoseUnit]
         ) {
-          errors.glucoseUnit = {
+          warnings.glucoseUnit = {
             type: "validation",
             message: t("settings.form.validationText.glucoseUnits.mismatch"),
           };
@@ -144,7 +146,7 @@ export default function SettingsForm({
             nsvResponse.nightscout.minSupportedVersion
           )
         ) {
-          errors.nightscoutUrl = {
+          warnings.nightscoutUrl = {
             type: "validation",
             message: t(
               "settings.form.validationText.nightscoutUrl.needsUpgrade",
@@ -159,7 +161,7 @@ export default function SettingsForm({
         .map((metric) => nsvResponse.discoveredMetrics.includes(metric))
         .includes(false);
       if (userHasSelectedUnsupportedMetrics === true) {
-        errors.defaultMetrics = [
+        warnings.defaultMetrics = [
           {
             type: "validation",
             message: t(
@@ -170,10 +172,13 @@ export default function SettingsForm({
         ];
       }
 
-      // TODO: verify we do not block submission on errors
+      setWarnings(warnings);
+
+      // always return no errors, we are using resolver
+      // for its lifecycle, but never want to block submission
       return {
-        values: {}, // TODO: clarify meaning of values
-        errors,
+        values: data,
+        errors: {},
       };
     },
   });
@@ -266,7 +271,7 @@ export default function SettingsForm({
       <FormControl
         component="fieldset"
         data-testid="settings-form-fieldset-metrics"
-        error={!!errors.defaultMetrics}
+        error={!!warnings.defaultMetrics}
       >
         <FormLabel component="legend">
           {t("settings.form.labels.defaultMetrics")}
@@ -307,8 +312,8 @@ export default function SettingsForm({
           />
         </FormGroup>
         <FormHelperText>
-          {errors.defaultMetrics
-            ? errors?.defaultMetrics[0]?.message
+          {warnings.defaultMetrics
+            ? warnings.defaultMetrics[0]?.message
             : t("settings.form.helperText.defaultMetrics")}
         </FormHelperText>
       </FormControl>
@@ -325,9 +330,9 @@ export default function SettingsForm({
         }}
         label={t("settings.form.labels.nightscoutUrl")}
         name="nightscoutUrl"
-        error={!!errors.nightscoutUrl}
+        error={!!warnings.nightscoutUrl}
         helperText={
-          errors.nightscoutUrl ? errors.nightscoutUrl.message : undefined
+          warnings.nightscoutUrl ? warnings.nightscoutUrl.message : undefined
         }
       />
       <TextField
@@ -348,10 +353,10 @@ export default function SettingsForm({
         inputRef={register}
         label={t("settings.form.labels.nightscoutToken")}
         name="nightscoutToken"
-        error={!!errors.nightscoutToken}
+        error={!!warnings.nightscoutToken}
         helperText={
-          errors.nightscoutToken ? (
-            errors.nightscoutToken.message
+          warnings.nightscoutToken ? (
+            warnings.nightscoutToken.message
           ) : (
             <Link
               component="button"
@@ -392,8 +397,11 @@ export default function SettingsForm({
               ))}
             </Select>
           }
-          error={!!errors.glucoseUnit}
+          error={!!warnings.glucoseUnit}
         />
+        {warnings.glucoseUnit && (
+          <FormHelperText>{warnings.glucoseUnit.message}</FormHelperText>
+        )}
       </FormControl>
 
       <Container disableGutters={true} maxWidth="lg">
