@@ -407,9 +407,10 @@ exports[`SettingsForm component renders the component 1`] = `
     class="MuiContainer-root MuiContainer-disableGutters MuiContainer-maxWidthLg"
   >
     <button
-      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary Mui-disabled Mui-disabled"
       data-testid="settings-form-submit"
-      tabindex="0"
+      disabled=""
+      tabindex="-1"
       type="submit"
     >
       <span
@@ -417,9 +418,6 @@ exports[`SettingsForm component renders the component 1`] = `
       >
         settings.form.submitButton
       </span>
-      <span
-        class="MuiTouchRipple-root"
-      />
     </button>
   </div>
 </form>

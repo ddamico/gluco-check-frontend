@@ -189,6 +189,7 @@ describe("SettingsForm component", () => {
           defaultMetrics={mockDefaultMetrics}
           onSubmit={mockOnSubmit}
           nightscoutValidator={nsvClient}
+          validationDebounceDuration={0}
         />
       );
 
@@ -212,6 +213,7 @@ describe("SettingsForm component", () => {
           defaultMetrics={mockDefaultMetrics}
           onSubmit={mockOnSubmit}
           nightscoutValidator={nsvClient}
+          validationDebounceDuration={0}
         />
       );
 
@@ -233,6 +235,7 @@ describe("SettingsForm component", () => {
           defaultMetrics={mockDefaultMetrics}
           onSubmit={mockOnSubmit}
           nightscoutValidator={nsvClient}
+          validationDebounceDuration={0}
         />
       );
 
@@ -262,6 +265,7 @@ describe("SettingsForm component", () => {
           defaultMetrics={allMetrics}
           onSubmit={mockOnSubmit}
           nightscoutValidator={nsvClient}
+          validationDebounceDuration={0}
         />
       );
 

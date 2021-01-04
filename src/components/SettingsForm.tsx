@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import debouncePromise from "awesome-debounce-promise";
 import {
   Button,
   Checkbox,
@@ -28,7 +29,10 @@ import { useForm, Controller, DeepMap, FieldError } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { BloodGlucoseUnit, DiabetesMetric } from "../lib/enums";
 import { SettingsFormData } from "../lib/types";
-import { ALERT_AUTOHIDE_DURATION } from "../lib/constants";
+import {
+  ALERT_AUTOHIDE_DURATION,
+  VALIDATION_DEBOUNCE_DURATION,
+} from "../lib/constants";
 import TokenSetup from "../components/TokenSetup";
 import { NightscoutValidationClient } from "../lib/NightscoutValidationClient/NightscoutValidationClient";
 import { NightscoutBloodGlucoseUnitMapping } from "../lib/mappings";
@@ -41,6 +45,7 @@ type SettingsFormProps = {
   onSubmit: (data: SettingsFormData) => {};
   nightscoutValidator?: NightscoutValidationClient;
   alertAutohideDuration?: number;
+  validationDebounceDuration?: number;
 };
 
 const SettingsFormAlert = (props: any) => {
@@ -86,6 +91,7 @@ export default function SettingsForm({
   onSubmit,
   nightscoutValidator,
   alertAutohideDuration,
+  validationDebounceDuration,
 }: SettingsFormProps) {
   const classes = useStyles();
   const [warnings, setWarnings] = useState<
@@ -101,10 +107,10 @@ export default function SettingsForm({
     register,
     trigger,
   } = useForm<SettingsFormData>({
-    mode: "onBlur",
+    mode: "onChange",
     // TODO: extract
     resolver: nightscoutValidator
-      ? async (data) => {
+      ? debouncePromise(async (data: SettingsFormData) => {
           if (nightscoutValidator) {
             const nsvResponse = await nightscoutValidator.fetchValidationStatus(
               data.nightscoutUrl,
@@ -156,24 +162,25 @@ export default function SettingsForm({
                     ),
                   };
                 }
-              }
-
-              const userHasSelectedUnsupportedMetrics = data.defaultMetrics
-                .filter((metric) => metric !== DiabetesMetric.Everything)
-                .map((metric) => nsvResponse.discoveredMetrics.includes(metric))
-                .includes(false);
-              if (userHasSelectedUnsupportedMetrics === true) {
-                warnings.defaultMetrics = [
-                  {
-                    type: "validation",
-                    message: t(
-                      "settings.form.helperText.defaultMetrics.notAvailable",
-                      {
-                        version: nsvResponse.nightscout.minSupportedVersion.toString(),
-                      }
-                    ),
-                  },
-                ];
+                const userHasSelectedUnsupportedMetrics = data.defaultMetrics
+                  .filter((metric) => metric !== DiabetesMetric.Everything)
+                  .map((metric) =>
+                    nsvResponse.discoveredMetrics.includes(metric)
+                  )
+                  .includes(false);
+                if (userHasSelectedUnsupportedMetrics === true) {
+                  warnings.defaultMetrics = [
+                    {
+                      type: "validation",
+                      message: t(
+                        "settings.form.helperText.defaultMetrics.notAvailable",
+                        {
+                          version: nsvResponse.nightscout.minSupportedVersion.toString(),
+                        }
+                      ),
+                    },
+                  ];
+                }
               }
 
               setWarnings(warnings);
@@ -186,7 +193,7 @@ export default function SettingsForm({
             values: data,
             errors: {},
           };
-        }
+        }, validationDebounceDuration!)
       : undefined,
   });
 
@@ -202,6 +209,7 @@ export default function SettingsForm({
   const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
 
   const canEditFields = !formState.isSubmitting;
+  const canSubmitForm = formState.isDirty && !formState.isSubmitting;
 
   const glucoseUnits = Object.entries(BloodGlucoseUnit).map(([_, v]) => {
     return { label: v, value: v };
@@ -431,6 +439,7 @@ export default function SettingsForm({
           data-testid="settings-form-submit"
           type="submit"
           variant="contained"
+          disabled={!canSubmitForm}
         >
           {t("settings.form.submitButton")}
         </Button>
@@ -480,4 +489,5 @@ export default function SettingsForm({
 
 SettingsForm.defaultProps = {
   autohideDuration: ALERT_AUTOHIDE_DURATION,
+  alertAutohideDuration: VALIDATION_DEBOUNCE_DURATION,
 };
