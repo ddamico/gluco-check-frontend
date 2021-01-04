@@ -287,58 +287,6 @@ export default function SettingsForm({
       onSubmit={handleSubmit(onFormSubmit)}
       data-testid="settings-form"
     >
-      <FormControl
-        component="fieldset"
-        data-testid="settings-form-fieldset-metrics"
-      >
-        <FormLabel component="legend">
-          {t("settings.form.labels.defaultMetrics")}
-        </FormLabel>
-        <FormGroup row className={classes.checkboxArray}>
-          <Controller
-            control={control}
-            name="defaultMetrics"
-            defaultValue={defaultMetrics}
-            // @ts-ignore
-            render={(props) => {
-              const { defaultMetrics: formStateDefaultMetrics } = getValues();
-              const everythingIsSelected = formStateDefaultMetrics
-                ? formStateDefaultMetrics.includes(DiabetesMetric.Everything)
-                : defaultMetrics.includes(DiabetesMetric.Everything);
-
-              return metrics.map((metric) => (
-                <FormControlLabel
-                  disabled={
-                    !canEditFields ||
-                    (everythingIsSelected &&
-                      metric.value !== DiabetesMetric.Everything)
-                  }
-                  control={
-                    <Checkbox
-                      onChange={() => props.onChange(handleCheck(metric.value))}
-                      checked={
-                        everythingIsSelected ||
-                        props.value.includes(metric.value)
-                      }
-                    />
-                  }
-                  key={metric.value}
-                  label={metric.value}
-                />
-              ));
-            }}
-          />
-        </FormGroup>
-        <FormHelperText
-          className={
-            warnings.defaultMetrics ? classes.helperWarning : undefined
-          }
-        >
-          {warnings.defaultMetrics
-            ? warnings.defaultMetrics[0]?.message
-            : t("settings.form.helperText.defaultMetrics.default")}
-        </FormHelperText>
-      </FormControl>
       <TextField
         defaultValue={nightscoutUrl}
         disabled={!canEditFields}
@@ -399,6 +347,58 @@ export default function SettingsForm({
             : undefined,
         }}
       />
+      <FormControl
+        component="fieldset"
+        data-testid="settings-form-fieldset-metrics"
+      >
+        <FormLabel component="legend">
+          {t("settings.form.labels.defaultMetrics")}
+        </FormLabel>
+        <FormGroup row className={classes.checkboxArray}>
+          <Controller
+            control={control}
+            name="defaultMetrics"
+            defaultValue={defaultMetrics}
+            // @ts-ignore
+            render={(props) => {
+              const { defaultMetrics: formStateDefaultMetrics } = getValues();
+              const everythingIsSelected = formStateDefaultMetrics
+                ? formStateDefaultMetrics.includes(DiabetesMetric.Everything)
+                : defaultMetrics.includes(DiabetesMetric.Everything);
+
+              return metrics.map((metric) => (
+                <FormControlLabel
+                  disabled={
+                    !canEditFields ||
+                    (everythingIsSelected &&
+                      metric.value !== DiabetesMetric.Everything)
+                  }
+                  control={
+                    <Checkbox
+                      onChange={() => props.onChange(handleCheck(metric.value))}
+                      checked={
+                        everythingIsSelected ||
+                        props.value.includes(metric.value)
+                      }
+                    />
+                  }
+                  key={metric.value}
+                  label={metric.value}
+                />
+              ));
+            }}
+          />
+        </FormGroup>
+        <FormHelperText
+          className={
+            warnings.defaultMetrics ? classes.helperWarning : undefined
+          }
+        >
+          {warnings.defaultMetrics
+            ? warnings.defaultMetrics[0]?.message
+            : t("settings.form.helperText.defaultMetrics.default")}
+        </FormHelperText>
+      </FormControl>
 
       <FormControl fullWidth={true} className="MaterialSelect">
         <InputLabel htmlFor="settings-form-field-bg">
