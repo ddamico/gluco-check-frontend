@@ -16,22 +16,7 @@ export type SettingsFormData = {
   glucoseUnit: BloodGlucoseUnit;
 };
 
-export type NightscoutValidationEndpointRequest = {};
-
-export type NightscoutValidationEndpointResponse = {
-  url: {
-    isValid: boolean;
-    parsed: string;
-    pointsToNightscout: boolean;
-  };
-  token: {
-    isValid: boolean;
-    parsed: string;
-  };
-  nightscout: {
-    glucoseUnit: string;
-    minSupportedVersion: string;
-    version: string;
-  };
-  discoveredMetrics: string[];
-};
+export interface NightscoutValidationEndpointRequest {
+  url: string;
+  token: string;
+}

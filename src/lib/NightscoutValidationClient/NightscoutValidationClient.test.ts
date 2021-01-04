@@ -61,7 +61,7 @@ describe("NightscoutValidationClient", () => {
       await nsvClient.fetchValidationStatus(MOCK_NS_URL, MOCK_NS_TOKEN);
     } catch (e) {
       expect(e).toMatchInlineSnapshot(`
-        [Error: Invalid response from nsv endpoint: An instance of NightscoutValidationEndpointResponse has failed the validation:
+        [Error: Invalid response from nsv endpoint: An instance of NightscoutValidationEndpointResponseDto has failed the validation:
          - property nightscout.glucoseUnit has failed the following constraints: isEnum 
         ]
       `);

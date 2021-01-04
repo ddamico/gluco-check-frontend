@@ -19,7 +19,7 @@ Array [
 `;
 
 exports[`NightscoutValidationClient Fetches validation status from endpoint 2`] = `
-NightscoutValidationEndpointResponse {
+NightscoutValidationEndpointResponseDto {
   "discoveredMetrics": Array [
     "blood sugar",
     "insulin on board",

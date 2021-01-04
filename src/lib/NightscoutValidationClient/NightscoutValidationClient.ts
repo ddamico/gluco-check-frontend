@@ -1,7 +1,8 @@
 import { validate } from "class-validator";
 import { plainToClass } from "class-transformer";
 import { NightscoutValidationClientOptions } from "./types";
-import { NightscoutValidationEndpointResponse } from "./NightscoutValidationClientDto";
+import { NightscoutValidationEndpointResponseDto } from "./NightscoutValidationClientDto";
+import { NightscoutValidationEndpointRequest } from "../types";
 
 export const NSV_PATH = "/api/v1/validate-nightscout";
 
@@ -15,11 +16,12 @@ export class NightscoutValidationClient {
   async fetchValidationStatus(
     nightscoutUrl: string,
     nightscoutToken: string
-  ): Promise<NightscoutValidationEndpointResponse> {
-    const requestBodyRaw = JSON.stringify({
+  ): Promise<NightscoutValidationEndpointResponseDto> {
+    const requestBody: NightscoutValidationEndpointRequest = {
       url: nightscoutUrl,
       token: nightscoutToken,
-    });
+    };
+    const requestBodyRaw = JSON.stringify(requestBody);
     const headers = new Headers();
     headers.append("Content-Type", "application/json; charset=utf-8");
 
@@ -38,7 +40,7 @@ export class NightscoutValidationClient {
     const responseJson = await response?.json();
     try {
       const classifiedResponse = plainToClass(
-        NightscoutValidationEndpointResponse,
+        NightscoutValidationEndpointResponseDto,
         responseJson
       );
 

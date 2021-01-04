@@ -1,6 +1,6 @@
 import { plainToClass } from "class-transformer";
 import { DiabetesMetric } from "../enums";
-import { NightscoutValidationEndpointResponse } from "../NightscoutValidationClient/NightscoutValidationClientDto";
+import { NightscoutValidationEndpointResponseDto } from "../NightscoutValidationClient/NightscoutValidationClientDto";
 
 export const MOCK_NSV_RESPONSE_VALID = {
   token: {
@@ -82,21 +82,21 @@ export const MOCK_NSV_RESPONSE_INVALID_TOKEN = {
 };
 
 export const mockNsvResponseDtoValid = plainToClass(
-  NightscoutValidationEndpointResponse,
+  NightscoutValidationEndpointResponseDto,
   MOCK_NSV_RESPONSE_VALID
 );
 
 export const mockNsvResponseDtoNonNsUrl = plainToClass(
-  NightscoutValidationEndpointResponse,
+  NightscoutValidationEndpointResponseDto,
   MOCK_NSV_RESPONSE_NON_NS_URL
 );
 
 export const mockNsvResponseDtoNsNeedsUpgrade = plainToClass(
-  NightscoutValidationEndpointResponse,
+  NightscoutValidationEndpointResponseDto,
   MOCK_NSV_RESPONSE_NS_NEEDS_UPGRADE
 );
 
 export const mockNsvResponseDtoInvalidToken = plainToClass(
-  NightscoutValidationEndpointResponse,
+  NightscoutValidationEndpointResponseDto,
   MOCK_NSV_RESPONSE_INVALID_TOKEN
 );

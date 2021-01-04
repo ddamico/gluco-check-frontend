@@ -48,7 +48,7 @@ export class NightscoutValidationEndpointResponseNightscout {
   version!: string;
 }
 
-export class NightscoutValidationEndpointResponse {
+export class NightscoutValidationEndpointResponseDto {
   @Type(returnNightscoutValidationEndpointResponseUrlType)
   @ValidateNested()
   url!: NightscoutValidationEndpointResponseUrl;
