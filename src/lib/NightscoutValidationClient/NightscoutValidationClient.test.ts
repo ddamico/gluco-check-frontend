@@ -1,5 +1,6 @@
 import { enableFetchMocks } from "jest-fetch-mock";
 import { clone } from "ramda";
+import { NightscoutBloodGlucoseUnit } from "../enums";
 import { MOCK_NSV_RESPONSE_VALID } from "../__mocks__/gluco-check";
 import { NightscoutValidationClient } from "./NightscoutValidationClient";
 
@@ -16,6 +17,24 @@ describe("NightscoutValidationClient", () => {
 
   it("Fetches validation status from endpoint", async () => {
     fetchMock.mockResponseOnce(JSON.stringify(MOCK_NSV_RESPONSE_VALID));
+
+    const nsvClient = new NightscoutValidationClient({
+      endpointUrl: MOCK_ENDPOINT_URL,
+    });
+    const response = await nsvClient.fetchValidationStatus(
+      MOCK_NS_URL,
+      MOCK_NS_TOKEN
+    );
+
+    expect(fetchMock.mock.calls.length).toEqual(1);
+    expect(fetchMock.mock.calls[0]).toMatchSnapshot();
+    expect(response).toMatchSnapshot();
+  });
+
+  it("Fetches validation status from endpoint when units are mgdl", async () => {
+    const responseWithMgdl = clone(MOCK_NSV_RESPONSE_VALID);
+    responseWithMgdl.nightscout.glucoseUnit = NightscoutBloodGlucoseUnit.mgdl;
+    fetchMock.mockResponseOnce(JSON.stringify(responseWithMgdl));
 
     const nsvClient = new NightscoutValidationClient({
       endpointUrl: MOCK_ENDPOINT_URL,

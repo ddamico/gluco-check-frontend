@@ -1,5 +1,4 @@
 import { plainToClass } from "class-transformer";
-import { DiabetesMetric } from "../enums";
 import { NightscoutValidationEndpointResponseDto } from "../NightscoutValidationClient/NightscoutValidationClientDto";
 
 export const MOCK_NSV_RESPONSE_VALID = {

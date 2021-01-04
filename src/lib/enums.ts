@@ -4,7 +4,7 @@ export enum BloodGlucoseUnit {
 }
 
 export enum NightscoutBloodGlucoseUnit {
-  mgdl = "mgdl",
+  mgdl = "mg/dl",
   mmol = "mmol",
 }
 
