@@ -1,5 +1,6 @@
 /* istanbul ignore file */
 import red from "@material-ui/core/colors/red";
+import deepOrange from "@material-ui/core/colors/deepOrange";
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
@@ -12,6 +13,9 @@ const theme = createMuiTheme({
     },
     error: {
       main: red.A100,
+    },
+    warning: {
+      main: deepOrange[500],
     },
     background: {
       default: "#fff",

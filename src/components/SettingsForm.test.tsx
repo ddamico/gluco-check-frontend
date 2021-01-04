@@ -137,7 +137,6 @@ describe("SettingsForm component", () => {
   });
 
   it("attempts to save settings and handles submission error", async () => {
-    // why are we calling submit handler twice in this test?
     expect.assertions(3);
     mockOnSubmit.mockRejectedValueOnce(new Error("To err is human"));
 

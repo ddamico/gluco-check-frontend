@@ -64,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
       textTransform: "capitalize",
     },
   },
+  helperWarning: {
+    color: theme.palette.warning.main,
+  },
 }));
 
 export const returnHandleOpenTokenDialog = (
@@ -279,7 +282,6 @@ export default function SettingsForm({
       <FormControl
         component="fieldset"
         data-testid="settings-form-fieldset-metrics"
-        error={!!warnings.defaultMetrics}
       >
         <FormLabel component="legend">
           {t("settings.form.labels.defaultMetrics")}
@@ -319,7 +321,11 @@ export default function SettingsForm({
             }}
           />
         </FormGroup>
-        <FormHelperText>
+        <FormHelperText
+          className={
+            warnings.defaultMetrics ? classes.helperWarning : undefined
+          }
+        >
           {warnings.defaultMetrics
             ? warnings.defaultMetrics[0]?.message
             : t("settings.form.helperText.defaultMetrics")}
@@ -338,10 +344,12 @@ export default function SettingsForm({
         }}
         label={t("settings.form.labels.nightscoutUrl")}
         name="nightscoutUrl"
-        error={!!warnings.nightscoutUrl}
         helperText={
           warnings.nightscoutUrl ? warnings.nightscoutUrl.message : undefined
         }
+        FormHelperTextProps={{
+          className: warnings.nightscoutUrl ? classes.helperWarning : undefined,
+        }}
       />
       <TextField
         defaultValue={nightscoutToken}
@@ -361,7 +369,6 @@ export default function SettingsForm({
         inputRef={register}
         label={t("settings.form.labels.nightscoutToken")}
         name="nightscoutToken"
-        error={!!warnings.nightscoutToken}
         helperText={
           warnings.nightscoutToken ? (
             warnings.nightscoutToken.message
@@ -378,6 +385,11 @@ export default function SettingsForm({
             </Link>
           )
         }
+        FormHelperTextProps={{
+          className: warnings.nightscoutToken
+            ? classes.helperWarning
+            : undefined,
+        }}
       />
 
       <FormControl fullWidth={true} className="MaterialSelect">
@@ -405,10 +417,11 @@ export default function SettingsForm({
               ))}
             </Select>
           }
-          error={!!warnings.glucoseUnit}
         />
         {warnings.glucoseUnit && (
-          <FormHelperText>{warnings.glucoseUnit.message}</FormHelperText>
+          <FormHelperText className={classes.helperWarning}>
+            {warnings.glucoseUnit.message}
+          </FormHelperText>
         )}
       </FormControl>
 
