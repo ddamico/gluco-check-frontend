@@ -147,6 +147,8 @@ export default function SettingsForm({
                   };
                 }
                 if (
+                  semver.valid(nsvResponse.nightscout.version) &&
+                  semver.valid(nsvResponse.nightscout.minSupportedVersion) &&
                   semver.lt(
                     nsvResponse.nightscout.version,
                     nsvResponse.nightscout.minSupportedVersion
