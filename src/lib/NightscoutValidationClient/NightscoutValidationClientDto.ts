@@ -1,4 +1,10 @@
-import { IsBoolean, IsString, IsEnum, ValidateNested } from "class-validator";
+import {
+  IsBoolean,
+  IsString,
+  IsEnum,
+  ValidateNested,
+  ValidateIf,
+} from "class-validator";
 import { Type } from "class-transformer";
 import { DiabetesMetric, NightscoutBloodGlucoseUnit } from "../enums";
 
@@ -8,6 +14,8 @@ export const returnNightscoutValidationEndpointResponseTokenType = () =>
   NightscoutValidationEndpointResponseToken;
 export const returnNightscoutValidationEndpointResponseNightscoutType = () =>
   NightscoutValidationEndpointResponseNightscout;
+
+export const glucoseUnitValidationCondition = (o: any) => o.glucoseUnit !== "";
 
 export class NightscoutValidationEndpointResponseUrl {
   @IsBoolean()
@@ -29,6 +37,7 @@ export class NightscoutValidationEndpointResponseToken {
 }
 
 export class NightscoutValidationEndpointResponseNightscout {
+  @ValidateIf(glucoseUnitValidationCondition)
   @IsEnum(NightscoutBloodGlucoseUnit)
   glucoseUnit!: NightscoutBloodGlucoseUnit;
 

@@ -5,6 +5,7 @@ import {
   NightscoutValidationEndpointResponseUrl,
   NightscoutValidationEndpointResponseToken,
   NightscoutValidationEndpointResponseNightscout,
+  glucoseUnitValidationCondition,
 } from "./NightscoutValidationClientDto";
 
 describe("returnNightscoutValidationEndpointResponseUrlType", () => {
@@ -26,5 +27,10 @@ describe("returnNightscoutValidationEndpointResponseNightscoutType", () => {
     expect(returnNightscoutValidationEndpointResponseNightscoutType()).toBe(
       NightscoutValidationEndpointResponseNightscout
     );
+  });
+});
+describe("glucoseUnitValidationCondition", () => {
+  it("returns false when glucoseUnit is an empty string", () => {
+    expect(glucoseUnitValidationCondition({ glucoseUnit: "" })).toBe(false);
   });
 });
