@@ -116,7 +116,7 @@ export default function SettingsForm({
                 warnings.nightscoutUrl = {
                   type: "validation",
                   message: t(
-                    "settings.form.validationText.nightscoutUrl.notNightscout"
+                    "settings.form.helperText.nightscoutUrl.notNightscout"
                   ),
                 };
               }
@@ -125,7 +125,7 @@ export default function SettingsForm({
                   warnings.nightscoutToken = {
                     type: "validation",
                     message: t(
-                      "settings.form.validationText.nightscoutToken.invalid"
+                      "settings.form.helperText.nightscoutToken.invalid"
                     ),
                   };
                 }
@@ -136,7 +136,7 @@ export default function SettingsForm({
                   warnings.glucoseUnit = {
                     type: "validation",
                     message: t(
-                      "settings.form.validationText.glucoseUnits.mismatch"
+                      "settings.form.helperText.glucoseUnits.mismatch"
                     ),
                   };
                 }
@@ -149,7 +149,7 @@ export default function SettingsForm({
                   warnings.nightscoutUrl = {
                     type: "validation",
                     message: t(
-                      "settings.form.validationText.nightscoutUrl.needsUpgrade",
+                      "settings.form.helperText.nightscoutUrl.needsUpgrade",
                       {
                         version: nsvResponse.nightscout.minSupportedVersion.toString(),
                       }
@@ -167,7 +167,7 @@ export default function SettingsForm({
                   {
                     type: "validation",
                     message: t(
-                      "settings.form.validationText.defaultMetrics.notAvailable",
+                      "settings.form.helperText.defaultMetrics.notAvailable",
                       {
                         version: nsvResponse.nightscout.minSupportedVersion.toString(),
                       }
@@ -328,7 +328,7 @@ export default function SettingsForm({
         >
           {warnings.defaultMetrics
             ? warnings.defaultMetrics[0]?.message
-            : t("settings.form.helperText.defaultMetrics")}
+            : t("settings.form.helperText.defaultMetrics.default")}
         </FormHelperText>
       </FormControl>
       <TextField
@@ -381,7 +381,7 @@ export default function SettingsForm({
                 setTokenDialogOpen
               )}
             >
-              {t("settings.form.helperText.nightscoutToken")}
+              {t("settings.form.helperText.nightscoutToken.default")}
             </Link>
           )
         }

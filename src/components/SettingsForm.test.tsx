@@ -194,7 +194,7 @@ describe("SettingsForm component", () => {
 
       expect(
         await screen.findByText(
-          "settings.form.validationText.nightscoutUrl.notNightscout"
+          "settings.form.helperText.nightscoutUrl.notNightscout"
         )
       ).toBeTruthy();
     });
@@ -217,7 +217,7 @@ describe("SettingsForm component", () => {
 
       expect(
         await screen.findByText(
-          "settings.form.validationText.nightscoutUrl.needsUpgrade"
+          "settings.form.helperText.nightscoutUrl.needsUpgrade"
         )
       ).toBeTruthy();
     });
@@ -238,7 +238,7 @@ describe("SettingsForm component", () => {
 
       expect(
         await screen.findByText(
-          "settings.form.validationText.nightscoutToken.invalid"
+          "settings.form.helperText.nightscoutToken.invalid"
         )
       ).toBeTruthy();
     });
@@ -267,7 +267,7 @@ describe("SettingsForm component", () => {
 
       expect(
         await screen.findByText(
-          "settings.form.validationText.defaultMetrics.notAvailable"
+          "settings.form.helperText.defaultMetrics.notAvailable"
         )
       ).toBeTruthy();
     });

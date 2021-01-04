@@ -281,7 +281,7 @@ exports[`SettingsForm component renders the component 1`] = `
     <p
       class="MuiFormHelperText-root"
     >
-      settings.form.helperText.defaultMetrics
+      settings.form.helperText.defaultMetrics.default
     </p>
   </fieldset>
   <div
@@ -356,7 +356,7 @@ exports[`SettingsForm component renders the component 1`] = `
         class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiLink-button MuiTypography-colorPrimary"
         type="button"
       >
-        settings.form.helperText.nightscoutToken
+        settings.form.helperText.nightscoutToken.default
       </button>
     </p>
   </div>

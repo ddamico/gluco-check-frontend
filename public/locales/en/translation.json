@@ -37,19 +37,17 @@
         "defaultMetrics": "Default Metrics"
       },
       "helperText": {
-        "nightscoutToken": "Not sure how to get a token? Read on!",
-        "nightscoutUrl": "URL of your Nightscout site",
-        "defaultMetrics": "Assistant will read these items to you by default"
-      },
-      "validationText": {
+        "nightscoutToken": {
+          "default": "Not sure how to get a token? Read on!",
+          "invalid": "Your Nightscout site is not accepting this token"
+        },
         "nightscoutUrl": {
+          "default": "URL of your Nightscout site",
           "notNightscout": "This URL does not point to a Nightscout site",
           "needsUpgrade": "Your Nightscout site requires an update to work with Gluco Check, please update to at least {{version}}"
         },
-        "nightscoutToken": {
-          "invalid": "Your Nightscout site is not accepting this token"
-        },
         "defaultMetrics": {
+          "default": "Assistant will read these items to you by default",
           "notAvailable": "Some selected metrics are not supported by your Nightscout site, and/or require a valid token. To enable full support, please update Nightscout to at least {{version}} and enter a valid token"
         },
         "glucoseUnits": {
