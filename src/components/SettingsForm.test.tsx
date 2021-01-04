@@ -1,5 +1,12 @@
 import React from "react";
-import { cleanup, render, waitFor, screen, act } from "@testing-library/react";
+import {
+  cleanup,
+  render,
+  waitFor,
+  screen,
+  act,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe, toHaveNoViolations } from "jest-axe";
 import { BloodGlucoseUnit, DiabetesMetric } from "../lib/enums";
@@ -10,6 +17,7 @@ import {
   mockNsvResponseDtoNonNsUrl,
   mockNsvResponseDtoNsNeedsUpgrade,
 } from "../lib/__mocks__/gluco-check";
+import { ALERT_AUTOHIDE_DURATION } from "../lib/constants";
 
 expect.extend(toHaveNoViolations);
 
@@ -80,6 +88,7 @@ describe("SettingsForm component", () => {
         glucoseUnit={mockGlucoseUnits}
         defaultMetrics={mockDefaultMetrics}
         onSubmit={mockOnSubmit}
+        alertAutohideDuration={200}
       />
     );
     expect(screen.getByTestId("settings-form")).toBeInTheDocument();
@@ -121,6 +130,10 @@ describe("SettingsForm component", () => {
     await waitFor(() => {
       expect(screen.getByTestId("settings-form-submitted")).toBeInTheDocument();
     });
+
+    await waitForElementToBeRemoved(() =>
+      screen.getByTestId("settings-form-submitted")
+    );
   });
 
   it("attempts to save settings and handles submission error", async () => {

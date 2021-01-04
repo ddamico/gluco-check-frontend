@@ -40,6 +40,7 @@ type SettingsFormProps = {
   defaultMetrics: DiabetesMetric[];
   onSubmit: (data: SettingsFormData) => {};
   nightscoutValidator?: NightscoutValidationClient;
+  alertAutohideDuration?: number;
 };
 
 const SettingsFormAlert = (props: any) => {
@@ -81,6 +82,7 @@ export default function SettingsForm({
   defaultMetrics,
   onSubmit,
   nightscoutValidator,
+  alertAutohideDuration,
 }: SettingsFormProps) {
   const classes = useStyles();
   const [warnings, setWarnings] = useState<
@@ -191,6 +193,7 @@ export default function SettingsForm({
   }, [nightscoutValidator, trigger]);
 
   const { t } = useTranslation();
+  const [formIsSubmitting, setFormIsSubmitting] = useState(false);
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
   const [formHasSubmittedSuccess, setFormHasSubmittedSuccess] = useState(false);
   const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
@@ -210,7 +213,9 @@ export default function SettingsForm({
   const onFormSubmit = async (data: SettingsFormData) => {
     try {
       setFormHasSubmissionError(false);
+      setFormIsSubmitting(true);
       await onSubmit(data);
+      setFormIsSubmitting(false);
       setFormHasSubmittedSuccess(true);
     } catch (e) {
       setFormHasSubmissionError(true);
@@ -218,11 +223,12 @@ export default function SettingsForm({
   };
 
   const formReset = () => {
+    setFormIsSubmitting(false);
     setFormHasSubmissionError(false);
     setFormHasSubmittedSuccess(false);
   };
 
-  const handleFormAlertClose = () => {
+  const handleFormSuccessAlertClose = () => {
     formReset();
   };
 
@@ -422,9 +428,8 @@ export default function SettingsForm({
   return (
     <>
       <Snackbar
-        autoHideDuration={ALERT_AUTOHIDE_DURATION}
-        onClose={handleFormAlertClose}
-        open={formState.isSubmitting}
+        autoHideDuration={alertAutohideDuration}
+        open={formIsSubmitting}
       >
         <SettingsFormAlert
           data-testid="settings-form-submitting"
@@ -434,8 +439,8 @@ export default function SettingsForm({
         </SettingsFormAlert>
       </Snackbar>
       <Snackbar
-        autoHideDuration={ALERT_AUTOHIDE_DURATION}
-        onClose={handleFormAlertClose}
+        autoHideDuration={alertAutohideDuration}
+        onClose={handleFormSuccessAlertClose}
         open={formHasSubmittedSuccess}
       >
         <SettingsFormAlert
@@ -446,8 +451,7 @@ export default function SettingsForm({
         </SettingsFormAlert>
       </Snackbar>
       <Snackbar
-        autoHideDuration={ALERT_AUTOHIDE_DURATION}
-        onClose={handleFormAlertClose}
+        autoHideDuration={alertAutohideDuration}
         open={formHasSubmissionError}
       >
         <SettingsFormAlert data-testid="settings-form-error" severity="error">
@@ -460,3 +464,7 @@ export default function SettingsForm({
     </>
   );
 }
+
+SettingsForm.defaultProps = {
+  autohideDuration: ALERT_AUTOHIDE_DURATION,
+};
