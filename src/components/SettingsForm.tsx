@@ -355,6 +355,7 @@ export default function SettingsForm({
         <Input
           defaultValue={nightscoutToken}
           fullWidth={true}
+          disabled={!canEditFields}
           id="settings-form-field-token"
           inputProps={{ "data-testid": "settings-form-field-token" }}
           inputRef={register}
