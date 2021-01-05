@@ -66,6 +66,26 @@ describe("NightscoutValidationClient", () => {
     }
   });
 
+  it("Throws if non-ok response returned", async () => {
+    const responseWithMgdl = clone(MOCK_NSV_RESPONSE_VALID);
+    responseWithMgdl.nightscout.glucoseUnit = NightscoutBloodGlucoseUnit.mgdl;
+    fetchMock.mockResponseOnce(JSON.stringify(responseWithMgdl), {
+      status: 500,
+    });
+
+    const nsvClient = new NightscoutValidationClient({
+      endpointUrl: MOCK_ENDPOINT_URL,
+    });
+
+    try {
+      await nsvClient.fetchValidationStatus(MOCK_NS_URL, MOCK_NS_TOKEN);
+    } catch (e) {
+      expect(e).toMatchInlineSnapshot(
+        `[Error: Failed to fetch from nsv endpoint: Error: Received non-200 response status]`
+      );
+    }
+  });
+
   it("Throws if response validation fails", async () => {
     expect.assertions(1);
     const invalidResponse = clone(MOCK_NSV_RESPONSE_VALID);

@@ -5,6 +5,7 @@ import { NightscoutValidationEndpointResponseDto } from "./NightscoutValidationC
 import { NightscoutValidationEndpointRequest } from "../types";
 
 export const NSV_PATH = "/api/v1/validate-nightscout";
+export const STATUS_OK = 200;
 
 export class NightscoutValidationClient {
   private endpointUrl: string;
@@ -33,6 +34,9 @@ export class NightscoutValidationClient {
         redirect: "follow",
         headers,
       });
+      if (response.status !== 200) {
+        throw new Error("Received non-200 response status");
+      }
     } catch (e) {
       throw new Error(`Failed to fetch from nsv endpoint: ${e}`);
     }
