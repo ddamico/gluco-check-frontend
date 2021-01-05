@@ -20,4 +20,5 @@ export enum DiabetesMetric {
   SensorAge = "sensor age",
   CannulaAge = "cannula age",
   PumpBattery = "pump battery",
+  PumpReservoir = "pump reservoir",
 }
