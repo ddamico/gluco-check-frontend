@@ -13,6 +13,7 @@ import {
   FormHelperText,
   FormLabel,
   IconButton,
+  Input,
   InputAdornment,
   InputLabel,
   Link,
@@ -309,48 +310,43 @@ export default function SettingsForm({
           className: warnings.nightscoutUrl ? classes.helperWarning : undefined,
         }}
       />
-      <TextField
-        defaultValue={nightscoutToken}
-        disabled={!canEditFields}
-        fullWidth={true}
-        id="settings-form-field-token"
-        InputProps={{
-          inputProps: {
-            "data-testid": "settings-form-field-token",
-          },
-          startAdornment: (
+
+      <FormControl className="MaterialTextField" fullWidth={true}>
+        <InputLabel htmlFor="settings-form-field-token">
+          {t("settings.form.labels.nightscoutToken")}
+        </InputLabel>
+        <Input
+          defaultValue={nightscoutToken}
+          fullWidth={true}
+          id="settings-form-field-token"
+          inputProps={{ "data-testid": "settings-form-field-token" }}
+          inputRef={register}
+          name="nightscoutToken"
+          startAdornment={
             <InputAdornment position="start">
               <Lock />
             </InputAdornment>
-          ),
-        }}
-        inputRef={register}
-        label={t("settings.form.labels.nightscoutToken")}
-        name="nightscoutToken"
-        helperText={
-          <>
-            {warnings.nightscoutToken && (
-              <div className={classes.helperWarning}>
-                {warnings.nightscoutToken.message}
-              </div>
+          }
+        ></Input>
+        {warnings.nightscoutToken && (
+          <FormHelperText className={classes.helperWarning}>
+            {warnings.nightscoutToken.message}
+          </FormHelperText>
+        )}
+        <FormHelperText>
+          <Link
+            component="button"
+            type="button"
+            onClick={returnHandleOpenTokenDialog(
+              tokenDialogOpen,
+              setTokenDialogOpen
             )}
+          >
+            {t("settings.form.helperText.nightscoutToken.default")}
+          </Link>
+        </FormHelperText>
+      </FormControl>
 
-            <Link
-              component="button"
-              type="button"
-              onClick={returnHandleOpenTokenDialog(
-                tokenDialogOpen,
-                setTokenDialogOpen
-              )}
-            >
-              {t("settings.form.helperText.nightscoutToken.default")}
-            </Link>
-          </>
-        }
-        FormHelperTextProps={{
-          component: "div",
-        }}
-      />
       <FormControl
         component="fieldset"
         data-testid="settings-form-fieldset-metrics"

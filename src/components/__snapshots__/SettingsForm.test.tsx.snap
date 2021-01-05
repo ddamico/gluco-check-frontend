@@ -31,13 +31,12 @@ exports[`SettingsForm component renders the component 1`] = `
     </div>
   </div>
   <div
-    class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+    class="MuiFormControl-root MaterialTextField MuiFormControl-fullWidth"
   >
     <label
       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
       data-shrink="true"
       for="settings-form-field-token"
-      id="settings-form-field-token-label"
     >
       settings.form.labels.nightscoutToken
     </label>
@@ -59,7 +58,6 @@ exports[`SettingsForm component renders the component 1`] = `
         </svg>
       </div>
       <input
-        aria-describedby="settings-form-field-token-helper-text"
         aria-invalid="false"
         class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
         data-testid="settings-form-field-token"
@@ -69,9 +67,8 @@ exports[`SettingsForm component renders the component 1`] = `
         value="token123"
       />
     </div>
-    <div
+    <p
       class="MuiFormHelperText-root MuiFormHelperText-filled"
-      id="settings-form-field-token-helper-text"
     >
       <button
         class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiLink-button MuiTypography-colorPrimary"
@@ -79,7 +76,7 @@ exports[`SettingsForm component renders the component 1`] = `
       >
         settings.form.helperText.nightscoutToken.default
       </button>
-    </div>
+    </p>
   </div>
   <fieldset
     class="MuiFormControl-root"
