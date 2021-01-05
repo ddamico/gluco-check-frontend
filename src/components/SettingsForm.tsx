@@ -327,26 +327,25 @@ export default function SettingsForm({
       onSubmit={handleSubmit(onFormSubmit)}
       data-testid="settings-form"
     >
-      <TextField
-        defaultValue={nightscoutUrl}
-        disabled={!canEditFields}
-        fullWidth={true}
-        id="settings-form-field-url"
-        inputRef={register}
-        InputProps={{
-          inputProps: {
-            "data-testid": "settings-form-field-url",
-          },
-        }}
-        label={t("settings.form.labels.nightscoutUrl")}
-        name="nightscoutUrl"
-        helperText={
-          warnings.nightscoutUrl ? warnings.nightscoutUrl.message : undefined
-        }
-        FormHelperTextProps={{
-          className: warnings.nightscoutUrl ? classes.helperWarning : undefined,
-        }}
-      />
+      <FormControl className="MaterialTextField" fullWidth={true}>
+        <InputLabel htmlFor="settings-form-field-url">
+          {t("settings.form.labels.nightscoutUrl")}
+        </InputLabel>
+        <Input
+          defaultValue={nightscoutUrl}
+          fullWidth={true}
+          disabled={!canEditFields}
+          id="settings-form-field-url"
+          inputProps={{ "data-testid": "settings-form-field-url" }}
+          inputRef={register}
+          name="nightscoutUrl"
+        ></Input>
+        {warnings.nightscoutUrl && (
+          <FormHelperText className={classes.helperWarning}>
+            {warnings.nightscoutUrl.message}
+          </FormHelperText>
+        )}
+      </FormControl>
 
       <FormControl className="MaterialTextField" fullWidth={true}>
         <InputLabel htmlFor="settings-form-field-token">
