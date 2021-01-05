@@ -73,6 +73,23 @@ const useStyles = makeStyles((theme) => ({
   helperWarning: {
     color: theme.palette.warning.main,
   },
+  checkboxWithWarning: {
+    "& .MuiFormControlLabel-label.Mui-disabled": {
+      color: theme.palette.warning.light,
+    },
+    "& .MuiFormControlLabel-label": {
+      color: theme.palette.warning.main,
+    },
+    "& .MuiFormControlLabel-label::after": {
+      content: "' *'",
+    },
+    "& input[type=checkbox]:disabled + svg": {
+      fill: theme.palette.warning.light,
+    },
+    "& input[type=checkbox] + svg": {
+      fill: theme.palette.warning.main,
+    },
+  },
 }));
 
 export const returnHandleOpenTokenDialog = (
@@ -98,6 +115,12 @@ export default function SettingsForm({
   const [warnings, setWarnings] = useState<
     DeepMap<SettingsFormData, FieldError>
   >({});
+
+  // until the backend tells us otherwise, assume
+  // everything is supported
+  const [supportedMetrics, setSupportedMetrics] = useState<DiabetesMetric[]>(
+    Object.values(DiabetesMetric)
+  );
 
   // eslint-disable-next-line
   const {
@@ -185,7 +208,7 @@ export default function SettingsForm({
                   ];
                 }
               }
-
+              setSupportedMetrics(nsvResponse.discoveredMetrics);
               setWarnings(warnings);
             }
           }
@@ -248,6 +271,8 @@ export default function SettingsForm({
 
   const handleCheck = (newMetric: DiabetesMetric) => {
     const { defaultMetrics } = getValues();
+
+    // toggle on or off
     let newMetrics = defaultMetrics?.includes(newMetric)
       ? defaultMetrics?.filter((metric) => metric !== newMetric)
       : [...defaultMetrics, newMetric];
@@ -366,26 +391,41 @@ export default function SettingsForm({
                 ? formStateDefaultMetrics.includes(DiabetesMetric.Everything)
                 : defaultMetrics.includes(DiabetesMetric.Everything);
 
-              return metrics.map((metric) => (
-                <FormControlLabel
-                  disabled={
-                    !canEditFields ||
-                    (everythingIsSelected &&
-                      metric.value !== DiabetesMetric.Everything)
-                  }
-                  control={
-                    <Checkbox
-                      onChange={() => props.onChange(handleCheck(metric.value))}
-                      checked={
-                        everythingIsSelected ||
-                        props.value.includes(metric.value)
-                      }
-                    />
-                  }
-                  key={metric.value}
-                  label={metric.value}
-                />
-              ));
+              return metrics.map((metric) => {
+                const shouldPresentWarningLabel =
+                  metric.value !== DiabetesMetric.Everything &&
+                  !warnings.nightscoutUrl &&
+                  !warnings.nightscoutToken &&
+                  !supportedMetrics.includes(metric.value);
+
+                return (
+                  <FormControlLabel
+                    className={
+                      shouldPresentWarningLabel
+                        ? classes.checkboxWithWarning
+                        : undefined
+                    }
+                    control={
+                      <Checkbox
+                        onChange={() =>
+                          props.onChange(handleCheck(metric.value))
+                        }
+                        checked={
+                          everythingIsSelected ||
+                          props.value.includes(metric.value)
+                        }
+                        disabled={
+                          !canEditFields ||
+                          (everythingIsSelected &&
+                            metric.value !== DiabetesMetric.Everything)
+                        }
+                      />
+                    }
+                    key={metric.value}
+                    label={metric.value}
+                  />
+                );
+              });
             }}
           />
         </FormGroup>
