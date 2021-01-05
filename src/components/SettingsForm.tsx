@@ -328,9 +328,13 @@ export default function SettingsForm({
         label={t("settings.form.labels.nightscoutToken")}
         name="nightscoutToken"
         helperText={
-          warnings.nightscoutToken ? (
-            warnings.nightscoutToken.message
-          ) : (
+          <>
+            {warnings.nightscoutToken && (
+              <div className={classes.helperWarning}>
+                {warnings.nightscoutToken.message}
+              </div>
+            )}
+
             <Link
               component="button"
               type="button"
@@ -341,12 +345,10 @@ export default function SettingsForm({
             >
               {t("settings.form.helperText.nightscoutToken.default")}
             </Link>
-          )
+          </>
         }
         FormHelperTextProps={{
-          className: warnings.nightscoutToken
-            ? classes.helperWarning
-            : undefined,
+          component: "div",
         }}
       />
       <FormControl

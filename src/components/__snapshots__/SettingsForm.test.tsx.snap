@@ -69,7 +69,7 @@ exports[`SettingsForm component renders the component 1`] = `
         value="token123"
       />
     </div>
-    <p
+    <div
       class="MuiFormHelperText-root MuiFormHelperText-filled"
       id="settings-form-field-token-helper-text"
     >
@@ -79,7 +79,7 @@ exports[`SettingsForm component renders the component 1`] = `
       >
         settings.form.helperText.nightscoutToken.default
       </button>
-    </p>
+    </div>
   </div>
   <fieldset
     class="MuiFormControl-root"
