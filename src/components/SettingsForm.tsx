@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import debouncePromise from "awesome-debounce-promise";
+import { debounce } from "debounce-promise-with-cancel";
 import {
   Button,
   Checkbox,
@@ -124,6 +124,103 @@ export default function SettingsForm({
   );
   const [validationInProgress, setValidationInProgress] = useState(false);
 
+  const debouncedValidator = debounce(async (data: SettingsFormData) => {
+    if (nightscoutValidator) {
+      try {
+        setValidationInProgress(true);
+        const nsvResponse = await nightscoutValidator.fetchValidationStatus(
+          data.nightscoutUrl,
+          data.nightscoutToken
+        );
+        let warnings: DeepMap<SettingsFormData, FieldError> = {};
+        if (nsvResponse) {
+          if (!nsvResponse.url.pointsToNightscout) {
+            warnings.nightscoutUrl = {
+              type: "validate",
+              message: t(
+                "settings.form.helperText.nightscoutUrl.notNightscout"
+              ),
+            };
+          }
+          if (nsvResponse.url.pointsToNightscout) {
+            if (!nsvResponse.token.isValid) {
+              warnings.nightscoutToken = {
+                type: "validate",
+                message: t("settings.form.helperText.nightscoutToken.invalid"),
+              };
+            }
+            if (
+              nsvResponse.nightscout.glucoseUnit !==
+              NightscoutBloodGlucoseUnitMapping[data.glucoseUnit]
+            ) {
+              warnings.glucoseUnit = {
+                type: "validate",
+                message: t("settings.form.helperText.glucoseUnits.mismatch"),
+              };
+            }
+            if (
+              semver.valid(nsvResponse.nightscout.version) &&
+              semver.valid(nsvResponse.nightscout.minSupportedVersion) &&
+              semver.lt(
+                nsvResponse.nightscout.version,
+                nsvResponse.nightscout.minSupportedVersion
+              )
+            ) {
+              warnings.nightscoutUrl = {
+                type: "validate",
+                message: t(
+                  "settings.form.helperText.nightscoutUrl.needsUpgrade",
+                  {
+                    version: nsvResponse.nightscout.minSupportedVersion.toString(),
+                  }
+                ),
+              };
+            }
+            const userHasSelectedUnsupportedMetrics = data.defaultMetrics
+              .filter((metric) => metric !== DiabetesMetric.Everything)
+              .map((metric) => nsvResponse.discoveredMetrics.includes(metric))
+              .includes(false);
+            if (userHasSelectedUnsupportedMetrics === true) {
+              warnings.defaultMetrics = [
+                {
+                  type: "validate",
+                  message: t(
+                    "settings.form.helperText.defaultMetrics.notAvailable",
+                    {
+                      version: nsvResponse.nightscout.minSupportedVersion.toString(),
+                    }
+                  ),
+                },
+              ];
+            }
+          }
+
+          // can't do this if component has already been unmounted,
+          // you'll leave it (and the connection) hanging
+          setSupportedMetrics(nsvResponse.discoveredMetrics);
+          setWarnings(warnings);
+          setValidationInProgress(false);
+        }
+      } catch (e) {
+        console.log("Unable to fetch validation info for Nightscout site", e);
+      }
+    }
+
+    // always return no errors, we are using resolver
+    // for its lifecycle, but never want to block submission
+    return {
+      values: data,
+      errors: {},
+    };
+  }, validationDebounceDuration!);
+
+  // clean up any outstanding validation runs
+  useEffect(() => {
+    return function cleanup() {
+      debouncedValidator.cancel();
+    };
+  }, [debouncedValidator]);
+
   // eslint-disable-next-line
   const {
     control,
@@ -135,111 +232,7 @@ export default function SettingsForm({
   } = useForm<SettingsFormData>({
     mode: "onChange",
     // TODO: extract
-    resolver: nightscoutValidator
-      ? debouncePromise(async (data: SettingsFormData) => {
-          // TODO: need to make this promise cancellable so we can
-          // kill it on unmount. May need to move to something like
-          // useAsync or something like that to resolve, or perhaps
-          // moving to providing all validation through context...
-          // think about it.
-          if (nightscoutValidator) {
-            try {
-              setValidationInProgress(true);
-              const nsvResponse = await nightscoutValidator.fetchValidationStatus(
-                data.nightscoutUrl,
-                data.nightscoutToken
-              );
-              let warnings: DeepMap<SettingsFormData, FieldError> = {};
-              if (nsvResponse) {
-                if (!nsvResponse.url.pointsToNightscout) {
-                  warnings.nightscoutUrl = {
-                    type: "validate",
-                    message: t(
-                      "settings.form.helperText.nightscoutUrl.notNightscout"
-                    ),
-                  };
-                }
-                if (nsvResponse.url.pointsToNightscout) {
-                  if (!nsvResponse.token.isValid) {
-                    warnings.nightscoutToken = {
-                      type: "validate",
-                      message: t(
-                        "settings.form.helperText.nightscoutToken.invalid"
-                      ),
-                    };
-                  }
-                  if (
-                    nsvResponse.nightscout.glucoseUnit !==
-                    NightscoutBloodGlucoseUnitMapping[data.glucoseUnit]
-                  ) {
-                    warnings.glucoseUnit = {
-                      type: "validate",
-                      message: t(
-                        "settings.form.helperText.glucoseUnits.mismatch"
-                      ),
-                    };
-                  }
-                  if (
-                    semver.valid(nsvResponse.nightscout.version) &&
-                    semver.valid(nsvResponse.nightscout.minSupportedVersion) &&
-                    semver.lt(
-                      nsvResponse.nightscout.version,
-                      nsvResponse.nightscout.minSupportedVersion
-                    )
-                  ) {
-                    warnings.nightscoutUrl = {
-                      type: "validate",
-                      message: t(
-                        "settings.form.helperText.nightscoutUrl.needsUpgrade",
-                        {
-                          version: nsvResponse.nightscout.minSupportedVersion.toString(),
-                        }
-                      ),
-                    };
-                  }
-                  const userHasSelectedUnsupportedMetrics = data.defaultMetrics
-                    .filter((metric) => metric !== DiabetesMetric.Everything)
-                    .map((metric) =>
-                      nsvResponse.discoveredMetrics.includes(metric)
-                    )
-                    .includes(false);
-                  if (userHasSelectedUnsupportedMetrics === true) {
-                    warnings.defaultMetrics = [
-                      {
-                        type: "validate",
-                        message: t(
-                          "settings.form.helperText.defaultMetrics.notAvailable",
-                          {
-                            version: nsvResponse.nightscout.minSupportedVersion.toString(),
-                          }
-                        ),
-                      },
-                    ];
-                  }
-                }
-
-                // can't do this if component has already been unmounted,
-                // you'll leave it (and the connection) hanging
-                setSupportedMetrics(nsvResponse.discoveredMetrics);
-                setWarnings(warnings);
-                setValidationInProgress(false);
-              }
-            } catch (e) {
-              console.log(
-                "Unable to fetch validation info for Nightscout site",
-                e
-              );
-            }
-          }
-
-          // always return no errors, we are using resolver
-          // for its lifecycle, but never want to block submission
-          return {
-            values: data,
-            errors: {},
-          };
-        }, validationDebounceDuration!)
-      : undefined,
+    resolver: nightscoutValidator ? debouncedValidator : undefined,
   });
 
   // trigger form validation on first component render
