@@ -17,7 +17,6 @@ import {
   mockNsvResponseDtoNonNsUrl,
   mockNsvResponseDtoNsNeedsUpgrade,
 } from "../lib/__mocks__/gluco-check";
-import { ALERT_AUTOHIDE_DURATION } from "../lib/constants";
 
 expect.extend(toHaveNoViolations);
 
