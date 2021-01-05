@@ -3,6 +3,7 @@ import debouncePromise from "awesome-debounce-promise";
 import {
   Button,
   Checkbox,
+  CircularProgress,
   Container,
   Dialog,
   DialogContent,
@@ -121,6 +122,7 @@ export default function SettingsForm({
   const [supportedMetrics, setSupportedMetrics] = useState<DiabetesMetric[]>(
     Object.values(DiabetesMetric)
   );
+  const [validationInProgress, setValidationInProgress] = useState(false);
 
   // eslint-disable-next-line
   const {
@@ -135,81 +137,98 @@ export default function SettingsForm({
     // TODO: extract
     resolver: nightscoutValidator
       ? debouncePromise(async (data: SettingsFormData) => {
+          // TODO: need to make this promise cancellable so we can
+          // kill it on unmount. May need to move to something like
+          // useAsync or something like that to resolve, or perhaps
+          // moving to providing all validation through context...
+          // think about it.
           if (nightscoutValidator) {
-            const nsvResponse = await nightscoutValidator.fetchValidationStatus(
-              data.nightscoutUrl,
-              data.nightscoutToken
-            );
-            let warnings: DeepMap<SettingsFormData, FieldError> = {};
-            if (nsvResponse) {
-              if (!nsvResponse.url.pointsToNightscout) {
-                warnings.nightscoutUrl = {
-                  type: "validation",
-                  message: t(
-                    "settings.form.helperText.nightscoutUrl.notNightscout"
-                  ),
-                };
-              }
-              if (nsvResponse.url.pointsToNightscout) {
-                if (!nsvResponse.token.isValid) {
-                  warnings.nightscoutToken = {
-                    type: "validation",
-                    message: t(
-                      "settings.form.helperText.nightscoutToken.invalid"
-                    ),
-                  };
-                }
-                if (
-                  nsvResponse.nightscout.glucoseUnit !==
-                  NightscoutBloodGlucoseUnitMapping[data.glucoseUnit]
-                ) {
-                  warnings.glucoseUnit = {
-                    type: "validation",
-                    message: t(
-                      "settings.form.helperText.glucoseUnits.mismatch"
-                    ),
-                  };
-                }
-                if (
-                  semver.valid(nsvResponse.nightscout.version) &&
-                  semver.valid(nsvResponse.nightscout.minSupportedVersion) &&
-                  semver.lt(
-                    nsvResponse.nightscout.version,
-                    nsvResponse.nightscout.minSupportedVersion
-                  )
-                ) {
+            try {
+              setValidationInProgress(true);
+              const nsvResponse = await nightscoutValidator.fetchValidationStatus(
+                data.nightscoutUrl,
+                data.nightscoutToken
+              );
+              let warnings: DeepMap<SettingsFormData, FieldError> = {};
+              if (nsvResponse) {
+                if (!nsvResponse.url.pointsToNightscout) {
                   warnings.nightscoutUrl = {
-                    type: "validation",
+                    type: "validate",
                     message: t(
-                      "settings.form.helperText.nightscoutUrl.needsUpgrade",
-                      {
-                        version: nsvResponse.nightscout.minSupportedVersion.toString(),
-                      }
+                      "settings.form.helperText.nightscoutUrl.notNightscout"
                     ),
                   };
                 }
-                const userHasSelectedUnsupportedMetrics = data.defaultMetrics
-                  .filter((metric) => metric !== DiabetesMetric.Everything)
-                  .map((metric) =>
-                    nsvResponse.discoveredMetrics.includes(metric)
-                  )
-                  .includes(false);
-                if (userHasSelectedUnsupportedMetrics === true) {
-                  warnings.defaultMetrics = [
-                    {
-                      type: "validation",
+                if (nsvResponse.url.pointsToNightscout) {
+                  if (!nsvResponse.token.isValid) {
+                    warnings.nightscoutToken = {
+                      type: "validate",
                       message: t(
-                        "settings.form.helperText.defaultMetrics.notAvailable",
+                        "settings.form.helperText.nightscoutToken.invalid"
+                      ),
+                    };
+                  }
+                  if (
+                    nsvResponse.nightscout.glucoseUnit !==
+                    NightscoutBloodGlucoseUnitMapping[data.glucoseUnit]
+                  ) {
+                    warnings.glucoseUnit = {
+                      type: "validate",
+                      message: t(
+                        "settings.form.helperText.glucoseUnits.mismatch"
+                      ),
+                    };
+                  }
+                  if (
+                    semver.valid(nsvResponse.nightscout.version) &&
+                    semver.valid(nsvResponse.nightscout.minSupportedVersion) &&
+                    semver.lt(
+                      nsvResponse.nightscout.version,
+                      nsvResponse.nightscout.minSupportedVersion
+                    )
+                  ) {
+                    warnings.nightscoutUrl = {
+                      type: "validate",
+                      message: t(
+                        "settings.form.helperText.nightscoutUrl.needsUpgrade",
                         {
                           version: nsvResponse.nightscout.minSupportedVersion.toString(),
                         }
                       ),
-                    },
-                  ];
+                    };
+                  }
+                  const userHasSelectedUnsupportedMetrics = data.defaultMetrics
+                    .filter((metric) => metric !== DiabetesMetric.Everything)
+                    .map((metric) =>
+                      nsvResponse.discoveredMetrics.includes(metric)
+                    )
+                    .includes(false);
+                  if (userHasSelectedUnsupportedMetrics === true) {
+                    warnings.defaultMetrics = [
+                      {
+                        type: "validate",
+                        message: t(
+                          "settings.form.helperText.defaultMetrics.notAvailable",
+                          {
+                            version: nsvResponse.nightscout.minSupportedVersion.toString(),
+                          }
+                        ),
+                      },
+                    ];
+                  }
                 }
+
+                // can't do this if component has already been unmounted,
+                // you'll leave it (and the connection) hanging
+                setSupportedMetrics(nsvResponse.discoveredMetrics);
+                setWarnings(warnings);
+                setValidationInProgress(false);
               }
-              setSupportedMetrics(nsvResponse.discoveredMetrics);
-              setWarnings(warnings);
+            } catch (e) {
+              console.log(
+                "Unable to fetch validation info for Nightscout site",
+                e
+              );
             }
           }
 
@@ -472,6 +491,18 @@ export default function SettingsForm({
           </FormHelperText>
         )}
       </FormControl>
+
+      {validationInProgress && (
+        <Container disableGutters={true} maxWidth="lg">
+          <FormHelperText
+            component="div"
+            data-testid="settings-form-validation-progress-indicator"
+          >
+            <CircularProgress size={10} />{" "}
+            {t("settings.form.validationInProgress")}
+          </FormHelperText>
+        </Container>
+      )}
 
       <Container disableGutters={true} maxWidth="lg">
         <Button
