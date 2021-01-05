@@ -30,6 +30,7 @@
     "title": "Instellingen",
     "content": "[Content about how the product must connect to your nightscout site in order to work.]",
     "form": {
+      "validationInProgress": "[Checking your Nightscout site]",
       "labels": {
         "glucoseUnits": "Glucose Eenheden",
         "nightscoutToken": "Nightscout Token",
@@ -39,10 +40,12 @@
       "helperText": {
         "nightscoutToken": {
           "default": "[Not sure how to get a token? Read on!]",
+          "empty": "[A token is required to read additional metrics]",
           "invalid": "[Your Nightscout site is not accepting this token]"
         },
         "nightscoutUrl": {
           "default": "URL van je Nightscout site",
+          "required": "[This field is required]",
           "notNightscout": "[This URL does not point to a Nightscout site]",
           "needsUpgrade": "[Your Nightscout site requires an update to work with Gluco Check, please update to at least {{version}}]"
         },
