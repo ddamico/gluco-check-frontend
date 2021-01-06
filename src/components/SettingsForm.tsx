@@ -140,6 +140,7 @@ export default function SettingsForm({
   const debouncedValidator = debounce(async (data: SettingsFormData) => {
     let errors: DeepMap<SettingsFormData, FieldError> = {};
     let warnings: DeepMap<SettingsFormData, FieldError> = {};
+    let augmentedValues: Partial<SettingsFormData> = {};
     if (data.nightscoutUrl === "") {
       errors.nightscoutUrl = {
         type: "required",
@@ -153,6 +154,12 @@ export default function SettingsForm({
             data.nightscoutToken
           );
           if (nsvResponse) {
+            if (nsvResponse.url.isValid && nsvResponse.url.pointsToNightscout) {
+              augmentedValues.nightscoutUrl = nsvResponse.url.parsed;
+            }
+            if (nsvResponse.token.isValid) {
+              augmentedValues.nightscoutToken = nsvResponse.token.parsed;
+            }
             if (!nsvResponse.url.pointsToNightscout) {
               warnings.nightscoutUrl = {
                 type: "validate",
@@ -248,7 +255,7 @@ export default function SettingsForm({
       };
     }
     return {
-      values: data,
+      values: { ...data, ...augmentedValues },
       errors: {},
     };
   }, validationDebounceDuration!);
