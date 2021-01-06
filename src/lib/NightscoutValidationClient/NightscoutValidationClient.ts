@@ -9,9 +9,13 @@ export const STATUS_OK = 200;
 
 export class NightscoutValidationClient {
   private endpointUrl: string;
+  private controller: AbortController;
+  private signal: AbortSignal;
 
   constructor(options: NightscoutValidationClientOptions) {
     this.endpointUrl = options.endpointUrl;
+    this.controller = new AbortController();
+    this.signal = this.controller.signal;
   }
 
   async fetchValidationStatus(
@@ -33,6 +37,7 @@ export class NightscoutValidationClient {
         body: requestBodyRaw,
         redirect: "follow",
         headers,
+        signal: this.signal,
       });
       if (response.status !== 200) {
         throw new Error("Received non-200 response status");
@@ -57,5 +62,9 @@ export class NightscoutValidationClient {
     } catch (e) {
       throw new Error(`Invalid response from nsv endpoint: ${e}`);
     }
+  }
+
+  cancel() {
+    this.controller.abort();
   }
 }
