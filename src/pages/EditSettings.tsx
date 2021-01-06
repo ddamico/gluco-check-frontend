@@ -9,6 +9,7 @@ import {
 import SettingsForm from "../components/SettingsForm";
 import { SettingsFormData } from "../lib/types";
 import {
+  DEFAULT_GLUCOSE_UNITS,
   FIRESTORE_FIELD_PATH_DEFAULT_METRICS,
   FIRESTORE_FIELD_PATH_GLUCOSE_UNITS,
   FIRESTORE_FIELD_PATH_NIGHTSCOUT_TOKEN,
@@ -62,7 +63,8 @@ export default function EditSettings() {
     document?.get(FIRESTORE_FIELD_PATH_NIGHTSCOUT_TOKEN) ?? "";
   const defaultMetrics =
     document?.get(FIRESTORE_FIELD_PATH_DEFAULT_METRICS) ?? [];
-  const glucoseUnit = document?.get(FIRESTORE_FIELD_PATH_GLUCOSE_UNITS) ?? "";
+  const glucoseUnit =
+    document?.get(FIRESTORE_FIELD_PATH_GLUCOSE_UNITS) ?? DEFAULT_GLUCOSE_UNITS;
 
   return (
     <Container maxWidth="lg" className={classes.container}>
