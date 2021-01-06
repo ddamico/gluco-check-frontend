@@ -238,13 +238,16 @@ export default function SettingsForm({
             // can't do this if component has already been unmounted,
             // you'll leave it (and the connection) hanging
             setSupportedMetrics(nsvResponse.discoveredMetrics);
+            setWarnings(warnings);
+          } else {
+            throw new Error("No response returned");
           }
         } catch (e) {
+          // replace this
           console.log("Unable to fetch validation info for Nightscout site", e);
         }
       }
     }
-    setWarnings(warnings);
 
     // always return no errors, we are using resolver
     // for its lifecycle, but never want to block submission

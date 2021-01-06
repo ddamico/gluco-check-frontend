@@ -16,6 +16,7 @@ import {
   mockNsvResponseDtoInvalidToken,
   mockNsvResponseDtoNonNsUrl,
   mockNsvResponseDtoNsNeedsUpgrade,
+  mockNsvResponseDtoValid,
 } from "../lib/__mocks__/gluco-check";
 
 expect.extend(toHaveNoViolations);
@@ -135,6 +136,44 @@ describe("SettingsForm component", () => {
     );
   });
 
+  it("cannot save settings when nighscout url is empty", async () => {
+    render(
+      <SettingsForm
+        nightscoutToken={mockNsToken}
+        nightscoutUrl=""
+        glucoseUnit={mockGlucoseUnits}
+        defaultMetrics={mockDefaultMetrics}
+        onSubmit={mockOnSubmit}
+        alertAutohideDuration={200}
+      />
+    );
+
+    const submitButton = await screen.findByTestId("settings-form-submit");
+
+    expect(submitButton).toBeDisabled();
+    await userEvent.click(submitButton);
+    expect(mockOnSubmit).not.toHaveBeenCalled();
+  });
+
+  it("cannot save settings when default metrics are empty", async () => {
+    render(
+      <SettingsForm
+        nightscoutToken={mockNsToken}
+        nightscoutUrl={mockNsUrl}
+        glucoseUnit={mockGlucoseUnits}
+        defaultMetrics={[]}
+        onSubmit={mockOnSubmit}
+        alertAutohideDuration={200}
+      />
+    );
+
+    const submitButton = await screen.findByTestId("settings-form-submit");
+
+    expect(submitButton).toBeDisabled();
+    await userEvent.click(submitButton);
+    expect(mockOnSubmit).not.toHaveBeenCalled();
+  });
+
   it("attempts to save settings and handles submission error", async () => {
     expect.assertions(3);
     mockOnSubmit.mockRejectedValueOnce(new Error("To err is human"));
@@ -163,7 +202,7 @@ describe("SettingsForm component", () => {
     });
   });
 
-  describe("Nightscout validation", () => {
+  describe("Form validation", () => {
     const mockNsvUrl = "https://example.com";
     const nsvClient = new NightscoutValidationClient({
       endpointUrl: mockNsvUrl,
@@ -177,10 +216,10 @@ describe("SettingsForm component", () => {
       mockValidationMethodSpy.mockReset();
     });
 
-    it("Displays warning message for not-a-nightscout site", async () => {
-      mockValidationMethodSpy.mockResolvedValue(mockNsvResponseDtoNonNsUrl);
+    it("Can still render when validation request throws", async () => {
+      mockValidationMethodSpy.mockRejectedValue(new Error());
 
-      render(
+      const { container } = render(
         <SettingsForm
           nightscoutToken={mockNsToken}
           nightscoutUrl={mockNsUrl}
@@ -192,109 +231,179 @@ describe("SettingsForm component", () => {
         />
       );
 
-      expect(
-        await screen.findByText(
-          "settings.form.helperText.nightscoutUrl.notNightscout"
-        )
-      ).toBeTruthy();
+      expect(container).toBeDefined();
     });
 
-    it("Displays warning message for a nightscout site below minimum version threshold", async () => {
-      mockValidationMethodSpy.mockResolvedValue(
-        mockNsvResponseDtoNsNeedsUpgrade
-      );
+    describe("errors", () => {
+      it("Displays error message for empty nightscout url", async () => {
+        render(
+          <SettingsForm
+            nightscoutToken={mockNsToken}
+            nightscoutUrl=""
+            glucoseUnit={mockGlucoseUnits}
+            defaultMetrics={mockDefaultMetrics}
+            onSubmit={mockOnSubmit}
+            nightscoutValidator={nsvClient}
+            validationDebounceDuration={0}
+          />
+        );
 
-      render(
-        <SettingsForm
-          nightscoutToken={mockNsToken}
-          nightscoutUrl={mockNsUrl}
-          glucoseUnit={mockGlucoseUnits}
-          defaultMetrics={mockDefaultMetrics}
-          onSubmit={mockOnSubmit}
-          nightscoutValidator={nsvClient}
-          validationDebounceDuration={0}
-        />
-      );
+        expect(
+          await screen.findByText(
+            "settings.form.helperText.nightscoutUrl.required"
+          )
+        ).toBeTruthy();
+      });
 
-      expect(
-        await screen.findByText(
-          "settings.form.helperText.nightscoutUrl.needsUpgrade"
-        )
-      ).toBeTruthy();
+      it("Displays error message for empty metrics", async () => {
+        mockValidationMethodSpy.mockResolvedValue(mockNsvResponseDtoValid);
+
+        render(
+          <SettingsForm
+            nightscoutToken={mockNsToken}
+            nightscoutUrl={mockNsUrl}
+            glucoseUnit={mockGlucoseUnits}
+            defaultMetrics={[]}
+            onSubmit={mockOnSubmit}
+            nightscoutValidator={nsvClient}
+            validationDebounceDuration={0}
+          />
+        );
+
+        expect(
+          await screen.findByText(
+            "settings.form.helperText.defaultMetrics.required"
+          )
+        ).toBeTruthy();
+      });
     });
 
-    it("Displays warning message for empty token", async () => {
-      mockValidationMethodSpy.mockResolvedValue(mockNsvResponseDtoInvalidToken);
+    describe("warnings", () => {
+      it("Displays warning message for not-a-nightscout site", async () => {
+        mockValidationMethodSpy.mockResolvedValue(mockNsvResponseDtoNonNsUrl);
 
-      render(
-        <SettingsForm
-          nightscoutToken={""}
-          nightscoutUrl={mockNsUrl}
-          glucoseUnit={mockGlucoseUnits}
-          defaultMetrics={mockDefaultMetrics}
-          onSubmit={mockOnSubmit}
-          nightscoutValidator={nsvClient}
-          validationDebounceDuration={0}
-        />
-      );
+        render(
+          <SettingsForm
+            nightscoutToken={mockNsToken}
+            nightscoutUrl={mockNsUrl}
+            glucoseUnit={mockGlucoseUnits}
+            defaultMetrics={mockDefaultMetrics}
+            onSubmit={mockOnSubmit}
+            nightscoutValidator={nsvClient}
+            validationDebounceDuration={0}
+          />
+        );
 
-      expect(
-        await screen.findByText(
-          "settings.form.helperText.nightscoutToken.empty"
-        )
-      ).toBeTruthy();
-    });
+        expect(
+          await screen.findByText(
+            "settings.form.helperText.nightscoutUrl.notNightscout"
+          )
+        ).toBeTruthy();
+      });
 
-    it("Displays warning message for invalid token", async () => {
-      mockValidationMethodSpy.mockResolvedValue(mockNsvResponseDtoInvalidToken);
+      it("Displays warning message for a nightscout site below minimum version threshold", async () => {
+        mockValidationMethodSpy.mockResolvedValue(
+          mockNsvResponseDtoNsNeedsUpgrade
+        );
 
-      render(
-        <SettingsForm
-          nightscoutToken={mockNsToken}
-          nightscoutUrl={mockNsUrl}
-          glucoseUnit={mockGlucoseUnits}
-          defaultMetrics={mockDefaultMetrics}
-          onSubmit={mockOnSubmit}
-          nightscoutValidator={nsvClient}
-          validationDebounceDuration={0}
-        />
-      );
+        render(
+          <SettingsForm
+            nightscoutToken={mockNsToken}
+            nightscoutUrl={mockNsUrl}
+            glucoseUnit={mockGlucoseUnits}
+            defaultMetrics={mockDefaultMetrics}
+            onSubmit={mockOnSubmit}
+            nightscoutValidator={nsvClient}
+            validationDebounceDuration={0}
+          />
+        );
 
-      expect(
-        await screen.findByText(
-          "settings.form.helperText.nightscoutToken.invalid"
-        )
-      ).toBeTruthy();
-    });
+        expect(
+          await screen.findByText(
+            "settings.form.helperText.nightscoutUrl.needsUpgrade"
+          )
+        ).toBeTruthy();
+      });
 
-    it("Displays warning message for unsupported metrics", async () => {
-      const allMetrics = [
-        DiabetesMetric.BloodSugar,
-        DiabetesMetric.CannulaAge,
-        DiabetesMetric.CarbsOnBoard,
-        DiabetesMetric.InsulinOnBoard,
-        DiabetesMetric.PumpBattery,
-        DiabetesMetric.SensorAge,
-      ];
-      mockValidationMethodSpy.mockResolvedValue(mockNsvResponseDtoInvalidToken);
+      it("Displays warning message for empty token", async () => {
+        mockValidationMethodSpy.mockResolvedValue(
+          mockNsvResponseDtoInvalidToken
+        );
 
-      render(
-        <SettingsForm
-          nightscoutToken={mockNsToken}
-          nightscoutUrl={mockNsUrl}
-          glucoseUnit={mockGlucoseUnits}
-          defaultMetrics={allMetrics}
-          onSubmit={mockOnSubmit}
-          nightscoutValidator={nsvClient}
-          validationDebounceDuration={0}
-        />
-      );
+        render(
+          <SettingsForm
+            nightscoutToken={""}
+            nightscoutUrl={mockNsUrl}
+            glucoseUnit={mockGlucoseUnits}
+            defaultMetrics={mockDefaultMetrics}
+            onSubmit={mockOnSubmit}
+            nightscoutValidator={nsvClient}
+            validationDebounceDuration={0}
+          />
+        );
 
-      expect(
-        await screen.findByText(
-          "settings.form.helperText.defaultMetrics.notAvailable"
-        )
-      ).toBeTruthy();
+        expect(
+          await screen.findByText(
+            "settings.form.helperText.nightscoutToken.empty"
+          )
+        ).toBeTruthy();
+      });
+
+      it("Displays warning message for invalid token", async () => {
+        mockValidationMethodSpy.mockResolvedValue(
+          mockNsvResponseDtoInvalidToken
+        );
+
+        render(
+          <SettingsForm
+            nightscoutToken={mockNsToken}
+            nightscoutUrl={mockNsUrl}
+            glucoseUnit={mockGlucoseUnits}
+            defaultMetrics={mockDefaultMetrics}
+            onSubmit={mockOnSubmit}
+            nightscoutValidator={nsvClient}
+            validationDebounceDuration={0}
+          />
+        );
+
+        expect(
+          await screen.findByText(
+            "settings.form.helperText.nightscoutToken.invalid"
+          )
+        ).toBeTruthy();
+      });
+
+      it("Displays warning message for unsupported metrics", async () => {
+        const allMetrics = [
+          DiabetesMetric.BloodSugar,
+          DiabetesMetric.CannulaAge,
+          DiabetesMetric.CarbsOnBoard,
+          DiabetesMetric.InsulinOnBoard,
+          DiabetesMetric.PumpBattery,
+          DiabetesMetric.SensorAge,
+        ];
+        mockValidationMethodSpy.mockResolvedValue(
+          mockNsvResponseDtoInvalidToken
+        );
+
+        render(
+          <SettingsForm
+            nightscoutToken={mockNsToken}
+            nightscoutUrl={mockNsUrl}
+            glucoseUnit={mockGlucoseUnits}
+            defaultMetrics={allMetrics}
+            onSubmit={mockOnSubmit}
+            nightscoutValidator={nsvClient}
+            validationDebounceDuration={0}
+          />
+        );
+
+        expect(
+          await screen.findByText(
+            "settings.form.helperText.defaultMetrics.notAvailable"
+          )
+        ).toBeTruthy();
+      });
     });
   });
 
