@@ -51,6 +51,7 @@
         },
         "defaultMetrics": {
           "default": "Assistant will read these items to you by default",
+          "required": "You must select at least one metric",
           "notAvailable": "We did not find a recent value for these metrics, but you can still select them"
         },
         "glucoseUnits": {

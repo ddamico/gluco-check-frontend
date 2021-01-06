@@ -211,10 +211,17 @@ export default function SettingsForm({
                   {
                     type: "validate",
                     message: t(
-                      "settings.form.helperText.defaultMetrics.notAvailable",
-                      {
-                        version: nsvResponse.nightscout.minSupportedVersion.toString(),
-                      }
+                      "settings.form.helperText.defaultMetrics.notAvailable"
+                    ),
+                  },
+                ];
+              }
+              if (data.defaultMetrics.length === 0) {
+                errors.defaultMetrics = [
+                  {
+                    type: "validate",
+                    message: t(
+                      "settings.form.helperText.defaultMetrics.required"
                     ),
                   },
                 ];
@@ -356,7 +363,7 @@ export default function SettingsForm({
       data-testid="settings-form"
     >
       <FormControl
-        error={!!errors.nightscoutUrl}
+        error={Boolean(errors.nightscoutUrl)}
         className={warnings.nightscoutUrl ? classes.helperWarning : undefined}
         fullWidth={true}
       >
@@ -424,6 +431,7 @@ export default function SettingsForm({
         className={warnings.defaultMetrics ? classes.helperWarning : undefined}
         component="fieldset"
         data-testid="settings-form-fieldset-metrics"
+        error={Boolean(errors.defaultMetrics)}
       >
         <FormLabel component="legend">
           {t("settings.form.labels.defaultMetrics")}
@@ -479,15 +487,19 @@ export default function SettingsForm({
             }}
           />
         </FormGroup>
-        <FormHelperText
-          className={
-            warnings.defaultMetrics ? classes.helperWarning : undefined
-          }
-        >
-          {warnings.defaultMetrics
-            ? warnings.defaultMetrics[0]?.message
-            : t("settings.form.helperText.defaultMetrics.default")}
-        </FormHelperText>
+        {warnings.defaultMetrics && (
+          <FormHelperText className={classes.helperWarning}>
+            {warnings.defaultMetrics[0]?.message}
+          </FormHelperText>
+        )}
+        {errors.defaultMetrics && (
+          <FormHelperText>{errors.defaultMetrics[0]?.message}</FormHelperText>
+        )}
+        {!warnings.defaultMetrics && !errors.defaultMetrics && (
+          <FormHelperText>
+            {t("settings.form.helperText.defaultMetrics.default")}
+          </FormHelperText>
+        )}
       </FormControl>
 
       <FormControl
