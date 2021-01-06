@@ -15,7 +15,7 @@ const theme = createMuiTheme({
       main: red[500],
     },
     warning: {
-      light: "rgba(245, 124, 0, 0.75)", // orange[700] at 38%, to match material disabled colour
+      light: "rgba(245, 124, 0, 0.75)", // orange[700] at 75%
       main: orange[700],
     },
     background: {
