@@ -75,8 +75,14 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiFormLabel-root, & .MuiInputBase-root, & .MuiInputBase-input, & .MuiFormHelperText-root, & .MuiSelect-root": {
       color: theme.palette.warning.main,
     },
+    "& .MuiFormLabel-root.Mui-disabled, & .MuiInputBase-root.Mui-disabled, & .MuiInputBase-input.Mui-disabled, & .MuiFormHelperText-root.Mui-disabled, & .MuiSelect-root.Mui-disabled": {
+      color: theme.palette.warning.light,
+    },
     "& .MuiInputBase-root.MuiInput-underline:before, & .MuiInputBase-root.MuiInput-underline.Mui-focused:before, & .MuiInputBase-root.MuiInput-underline:after, & .MuiInputBase-root.MuiInput-underline.Mui-focused:after": {
       borderColor: theme.palette.warning.main,
+    },
+    "& .MuiInputBase-root.Mui-disabled.MuiInput-underline:before, & .MuiInputBase-root.Mui-disabled.MuiInput-underline.Mui-focused:before, & .MuiInputBase-root.Mui-disabled.MuiInput-underline:after, & .MuiInputBase-root.Mui-disabled.MuiInput-underline.Mui-focused:after": {
+      borderColor: theme.palette.warning.light,
     },
     "& .MuiInputAdornment-root svg": {
       fill: theme.palette.warning.main,
