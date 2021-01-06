@@ -6,13 +6,12 @@ exports[`SettingsForm component renders the component 1`] = `
   data-testid="settings-form"
 >
   <div
-    class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+    class="MuiFormControl-root MuiFormControl-fullWidth"
   >
     <label
       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
       data-shrink="true"
       for="settings-form-field-url"
-      id="settings-form-field-url-label"
     >
       settings.form.labels.nightscoutUrl
     </label>
@@ -31,7 +30,7 @@ exports[`SettingsForm component renders the component 1`] = `
     </div>
   </div>
   <div
-    class="MuiFormControl-root MaterialTextField MuiFormControl-fullWidth"
+    class="MuiFormControl-root MuiFormControl-fullWidth"
   >
     <label
       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
@@ -395,7 +394,7 @@ exports[`SettingsForm component renders the component 1`] = `
     </p>
   </fieldset>
   <div
-    class="MuiFormControl-root MaterialSelect MuiFormControl-fullWidth"
+    class="MuiFormControl-root MuiFormControl-fullWidth"
   >
     <label
       class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"

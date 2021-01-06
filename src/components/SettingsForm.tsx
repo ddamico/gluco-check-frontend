@@ -72,6 +72,15 @@ const useStyles = makeStyles((theme) => ({
   },
   helperWarning: {
     color: theme.palette.warning.main,
+    "& .MuiFormLabel-root, & .MuiInputBase-root, & .MuiInputBase-input, & .MuiFormHelperText-root, & .MuiSelect-root": {
+      color: theme.palette.warning.main,
+    },
+    "& .MuiInputBase-root.MuiInput-underline:before, & .MuiInputBase-root.MuiInput-underline.Mui-focused:before, & .MuiInputBase-root.MuiInput-underline:after, & .MuiInputBase-root.MuiInput-underline.Mui-focused:after": {
+      borderColor: theme.palette.warning.main,
+    },
+    "& .MuiInputAdornment-root svg": {
+      fill: theme.palette.warning.main,
+    },
   },
   checkboxWithWarning: {
     "& .MuiFormControlLabel-label.Mui-disabled": {
@@ -252,9 +261,10 @@ export default function SettingsForm({
   const [formHasSubmittedSuccess, setFormHasSubmittedSuccess] = useState(false);
   const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
 
+  const formHasErrors = Boolean(Object.keys(formState.errors).length);
   const canEditFields = !formState.isSubmitting;
   const canSubmitForm =
-    formState.isDirty && formState.isValid && !formState.isSubmitting;
+    formState.isDirty && !formHasErrors && !formState.isSubmitting;
 
   const glucoseUnits = Object.entries(BloodGlucoseUnit).map(([_, v]) => {
     return { label: v, value: v };
@@ -334,7 +344,11 @@ export default function SettingsForm({
       onSubmit={handleSubmit(onFormSubmit)}
       data-testid="settings-form"
     >
-      <FormControl className="MaterialTextField" fullWidth={true}>
+      <FormControl
+        error={!!errors.nightscoutUrl}
+        className={warnings.nightscoutUrl ? classes.helperWarning : undefined}
+        fullWidth={true}
+      >
         <InputLabel htmlFor="settings-form-field-url">
           {t("settings.form.labels.nightscoutUrl")}
         </InputLabel>
@@ -351,13 +365,14 @@ export default function SettingsForm({
           <FormHelperText>{errors.nightscoutUrl.message}</FormHelperText>
         )}
         {warnings.nightscoutUrl && (
-          <FormHelperText className={classes.helperWarning}>
-            {warnings.nightscoutUrl.message}
-          </FormHelperText>
+          <FormHelperText>{warnings.nightscoutUrl.message}</FormHelperText>
         )}
       </FormControl>
 
-      <FormControl className="MaterialTextField" fullWidth={true}>
+      <FormControl
+        fullWidth={true}
+        className={warnings.nightscoutToken ? classes.helperWarning : undefined}
+      >
         <InputLabel htmlFor="settings-form-field-token">
           {t("settings.form.labels.nightscoutToken")}
         </InputLabel>
@@ -395,6 +410,7 @@ export default function SettingsForm({
       </FormControl>
 
       <FormControl
+        className={warnings.defaultMetrics ? classes.helperWarning : undefined}
         component="fieldset"
         data-testid="settings-form-fieldset-metrics"
       >
@@ -463,7 +479,10 @@ export default function SettingsForm({
         </FormHelperText>
       </FormControl>
 
-      <FormControl fullWidth={true} className="MaterialSelect">
+      <FormControl
+        className={warnings.glucoseUnit ? classes.helperWarning : undefined}
+        fullWidth={true}
+      >
         <InputLabel htmlFor="settings-form-field-bg">
           {t("settings.form.labels.glucoseUnits")}
         </InputLabel>
@@ -490,9 +509,7 @@ export default function SettingsForm({
           }
         />
         {warnings.glucoseUnit && (
-          <FormHelperText className={classes.helperWarning}>
-            {warnings.glucoseUnit.message}
-          </FormHelperText>
+          <FormHelperText>{warnings.glucoseUnit.message}</FormHelperText>
         )}
       </FormControl>
 
