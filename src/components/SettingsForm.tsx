@@ -22,7 +22,6 @@ import {
   MenuItem,
   Select,
   Snackbar,
-  TextField,
 } from "@material-ui/core";
 import semver from "semver";
 import { Close, Lock } from "@material-ui/icons";
@@ -123,9 +122,6 @@ export default function SettingsForm({
     Object.values(DiabetesMetric)
   );
 
-  // @TODO: can we move this to formState.isValidating?
-  const [validationInProgress, setValidationInProgress] = useState(false);
-
   const debouncedValidator = debounce(async (data: SettingsFormData) => {
     let errors: DeepMap<SettingsFormData, FieldError> = {};
     let warnings: DeepMap<SettingsFormData, FieldError> = {};
@@ -137,7 +133,6 @@ export default function SettingsForm({
     } else {
       if (nightscoutValidator) {
         try {
-          setValidationInProgress(true);
           const nsvResponse = await nightscoutValidator.fetchValidationStatus(
             data.nightscoutUrl,
             data.nightscoutToken
@@ -209,7 +204,6 @@ export default function SettingsForm({
             // can't do this if component has already been unmounted,
             // you'll leave it (and the connection) hanging
             setSupportedMetrics(nsvResponse.discoveredMetrics);
-            setValidationInProgress(false);
           }
         } catch (e) {
           console.log("Unable to fetch validation info for Nightscout site", e);
@@ -231,13 +225,6 @@ export default function SettingsForm({
       errors: {},
     };
   }, validationDebounceDuration!);
-
-  // clean up any outstanding validation runs
-  useEffect(() => {
-    return function cleanup() {
-      debouncedValidator.cancel();
-    };
-  }, [debouncedValidator]);
 
   // eslint-disable-next-line
   const {
@@ -509,7 +496,7 @@ export default function SettingsForm({
         )}
       </FormControl>
 
-      {validationInProgress && (
+      {formState.isValidating && (
         <Container disableGutters={true} maxWidth="lg">
           <FormHelperText
             component="div"
