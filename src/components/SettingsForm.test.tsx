@@ -223,6 +223,28 @@ describe("SettingsForm component", () => {
       ).toBeTruthy();
     });
 
+    it("Displays warning message for empty token", async () => {
+      mockValidationMethodSpy.mockResolvedValue(mockNsvResponseDtoInvalidToken);
+
+      render(
+        <SettingsForm
+          nightscoutToken={""}
+          nightscoutUrl={mockNsUrl}
+          glucoseUnit={mockGlucoseUnits}
+          defaultMetrics={mockDefaultMetrics}
+          onSubmit={mockOnSubmit}
+          nightscoutValidator={nsvClient}
+          validationDebounceDuration={0}
+        />
+      );
+
+      expect(
+        await screen.findByText(
+          "settings.form.helperText.nightscoutToken.empty"
+        )
+      ).toBeTruthy();
+    });
+
     it("Displays warning message for invalid token", async () => {
       mockValidationMethodSpy.mockResolvedValue(mockNsvResponseDtoInvalidToken);
 

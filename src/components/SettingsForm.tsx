@@ -156,7 +156,12 @@ export default function SettingsForm({
               };
             }
             if (nsvResponse.url.pointsToNightscout) {
-              if (!nsvResponse.token.isValid) {
+              if (data.nightscoutToken === "") {
+                warnings.nightscoutToken = {
+                  type: "validate",
+                  message: t("settings.form.helperText.nightscoutToken.empty"),
+                };
+              } else if (!nsvResponse.token.isValid) {
                 warnings.nightscoutToken = {
                   type: "validate",
                   message: t(
