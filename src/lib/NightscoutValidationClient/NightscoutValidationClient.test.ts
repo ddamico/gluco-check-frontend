@@ -49,34 +49,6 @@ describe("NightscoutValidationClient", () => {
     expect(response).toMatchSnapshot();
   });
 
-  describe("cancel", () => {
-    beforeEach(() => {
-      jest.useFakeTimers();
-    });
-    afterEach(() => {
-      jest.useRealTimers();
-    });
-    it("Cancels request when cancel is called", async () => {
-      expect.assertions(1);
-      jest.useFakeTimers();
-      fetchMock.mockResponse(async () => {
-        jest.advanceTimersByTime(60);
-        return JSON.stringify(MOCK_NSV_RESPONSE_VALID);
-      });
-
-      const nsvClient = new NightscoutValidationClient({
-        endpointUrl: MOCK_ENDPOINT_URL,
-      });
-      setTimeout(() => nsvClient.cancel(), 50);
-      await expect(
-        nsvClient.fetchValidationStatus(MOCK_NS_URL, MOCK_NS_TOKEN)
-      ).rejects.toThrowErrorMatchingInlineSnapshot(
-        `"Failed to fetch from nsv endpoint: AbortError: The operation was aborted. "`
-      );
-      jest.useRealTimers();
-    });
-  });
-
   it("Throws if fetch throws", async () => {
     expect.assertions(1);
     fetchMock.mockRejectOnce(new Error("The lesson is never try."));
@@ -129,9 +101,37 @@ describe("NightscoutValidationClient", () => {
     } catch (e) {
       expect(e).toMatchInlineSnapshot(`
         [Error: Invalid response from nsv endpoint: An instance of NightscoutValidationEndpointResponseDto has failed the validation:
-         - property nightscout.glucoseUnit has failed the following constraints: isEnum 
+         - property nightscout.glucoseUnit has failed the following constraints: isEnum
         ]
       `);
     }
+  });
+
+  describe("cancel", () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+    it("Cancels request when cancel is called", async () => {
+      expect.assertions(1);
+      jest.useFakeTimers();
+      fetchMock.mockResponse(async () => {
+        jest.advanceTimersByTime(60);
+        return JSON.stringify(MOCK_NSV_RESPONSE_VALID);
+      });
+
+      const nsvClient = new NightscoutValidationClient({
+        endpointUrl: MOCK_ENDPOINT_URL,
+      });
+      setTimeout(() => nsvClient.cancel(), 50);
+      await expect(
+        nsvClient.fetchValidationStatus(MOCK_NS_URL, MOCK_NS_TOKEN)
+      ).rejects.toThrowErrorMatchingInlineSnapshot(
+        `"Failed to fetch from nsv endpoint: AbortError: The operation was aborted. "`
+      );
+      jest.useRealTimers();
+    });
   });
 });
