@@ -137,6 +137,9 @@ export default function SettingsForm({
     Object.values(DiabetesMetric)
   );
 
+  // TODO: this would definitely be better off lifted
+  // out of the component context, but for now leaving as-is,
+  // as it is adequately covered by the component tests
   const debouncedValidator = debounce(async (data: SettingsFormData) => {
     let errors: DeepMap<SettingsFormData, FieldError> = {};
     let warnings: DeepMap<SettingsFormData, FieldError> = {};
@@ -243,7 +246,6 @@ export default function SettingsForm({
             throw new Error("No response returned");
           }
         } catch (e) {
-          // replace this
           console.log("Unable to fetch validation info for Nightscout site", e);
         }
       }
