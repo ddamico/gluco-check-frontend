@@ -57,13 +57,11 @@ describe("NightscoutValidationClient", () => {
       endpointUrl: MOCK_ENDPOINT_URL,
     });
 
-    try {
-      await nsvClient.fetchValidationStatus(MOCK_NS_URL, MOCK_NS_TOKEN);
-    } catch (e) {
-      expect(e).toMatchInlineSnapshot(
-        `[Error: Failed to fetch from nsv endpoint: Error: The lesson is never try.]`
-      );
-    }
+    await expect(
+      nsvClient.fetchValidationStatus(MOCK_NS_URL, MOCK_NS_TOKEN)
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"Failed to fetch from nsv endpoint: Error: The lesson is never try."`
+    );
   });
 
   it("Throws if non-ok response returned", async () => {
@@ -77,17 +75,14 @@ describe("NightscoutValidationClient", () => {
       endpointUrl: MOCK_ENDPOINT_URL,
     });
 
-    try {
-      await nsvClient.fetchValidationStatus(MOCK_NS_URL, MOCK_NS_TOKEN);
-    } catch (e) {
-      expect(e).toMatchInlineSnapshot(
-        `[Error: Failed to fetch from nsv endpoint: Error: Received non-200 response status]`
-      );
-    }
+    await expect(
+      nsvClient.fetchValidationStatus(MOCK_NS_URL, MOCK_NS_TOKEN)
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"Failed to fetch from nsv endpoint: Error: Received non-200 response status"`
+    );
   });
 
   it("Throws if response validation fails", async () => {
-    expect.assertions(1);
     const invalidResponse = clone(MOCK_NSV_RESPONSE_VALID);
     invalidResponse.nightscout.glucoseUnit = "NOTAUNIT";
     fetchMock.mockResponseOnce(JSON.stringify(invalidResponse));
@@ -96,15 +91,12 @@ describe("NightscoutValidationClient", () => {
       endpointUrl: MOCK_ENDPOINT_URL,
     });
 
-    try {
-      await nsvClient.fetchValidationStatus(MOCK_NS_URL, MOCK_NS_TOKEN);
-    } catch (e) {
-      expect(e).toMatchInlineSnapshot(`
-        [Error: Invalid response from nsv endpoint: An instance of NightscoutValidationEndpointResponseDto has failed the validation:
-         - property nightscout.glucoseUnit has failed the following constraints: isEnum 
-        ]
-      `);
-    }
+    await expect(nsvClient.fetchValidationStatus(MOCK_NS_URL, MOCK_NS_TOKEN))
+      .rejects.toThrowErrorMatchingInlineSnapshot(`
+"Invalid response from nsv endpoint: An instance of NightscoutValidationEndpointResponseDto has failed the validation:
+ - property nightscout.glucoseUnit has failed the following constraints: isEnum 
+"
+`);
   });
 
   describe("cancel", () => {
@@ -118,14 +110,14 @@ describe("NightscoutValidationClient", () => {
       expect.assertions(1);
       jest.useFakeTimers();
       fetchMock.mockResponse(async () => {
-        jest.advanceTimersByTime(60);
+        jest.advanceTimersByTime(10);
         return JSON.stringify(MOCK_NSV_RESPONSE_VALID);
       });
 
       const nsvClient = new NightscoutValidationClient({
         endpointUrl: MOCK_ENDPOINT_URL,
       });
-      setTimeout(() => nsvClient.cancel(), 50);
+      setTimeout(() => nsvClient.cancel(), 5);
       await expect(
         nsvClient.fetchValidationStatus(MOCK_NS_URL, MOCK_NS_TOKEN)
       ).rejects.toThrowErrorMatchingInlineSnapshot(
