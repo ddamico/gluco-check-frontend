@@ -101,7 +101,7 @@ describe("NightscoutValidationClient", () => {
     } catch (e) {
       expect(e).toMatchInlineSnapshot(`
         [Error: Invalid response from nsv endpoint: An instance of NightscoutValidationEndpointResponseDto has failed the validation:
-         - property nightscout.glucoseUnit has failed the following constraints: isEnum
+         - property nightscout.glucoseUnit has failed the following constraints: isEnum 
         ]
       `);
     }
