@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { debounce } from "debounce-promise-with-cancel";
 import {
   Button,
   Checkbox,
+  CircularProgress,
   Container,
   Dialog,
   DialogContent,
@@ -12,6 +14,7 @@ import {
   FormHelperText,
   FormLabel,
   IconButton,
+  Input,
   InputAdornment,
   InputLabel,
   Link,
@@ -19,23 +22,31 @@ import {
   MenuItem,
   Select,
   Snackbar,
-  TextField,
 } from "@material-ui/core";
+import semver from "semver";
 import { Close, Lock } from "@material-ui/icons";
 import MuiAlert from "@material-ui/lab/Alert";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, DeepMap, FieldError } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { BloodGlucoseUnits, DiabetesMetric } from "../lib/enums";
+import { BloodGlucoseUnit, DiabetesMetric } from "../lib/enums";
 import { SettingsFormData } from "../lib/types";
-import { ALERT_AUTOHIDE_DURATION } from "../lib/constants";
+import {
+  ALERT_AUTOHIDE_DURATION,
+  VALIDATION_DEBOUNCE_DURATION,
+} from "../lib/constants";
 import TokenSetup from "../components/TokenSetup";
+import { NightscoutValidationClient } from "../lib/NightscoutValidationClient/NightscoutValidationClient";
+import { NightscoutBloodGlucoseUnitMapping } from "../lib/mappings";
 
 type SettingsFormProps = {
   nightscoutUrl: string;
   nightscoutToken: string;
-  glucoseUnit: BloodGlucoseUnits;
+  glucoseUnit: BloodGlucoseUnit;
   defaultMetrics: DiabetesMetric[];
   onSubmit: (data: SettingsFormData) => {};
+  nightscoutValidator?: NightscoutValidationClient;
+  alertAutohideDuration?: number;
+  validationDebounceDuration?: number;
 };
 
 const SettingsFormAlert = (props: any) => {
@@ -59,6 +70,41 @@ const useStyles = makeStyles((theme) => ({
       textTransform: "capitalize",
     },
   },
+  helperWarning: {
+    color: theme.palette.warning.main,
+    "& .MuiFormLabel-root, & .MuiInputBase-root, & .MuiInputBase-input, & .MuiFormHelperText-root, & .MuiSelect-root": {
+      color: theme.palette.warning.main,
+    },
+    "& .MuiFormLabel-root.Mui-disabled, & .MuiInputBase-root.Mui-disabled, & .MuiInputBase-input.Mui-disabled, & .MuiFormHelperText-root.Mui-disabled, & .MuiSelect-root.Mui-disabled": {
+      color: theme.palette.warning.light,
+    },
+    "& .MuiInputBase-root.MuiInput-underline:before, & .MuiInputBase-root.MuiInput-underline.Mui-focused:before, & .MuiInputBase-root.MuiInput-underline:after, & .MuiInputBase-root.MuiInput-underline.Mui-focused:after": {
+      borderColor: theme.palette.warning.main,
+    },
+    "& .MuiInputBase-root.Mui-disabled.MuiInput-underline:before, & .MuiInputBase-root.Mui-disabled.MuiInput-underline.Mui-focused:before, & .MuiInputBase-root.Mui-disabled.MuiInput-underline:after, & .MuiInputBase-root.Mui-disabled.MuiInput-underline.Mui-focused:after": {
+      borderColor: theme.palette.warning.light,
+    },
+    "& .MuiInputAdornment-root svg": {
+      fill: theme.palette.warning.main,
+    },
+  },
+  checkboxWithWarning: {
+    "& .MuiFormControlLabel-label.Mui-disabled": {
+      color: theme.palette.warning.light,
+    },
+    "& .MuiFormControlLabel-label": {
+      color: theme.palette.warning.main,
+    },
+    "& .MuiFormControlLabel-label::after": {
+      content: "' *'",
+    },
+    "& input[type=checkbox]:disabled + svg": {
+      fill: theme.palette.warning.light,
+    },
+    "& input[type=checkbox] + svg": {
+      fill: theme.palette.warning.main,
+    },
+  },
 }));
 
 export const returnHandleOpenTokenDialog = (
@@ -76,20 +122,181 @@ export default function SettingsForm({
   glucoseUnit,
   defaultMetrics,
   onSubmit,
+  nightscoutValidator,
+  alertAutohideDuration,
+  validationDebounceDuration,
 }: SettingsFormProps) {
   const classes = useStyles();
+  const [warnings, setWarnings] = useState<
+    DeepMap<SettingsFormData, FieldError>
+  >({});
+
+  // until the backend tells us otherwise, assume
+  // everything is supported
+  const [supportedMetrics, setSupportedMetrics] = useState<DiabetesMetric[]>(
+    Object.values(DiabetesMetric)
+  );
+
+  // TODO: this would definitely be better off lifted
+  // out of the component context, but for now leaving as-is,
+  // as it is adequately covered by the component tests
+  const debouncedValidator = debounce(async (data: SettingsFormData) => {
+    let errors: DeepMap<SettingsFormData, FieldError> = {};
+    let warnings: DeepMap<SettingsFormData, FieldError> = {};
+    let augmentedValues: Partial<SettingsFormData> = {};
+    if (data.nightscoutUrl === "") {
+      errors.nightscoutUrl = {
+        type: "required",
+        message: t("settings.form.helperText.nightscoutUrl.required"),
+      };
+    } else {
+      if (nightscoutValidator) {
+        try {
+          const nsvResponse = await nightscoutValidator.fetchValidationStatus(
+            data.nightscoutUrl,
+            data.nightscoutToken
+          );
+          if (nsvResponse) {
+            if (nsvResponse.url.isValid && nsvResponse.url.pointsToNightscout) {
+              augmentedValues.nightscoutUrl = nsvResponse.url.parsed;
+            }
+            if (nsvResponse.token.isValid) {
+              augmentedValues.nightscoutToken = nsvResponse.token.parsed;
+            }
+            if (!nsvResponse.url.pointsToNightscout) {
+              warnings.nightscoutUrl = {
+                type: "validate",
+                message: t(
+                  "settings.form.helperText.nightscoutUrl.notNightscout"
+                ),
+              };
+            }
+            if (nsvResponse.url.pointsToNightscout) {
+              if (data.nightscoutToken === "") {
+                warnings.nightscoutToken = {
+                  type: "validate",
+                  message: t("settings.form.helperText.nightscoutToken.empty"),
+                };
+              } else if (!nsvResponse.token.isValid) {
+                warnings.nightscoutToken = {
+                  type: "validate",
+                  message: t(
+                    "settings.form.helperText.nightscoutToken.invalid"
+                  ),
+                };
+              }
+              if (
+                nsvResponse.nightscout.glucoseUnit !==
+                NightscoutBloodGlucoseUnitMapping[data.glucoseUnit]
+              ) {
+                warnings.glucoseUnit = {
+                  type: "validate",
+                  message: t("settings.form.helperText.glucoseUnits.mismatch"),
+                };
+              }
+              if (
+                semver.valid(nsvResponse.nightscout.version) &&
+                semver.valid(nsvResponse.nightscout.minSupportedVersion) &&
+                semver.lt(
+                  nsvResponse.nightscout.version,
+                  nsvResponse.nightscout.minSupportedVersion
+                )
+              ) {
+                warnings.nightscoutUrl = {
+                  type: "validate",
+                  message: t(
+                    "settings.form.helperText.nightscoutUrl.needsUpgrade",
+                    {
+                      version: nsvResponse.nightscout.minSupportedVersion.toString(),
+                    }
+                  ),
+                };
+              }
+              const userHasSelectedUnsupportedMetrics = data.defaultMetrics
+                .filter((metric) => metric !== DiabetesMetric.Everything)
+                .map((metric) => nsvResponse.discoveredMetrics.includes(metric))
+                .includes(false);
+              if (userHasSelectedUnsupportedMetrics === true) {
+                warnings.defaultMetrics = [
+                  {
+                    type: "validate",
+                    message: t(
+                      "settings.form.helperText.defaultMetrics.notAvailable"
+                    ),
+                  },
+                ];
+              }
+              if (data.defaultMetrics.length === 0) {
+                errors.defaultMetrics = [
+                  {
+                    type: "validate",
+                    message: t(
+                      "settings.form.helperText.defaultMetrics.required"
+                    ),
+                  },
+                ];
+              }
+            }
+
+            // can't do this if component has already been unmounted,
+            // you'll leave it (and the connection) hanging
+            setSupportedMetrics(nsvResponse.discoveredMetrics);
+            setWarnings(warnings);
+          } else {
+            throw new Error("No response returned");
+          }
+        } catch (e) {
+          console.log("Unable to fetch validation info for Nightscout site", e);
+        }
+      }
+    }
+
+    // always return no errors, we are using resolver
+    // for its lifecycle, but never want to block submission
+    if (Object.keys(errors).length) {
+      return {
+        values: {},
+        errors,
+      };
+    }
+    return {
+      values: { ...data, ...augmentedValues },
+      errors: {},
+    };
+  }, validationDebounceDuration!);
+
   // eslint-disable-next-line
-  const { control, formState, getValues, handleSubmit, register } = useForm<
-    SettingsFormData
-  >();
+  const {
+    control,
+    errors,
+    formState,
+    getValues,
+    handleSubmit,
+    register,
+    trigger,
+  } = useForm<SettingsFormData>({
+    mode: "onChange",
+    // TODO: extract
+    resolver: nightscoutValidator ? debouncedValidator : undefined,
+  });
+
+  // trigger form validation on first component render
+  useEffect(() => {
+    nightscoutValidator && trigger();
+  }, [nightscoutValidator, trigger]);
+
   const { t } = useTranslation();
+  const [formIsSubmitting, setFormIsSubmitting] = useState(false);
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
   const [formHasSubmittedSuccess, setFormHasSubmittedSuccess] = useState(false);
   const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
 
+  const formHasErrors = Boolean(Object.keys(formState.errors).length);
   const canEditFields = !formState.isSubmitting;
+  const canSubmitForm =
+    formState.isDirty && !formHasErrors && !formState.isSubmitting;
 
-  const glucoseUnits = Object.entries(BloodGlucoseUnits).map(([_, v]) => {
+  const glucoseUnits = Object.entries(BloodGlucoseUnit).map(([_, v]) => {
     return { label: v, value: v };
   });
 
@@ -102,7 +309,9 @@ export default function SettingsForm({
   const onFormSubmit = async (data: SettingsFormData) => {
     try {
       setFormHasSubmissionError(false);
+      setFormIsSubmitting(true);
       await onSubmit(data);
+      setFormIsSubmitting(false);
       setFormHasSubmittedSuccess(true);
     } catch (e) {
       setFormHasSubmissionError(true);
@@ -110,16 +319,19 @@ export default function SettingsForm({
   };
 
   const formReset = () => {
+    setFormIsSubmitting(false);
     setFormHasSubmissionError(false);
     setFormHasSubmittedSuccess(false);
   };
 
-  const handleFormAlertClose = () => {
+  const handleFormSuccessAlertClose = () => {
     formReset();
   };
 
   const handleCheck = (newMetric: DiabetesMetric) => {
     const { defaultMetrics } = getValues();
+
+    // toggle on or off
     let newMetrics = defaultMetrics?.includes(newMetric)
       ? defaultMetrics?.filter((metric) => metric !== newMetric)
       : [...defaultMetrics, newMetric];
@@ -163,8 +375,75 @@ export default function SettingsForm({
       data-testid="settings-form"
     >
       <FormControl
+        error={Boolean(errors.nightscoutUrl)}
+        className={warnings.nightscoutUrl ? classes.helperWarning : undefined}
+        fullWidth={true}
+      >
+        <InputLabel htmlFor="settings-form-field-url">
+          {t("settings.form.labels.nightscoutUrl")}
+        </InputLabel>
+        <Input
+          defaultValue={nightscoutUrl}
+          fullWidth={true}
+          disabled={!canEditFields}
+          id="settings-form-field-url"
+          inputProps={{ "data-testid": "settings-form-field-url" }}
+          inputRef={register}
+          name="nightscoutUrl"
+        ></Input>
+        {errors.nightscoutUrl && (
+          <FormHelperText>{errors.nightscoutUrl.message}</FormHelperText>
+        )}
+        {warnings.nightscoutUrl && (
+          <FormHelperText>{warnings.nightscoutUrl.message}</FormHelperText>
+        )}
+      </FormControl>
+
+      <FormControl
+        fullWidth={true}
+        className={warnings.nightscoutToken ? classes.helperWarning : undefined}
+      >
+        <InputLabel htmlFor="settings-form-field-token">
+          {t("settings.form.labels.nightscoutToken")}
+        </InputLabel>
+        <Input
+          defaultValue={nightscoutToken}
+          fullWidth={true}
+          disabled={!canEditFields}
+          id="settings-form-field-token"
+          inputProps={{ "data-testid": "settings-form-field-token" }}
+          inputRef={register}
+          name="nightscoutToken"
+          startAdornment={
+            <InputAdornment position="start">
+              <Lock />
+            </InputAdornment>
+          }
+        ></Input>
+        {warnings.nightscoutToken && (
+          <FormHelperText className={classes.helperWarning}>
+            {warnings.nightscoutToken.message}
+          </FormHelperText>
+        )}
+        <FormHelperText>
+          <Link
+            component="button"
+            type="button"
+            onClick={returnHandleOpenTokenDialog(
+              tokenDialogOpen,
+              setTokenDialogOpen
+            )}
+          >
+            {t("settings.form.helperText.nightscoutToken.default")}
+          </Link>
+        </FormHelperText>
+      </FormControl>
+
+      <FormControl
+        className={warnings.defaultMetrics ? classes.helperWarning : undefined}
         component="fieldset"
         data-testid="settings-form-fieldset-metrics"
+        error={Boolean(errors.defaultMetrics)}
       >
         <FormLabel component="legend">
           {t("settings.form.labels.defaultMetrics")}
@@ -181,82 +460,67 @@ export default function SettingsForm({
                 ? formStateDefaultMetrics.includes(DiabetesMetric.Everything)
                 : defaultMetrics.includes(DiabetesMetric.Everything);
 
-              return metrics.map((metric) => (
-                <FormControlLabel
-                  disabled={
-                    !canEditFields ||
-                    (everythingIsSelected &&
-                      metric.value !== DiabetesMetric.Everything)
-                  }
-                  control={
-                    <Checkbox
-                      onChange={() => props.onChange(handleCheck(metric.value))}
-                      checked={
-                        everythingIsSelected ||
-                        props.value.includes(metric.value)
-                      }
-                    />
-                  }
-                  key={metric.value}
-                  label={metric.value}
-                />
-              ));
+              return metrics.map((metric) => {
+                const shouldPresentWarningLabel =
+                  metric.value !== DiabetesMetric.Everything &&
+                  !errors.nightscoutUrl &&
+                  !warnings.nightscoutUrl &&
+                  !warnings.nightscoutToken &&
+                  !supportedMetrics.includes(metric.value);
+
+                return (
+                  <FormControlLabel
+                    className={
+                      shouldPresentWarningLabel
+                        ? classes.checkboxWithWarning
+                        : undefined
+                    }
+                    control={
+                      <Checkbox
+                        onChange={() =>
+                          props.onChange(handleCheck(metric.value))
+                        }
+                        checked={
+                          everythingIsSelected ||
+                          props.value.includes(metric.value)
+                        }
+                        disabled={
+                          !canEditFields ||
+                          (everythingIsSelected &&
+                            metric.value !== DiabetesMetric.Everything)
+                        }
+                      />
+                    }
+                    key={metric.value}
+                    label={metric.value}
+                  />
+                );
+              });
             }}
           />
         </FormGroup>
-        <FormHelperText>
-          {t("settings.form.helperText.defaultMetrics")}
-        </FormHelperText>
+        {warnings.defaultMetrics && (
+          <FormHelperText className={classes.helperWarning}>
+            {warnings.defaultMetrics[0]?.message}
+          </FormHelperText>
+        )}
+        {errors.defaultMetrics && (
+          <FormHelperText>{errors.defaultMetrics[0]?.message}</FormHelperText>
+        )}
+        {!warnings.defaultMetrics && !errors.defaultMetrics && (
+          <FormHelperText>
+            {t("settings.form.helperText.defaultMetrics.default")}
+          </FormHelperText>
+        )}
       </FormControl>
-      <TextField
-        defaultValue={nightscoutUrl}
-        disabled={!canEditFields}
-        fullWidth={true}
-        helperText={t("settings.form.helperText.nightscoutUrl")}
-        id="settings-form-field-url"
-        inputRef={register}
-        InputProps={{
-          inputProps: {
-            "data-testid": "settings-form-field-url",
-          },
-        }}
-        label={t("settings.form.labels.nightscoutUrl")}
-        name="nightscoutUrl"
-      />
-      <TextField
-        defaultValue={nightscoutToken}
-        disabled={!canEditFields}
-        fullWidth={true}
-        helperText={
-          <Link
-            component="button"
-            type="button"
-            onClick={returnHandleOpenTokenDialog(
-              tokenDialogOpen,
-              setTokenDialogOpen
-            )}
-          >
-            {t("settings.form.helperText.nightscoutToken")}
-          </Link>
-        }
-        id="settings-form-field-token"
-        InputProps={{
-          inputProps: {
-            "data-testid": "settings-form-field-token",
-          },
-          startAdornment: (
-            <InputAdornment position="start">
-              <Lock />
-            </InputAdornment>
-          ),
-        }}
-        inputRef={register}
-        label={t("settings.form.labels.nightscoutToken")}
-        name="nightscoutToken"
-      />
 
-      <FormControl fullWidth={true} className="MaterialSelect">
-        <InputLabel>{t("settings.form.labels.glucoseUnits")}</InputLabel>
+      <FormControl
+        className={warnings.glucoseUnit ? classes.helperWarning : undefined}
+        fullWidth={true}
+      >
+        <InputLabel htmlFor="settings-form-field-bg">
+          {t("settings.form.labels.glucoseUnits")}
+        </InputLabel>
         <Controller
           name="glucoseUnit"
           rules={{ required: true }}
@@ -279,7 +543,22 @@ export default function SettingsForm({
             </Select>
           }
         />
+        {warnings.glucoseUnit && (
+          <FormHelperText>{warnings.glucoseUnit.message}</FormHelperText>
+        )}
       </FormControl>
+
+      {formState.isValidating && (
+        <Container disableGutters={true} maxWidth="lg">
+          <FormHelperText
+            component="div"
+            data-testid="settings-form-validation-progress-indicator"
+          >
+            <CircularProgress size={10} />{" "}
+            {t("settings.form.validationInProgress")}
+          </FormHelperText>
+        </Container>
+      )}
 
       <Container disableGutters={true} maxWidth="lg">
         <Button
@@ -287,6 +566,7 @@ export default function SettingsForm({
           data-testid="settings-form-submit"
           type="submit"
           variant="contained"
+          disabled={!canSubmitForm}
         >
           {t("settings.form.submitButton")}
         </Button>
@@ -297,9 +577,8 @@ export default function SettingsForm({
   return (
     <>
       <Snackbar
-        autoHideDuration={ALERT_AUTOHIDE_DURATION}
-        onClose={handleFormAlertClose}
-        open={formState.isSubmitting}
+        autoHideDuration={alertAutohideDuration}
+        open={formIsSubmitting}
       >
         <SettingsFormAlert
           data-testid="settings-form-submitting"
@@ -309,8 +588,8 @@ export default function SettingsForm({
         </SettingsFormAlert>
       </Snackbar>
       <Snackbar
-        autoHideDuration={ALERT_AUTOHIDE_DURATION}
-        onClose={handleFormAlertClose}
+        autoHideDuration={alertAutohideDuration}
+        onClose={handleFormSuccessAlertClose}
         open={formHasSubmittedSuccess}
       >
         <SettingsFormAlert
@@ -321,8 +600,7 @@ export default function SettingsForm({
         </SettingsFormAlert>
       </Snackbar>
       <Snackbar
-        autoHideDuration={ALERT_AUTOHIDE_DURATION}
-        onClose={handleFormAlertClose}
+        autoHideDuration={alertAutohideDuration}
         open={formHasSubmissionError}
       >
         <SettingsFormAlert data-testid="settings-form-error" severity="error">
@@ -335,3 +613,8 @@ export default function SettingsForm({
     </>
   );
 }
+
+SettingsForm.defaultProps = {
+  autohideDuration: ALERT_AUTOHIDE_DURATION,
+  alertAutohideDuration: VALIDATION_DEBOUNCE_DURATION,
+};

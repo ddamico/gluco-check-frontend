@@ -30,6 +30,7 @@
     "title": "Instellingen",
     "content": "[Content about how the product must connect to your nightscout site in order to work.]",
     "form": {
+      "validationInProgress": "[Checking your Nightscout site]",
       "labels": {
         "glucoseUnits": "Glucose Eenheden",
         "nightscoutToken": "Nightscout Token",
@@ -37,9 +38,25 @@
         "defaultMetrics": "[Default Metrics]"
       },
       "helperText": {
-        "nightscoutToken": "[Helper text for the token which launches the multi-step wizard]",
-        "nightscoutUrl": "URL van je Nightscout site (zonder '/api')",
-        "defaultMetrics": "[Assistant will read these items to you by default]"
+        "nightscoutToken": {
+          "default": "[Not sure how to get a token? Read on!]",
+          "empty": "[A token is required to read additional metrics]",
+          "invalid": "[Your Nightscout site is not accepting this token]"
+        },
+        "nightscoutUrl": {
+          "default": "URL van je Nightscout site",
+          "required": "[This field is required]",
+          "notNightscout": "[This URL does not point to a Nightscout site]",
+          "needsUpgrade": "[Your Nightscout site requires an update to work with Gluco Check, please update to at least {{version}}]"
+        },
+        "defaultMetrics": {
+          "default": "[Assistant will read these items to you by default]",
+          "required": "[You must select at least one metric]",
+          "notAvailable": "[We did not find a recent value for these metrics, but you can still select them]"
+        },
+        "glucoseUnits": {
+          "mismatch": "[Chosen unit differs from your Nightscout site's units]"
+        }
       },
       "submitButton": "Instellingen opslaan",
       "submitStatus": {

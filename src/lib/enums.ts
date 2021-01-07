@@ -1,6 +1,11 @@
-export enum BloodGlucoseUnits {
+export enum BloodGlucoseUnit {
   mgdl = "mg/dl",
-  mmoll = "mmol/L",
+  mmol = "mmol/L",
+}
+
+export enum NightscoutBloodGlucoseUnit {
+  mgdl = "mg/dl",
+  mmol = "mmol",
 }
 
 // @TODO: once this repo is properly part of the workspace,
@@ -15,4 +20,5 @@ export enum DiabetesMetric {
   SensorAge = "sensor age",
   CannulaAge = "cannula age",
   PumpBattery = "pump battery",
+  PumpReservoir = "pump reservoir",
 }

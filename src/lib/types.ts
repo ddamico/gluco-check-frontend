@@ -1,8 +1,8 @@
-import { BloodGlucoseUnits, DiabetesMetric } from "./enums";
+import { BloodGlucoseUnit, DiabetesMetric } from "./enums";
 
 export interface GlucoCheckUserDocument {
   defaultMetrics: DiabetesMetric[];
-  glucoseUnit: BloodGlucoseUnits;
+  glucoseUnit: BloodGlucoseUnit;
   nightscout: {
     token: string;
     url: string;
@@ -13,5 +13,10 @@ export type SettingsFormData = {
   defaultMetrics: DiabetesMetric[];
   nightscoutUrl: string;
   nightscoutToken: string;
-  glucoseUnit: BloodGlucoseUnits;
+  glucoseUnit: BloodGlucoseUnit;
 };
+
+export interface NightscoutValidationEndpointRequest {
+  url: string;
+  token: string;
+}
