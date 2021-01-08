@@ -1,6 +1,6 @@
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { axe } from "jest-axe";
 import userEvent from "@testing-library/user-event";
 import { auth } from "./lib/firebase";
 import * as firebaseAuthHooks from "react-firebase-hooks/auth";
@@ -25,7 +25,6 @@ jest.mock("./pages/EditSettings.tsx", () => {
   };
 });
 
-expect.extend(toHaveNoViolations);
 
 afterEach(() => {
   jest.clearAllMocks();

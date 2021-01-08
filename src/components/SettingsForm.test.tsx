@@ -8,7 +8,7 @@ import {
   waitForElementToBeRemoved,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { axe } from "jest-axe";
 import { BloodGlucoseUnit, DiabetesMetric } from "../lib/enums";
 import SettingsForm, { returnHandleOpenTokenDialog } from "./SettingsForm";
 import { NightscoutValidationClient } from "../lib/NightscoutValidationClient/NightscoutValidationClient";
@@ -18,8 +18,6 @@ import {
   mockNsvResponseDtoNsNeedsUpgrade,
   mockNsvResponseDtoValid,
 } from "../lib/__mocks__/gluco-check";
-
-expect.extend(toHaveNoViolations);
 
 jest.mock("react-i18next", () => ({
   useTranslation: () => {

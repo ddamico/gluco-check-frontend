@@ -1,9 +1,7 @@
 import React from "react";
 import { cleanup, render } from "@testing-library/react";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { axe } from "jest-axe";
 import TokenSetup from "./TokenSetup";
-
-expect.extend(toHaveNoViolations);
 
 afterEach(() => {
   cleanup();

@@ -1,6 +1,6 @@
 import React from "react";
 import { cleanup, render } from "@testing-library/react";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { axe } from "jest-axe";
 import * as firestoreHooks from "react-firebase-hooks/firestore";
 import EditSettings, { returnHandleSettingsSave } from "./EditSettings";
 import { FirebaseUserDocumentContext } from "../App";
@@ -8,8 +8,6 @@ import { firestore } from "../lib/firebase";
 import { mockUserDocument } from "../lib/__mocks__/firebase";
 import { mockFormData } from "../lib/__mocks__/settings";
 import { FIRESTORE_DEFAULT_SET_OPTIONS } from "../lib/firebase-helpers";
-
-expect.extend(toHaveNoViolations);
 
 // move to __mocks__
 jest.mock("../lib/firebase.ts", () => {
