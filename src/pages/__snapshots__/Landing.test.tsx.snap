@@ -2,38 +2,74 @@
 
 exports[`Landing page renders the component 1`] = `
 <div
-  class="MuiContainer-root makeStyles-container-1 MuiContainer-maxWidthXl"
+  class="MuiGrid-root makeStyles-contentGrid-2 MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
 >
-  <h2
-    class="MuiTypography-root MuiTypography-h6"
+  <div
+    class="MuiGrid-root MuiGrid-item"
   >
-    landing.title
-  </h2>
-  <p>
-    landing.introduction.p1
-  </p>
-  <ul>
-    <li>
-      landing.introduction.features1
-    </li>
-    <li>
-      landing.introduction.features2
-    </li>
-    <li>
-      landing.introduction.features3
-    </li>
-    <li>
-      landing.introduction.features4
-    </li>
-    <li>
-      landing.introduction.features5
-    </li>
-    <li>
-      landing.introduction.features6
-    </li>
-    <li>
-      landing.introduction.features7
-    </li>
-  </ul>
+    <div
+      class="MuiContainer-root MuiContainer-maxWidthMd"
+    >
+      <div
+        class="makeStyles-callResponseContainer-4"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-h5"
+        >
+          Hey Google, ask Gluco Check my blood sugar
+        </p>
+        <div>
+          <img
+            alt=""
+            src="[object Object]"
+          />
+          <p
+            class="MuiTypography-root assistantBubble-response MuiTypography-h5"
+          >
+            6.5 and steady as of five minutes ago
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="MuiGrid-root MuiGrid-item"
+  >
+    <div
+      class="MuiContainer-root MuiContainer-maxWidthSm"
+    >
+      <p
+        class="MuiTypography-root MuiTypography-body1"
+      >
+        landing.introduction.p1
+         
+        <span
+          class="makeStyles-utterance-3"
+        >
+          Hey Google, ask Gluco Check my BG
+        </span>
+        . Or
+         
+        <span
+          class="makeStyles-utterance-3"
+        >
+          Hey Google, ask Gluco Check my sensor's age
+        </span>
+        . Or
+         
+        <span
+          class="makeStyles-utterance-3"
+        >
+          Hey Google, ask Gluco Check my IOB
+        </span>
+        .
+      </p>
+    </div>
+  </div>
+  <div
+    class="MuiGrid-root MuiGrid-item"
+  >
+    This is where the login would be
+  </div>
 </div>
 `;

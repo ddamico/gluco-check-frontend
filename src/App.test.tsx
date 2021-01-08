@@ -25,6 +25,23 @@ jest.mock("./pages/EditSettings.tsx", () => {
   };
 });
 
+jest.mock("./pages/Landing.tsx", () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return <div>Landing</div>;
+    },
+  };
+});
+
+jest.mock("./pages/Welcome.tsx", () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return <div>Welcome</div>;
+    },
+  };
+});
 
 afterEach(() => {
   jest.clearAllMocks();

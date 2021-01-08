@@ -2,19 +2,20 @@ import React from "react";
 import { auth } from "./lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Landing from "./pages/Landing";
-import EditSettings from "./pages/EditSettings";
 import { getDocumentPathForUser } from "./lib/firebase-helpers";
 import { useTranslation } from "react-i18next";
 import {
   AppBar,
-  Container,
   IconButton,
   makeStyles,
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { ExitToApp, Home, MeetingRoom, Settings } from "@material-ui/icons";
+import { ExitToApp, Home, Settings } from "@material-ui/icons";
+
+import Landing from "./pages/Landing";
+import EditSettings from "./pages/EditSettings";
+import Welcome from "./pages/Welcome";
 import "./App.css";
 
 export const FirebaseUserDocumentContext = React.createContext("");
@@ -50,15 +51,7 @@ export default function App() {
   let Content: React.ReactElement | null = null;
   const docPath = user ? getDocumentPathForUser(user) : ""; // TODO: we don't want this empty path to be possible, AND we want to auth protect any other authed routes
   if (user) {
-    // @TODO: extract
-    Content = (
-      <Container maxWidth="xl" className={classes.container}>
-        <Typography variant="h6" component="h2">
-          {t("welcome.title")}
-        </Typography>
-        <p>{t("welcome.content")}</p>
-      </Container>
-    );
+    Content = <Welcome />;
   } else {
     if (!loading) {
       Content = <Landing />;

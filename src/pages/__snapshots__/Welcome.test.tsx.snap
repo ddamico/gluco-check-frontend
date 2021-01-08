@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Welcome page renders the component 1`] = `
+<div
+  class="MuiGrid-root makeStyles-contentGrid-3 MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+>
+  <div
+    class="MuiGrid-root MuiGrid-item"
+  >
+    <div
+      class="MuiContainer-root MuiContainer-maxWidthMd"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h3"
+      >
+        <img
+          alt=""
+          src="[object Object]"
+        />
+        landing.title
+      </h2>
+    </div>
+  </div>
+  <div
+    class="MuiGrid-root MuiGrid-item"
+  >
+    <div
+      class="MuiContainer-root makeStyles-bodyContent-2 MuiContainer-maxWidthSm"
+    >
+      <p
+        class="MuiTypography-root MuiTypography-body1"
+      >
+        Start by
+         
+        <a
+          class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+          href="/settings"
+        >
+          adding configuration info for your Nightscout site
+        </a>
+        .
+      </p>
+      <p
+        class="MuiTypography-root MuiTypography-body1"
+      >
+        Most metrics available on your Nightscout site can be accessed from Gluco Check. Ask it things like "Hey Google, ask Gluco Check...
+      </p>
+      <ul
+        class="MuiTypography-root MuiTypography-body1"
+      >
+        <li>
+          landing.introduction.features1
+        </li>
+        <li>
+          landing.introduction.features2
+        </li>
+        <li>
+          landing.introduction.features3
+        </li>
+        <li>
+          landing.introduction.features4
+        </li>
+        <li>
+          landing.introduction.features5
+        </li>
+        <li>
+          landing.introduction.features6
+        </li>
+        <li>
+          landing.introduction.features7
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
