@@ -4,9 +4,16 @@ import orange from "@material-ui/core/colors/orange";
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
+  typography: {
+    fontFamily: ["Poppins", "sans-serif"].join(","),
+  },
   palette: {
+    text: {
+      primary: "#202124",
+    },
     primary: {
-      main: "#4F517D",
+      main: "#1a73e8",
+      contrastText: "#fff",
     },
     secondary: {
       main: "#A997DF",
