@@ -25,15 +25,6 @@ jest.mock("./pages/EditSettings.tsx", () => {
   };
 });
 
-jest.mock("./pages/Login.tsx", () => {
-  return {
-    __esModule: true,
-    default: () => {
-      return <div>Login</div>;
-    },
-  };
-});
-
 expect.extend(toHaveNoViolations);
 
 afterEach(() => {

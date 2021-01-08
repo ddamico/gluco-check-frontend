@@ -2,7 +2,6 @@ import React from "react";
 import { auth } from "./lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Login from "./pages/Login";
 import Landing from "./pages/Landing";
 import EditSettings from "./pages/EditSettings";
 import { getDocumentPathForUser } from "./lib/firebase-helpers";
@@ -16,6 +15,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { ExitToApp, Home, MeetingRoom, Settings } from "@material-ui/icons";
+import "./App.css";
 
 export const FirebaseUserDocumentContext = React.createContext("");
 
@@ -118,19 +118,6 @@ export default function App() {
                 </IconButton>
               </li>
             )}
-            {!user && (
-              <li>
-                <IconButton
-                  aria-label={t("navigation.login")}
-                  color="inherit"
-                  component={Link}
-                  data-testid="navigation-login"
-                  to="/login"
-                >
-                  <MeetingRoom />
-                </IconButton>
-              </li>
-            )}
           </ul>
         </section>
       </Toolbar>
@@ -143,9 +130,6 @@ export default function App() {
       <Switch>
         <Route exact path="/">
           {Content}
-        </Route>
-        <Route path="/login">
-          <Login />
         </Route>
         {user && (
           <Route path="/settings">
