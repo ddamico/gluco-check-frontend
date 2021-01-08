@@ -71,7 +71,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   helperWarning: {
-    color: theme.palette.warning.main,
     "& .MuiFormLabel-root, & .MuiInputBase-root, & .MuiInputBase-input, & .MuiFormHelperText-root, & .MuiSelect-root": {
       color: theme.palette.warning.main,
     },
