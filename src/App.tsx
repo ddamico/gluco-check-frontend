@@ -50,8 +50,9 @@ export default function App() {
   const classes = useStyles();
   const [user, loading] = useAuthState(auth);
   const { t } = useTranslation();
-  let Content: React.ReactElement | null = null;
   const docPath = user ? getDocumentPathForUser(user) : ""; // TODO: we don't want this empty path to be possible, AND we want to auth protect any other authed routes
+
+  let Content: React.ReactElement | null = null;
   if (user) {
     Content = <Welcome />;
   } else {
@@ -129,16 +130,14 @@ export default function App() {
           <Route exact path="/">
             {Content}
           </Route>
+          <Route path="/legal">
+            <Legal />
+          </Route>
           {user && (
             <Route path="/settings">
               <FirebaseUserDocumentContext.Provider value={docPath}>
                 <EditSettings />
               </FirebaseUserDocumentContext.Provider>
-            </Route>
-          )}
-          {user && (
-            <Route path="/legal">
-              <Legal />
             </Route>
           )}
         </Switch>

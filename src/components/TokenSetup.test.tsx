@@ -15,8 +15,8 @@ jest.mock("react-i18next", () => ({
       }),
     };
   },
-  Trans: () => {
-    return <span>Trans</span>;
+  Trans: function (props: any) {
+    return <span>{props.i18nKey}</span>;
   },
 }));
 

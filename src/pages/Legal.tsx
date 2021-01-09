@@ -10,8 +10,17 @@ const useStyles = makeStyles((theme) => ({
     "& p, & h2, & h3": {
       marginBottom: theme.spacing(1),
     },
+    "& h3": {
+      marginTop: theme.spacing(1),
+    },
     "& section": {
       marginBottom: theme.spacing(3),
+    },
+    "& p *": {
+      wordBreak: "break-all",
+    },
+    "& a": {
+      color: theme.palette.text.primary,
     },
   },
 }));
@@ -59,40 +68,40 @@ function Legal() {
             <Typography variant="h5" component="h2">
               {t("privacyPolicy.title")}
             </Typography>
-            <Typography variant="body1" component="h3">
+            <Typography variant="h6" component="h3">
               {t("privacyPolicy.p1.title")}
             </Typography>
             <Typography variant="body1" component="p">
               {t("privacyPolicy.p1.body")}
             </Typography>
-            <Typography variant="body1" component="h3">
+            <Typography variant="h6" component="h3">
               {t("privacyPolicy.p2.title")}
             </Typography>
             <Typography variant="body1" component="p">
               {t("privacyPolicy.p2.body")}
             </Typography>
-            <Typography variant="body1" component="h3">
+            <Typography variant="h6" component="h3">
               {t("privacyPolicy.p3.title")}
             </Typography>
             <Typography variant="body1" component="p">
-              <Trans key="privacyPolicy.p3.body">
+              <Trans i18nKey="privacyPolicy.p3.body">
                 Your email address or Nightscout URL will <strong>never</strong>{" "}
                 be shared with a third party. I just need it so I know which
                 Nightscout site to check when you invoke the Action. Data from
                 your Nightscout website is not saved, not even to log files.
               </Trans>
             </Typography>
-            <Typography variant="body1" component="h3">
+            <Typography variant="h6" component="h3">
               {t("privacyPolicy.p4.title")}
             </Typography>
             <Typography variant="body1" component="p">
               {t("privacyPolicy.p4.body")}
             </Typography>
-            <Typography variant="body1" component="h3">
+            <Typography variant="h6" component="h3">
               {t("privacyPolicy.p5.title")}
             </Typography>
             <Typography variant="body1" component="p">
-              <Trans key="privacyPolicy.p5.body">
+              <Trans i18nKey="privacyPolicy.p5.body">
                 After you sign in to this site, some anonymous statistics about
                 your visit are collected using a cookie (Google Analytics). The
                 cookie is not enabled until after you've accepted this Privacy
@@ -104,6 +113,7 @@ function Legal() {
                 <a href="https://tools.google.com/dlpage/gaoptout">
                   https://tools.google.com/dlpage/gaoptout/
                 </a>
+                .
               </Trans>
             </Typography>
           </Container>
