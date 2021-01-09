@@ -37,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: "62px",
       display: "inline-block",
     },
+    [theme.breakpoints.down("sm")]: {
+      "& .assistantBubble-response": {
+        fontSize: ".9rem",
+      },
+    },
   },
 }));
 
@@ -77,6 +82,7 @@ function Landing() {
                 variant="h5"
                 component="p"
                 className="assistantBubble-response"
+                noWrap
               >
                 6.5 and steady as of five minutes ago
               </Typography>

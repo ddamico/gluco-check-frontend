@@ -24,7 +24,7 @@ exports[`Landing page renders the component 1`] = `
             src="[object Object]"
           />
           <p
-            class="MuiTypography-root assistantBubble-response MuiTypography-h5"
+            class="MuiTypography-root assistantBubble-response MuiTypography-h5 MuiTypography-noWrap"
           >
             6.5 and steady as of five minutes ago
           </p>

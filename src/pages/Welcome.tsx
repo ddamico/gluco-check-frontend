@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
     "& img": {
       width: "54px",
       height: "54px",
-      marginRight: theme.spacing(1),
+      marginRight: theme.spacing(2),
+      verticalAlign: "middle",
     },
   },
 }));
