@@ -2,7 +2,7 @@
 
 exports[`EditSettings Renders the component when loading, with no axe violations 1`] = `
 <div
-  class="MuiContainer-root makeStyles-container-1 MuiContainer-maxWidthLg"
+  class="MuiContainer-root makeStyles-container-1 MuiContainer-maxWidthMd"
 >
   <h2
     class="MuiTypography-root MuiTypography-h6"
@@ -20,7 +20,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
 
 exports[`EditSettings Renders the component when loading, with no axe violations 2`] = `
 <div
-  class="MuiContainer-root makeStyles-container-2 MuiContainer-maxWidthLg"
+  class="MuiContainer-root makeStyles-container-2 MuiContainer-maxWidthMd"
 >
   <h2
     class="MuiTypography-root MuiTypography-h6"
@@ -36,7 +36,7 @@ exports[`EditSettings Renders the component when loading, with no axe violations
 
 exports[`EditSettings Renders the component with error, with no axe violations 1`] = `
 <div
-  class="MuiContainer-root makeStyles-container-3 MuiContainer-maxWidthLg"
+  class="MuiContainer-root makeStyles-container-3 MuiContainer-maxWidthMd"
 >
   <h2
     class="MuiTypography-root MuiTypography-h6"

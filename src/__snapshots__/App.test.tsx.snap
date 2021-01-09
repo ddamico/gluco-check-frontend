@@ -21,37 +21,7 @@ exports[`App component renders the component when no user and no loading 1`] = `
     >
       <ul
         class="makeStyles-nav-19"
-      >
-        <li>
-          <a
-            aria-disabled="false"
-            aria-label="navigation.home"
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
-            data-testid="navigation-home"
-            href="/"
-            role="button"
-            tabindex="0"
-          >
-            <span
-              class="MuiIconButton-label"
-            >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
-                />
-              </svg>
-            </span>
-            <span
-              class="MuiTouchRipple-root"
-            />
-          </a>
-        </li>
-      </ul>
+      />
     </section>
   </div>
 </header>
@@ -192,37 +162,7 @@ exports[`App component renders the component when user loading 1`] = `
     >
       <ul
         class="makeStyles-nav-5"
-      >
-        <li>
-          <a
-            aria-disabled="false"
-            aria-label="navigation.home"
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
-            data-testid="navigation-home"
-            href="/"
-            role="button"
-            tabindex="0"
-          >
-            <span
-              class="MuiIconButton-label"
-            >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
-                />
-              </svg>
-            </span>
-            <span
-              class="MuiTouchRipple-root"
-            />
-          </a>
-        </li>
-      </ul>
+      />
     </section>
   </div>
 </header>

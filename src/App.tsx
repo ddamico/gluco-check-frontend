@@ -6,6 +6,7 @@ import { getDocumentPathForUser } from "./lib/firebase-helpers";
 import { useTranslation } from "react-i18next";
 import {
   AppBar,
+  Container,
   IconButton,
   makeStyles,
   Toolbar,
@@ -73,17 +74,19 @@ export default function App() {
         </section>
         <section className={classes.rightToolbar}>
           <ul className={classes.nav}>
-            <li>
-              <IconButton
-                aria-label={t("navigation.home")}
-                color="inherit"
-                component={Link}
-                data-testid="navigation-home"
-                to="/"
-              >
-                <Home />
-              </IconButton>
-            </li>
+            {user && (
+              <li>
+                <IconButton
+                  aria-label={t("navigation.home")}
+                  color="inherit"
+                  component={Link}
+                  data-testid="navigation-home"
+                  to="/"
+                >
+                  <Home />
+                </IconButton>
+              </li>
+            )}
             {user && (
               <li>
                 <IconButton
@@ -120,18 +123,20 @@ export default function App() {
   return (
     <Router>
       {navigation}
-      <Switch>
-        <Route exact path="/">
-          {Content}
-        </Route>
-        {user && (
-          <Route path="/settings">
-            <FirebaseUserDocumentContext.Provider value={docPath}>
-              <EditSettings />
-            </FirebaseUserDocumentContext.Provider>
+      <Container maxWidth="md">
+        <Switch>
+          <Route exact path="/">
+            {Content}
           </Route>
-        )}
-      </Switch>
+          {user && (
+            <Route path="/settings">
+              <FirebaseUserDocumentContext.Provider value={docPath}>
+                <EditSettings />
+              </FirebaseUserDocumentContext.Provider>
+            </Route>
+          )}
+        </Switch>
+      </Container>
     </Router>
   );
 }

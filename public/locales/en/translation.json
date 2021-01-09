@@ -28,7 +28,7 @@
   },
   "settings": {
     "title": "Edit Settings",
-    "content": "Content about how the product must connect to your nightscout site in order to work.",
+    "content": "Gluco Check works by talking to your Nightscout site. Enter details about your site below. Additional metrics (beyond current blood glucose) require a valid token.",
     "form": {
       "validationInProgress": "Checking your Nightscout site",
       "labels": {

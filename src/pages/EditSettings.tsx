@@ -67,7 +67,7 @@ export default function EditSettings() {
     document?.get(FIRESTORE_FIELD_PATH_GLUCOSE_UNITS) ?? DEFAULT_GLUCOSE_UNITS;
 
   return (
-    <Container maxWidth="lg" className={classes.container}>
+    <Container maxWidth="md" className={classes.container}>
       <Typography variant="h6" component="h2">
         {t("settings.title")}
       </Typography>
