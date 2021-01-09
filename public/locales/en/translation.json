@@ -117,5 +117,40 @@
       "image": "copy-token.png",
       "image_alt": ""
     }
+  },
+  "termsOfService": {
+    "title": "License and Terms of service",
+    "subtitle": "MIT License: Copyright {{currentYear}} Niels Maerten",
+    "p1": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:",
+    "p2": "The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.",
+    "p3": "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+  },
+  "medicalDisclaimer": {
+    "title": "Healthcare information disclaimer",
+    "p1": "The information provided by Nightscout Status is not a substitute for advice from a medical professional. If you have questions about treatment or need advice, remember to always ask your doctor!"
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "intro": "This document describes the information being collected by Nightscout Status, https://nielsmaerten.github.io/nightscout-assistant (the \"Service\" or the \"Software\") and how this information is used.",
+    "p1": {
+      "title": "What information is collected?",
+      "body": "The Service needs 2 things in order to work: the email address of your Google Account (so it can know it's you when you make a request), and the URL of your Nightscout instance (so it can look up your glucose and read it to you)."
+    },
+    "p2": {
+      "title": "How is this information used?",
+      "body": "When you invoke the Service through Google Assistant (i.e.: by saying: 'Hey Google, talk to Nightscout Status), the Service looks at your email address, and checks if there's a Nightscout site associated with it. If so, your current glucose level is read from your Nightscout site."
+    },
+    "p3": {
+      "title": "Sharing of information",
+      "body": "Your email address or Nightscout URL will **never** be shared with a third party. I just need it so I know which Nightscout site to check when you invoke the Action. Data from your Nightscout website is not saved, not even to log files."
+    },
+    "p4": {
+      "title": "Deleting your data",
+      "body": "You can choose to revoke access at any time: Simply via log in, remove your Nightscout URL, and click Save. You can also remove Nightscout Status from your Google Account."
+    },
+    "p5": {
+      "title": "Analytics Cookie",
+      "body": "After you sign in to this site, some anonymous statistics about your visit are collected using a cookie (Google Analytics). The cookie is not enabled until after you've accepted this Privacy Policy. I'm using Analytics to better understand how people are using this site, how they found it, and which demographic they're in. This only applies to <2>https://nielsmaerten.github.io/nightscout-assistant</2>, not to usage of the Assistant Action itself. If you'd like to opt-out of the Google Analytics cookie, you can do so by visiting <4>https://tools.google.com/dlpage/gaoptout/</4>"
+    }
   }
 }

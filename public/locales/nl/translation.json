@@ -117,5 +117,40 @@
       "image": "copy-token.png",
       "image_alt": ""
     }
+  },
+  "termsOfService": {
+    "title": "Licentie en gebruiksvoorwaarden",
+    "subtitle": "MIT License: Copyright {{currentYear}} Niels Maerten",
+    "p1": "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:",
+    "p2": "The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.",
+    "p3": "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+  },
+  "medicalDisclaimer": {
+    "title": "Disclaimer i.v.m. medische informatie",
+    "p1": "De informatie die Nightscout Status verstrekt is geen vervanging voor het advies van een arts. Heb je vragen over je behandeling of advies nodig, praat dan met je dokter!"
+  },
+  "privacyPolicy": {
+    "title": "Privacybeleid",
+    "intro": "Dit document beschrijft de informatie die wordt verzameld door Nightscout Status, <2>https://nielsmaerten.github.io/nightscout-assistant</2> (de \"Service\" of de \"Software\") en hoe deze informatie wordt gebruikt.",
+    "p1": {
+      "title": "Welke informatie wordt verzameld?",
+      "body": "De Service heeft 2 dingen nodig om te werken: het email adres van je Google Account (zodat we weten dat jij het bent wanneer je een opdracht geeft), en de URL van je Nightscout site (zodat we je glucose kunnen opzoeken en voorlezen)."
+    },
+    "p2": {
+      "title": "Hoe wordt deze informatie gebruikt?",
+      "body": "Wanneer je de Service oproept via Google Assistant (bv door te zeggen: 'Hey Google, praat met Nightscout Status'), kijken we naar je email adres, en controleren we of hier een Nightscout site mee verbonden is. Zo ja, dan lezen we de huidige glucosewaarde voor van je Nightscout site."
+    },
+    "p3": {
+      "title": "Delen van informatie",
+      "body": "Je email adres of Nightscout URL zullen nooit gedeeld worden met een derde partij. Ik heb dit enkel nodig zodat ik weet welke Nightscout site ik moet checken wanneer je de Actie aanroept. Data uit je Nightscout site wordt niet bewaard, zelfs niet in logs."
+    },
+    "p4": {
+      "title": "Je gegevens verwijderen",
+      "body": "Je kan toegang op elk moment weer intrekken: Log gewoon in, verwijder je Nightscout URL, en klik op Opslaan. Je kan Nightscout Status ook verwijderen uit je <2>Google account</2>."
+    },
+    "p5": {
+      "title": "Analytics Cookie",
+      "body": "Nadat je bent ingelogd op deze site, worden enkele anonieme statistieken over je bezoek verzameld met behulp van een cookie (Google Analytics). De cookie is niet actief tot je deze privacyovereenkomst hebt aanvaard. Ik gebruik Analytics om beter te begrijpen hoe mijn site gebruikt wordt, hoe bezoekers hem vinden, en uit welke demografie ze komen. Dit is enkel van toepassing op <2>https://nielsmaerten.github.io/nightscout-assistant</2>, niet op het gebruik van de Assistant Actie zelf. Als je liever geen gebruik maakt van de Google Analytics cookie, kan je deze uitschakelen door <4>https://tools.google.com/dlpage/gaoptout/</4> te bezoeken."
+    }
   }
 }
