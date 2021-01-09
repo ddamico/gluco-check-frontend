@@ -95,15 +95,15 @@ function Landing() {
           <Typography variant="body1">
             {t("landing.introduction.p1")}{" "}
             <span className={classes.utterance}>
-              Hey Google, ask Gluco Check my BG
+              "Hey Google, ask Gluco Check my BG"
             </span>
             . Or{" "}
             <span className={classes.utterance}>
-              Hey Google, ask Gluco Check my sensor's age
+              "Hey Google, ask Gluco Check my sensor's age"
             </span>
             . Or{" "}
             <span className={classes.utterance}>
-              Hey Google, ask Gluco Check my IOB
+              "Hey Google, ask Gluco Check my IOB"
             </span>
             .
           </Typography>
@@ -111,6 +111,12 @@ function Landing() {
       </Grid>
       <Grid item>
         <StyledFirebaseAuth uiConfig={firebaseUIConfig} firebaseAuth={auth} />
+      </Grid>
+      <Grid item>
+        <Typography variant="body2">
+          By continuing, you are indicating that you accept our Terms of Service
+          and Privacy Policy.
+        </Typography>
       </Grid>
     </Grid>
   );
