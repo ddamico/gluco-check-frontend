@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
       width: "54px",
       height: "54px",
       marginRight: theme.spacing(2),
+      marginBottom: theme.spacing(2),
       verticalAlign: "middle",
     },
   },
@@ -61,10 +62,16 @@ function Welcome() {
     >
       <Grid item>
         <Container maxWidth="md">
-          <Typography variant="h3" component="h2">
-            <img src={assistantIcon} alt="" />
-            {t("landing.title")}
-          </Typography>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item>
+              <img src={assistantIcon} alt="" />
+            </Grid>
+            <Grid item>
+              <Typography variant="h3" component="h2">
+                {t("landing.title")}
+              </Typography>
+            </Grid>
+          </Grid>
         </Container>
       </Grid>
       <Grid item>

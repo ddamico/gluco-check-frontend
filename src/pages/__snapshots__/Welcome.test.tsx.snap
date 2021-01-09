@@ -10,15 +10,27 @@ exports[`Welcome page renders the component 1`] = `
     <div
       class="MuiContainer-root MuiContainer-maxWidthMd"
     >
-      <h2
-        class="MuiTypography-root MuiTypography-h3"
+      <div
+        class="MuiGrid-root MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
       >
-        <img
-          alt=""
-          src="[object Object]"
-        />
-        landing.title
-      </h2>
+        <div
+          class="MuiGrid-root MuiGrid-item"
+        >
+          <img
+            alt=""
+            src="[object Object]"
+          />
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item"
+        >
+          <h2
+            class="MuiTypography-root MuiTypography-h3"
+          >
+            landing.title
+          </h2>
+        </div>
+      </div>
     </div>
   </div>
   <div
