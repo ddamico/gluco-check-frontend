@@ -15,6 +15,7 @@ import {
 import { ExitToApp, Home, Settings } from "@material-ui/icons";
 
 import Landing from "./pages/Landing";
+import Legal from "./pages/Legal";
 import EditSettings from "./pages/EditSettings";
 import Welcome from "./pages/Welcome";
 import "./App.css";
@@ -133,6 +134,11 @@ export default function App() {
               <FirebaseUserDocumentContext.Provider value={docPath}>
                 <EditSettings />
               </FirebaseUserDocumentContext.Provider>
+            </Route>
+          )}
+          {user && (
+            <Route path="/legal">
+              <Legal />
             </Route>
           )}
         </Switch>
