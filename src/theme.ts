@@ -1,9 +1,9 @@
 /* istanbul ignore file */
 import red from "@material-ui/core/colors/red";
 import orange from "@material-ui/core/colors/orange";
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 
-const theme = createMuiTheme({
+let theme = createMuiTheme({
   typography: {
     fontFamily: ["Poppins", "sans-serif"].join(","),
   },
@@ -30,5 +30,6 @@ const theme = createMuiTheme({
     },
   },
 });
+theme = responsiveFontSizes(theme);
 
 export default theme;
