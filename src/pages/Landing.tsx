@@ -1,6 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Container, Grid, makeStyles, Typography } from "@material-ui/core";
+import {
+  Container,
+  Grid,
+  Link,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 
 import * as firebase from "firebase/app";
 import * as firebaseui from "firebaseui";
@@ -24,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
     "& p": {
       marginBottom: theme.spacing(2),
     },
-    display: "inline-block",
     "& img": {
       width: "54px",
       height: "54px",
@@ -35,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
       padding: "14px 24px",
       border: "2px solid #e8eaed",
       borderRadius: "62px",
-      display: "inline-block",
     },
     [theme.breakpoints.down("sm")]: {
       "& .assistantBubble-response": {
@@ -72,11 +76,19 @@ function Landing() {
     >
       <Grid item>
         <Container maxWidth="md">
-          <div className={classes.callResponseContainer}>
-            <Typography variant="h5" component="p">
-              Hey Google, ask Gluco Check my blood sugar
-            </Typography>
-            <div>
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+            className={classes.callResponseContainer}
+          >
+            <Grid item>
+              <Typography variant="h5" component="p">
+                Hey Google, ask Gluco Check my blood sugar
+              </Typography>
+            </Grid>
+            <Grid item>
               <img src={assistantIcon} alt=""></img>
               <Typography
                 variant="h5"
@@ -86,8 +98,8 @@ function Landing() {
               >
                 6.5 and steady as of five minutes ago
               </Typography>
-            </div>
-          </div>
+            </Grid>
+          </Grid>
         </Container>
       </Grid>
       <Grid item>
@@ -114,8 +126,9 @@ function Landing() {
       </Grid>
       <Grid item>
         <Typography variant="body2">
-          By continuing, you are indicating that you accept our Terms of Service
-          and Privacy Policy.
+          By continuing, you are indicating that you accept our{" "}
+          <Link href="/legal#tos">Terms of Service</Link> and{" "}
+          <Link href="/legal#privacy">Privacy Policy</Link>.
         </Typography>
       </Grid>
     </Grid>

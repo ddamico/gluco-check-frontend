@@ -39,7 +39,12 @@ function Legal() {
         className={classes.contentGrid}
       >
         <Grid item>
-          <Container component="section" maxWidth="md">
+          <Container
+            component="section"
+            maxWidth="md"
+            data-testid="tos"
+            id="tos"
+          >
             <Typography variant="h5" component="h2">
               {t("termsOfService.title")}
             </Typography>
@@ -56,7 +61,12 @@ function Legal() {
               {t("termsOfService.p3")}
             </Typography>
           </Container>
-          <Container component="section" maxWidth="md">
+          <Container
+            component="section"
+            maxWidth="md"
+            data-testid="medical"
+            id="medical"
+          >
             <Typography variant="h5" component="h2">
               {t("medicalDisclaimer.title")}
             </Typography>
@@ -64,7 +74,12 @@ function Legal() {
               {t("medicalDisclaimer.p1")}
             </Typography>
           </Container>
-          <Container component="section" maxWidth="md">
+          <Container
+            component="section"
+            maxWidth="md"
+            data-testid="privacy"
+            id="privacy"
+          >
             <Typography variant="h5" component="h2">
               {t("privacyPolicy.title")}
             </Typography>
@@ -109,11 +124,8 @@ function Legal() {
                 using this website, how they found it, and which demographic
                 they're in. This only applies to this site, not to usage of the
                 Assistant Action itself. If you'd like to opt-out of the Google
-                Analytics cookie, you can do so by visiting{" "}
-                <a href="https://tools.google.com/dlpage/gaoptout">
-                  https://tools.google.com/dlpage/gaoptout/
-                </a>
-                .
+                Analytics cookie, you can do so
+                <a href="https://tools.google.com/dlpage/gaoptout">here</a>.
               </Trans>
             </Typography>
           </Container>

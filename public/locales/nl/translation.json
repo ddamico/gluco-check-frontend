@@ -150,7 +150,7 @@
     },
     "p5": {
       "title": "Analytics Cookie",
-      "body": "Nadat je bent ingelogd op deze site, worden enkele anonieme statistieken over je bezoek verzameld met behulp van een cookie (Google Analytics). De cookie is niet actief tot je deze privacyovereenkomst hebt aanvaard. Ik gebruik Analytics om beter te begrijpen hoe mijn site gebruikt wordt, hoe bezoekers hem vinden, en uit welke demografie ze komen. Dit is enkel van toepassing op [this website], niet op het gebruik van de Assistant Actie zelf. Als je liever geen gebruik maakt van de Google Analytics cookie, kan je deze uitschakelen door <4>https://tools.google.com/dlpage/gaoptout/</4> te bezoeken."
+      "body": "Nadat je bent ingelogd op deze site, worden enkele anonieme statistieken over je bezoek verzameld met behulp van een cookie (Google Analytics). De cookie is niet actief tot je deze privacyovereenkomst hebt aanvaard. Ik gebruik Analytics om beter te begrijpen hoe mijn site gebruikt wordt, hoe bezoekers hem vinden, en uit welke demografie ze komen. Dit is enkel van toepassing op [this website], niet op het gebruik van de Assistant Actie zelf. Als je liever geen gebruik maakt van de Google Analytics cookie, kan je deze uitschakelen door <2>https://tools.google.com/dlpage/gaoptout/</2> te bezoeken."
     }
   }
 }

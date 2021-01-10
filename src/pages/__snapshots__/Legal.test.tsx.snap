@@ -9,6 +9,8 @@ exports[`Legal page renders the component 1`] = `
   >
     <section
       class="MuiContainer-root MuiContainer-maxWidthMd"
+      data-testid="tos"
+      id="tos"
     >
       <h2
         class="MuiTypography-root MuiTypography-h5"
@@ -38,6 +40,8 @@ exports[`Legal page renders the component 1`] = `
     </section>
     <section
       class="MuiContainer-root MuiContainer-maxWidthMd"
+      data-testid="medical"
+      id="medical"
     >
       <h2
         class="MuiTypography-root MuiTypography-h5"
@@ -52,6 +56,8 @@ exports[`Legal page renders the component 1`] = `
     </section>
     <section
       class="MuiContainer-root MuiContainer-maxWidthMd"
+      data-testid="privacy"
+      id="privacy"
     >
       <h2
         class="MuiTypography-root MuiTypography-h5"
