@@ -2,25 +2,25 @@
 
 exports[`App component renders the component when no user and no loading 1`] = `
 <header
-  class="MuiPaper-root MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary MuiPaper-elevation4"
+  class="MuiPaper-root MuiAppBar-root MuiAppBar-positionSticky MuiAppBar-colorPrimary MuiPaper-elevation4"
 >
   <div
-    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-20 MuiToolbar-gutters"
+    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-26 MuiToolbar-gutters"
   >
     <section
-      class="makeStyles-leftToolbar-17"
+      class="makeStyles-leftToolbar-23"
     >
       <h1
-        class="MuiTypography-root makeStyles-navTitle-21 MuiTypography-h6 MuiTypography-colorInherit"
+        class="MuiTypography-root makeStyles-navTitle-27 MuiTypography-h6 MuiTypography-colorInherit"
       >
         title
       </h1>
     </section>
     <section
-      class="makeStyles-rightToolbar-18"
+      class="makeStyles-rightToolbar-24"
     >
       <ul
-        class="makeStyles-nav-19"
+        class="makeStyles-nav-25"
       />
     </section>
   </div>
@@ -29,25 +29,25 @@ exports[`App component renders the component when no user and no loading 1`] = `
 
 exports[`App component renders the component when user loaded 1`] = `
 <header
-  class="MuiPaper-root MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary MuiPaper-elevation4"
+  class="MuiPaper-root MuiAppBar-root MuiAppBar-positionSticky MuiAppBar-colorPrimary MuiPaper-elevation4"
 >
   <div
-    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-13 MuiToolbar-gutters"
+    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-17 MuiToolbar-gutters"
   >
     <section
-      class="makeStyles-leftToolbar-10"
+      class="makeStyles-leftToolbar-14"
     >
       <h1
-        class="MuiTypography-root makeStyles-navTitle-14 MuiTypography-h6 MuiTypography-colorInherit"
+        class="MuiTypography-root makeStyles-navTitle-18 MuiTypography-h6 MuiTypography-colorInherit"
       >
         title
       </h1>
     </section>
     <section
-      class="makeStyles-rightToolbar-11"
+      class="makeStyles-rightToolbar-15"
     >
       <ul
-        class="makeStyles-nav-12"
+        class="makeStyles-nav-16"
       >
         <li>
           <a
@@ -143,25 +143,25 @@ exports[`App component renders the component when user loaded 1`] = `
 
 exports[`App component renders the component when user loading 1`] = `
 <header
-  class="MuiPaper-root MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary MuiPaper-elevation4"
+  class="MuiPaper-root MuiAppBar-root MuiAppBar-positionSticky MuiAppBar-colorPrimary MuiPaper-elevation4"
 >
   <div
-    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-6 MuiToolbar-gutters"
+    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-8 MuiToolbar-gutters"
   >
     <section
-      class="makeStyles-leftToolbar-3"
+      class="makeStyles-leftToolbar-5"
     >
       <h1
-        class="MuiTypography-root makeStyles-navTitle-7 MuiTypography-h6 MuiTypography-colorInherit"
+        class="MuiTypography-root makeStyles-navTitle-9 MuiTypography-h6 MuiTypography-colorInherit"
       >
         title
       </h1>
     </section>
     <section
-      class="makeStyles-rightToolbar-4"
+      class="makeStyles-rightToolbar-6"
     >
       <ul
-        class="makeStyles-nav-5"
+        class="makeStyles-nav-7"
       />
     </section>
   </div>

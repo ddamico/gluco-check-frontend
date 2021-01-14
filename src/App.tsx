@@ -9,6 +9,7 @@ import {
   Container,
   IconButton,
   makeStyles,
+  Paper,
   Toolbar,
   Typography,
 } from "@material-ui/core";
@@ -25,6 +26,12 @@ export const FirebaseUserDocumentContext = React.createContext("");
 const useStyles = makeStyles((theme) => ({
   root: {},
   container: {
+    height: "100%",
+  },
+  surface: {
+    paddingBottom: theme.spacing(2),
+  },
+  footer: {
     paddingTop: theme.spacing(2),
   },
   leftToolbar: {},
@@ -62,7 +69,7 @@ export default function App() {
   }
 
   const navigation = (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Toolbar variant="regular" className={classes.toolbar}>
         <section className={classes.leftToolbar}>
           <Typography
@@ -125,22 +132,29 @@ export default function App() {
   return (
     <Router>
       {navigation}
-      <Container maxWidth="md">
-        <Switch>
-          <Route exact path="/">
-            {Content}
-          </Route>
-          <Route path="/legal">
-            <Legal />
-          </Route>
-          {user && (
-            <Route path="/settings">
-              <FirebaseUserDocumentContext.Provider value={docPath}>
-                <EditSettings />
-              </FirebaseUserDocumentContext.Provider>
+      <Container maxWidth="lg" className={classes.container}>
+        <Paper variant="elevation" className={classes.surface}>
+          <Switch>
+            <Route exact path="/">
+              {Content}
             </Route>
-          )}
-        </Switch>
+            <Route path="/legal">
+              <Legal />
+            </Route>
+            {user && (
+              <Route path="/settings">
+                <FirebaseUserDocumentContext.Provider value={docPath}>
+                  <EditSettings />
+                </FirebaseUserDocumentContext.Provider>
+              </Route>
+            )}
+          </Switch>
+        </Paper>
+      </Container>
+      <Container maxWidth="lg" className={classes.footer}>
+        <Link to="/legal#tos">Terms of Service</Link> |{" "}
+        <Link to="/legal#privacy">Privacy Policy</Link> |{" "}
+        <Link to="/legal#medical">Medical Disclaimer</Link>
       </Container>
     </Router>
   );
