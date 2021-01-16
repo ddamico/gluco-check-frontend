@@ -27,22 +27,41 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
   },
   callResponseContainer: {
-    "& p": {
-      marginBottom: theme.spacing(2),
-    },
-    "& img": {
+    "& .assistantBubble img": {
       width: "54px",
       height: "54px",
       display: "block",
       paddingBottom: theme.spacing(2),
+      float: "right",
+    },
+    "& .assistantBubble-question, & .assistantBubble-response": {},
+    "& .assistantBubble p": {
+      clear: "both",
+      marginBottom: theme.spacing(2),
+      padding: "14px 30px",
+      borderRadius: "62px",
+      borderWidth: "2px",
+      borderStyle: "solid",
+    },
+    "& .assistantBubble-question": {
+      textAlign: "start",
+      alignSelf: "flex-start",
+    },
+    "& .assistantBubble-question p": {
+      backgroundColor: "#ccc",
+      borderColor: "#ccc",
+      maxWidth: "70%",
     },
     "& .assistantBubble-response": {
-      padding: "14px 24px",
-      border: "2px solid #e8eaed",
-      borderRadius: "62px",
+      textAlign: "end",
+      alignSelf: "flex-end",
+    },
+    "& .assistantBubble-response p": {
+      borderColor: "#e8eaed",
+      textAlign: "inline-end",
     },
     [theme.breakpoints.down("sm")]: {
-      "& .assistantBubble-response": {
+      "& .assistantBubble-response, & .assistantBubble-response": {
         fontSize: ".9rem",
       },
     },
@@ -60,7 +79,7 @@ function Landing() {
     signInOptions: [
       {
         provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        fullLabel: "Let's get started",
+        fullLabel: t("login.buttonLabel"),
       },
     ],
   };
@@ -79,23 +98,16 @@ function Landing() {
           <Grid
             container
             direction="column"
-            justify="center"
-            alignItems="center"
             className={classes.callResponseContainer}
           >
-            <Grid item>
+            <Grid item className="assistantBubble assistantBubble-question">
               <Typography variant="h5" component="p">
                 Hey Google, ask Gluco Check my blood sugar
               </Typography>
             </Grid>
-            <Grid item>
+            <Grid item className="assistantBubble assistantBubble-response">
               <img src={assistantIcon} alt=""></img>
-              <Typography
-                variant="h5"
-                component="p"
-                className="assistantBubble-response"
-                noWrap
-              >
+              <Typography variant="h5" component="p">
                 6.5 and steady as of five minutes ago
               </Typography>
             </Grid>

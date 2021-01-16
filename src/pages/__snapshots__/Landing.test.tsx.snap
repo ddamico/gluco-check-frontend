@@ -11,10 +11,10 @@ exports[`Landing page renders the component 1`] = `
       class="MuiContainer-root MuiContainer-maxWidthMd"
     >
       <div
-        class="MuiGrid-root makeStyles-callResponseContainer-4 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+        class="MuiGrid-root makeStyles-callResponseContainer-4 MuiGrid-container MuiGrid-direction-xs-column"
       >
         <div
-          class="MuiGrid-root MuiGrid-item"
+          class="MuiGrid-root assistantBubble assistantBubble-question MuiGrid-item"
         >
           <p
             class="MuiTypography-root MuiTypography-h5"
@@ -23,14 +23,14 @@ exports[`Landing page renders the component 1`] = `
           </p>
         </div>
         <div
-          class="MuiGrid-root MuiGrid-item"
+          class="MuiGrid-root assistantBubble assistantBubble-response MuiGrid-item"
         >
           <img
             alt=""
             src="[object Object]"
           />
           <p
-            class="MuiTypography-root assistantBubble-response MuiTypography-h5 MuiTypography-noWrap"
+            class="MuiTypography-root MuiTypography-h5"
           >
             6.5 and steady as of five minutes ago
           </p>

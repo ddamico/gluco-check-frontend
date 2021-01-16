@@ -29,7 +29,8 @@
     "content": "Content about the product, more practical scenarios featuring ways to use it in your life in novel ways."
   },
   "login": {
-    "title": "Login"
+    "title": "Login",
+    "buttonLabel": "Sign in with Google"
   },
   "settings": {
     "title": "Edit Settings",

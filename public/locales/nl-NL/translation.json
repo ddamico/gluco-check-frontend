@@ -29,7 +29,8 @@
     "content": "[Productinfo, more practical scenarios featuring ways to use it in your life in novel ways]."
   },
   "login": {
-    "title": "Aanmelden"
+    "title": "Aanmelden",
+    "buttonLabel": "[Sign in with Google]"
   },
   "settings": {
     "title": "Instellingen",
