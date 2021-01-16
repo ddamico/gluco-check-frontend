@@ -16,7 +16,6 @@ import {
 import { ExitToApp, Home, Settings } from "@material-ui/icons";
 
 import Landing from "./pages/Landing";
-import Legal from "./pages/Legal";
 import EditSettings from "./pages/EditSettings";
 import Welcome from "./pages/Welcome";
 import "./App.css";
@@ -30,9 +29,6 @@ const useStyles = makeStyles((theme) => ({
   },
   surface: {
     paddingBottom: theme.spacing(2),
-  },
-  footer: {
-    paddingTop: theme.spacing(2),
   },
   leftToolbar: {},
   rightToolbar: {
@@ -138,9 +134,6 @@ export default function App() {
             <Route exact path="/">
               {Content}
             </Route>
-            <Route path="/legal">
-              <Legal />
-            </Route>
             {user && (
               <Route path="/settings">
                 <FirebaseUserDocumentContext.Provider value={docPath}>
@@ -150,11 +143,6 @@ export default function App() {
             )}
           </Switch>
         </Paper>
-      </Container>
-      <Container maxWidth="lg" className={classes.footer}>
-        <Link to="/legal#tos">Terms of Service</Link> |{" "}
-        <Link to="/legal#privacy">Privacy Policy</Link> |{" "}
-        <Link to="/legal#medical">Medical Disclaimer</Link>
       </Container>
     </Router>
   );

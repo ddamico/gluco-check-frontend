@@ -127,8 +127,8 @@ function Landing() {
       <Grid item>
         <Typography variant="body2">
           By continuing, you are indicating that you accept our{" "}
-          <Link href="/legal#tos">Terms of Service</Link> and{" "}
-          <Link href="/legal#privacy">Privacy Policy</Link>.
+          <Link href={t("urls.termsAndConditions")}>Terms of Service</Link> and{" "}
+          <Link href={t("urls.privacy")}>Privacy Policy</Link>.
         </Typography>
       </Grid>
     </Grid>

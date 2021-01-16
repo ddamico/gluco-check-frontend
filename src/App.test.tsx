@@ -43,15 +43,6 @@ jest.mock("./pages/Welcome.tsx", () => {
   };
 });
 
-jest.mock("./pages/Legal.tsx", () => {
-  return {
-    __esModule: true,
-    default: () => {
-      return <div>Legal</div>;
-    },
-  };
-});
-
 afterEach(() => {
   jest.clearAllMocks();
   cleanup();

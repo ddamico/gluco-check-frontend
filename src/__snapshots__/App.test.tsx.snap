@@ -5,22 +5,22 @@ exports[`App component renders the component when no user and no loading 1`] = `
   class="MuiPaper-root MuiAppBar-root MuiAppBar-positionSticky MuiAppBar-colorPrimary MuiPaper-elevation4"
 >
   <div
-    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-26 MuiToolbar-gutters"
+    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-23 MuiToolbar-gutters"
   >
     <section
-      class="makeStyles-leftToolbar-23"
+      class="makeStyles-leftToolbar-20"
     >
       <h1
-        class="MuiTypography-root makeStyles-navTitle-27 MuiTypography-h6 MuiTypography-colorInherit"
+        class="MuiTypography-root makeStyles-navTitle-24 MuiTypography-h6 MuiTypography-colorInherit"
       >
         title
       </h1>
     </section>
     <section
-      class="makeStyles-rightToolbar-24"
+      class="makeStyles-rightToolbar-21"
     >
       <ul
-        class="makeStyles-nav-25"
+        class="makeStyles-nav-22"
       />
     </section>
   </div>
@@ -32,22 +32,22 @@ exports[`App component renders the component when user loaded 1`] = `
   class="MuiPaper-root MuiAppBar-root MuiAppBar-positionSticky MuiAppBar-colorPrimary MuiPaper-elevation4"
 >
   <div
-    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-17 MuiToolbar-gutters"
+    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-15 MuiToolbar-gutters"
   >
     <section
-      class="makeStyles-leftToolbar-14"
+      class="makeStyles-leftToolbar-12"
     >
       <h1
-        class="MuiTypography-root makeStyles-navTitle-18 MuiTypography-h6 MuiTypography-colorInherit"
+        class="MuiTypography-root makeStyles-navTitle-16 MuiTypography-h6 MuiTypography-colorInherit"
       >
         title
       </h1>
     </section>
     <section
-      class="makeStyles-rightToolbar-15"
+      class="makeStyles-rightToolbar-13"
     >
       <ul
-        class="makeStyles-nav-16"
+        class="makeStyles-nav-14"
       >
         <li>
           <a
@@ -146,22 +146,22 @@ exports[`App component renders the component when user loading 1`] = `
   class="MuiPaper-root MuiAppBar-root MuiAppBar-positionSticky MuiAppBar-colorPrimary MuiPaper-elevation4"
 >
   <div
-    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-8 MuiToolbar-gutters"
+    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-7 MuiToolbar-gutters"
   >
     <section
-      class="makeStyles-leftToolbar-5"
+      class="makeStyles-leftToolbar-4"
     >
       <h1
-        class="MuiTypography-root makeStyles-navTitle-9 MuiTypography-h6 MuiTypography-colorInherit"
+        class="MuiTypography-root makeStyles-navTitle-8 MuiTypography-h6 MuiTypography-colorInherit"
       >
         title
       </h1>
     </section>
     <section
-      class="makeStyles-rightToolbar-6"
+      class="makeStyles-rightToolbar-5"
     >
       <ul
-        class="makeStyles-nav-7"
+        class="makeStyles-nav-6"
       />
     </section>
   </div>

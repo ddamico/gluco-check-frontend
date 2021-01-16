@@ -87,7 +87,7 @@ exports[`Landing page renders the component 1`] = `
        
       <a
         class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-        href="/legal#tos"
+        href="urls.termsAndConditions"
       >
         Terms of Service
       </a>
@@ -95,7 +95,7 @@ exports[`Landing page renders the component 1`] = `
        
       <a
         class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-        href="/legal#privacy"
+        href="urls.privacy"
       >
         Privacy Policy
       </a>
