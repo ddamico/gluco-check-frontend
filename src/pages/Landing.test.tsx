@@ -13,6 +13,15 @@ jest.mock("react-firebaseui/StyledFirebaseAuth", () => {
   };
 });
 
+jest.mock("../components/Onboarding", () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return <>Onboarding</>;
+    },
+  };
+});
+
 afterEach(cleanup);
 
 describe("Landing page", () => {

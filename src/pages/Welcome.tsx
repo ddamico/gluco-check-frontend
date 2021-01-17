@@ -7,8 +7,8 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-
-const assistantIcon = require("../images/icon-assistant.svg");
+import Onboarding from "../components/Onboarding";
+import Boilerplate from "../components/Boilerplate";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -35,21 +35,24 @@ const useStyles = makeStyles((theme) => ({
       verticalAlign: "middle",
     },
   },
+  boilerplate: {
+    textAlign: "center",
+  },
 }));
 
 function Welcome() {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const featuresList = [
-    t("landing.introduction.features1"),
-    t("landing.introduction.features2"),
-    t("landing.introduction.features3"),
-    t("landing.introduction.features4"),
-    t("landing.introduction.features5"),
-    t("landing.introduction.features6"),
-    t("landing.introduction.features7"),
-  ];
+  // const featuresList = [
+  //   t("landing.introduction.features1"),
+  //   t("landing.introduction.features2"),
+  //   t("landing.introduction.features3"),
+  //   t("landing.introduction.features4"),
+  //   t("landing.introduction.features5"),
+  //   t("landing.introduction.features6"),
+  //   t("landing.introduction.features7"),
+  // ];
 
   return (
     <Grid
@@ -61,38 +64,26 @@ function Welcome() {
       spacing={2}
     >
       <Grid item>
-        <Container maxWidth="md">
-          <Grid container direction="row" justify="center" alignItems="center">
-            <Grid item>
-              <img src={assistantIcon} alt="" />
-            </Grid>
-            <Grid item>
-              <Typography variant="h3" component="h2">
-                {t("landing.title")}
-              </Typography>
-            </Grid>
-          </Grid>
+        <Onboarding />
+      </Grid>
+      <Grid item>
+        <Container maxWidth="sm">
+          <Typography variant="body1">
+            {t("landing.introduction.p1")}
+          </Typography>
         </Container>
       </Grid>
       <Grid item>
-        <Container maxWidth="sm" className={classes.bodyContent}>
-          <Typography variant="body1">
-            Start by{" "}
-            <Link href="/settings">
-              adding configuration info for your Nightscout site
-            </Link>
-            .
-          </Typography>
-          <Typography variant="body1">
-            Most metrics available on your Nightscout site can be accessed from
-            Gluco Check. Ask it things like "Hey Google, ask Gluco Check...
-          </Typography>
-          <Typography variant="body1" component="ul">
-            {featuresList.map((feature, index) => (
-              <li key={`feature-${index}`}>{feature}</li>
-            ))}
-          </Typography>
-        </Container>
+        <Typography variant="body1">
+          Start by{" "}
+          <Link href="/settings">
+            adding configuration info for your Nightscout site
+          </Link>
+          .
+        </Typography>
+      </Grid>
+      <Grid item className={classes.boilerplate}>
+        <Boilerplate />
       </Grid>
     </Grid>
   );

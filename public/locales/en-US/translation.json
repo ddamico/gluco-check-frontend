@@ -9,20 +9,17 @@
   "urls": {
     "termsAndConditions": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/en-US/terms.md#license-terms",
     "healthDisclaimer": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/en-US/terms.md#health-information-disclaimer",
-    "privacy": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/en-US/terms.md#privacy-policy"
+    "privacy": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/en-US/terms.md#privacy-policy",
+    "nightscoutProject": "http://nightscout.info/"
   },
   "landing": {
-    "title": "Welcome to Gluco Check",
-    "introduction": {
-      "p1": "Gluco Check brings Nightscout to your Google Assistant. Ask it things like",
-      "features1": "my blood sugar / my BG / my glucose",
-      "features2": "my insulin on board / IOB / insulin",
-      "features3": "my carbs on board / COB / carbs",
-      "features4": "pump battery",
-      "features5": "How old is my cannula / When did I insert my cannula?",
-      "features6": "What's the sensor's age?",
-      "features7": "Everything / all values"
-    }
+    "title": "Welcome to Gluco Check"
+  },
+  "onboarding": {
+      "q1": "Hey Google, ask Gluco Check my blood sugar",
+      "a1": "6.5 and steady as of five minutes ago",
+      "q2": "",
+      "a2": ""
   },
   "welcome": {
     "title": "Welcome to Gluco Check",

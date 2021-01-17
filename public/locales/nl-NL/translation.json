@@ -9,7 +9,8 @@
   "urls": {
     "termsAndConditions": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/nl-NL/terms.md#license-terms",
     "healthDisclaimer": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/nl-NL/terms.md#health-information-disclaimer",
-    "privacy": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/nl-NL/terms.md#privacy-policy"
+    "privacy": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/nl-NL/terms.md#privacy-policy",
+    "nightscoutProject": "http://nightscout.info/"
   },
   "landing": {
     "title": "Welkom bij Gluco Check",
