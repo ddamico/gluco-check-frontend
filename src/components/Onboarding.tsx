@@ -134,7 +134,6 @@ export const questionAndAnswer = (
 interface QuestionsAndAnswer {
   question: string;
   answer: string;
-  label: string;
 }
 
 function Onboarding() {
@@ -145,17 +144,14 @@ function Onboarding() {
     {
       question: t("onboarding.q1"),
       answer: t("onboarding.a1"),
-      label: `${t("onboarding.q1")} ${t("onboarding.a1")}`,
     },
     {
       question: t("onboarding.q2"),
       answer: t("onboarding.a2"),
-      label: `${t("onboarding.q2")} ${t("onboarding.a2")}`,
     },
     {
       question: t("onboarding.q3"),
       answer: t("onboarding.a3"),
-      label: `${t("onboarding.q3")} ${t("onboarding.a3")}`,
     },
   ];
 
