@@ -109,11 +109,11 @@ export const questionAndAnswer = (
   return (
     <Card className={innerContainerClass}>
       <Grid
+        className={containerClass}
         container
         direction="column"
         key={index}
         wrap="nowrap"
-        className={containerClass}
       >
         <Grid item className="assistantBubble assistantBubble-question">
           <Typography variant="h5" component="p">
@@ -157,20 +157,20 @@ function Onboarding() {
 
   return (
     <CarouselProvider
-      naturalSlideWidth={600}
-      naturalSlideHeight={350}
-      totalSlides={questionsAndAnswers.length}
       className={classes.carousel}
-      interval={DEFAULT_ONBOARDING_CAROUSEL_INTERVAL}
       infinite={true}
+      interval={DEFAULT_ONBOARDING_CAROUSEL_INTERVAL}
       isPlaying={true}
+      naturalSlideHeight={350}
+      naturalSlideWidth={600}
+      totalSlides={questionsAndAnswers.length}
     >
       <Container maxWidth="sm">
         <Grid
+          alignItems="center"
           container
           direction="column"
           justify="center"
-          alignItems="center"
           spacing={2}
         >
           <Grid item className={classes.carouselSliderContainer}>
