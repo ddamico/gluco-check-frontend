@@ -31,13 +31,6 @@ const useStyles = makeStyles((theme) => ({
   },
   contentGrid: {
     minHeight: "90vh",
-    // "& img": {
-    //   width: "54px",
-    //   height: "54px",
-    //   marginRight: theme.spacing(2),
-    //   marginBottom: theme.spacing(2),
-    //   verticalAlign: "middle",
-    // },
   },
   boilerplate: {
     textAlign: "center",
