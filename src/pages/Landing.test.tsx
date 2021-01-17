@@ -3,6 +3,16 @@ import { cleanup, render } from "@testing-library/react";
 import { axe } from "jest-axe";
 import Landing from "./Landing";
 
+jest.mock("react-i18next", () => ({
+  useTranslation: () => {
+    return {
+      t: jest.fn().mockImplementation((i) => {
+        return i;
+      }),
+    };
+  },
+}));
+
 jest.mock("../lib/firebase");
 jest.mock("react-firebaseui/StyledFirebaseAuth", () => {
   return {

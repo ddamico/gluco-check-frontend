@@ -18,10 +18,12 @@
     "subtitle": "Gluco Check brengt Nightscout naar je Google Home"
   },
   "onboarding": {
-    "q1": "Hey Google, ask Gluco Check my blood sugar",
-    "a1": "6.5 and steady as of five minutes ago",
-    "q2": "",
-    "a2": ""
+    "q1": "[Hey Google, ask Gluco Check my blood sugar]",
+    "a1": "[6.5 and steady as of five minutes ago]",
+    "q2": "[Hey Google, ask Gluco Check my COB]",
+    "a2": "[There are 10 carbs on board.]",
+    "q3": "[Hey Google, ask Gluco Check for everything]",
+    "a3": "[Blood sugar is 5.6 and rising slowly as of 2 minutes ago. There are -0.1 insulin units on board. There are 0 carbs on board. The sensor was inserted 5 days ago. The cannula was inserted 2 days ago.]"
   },
   "boilerplate": {
     "terms": "[By continuing, you are indicating that you accept our <2>Terms of Service</2> and <4>Privacy Policy</4>.]",

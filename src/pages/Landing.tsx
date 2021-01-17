@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(3),
   },
   contentGrid: {
-    height: "90vh",
+    minHeight: "90vh",
   },
   utterance: {
     fontWeight: "bold",
@@ -57,6 +57,7 @@ function Landing() {
         justify="center"
         alignItems="center"
         spacing={2}
+        wrap="nowrap"
       >
         <Grid item className={classes.subtitle}>
           <Container maxWidth="sm">

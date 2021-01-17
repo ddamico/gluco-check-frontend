@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   subtitle: {
     marginBottom: theme.spacing(2),
+    textAlign: "center",
   },
   bodyContent: {
     "& p": {
@@ -29,14 +30,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   contentGrid: {
-    height: "90vh",
-    "& img": {
-      width: "54px",
-      height: "54px",
-      marginRight: theme.spacing(2),
-      marginBottom: theme.spacing(2),
-      verticalAlign: "middle",
-    },
+    minHeight: "90vh",
+    // "& img": {
+    //   width: "54px",
+    //   height: "54px",
+    //   marginRight: theme.spacing(2),
+    //   marginBottom: theme.spacing(2),
+    //   verticalAlign: "middle",
+    // },
   },
   boilerplate: {
     textAlign: "center",
@@ -59,6 +60,7 @@ function Welcome() {
       justify="center"
       alignItems="center"
       spacing={2}
+      wrap="nowrap"
     >
       <Grid item className={classes.subtitle}>
         <Container maxWidth="sm">

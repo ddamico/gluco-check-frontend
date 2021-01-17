@@ -28,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   surface: {
-    paddingBottom: theme.spacing(2),
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   leftToolbar: {},
   rightToolbar: {

@@ -1,33 +1,203 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Landing page renders the component 1`] = `
-<div
-  class="MuiContainer-root MuiContainer-maxWidthMd"
+exports[`Onboarding questionAndAnswer renders the subcomponent 1`] = `
+<ForwardRef(WithStyles)
+  className="innerClass"
 >
-  <div
-    class="MuiGrid-root makeStyles-callResponseContainer-2 MuiGrid-container MuiGrid-direction-xs-column"
+  <ForwardRef(WithStyles)
+    className="outerClass"
+    container={true}
+    direction="column"
+    wrap="nowrap"
   >
-    <div
-      class="MuiGrid-root assistantBubble assistantBubble-question MuiGrid-item"
+    <ForwardRef(WithStyles)
+      className="assistantBubble assistantBubble-question"
+      item={true}
     >
-      <p
-        class="MuiTypography-root MuiTypography-h5"
+      <ForwardRef(WithStyles)
+        component="p"
+        variant="h5"
       >
-        onboarding.q1
-      </p>
-    </div>
-    <div
-      class="MuiGrid-root assistantBubble assistantBubble-response MuiGrid-item"
+        What it is
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      className="assistantBubble assistantBubble-response"
+      item={true}
     >
       <img
         alt=""
-        src="[object Object]"
+        src={
+          Object {
+            "ReactComponent": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "render": [Function],
+            },
+            "__esModule": true,
+            "default": "icon-assistant.svg",
+          }
+        }
       />
-      <p
-        class="MuiTypography-root MuiTypography-h5"
+      <ForwardRef(WithStyles)
+        component="p"
+        variant="h5"
       >
-        onboarding.a1
-      </p>
+        It is good
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</ForwardRef(WithStyles)>
+`;
+
+exports[`Onboarding questionAndAnswer renders the subcomponent with a long answer string 1`] = `
+<ForwardRef(WithStyles)
+  className="innerClass"
+>
+  <ForwardRef(WithStyles)
+    className="outerClass"
+    container={true}
+    direction="column"
+    wrap="nowrap"
+  >
+    <ForwardRef(WithStyles)
+      className="assistantBubble assistantBubble-question"
+      item={true}
+    >
+      <ForwardRef(WithStyles)
+        component="p"
+        variant="h5"
+      >
+        What it is
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      className="assistantBubble assistantBubble-response"
+      item={true}
+    >
+      <img
+        alt=""
+        src={
+          Object {
+            "ReactComponent": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "render": [Function],
+            },
+            "__esModule": true,
+            "default": "icon-assistant.svg",
+          }
+        }
+      />
+      <ForwardRef(WithStyles)
+        component="p"
+        variant="body2"
+      >
+        It is really really really really really good
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</ForwardRef(WithStyles)>
+`;
+
+exports[`Onboarding renders the component 1`] = `
+<div
+  class="MuiContainer-root MuiContainer-maxWidthSm"
+>
+  <div
+    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+  >
+    <div
+      class="MuiGrid-root makeStyles-carouselSliderContainer-4 MuiGrid-item"
+    >
+      <div
+        class="MuiPaper-root MuiCard-root makeStyles-slideContainer-1 MuiPaper-elevation1 MuiPaper-rounded"
+      >
+        <div
+          class="MuiGrid-root makeStyles-callResponseContainer-2 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap"
+        >
+          <div
+            class="MuiGrid-root assistantBubble assistantBubble-question MuiGrid-item"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-h5"
+            >
+              onboarding.q1
+            </p>
+          </div>
+          <div
+            class="MuiGrid-root assistantBubble assistantBubble-response MuiGrid-item"
+          >
+            <img
+              alt=""
+              src="[object Object]"
+            />
+            <p
+              class="MuiTypography-root MuiTypography-h5"
+            >
+              onboarding.a1
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiPaper-root MuiCard-root makeStyles-slideContainer-1 MuiPaper-elevation1 MuiPaper-rounded"
+      >
+        <div
+          class="MuiGrid-root makeStyles-callResponseContainer-2 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap"
+        >
+          <div
+            class="MuiGrid-root assistantBubble assistantBubble-question MuiGrid-item"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-h5"
+            >
+              onboarding.q2
+            </p>
+          </div>
+          <div
+            class="MuiGrid-root assistantBubble assistantBubble-response MuiGrid-item"
+          >
+            <img
+              alt=""
+              src="[object Object]"
+            />
+            <p
+              class="MuiTypography-root MuiTypography-h5"
+            >
+              onboarding.a2
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiPaper-root MuiCard-root makeStyles-slideContainer-1 MuiPaper-elevation1 MuiPaper-rounded"
+      >
+        <div
+          class="MuiGrid-root makeStyles-callResponseContainer-2 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap"
+        >
+          <div
+            class="MuiGrid-root assistantBubble assistantBubble-question MuiGrid-item"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-h5"
+            >
+              onboarding.q3
+            </p>
+          </div>
+          <div
+            class="MuiGrid-root assistantBubble assistantBubble-response MuiGrid-item"
+          >
+            <img
+              alt=""
+              src="[object Object]"
+            />
+            <p
+              class="MuiTypography-root MuiTypography-h5"
+            >
+              onboarding.a3
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
