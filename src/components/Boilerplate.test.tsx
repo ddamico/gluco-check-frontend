@@ -1,7 +1,7 @@
 import React from "react";
 import { cleanup, render } from "@testing-library/react";
 import { axe } from "jest-axe";
-import Welcome from "./Welcome";
+import Boilerplate from "./Boilerplate";
 
 jest.mock("react-i18next", () => ({
   useTranslation: () => {
@@ -16,34 +16,16 @@ jest.mock("react-i18next", () => ({
   },
 }));
 
-jest.mock("../components/Onboarding", () => {
-  return {
-    __esModule: true,
-    default: () => {
-      return <>Onboarding</>;
-    },
-  };
-});
-
-jest.mock("../components/Boilerplate", () => {
-  return {
-    __esModule: true,
-    default: () => {
-      return <>Boilerplate</>;
-    },
-  };
-});
-
 afterEach(cleanup);
 
-describe("Welcome page", () => {
+describe("Landing page", () => {
   it("renders the component", () => {
-    const { container } = render(<Welcome />);
+    const { container } = render(<Boilerplate />);
     expect(container.firstChild).toMatchSnapshot();
   });
 
   it("has no axe violations", async () => {
-    const { container } = render(<Welcome />);
+    const { container } = render(<Boilerplate />);
     expect(await axe(container)).toHaveNoViolations();
   });
 });

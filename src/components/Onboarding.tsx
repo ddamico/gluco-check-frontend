@@ -1,12 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Container,
-  Grid,
-  Link,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Container, Grid, makeStyles, Typography } from "@material-ui/core";
 
 const assistantIcon = require("../images/icon-assistant.svg");
 
@@ -66,13 +60,13 @@ const questionAndAnswer = (
     <Grid container direction="column" className={containerClass} key={index}>
       <Grid item className="assistantBubble assistantBubble-question">
         <Typography variant="h5" component="p">
-          Hey Google, ask Gluco Check my blood sugar
+          {question}
         </Typography>
       </Grid>
       <Grid item className="assistantBubble assistantBubble-response">
         <img src={assistantIcon} alt=""></img>
         <Typography variant="h5" component="p">
-          6.5 and steady as of five minutes ago
+          {answer}
         </Typography>
       </Grid>
     </Grid>

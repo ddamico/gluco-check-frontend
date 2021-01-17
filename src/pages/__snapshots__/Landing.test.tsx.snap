@@ -2,75 +2,25 @@
 
 exports[`Landing page renders the component 1`] = `
 <div
-  class="MuiGrid-root makeStyles-contentGrid-2 MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+  class="MuiGrid-root makeStyles-contentGrid-3 MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
 >
   <div
-    class="MuiGrid-root MuiGrid-item"
+    class="MuiGrid-root makeStyles-subtitle-2 MuiGrid-item"
   >
     <div
-      class="MuiContainer-root MuiContainer-maxWidthMd"
+      class="MuiContainer-root MuiContainer-maxWidthSm"
     >
-      <div
-        class="MuiGrid-root makeStyles-callResponseContainer-4 MuiGrid-container MuiGrid-direction-xs-column"
+      <h2
+        class="MuiTypography-root MuiTypography-h5"
       >
-        <div
-          class="MuiGrid-root assistantBubble assistantBubble-question MuiGrid-item"
-        >
-          <p
-            class="MuiTypography-root MuiTypography-h5"
-          >
-            Hey Google, ask Gluco Check my blood sugar
-          </p>
-        </div>
-        <div
-          class="MuiGrid-root assistantBubble assistantBubble-response MuiGrid-item"
-        >
-          <img
-            alt=""
-            src="[object Object]"
-          />
-          <p
-            class="MuiTypography-root MuiTypography-h5"
-          >
-            6.5 and steady as of five minutes ago
-          </p>
-        </div>
-      </div>
+        landing.subtitle
+      </h2>
     </div>
   </div>
   <div
     class="MuiGrid-root MuiGrid-item"
   >
-    <div
-      class="MuiContainer-root MuiContainer-maxWidthSm"
-    >
-      <p
-        class="MuiTypography-root MuiTypography-body1"
-      >
-        landing.introduction.p1
-         
-        <span
-          class="makeStyles-utterance-3"
-        >
-          "Hey Google, ask Gluco Check my BG"
-        </span>
-        . Or
-         
-        <span
-          class="makeStyles-utterance-3"
-        >
-          "Hey Google, ask Gluco Check my sensor's age"
-        </span>
-        . Or
-         
-        <span
-          class="makeStyles-utterance-3"
-        >
-          "Hey Google, ask Gluco Check my IOB"
-        </span>
-        .
-      </p>
-    </div>
+    Onboarding
   </div>
   <div
     class="MuiGrid-root MuiGrid-item"
@@ -78,29 +28,9 @@ exports[`Landing page renders the component 1`] = `
     This is where the login would be
   </div>
   <div
-    class="MuiGrid-root MuiGrid-item"
+    class="MuiGrid-root makeStyles-boilerplate-5 MuiGrid-item"
   >
-    <p
-      class="MuiTypography-root MuiTypography-body2"
-    >
-      By continuing, you are indicating that you accept our
-       
-      <a
-        class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-        href="urls.termsAndConditions"
-      >
-        Terms of Service
-      </a>
-       and
-       
-      <a
-        class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-        href="urls.privacy"
-      >
-        Privacy Policy
-      </a>
-      .
-    </p>
+    Boilerplate
   </div>
 </div>
 `;

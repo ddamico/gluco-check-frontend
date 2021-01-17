@@ -22,6 +22,15 @@ jest.mock("../components/Onboarding", () => {
   };
 });
 
+jest.mock("../components/Boilerplate", () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return <>Boilerplate</>;
+    },
+  };
+});
+
 afterEach(cleanup);
 
 describe("Landing page", () => {

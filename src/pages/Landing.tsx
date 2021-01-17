@@ -1,12 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Container,
-  Grid,
-  Link,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Container, Grid, makeStyles, Typography } from "@material-ui/core";
 import Onboarding from "../components/Onboarding";
 
 import * as firebase from "firebase/app";
@@ -20,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
     textAlign: "center",
   },
+  subtitle: {
+    marginBottom: theme.spacing(3),
+  },
   contentGrid: {
     height: "90vh",
   },
@@ -28,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
   },
   boilerplate: {
     textAlign: "center",
+    marginTop: theme.spacing(3),
+    "& p": {
+      marginBottom: theme.spacing(1),
+    },
   },
 }));
 
@@ -48,31 +49,33 @@ function Landing() {
   };
 
   return (
-    <Grid
-      className={classes.contentGrid}
-      container
-      direction="column"
-      justify="center"
-      alignItems="center"
-      spacing={2}
-    >
-      <Grid item>
-        <Onboarding />
+    <>
+      <Grid
+        className={classes.contentGrid}
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+        spacing={2}
+      >
+        <Grid item className={classes.subtitle}>
+          <Container maxWidth="sm">
+            <Typography variant="h5" component="h2">
+              {t("landing.subtitle")}
+            </Typography>
+          </Container>
+        </Grid>
+        <Grid item>
+          <Onboarding />
+        </Grid>
+        <Grid item>
+          <StyledFirebaseAuth uiConfig={firebaseUIConfig} firebaseAuth={auth} />
+        </Grid>
+        <Grid item className={classes.boilerplate}>
+          <Boilerplate />
+        </Grid>
       </Grid>
-      <Grid item>
-        <Container maxWidth="sm">
-          <Typography variant="body1">
-            {t("landing.introduction.p1")}
-          </Typography>
-        </Container>
-      </Grid>
-      <Grid item>
-        <StyledFirebaseAuth uiConfig={firebaseUIConfig} firebaseAuth={auth} />
-      </Grid>
-      <Grid item className={classes.boilerplate}>
-        <Boilerplate />
-      </Grid>
-    </Grid>
+    </>
   );
 }
 

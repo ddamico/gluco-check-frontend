@@ -2,87 +2,41 @@
 
 exports[`Welcome page renders the component 1`] = `
 <div
-  class="MuiGrid-root makeStyles-contentGrid-3 MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+  class="MuiGrid-root makeStyles-contentGrid-4 MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
 >
   <div
-    class="MuiGrid-root MuiGrid-item"
+    class="MuiGrid-root makeStyles-subtitle-2 MuiGrid-item"
   >
     <div
-      class="MuiContainer-root MuiContainer-maxWidthMd"
+      class="MuiContainer-root MuiContainer-maxWidthSm"
     >
-      <div
-        class="MuiGrid-root MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+      <h2
+        class="MuiTypography-root MuiTypography-h5"
       >
-        <div
-          class="MuiGrid-root MuiGrid-item"
-        >
-          <img
-            alt=""
-            src="[object Object]"
-          />
-        </div>
-        <div
-          class="MuiGrid-root MuiGrid-item"
-        >
-          <h2
-            class="MuiTypography-root MuiTypography-h3"
-          >
-            landing.title
-          </h2>
-        </div>
-      </div>
+        welcome.subtitle
+      </h2>
     </div>
   </div>
   <div
     class="MuiGrid-root MuiGrid-item"
   >
-    <div
-      class="MuiContainer-root makeStyles-bodyContent-2 MuiContainer-maxWidthSm"
+    Onboarding
+  </div>
+  <div
+    class="MuiGrid-root MuiGrid-item"
+  >
+    <p
+      class="MuiTypography-root MuiTypography-body1"
     >
-      <p
-        class="MuiTypography-root MuiTypography-body1"
-      >
-        Start by
-         
-        <a
-          class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-          href="/settings"
-        >
-          adding configuration info for your Nightscout site
-        </a>
-        .
-      </p>
-      <p
-        class="MuiTypography-root MuiTypography-body1"
-      >
-        Most metrics available on your Nightscout site can be accessed from Gluco Check. Ask it things like "Hey Google, ask Gluco Check...
-      </p>
-      <ul
-        class="MuiTypography-root MuiTypography-body1"
-      >
-        <li>
-          landing.introduction.features1
-        </li>
-        <li>
-          landing.introduction.features2
-        </li>
-        <li>
-          landing.introduction.features3
-        </li>
-        <li>
-          landing.introduction.features4
-        </li>
-        <li>
-          landing.introduction.features5
-        </li>
-        <li>
-          landing.introduction.features6
-        </li>
-        <li>
-          landing.introduction.features7
-        </li>
-      </ul>
-    </div>
+      <span>
+        welcome.cta
+      </span>
+    </p>
+  </div>
+  <div
+    class="MuiGrid-root makeStyles-boilerplate-5 MuiGrid-item"
+  >
+    Boilerplate
   </div>
 </div>
 `;

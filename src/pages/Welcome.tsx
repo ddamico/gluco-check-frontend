@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import {
   Container,
   Grid,
@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: theme.spacing(2),
     textAlign: "center",
+  },
+  subtitle: {
+    marginBottom: theme.spacing(2),
   },
   bodyContent: {
     "& p": {
@@ -37,22 +40,16 @@ const useStyles = makeStyles((theme) => ({
   },
   boilerplate: {
     textAlign: "center",
+    marginTop: theme.spacing(2),
+    "& p": {
+      marginBottom: theme.spacing(1),
+    },
   },
 }));
 
 function Welcome() {
   const classes = useStyles();
   const { t } = useTranslation();
-
-  // const featuresList = [
-  //   t("landing.introduction.features1"),
-  //   t("landing.introduction.features2"),
-  //   t("landing.introduction.features3"),
-  //   t("landing.introduction.features4"),
-  //   t("landing.introduction.features5"),
-  //   t("landing.introduction.features6"),
-  //   t("landing.introduction.features7"),
-  // ];
 
   return (
     <Grid
@@ -63,23 +60,25 @@ function Welcome() {
       alignItems="center"
       spacing={2}
     >
-      <Grid item>
-        <Onboarding />
-      </Grid>
-      <Grid item>
+      <Grid item className={classes.subtitle}>
         <Container maxWidth="sm">
-          <Typography variant="body1">
-            {t("landing.introduction.p1")}
+          <Typography variant="h5" component="h2">
+            {t("welcome.subtitle")}
           </Typography>
         </Container>
       </Grid>
       <Grid item>
+        <Onboarding />
+      </Grid>
+      <Grid item>
         <Typography variant="body1">
-          Start by{" "}
-          <Link href="/settings">
-            adding configuration info for your Nightscout site
-          </Link>
-          .
+          <Trans i18nKey="welcome.cta">
+            Start by{" "}
+            <Link href="/settings">
+              adding configuration info for your Nightscout site
+            </Link>
+            .
+          </Trans>
         </Typography>
       </Grid>
       <Grid item className={classes.boilerplate}>
