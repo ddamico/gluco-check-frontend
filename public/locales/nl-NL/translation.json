@@ -10,7 +10,8 @@
     "termsAndConditions": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/nl-NL/terms.md#license-terms",
     "healthDisclaimer": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/nl-NL/terms.md#health-information-disclaimer",
     "privacy": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/nl-NL/terms.md#privacy-policy",
-    "nightscoutProject": "http://nightscout.info/"
+    "nightscoutProject": "http://nightscout.info/",
+    "faqs": "https://github.com/nielsmaerten/gluco-check/blob/89821bc8743ef577002b5e327cd132c6056896c1/gluco-check-common/strings/nl-NL/faq.md"
   },
   "landing": {
     "title": "Welkom bij Gluco Check",
@@ -25,7 +26,8 @@
   "boilerplate": {
     "terms": "[By continuing, you are indicating that you accept our <2>Terms of Service</2> and <4>Privacy Policy</4>.]",
     "google": "[Google Assistant is a trademark of Google Inc.]",
-    "nightscout": "[Not affiliated with the <2>Nightscout Project</2>]"
+    "nightscout": "[Not affiliated with the <2>Nightscout Project</2>]",
+    "faqs": "[Help & FAQ]"
   },
   "welcome": {
     "title": "Welkom bij Gluco Check",

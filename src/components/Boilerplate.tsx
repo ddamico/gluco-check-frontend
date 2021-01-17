@@ -20,6 +20,9 @@ function Boilerplate() {
           <Link href={t("urls.nightscoutProject")}>Nightscout Project</Link>
         </Trans>
       </Typography>
+      <Typography variant="body2">
+        <Link href={t("urls.faqs")}>{t("boilerplate.faqs")}</Link>
+      </Typography>
     </>
   );
 }
