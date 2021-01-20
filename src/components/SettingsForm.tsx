@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { debounce } from "debounce-promise-with-cancel";
 import {
   Button,
@@ -126,6 +126,8 @@ export default function SettingsForm({
   validationDebounceDuration,
 }: SettingsFormProps) {
   const classes = useStyles();
+  const { t } = useTranslation();
+
   const [warnings, setWarnings] = useState<
     DeepMap<SettingsFormData, FieldError>
   >({});
@@ -136,133 +138,150 @@ export default function SettingsForm({
     Object.values(DiabetesMetric)
   );
 
-  // TODO: this would definitely be better off lifted
-  // out of the component context, but for now leaving as-is,
-  // as it is adequately covered by the component tests
-  const debouncedValidator = debounce(async (data: SettingsFormData) => {
-    let errors: DeepMap<SettingsFormData, FieldError> = {};
-    let warnings: DeepMap<SettingsFormData, FieldError> = {};
-    let augmentedValues: Partial<SettingsFormData> = {};
-    if (data.nightscoutUrl === "") {
-      errors.nightscoutUrl = {
-        type: "required",
-        message: t("settings.form.helperText.nightscoutUrl.required"),
-      };
-    } else {
-      if (nightscoutValidator) {
-        try {
-          const nsvResponse = await nightscoutValidator.fetchValidationStatus(
-            data.nightscoutUrl,
-            data.nightscoutToken
-          );
-          if (nsvResponse) {
-            if (nsvResponse.url.isValid && nsvResponse.url.pointsToNightscout) {
-              augmentedValues.nightscoutUrl = nsvResponse.url.parsed;
-            }
-            if (nsvResponse.token.isValid) {
-              augmentedValues.nightscoutToken = nsvResponse.token.parsed;
-            }
-            if (!nsvResponse.url.pointsToNightscout) {
-              warnings.nightscoutUrl = {
-                type: "validate",
-                message: t(
-                  "settings.form.helperText.nightscoutUrl.notNightscout"
-                ),
-              };
-            }
-            if (nsvResponse.url.pointsToNightscout) {
-              if (data.nightscoutToken === "") {
-                warnings.nightscoutToken = {
-                  type: "validate",
-                  message: t("settings.form.helperText.nightscoutToken.empty"),
-                };
-              } else if (!nsvResponse.token.isValid) {
-                warnings.nightscoutToken = {
-                  type: "validate",
-                  message: t(
-                    "settings.form.helperText.nightscoutToken.invalid"
-                  ),
-                };
-              }
+  const memoizedValidator = useCallback(
+    async (data: SettingsFormData) => {
+      let errors: DeepMap<SettingsFormData, FieldError> = {};
+      let warnings: DeepMap<SettingsFormData, FieldError> = {};
+      let augmentedValues: Partial<SettingsFormData> = {};
+      if (data.nightscoutUrl === "") {
+        errors.nightscoutUrl = {
+          type: "required",
+          message: t("settings.form.helperText.nightscoutUrl.required"),
+        };
+      } else {
+        if (nightscoutValidator) {
+          try {
+            const nsvResponse = await nightscoutValidator.fetchValidationStatus(
+              data.nightscoutUrl,
+              data.nightscoutToken
+            );
+            if (nsvResponse) {
               if (
-                nsvResponse.nightscout.glucoseUnit !==
-                NightscoutBloodGlucoseUnitMapping[data.glucoseUnit]
+                nsvResponse.url.isValid &&
+                nsvResponse.url.pointsToNightscout
               ) {
-                warnings.glucoseUnit = {
-                  type: "validate",
-                  message: t("settings.form.helperText.glucoseUnits.mismatch"),
-                };
+                augmentedValues.nightscoutUrl = nsvResponse.url.parsed;
               }
-              if (
-                semver.valid(nsvResponse.nightscout.version) &&
-                semver.valid(nsvResponse.nightscout.minSupportedVersion) &&
-                semver.lt(
-                  nsvResponse.nightscout.version,
-                  nsvResponse.nightscout.minSupportedVersion
-                )
-              ) {
+              if (nsvResponse.token.isValid) {
+                augmentedValues.nightscoutToken = nsvResponse.token.parsed;
+              }
+              if (!nsvResponse.url.pointsToNightscout) {
                 warnings.nightscoutUrl = {
                   type: "validate",
                   message: t(
-                    "settings.form.helperText.nightscoutUrl.needsUpgrade",
-                    {
-                      version: nsvResponse.nightscout.minSupportedVersion.toString(),
-                    }
+                    "settings.form.helperText.nightscoutUrl.notNightscout"
                   ),
                 };
               }
-              const userHasSelectedUnsupportedMetrics = data.defaultMetrics
-                .filter((metric) => metric !== DiabetesMetric.Everything)
-                .map((metric) => nsvResponse.discoveredMetrics.includes(metric))
-                .includes(false);
-              if (userHasSelectedUnsupportedMetrics === true) {
-                warnings.defaultMetrics = [
-                  {
+              if (nsvResponse.url.pointsToNightscout) {
+                if (data.nightscoutToken === "") {
+                  warnings.nightscoutToken = {
                     type: "validate",
                     message: t(
-                      "settings.form.helperText.defaultMetrics.notAvailable"
+                      "settings.form.helperText.nightscoutToken.empty"
                     ),
-                  },
-                ];
-              }
-              if (data.defaultMetrics.length === 0) {
-                errors.defaultMetrics = [
-                  {
+                  };
+                } else if (!nsvResponse.token.isValid) {
+                  warnings.nightscoutToken = {
                     type: "validate",
                     message: t(
-                      "settings.form.helperText.defaultMetrics.required"
+                      "settings.form.helperText.nightscoutToken.invalid"
                     ),
-                  },
-                ];
+                  };
+                }
+                if (
+                  nsvResponse.nightscout.glucoseUnit !==
+                  NightscoutBloodGlucoseUnitMapping[data.glucoseUnit]
+                ) {
+                  warnings.glucoseUnit = {
+                    type: "validate",
+                    message: t(
+                      "settings.form.helperText.glucoseUnits.mismatch"
+                    ),
+                  };
+                }
+                if (
+                  semver.valid(nsvResponse.nightscout.version) &&
+                  semver.valid(nsvResponse.nightscout.minSupportedVersion) &&
+                  semver.lt(
+                    nsvResponse.nightscout.version,
+                    nsvResponse.nightscout.minSupportedVersion
+                  )
+                ) {
+                  warnings.nightscoutUrl = {
+                    type: "validate",
+                    message: t(
+                      "settings.form.helperText.nightscoutUrl.needsUpgrade",
+                      {
+                        version: nsvResponse.nightscout.minSupportedVersion.toString(),
+                      }
+                    ),
+                  };
+                }
+                const userHasSelectedUnsupportedMetrics = data.defaultMetrics
+                  .filter((metric) => metric !== DiabetesMetric.Everything)
+                  .map((metric) =>
+                    nsvResponse.discoveredMetrics.includes(metric)
+                  )
+                  .includes(false);
+                if (userHasSelectedUnsupportedMetrics === true) {
+                  warnings.defaultMetrics = [
+                    {
+                      type: "validate",
+                      message: t(
+                        "settings.form.helperText.defaultMetrics.notAvailable"
+                      ),
+                    },
+                  ];
+                }
+                if (data.defaultMetrics.length === 0) {
+                  errors.defaultMetrics = [
+                    {
+                      type: "validate",
+                      message: t(
+                        "settings.form.helperText.defaultMetrics.required"
+                      ),
+                    },
+                  ];
+                }
               }
-            }
 
-            // can't do this if component has already been unmounted,
-            // you'll leave it (and the connection) hanging
-            setSupportedMetrics(nsvResponse.discoveredMetrics);
-            setWarnings(warnings);
-          } else {
-            throw new Error("No response returned");
+              // can't do this if component has already been unmounted,
+              // you'll leave it (and the connection) hanging
+              setSupportedMetrics(nsvResponse.discoveredMetrics);
+              setWarnings(warnings);
+            } else {
+              throw new Error("No response returned");
+            }
+          } catch (e) {
+            console.log(
+              "Unable to fetch validation info for Nightscout site",
+              e
+            );
           }
-        } catch (e) {
-          console.log("Unable to fetch validation info for Nightscout site", e);
         }
       }
-    }
 
-    // always return no errors, we are using resolver
-    // for its lifecycle, but never want to block submission
-    if (Object.keys(errors).length) {
+      // always return no errors, we are using resolver
+      // for its lifecycle, but never want to block submission
+      if (Object.keys(errors).length) {
+        return {
+          values: {},
+          errors,
+        };
+      }
       return {
-        values: {},
-        errors,
+        values: { ...data, ...augmentedValues },
+        errors: {},
       };
-    }
-    return {
-      values: { ...data, ...augmentedValues },
-      errors: {},
-    };
-  }, validationDebounceDuration!);
+    },
+    [nightscoutValidator, t]
+  );
+
+  const debouncedValidator = debounce(
+    memoizedValidator,
+    validationDebounceDuration!
+  );
 
   // eslint-disable-next-line
   const {
@@ -275,7 +294,6 @@ export default function SettingsForm({
     trigger,
   } = useForm<SettingsFormData>({
     mode: "onChange",
-    // TODO: extract
     resolver: nightscoutValidator ? debouncedValidator : undefined,
   });
 
@@ -284,7 +302,6 @@ export default function SettingsForm({
     nightscoutValidator && trigger();
   }, [nightscoutValidator, trigger]);
 
-  const { t } = useTranslation();
   const [formIsSubmitting, setFormIsSubmitting] = useState(false);
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
   const [formHasSubmittedSuccess, setFormHasSubmittedSuccess] = useState(false);
