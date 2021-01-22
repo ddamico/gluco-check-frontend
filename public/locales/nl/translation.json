@@ -34,7 +34,7 @@
   "welcome": {
     "title": "Welkom bij Gluco Check",
     "subtitle": "Gluco Check brengt Nightscout naar je Google Home",
-    "cta": "[Start by <2>adding configuration info for your Nightscout site</2>.]"
+    "cta": "[Add configuration for your Nightscout site]"
   },
   "login": {
     "title": "Aanmelden",

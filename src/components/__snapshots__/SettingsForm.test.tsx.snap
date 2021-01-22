@@ -439,19 +439,27 @@ exports[`SettingsForm component renders the component 1`] = `
   <div
     class="MuiContainer-root MuiContainer-disableGutters MuiContainer-maxWidthLg"
   >
-    <button
-      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary Mui-disabled Mui-disabled"
-      data-testid="settings-form-submit"
-      disabled=""
-      tabindex="-1"
-      type="submit"
+    <div
+      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-align-items-xs-center"
     >
-      <span
-        class="MuiButton-label"
+      <div
+        class="MuiGrid-root MuiGrid-item"
       >
-        settings.form.submitButton
-      </span>
-    </button>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary Mui-disabled Mui-disabled"
+          data-testid="settings-form-submit"
+          disabled=""
+          tabindex="-1"
+          type="submit"
+        >
+          <span
+            class="MuiButton-label"
+          >
+            settings.form.submitButton
+          </span>
+        </button>
+      </div>
+    </div>
   </div>
 </form>
 `;

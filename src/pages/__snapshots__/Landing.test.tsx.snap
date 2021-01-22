@@ -23,7 +23,7 @@ exports[`Landing page renders the component 1`] = `
     Onboarding
   </div>
   <div
-    class="MuiGrid-root MuiGrid-item"
+    class="MuiGrid-root makeStyles-ctaContainer-6 MuiGrid-item"
   >
     This is where the login would be
   </div>

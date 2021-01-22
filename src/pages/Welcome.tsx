@@ -1,9 +1,9 @@
 import React from "react";
-import { Trans, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import {
+  Button,
   Container,
   Grid,
-  Link,
   makeStyles,
   Typography,
 } from "@material-ui/core";
@@ -39,6 +39,11 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: theme.spacing(1),
     },
   },
+  ctaContainer: {
+    "&.MuiGrid-item": {
+      padding: "0",
+    },
+  },
 }));
 
 function Welcome() {
@@ -66,15 +71,9 @@ function Welcome() {
         <Onboarding />
       </Grid>
       <Grid item>
-        <Typography variant="body1">
-          <Trans i18nKey="welcome.cta">
-            Start by{" "}
-            <Link href="/settings">
-              adding configuration info for your Nightscout site
-            </Link>
-            .
-          </Trans>
-        </Typography>
+        <Button variant="contained" color="primary" href="/settings">
+          {t("welcome.cta")}
+        </Button>
       </Grid>
       <Grid item className={classes.boilerplate}>
         <Boilerplate />

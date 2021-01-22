@@ -94,7 +94,8 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   carouselSlider: {
-    minHeight: "350px",
+    minHeight: "330px",
+    backgroundColor: "#ccc",
   },
 }));
 
@@ -161,7 +162,7 @@ function Onboarding() {
       infinite={true}
       interval={DEFAULT_ONBOARDING_CAROUSEL_INTERVAL}
       isPlaying={true}
-      naturalSlideHeight={350}
+      naturalSlideHeight={330}
       naturalSlideWidth={600}
       totalSlides={questionsAndAnswers.length}
     >

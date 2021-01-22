@@ -25,13 +25,21 @@ exports[`Welcome page renders the component 1`] = `
   <div
     class="MuiGrid-root MuiGrid-item"
   >
-    <p
-      class="MuiTypography-root MuiTypography-body1"
+    <a
+      aria-disabled="false"
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+      href="/settings"
+      tabindex="0"
     >
-      <span>
+      <span
+        class="MuiButton-label"
+      >
         welcome.cta
       </span>
-    </p>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </a>
   </div>
   <div
     class="MuiGrid-root makeStyles-boilerplate-5 MuiGrid-item"

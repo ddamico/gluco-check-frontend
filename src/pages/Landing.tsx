@@ -30,6 +30,11 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: theme.spacing(1),
     },
   },
+  ctaContainer: {
+    "&.MuiGrid-item": {
+      padding: "0",
+    },
+  },
 }));
 
 function Landing() {
@@ -69,7 +74,7 @@ function Landing() {
         <Grid item>
           <Onboarding />
         </Grid>
-        <Grid item>
+        <Grid item className={classes.ctaContainer}>
           <StyledFirebaseAuth uiConfig={firebaseUIConfig} firebaseAuth={auth} />
         </Grid>
         <Grid item className={classes.boilerplate}>
