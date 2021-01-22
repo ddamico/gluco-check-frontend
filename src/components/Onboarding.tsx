@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 
-import { CarouselProvider, Slide, Slider } from "pure-react-carousel";
+import { CarouselProvider, Dot, Slide, Slider } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 
 import { DEFAULT_ONBOARDING_CAROUSEL_INTERVAL } from "../lib/constants";
@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: ".9rem",
       },
       "& .assistantBubble-question p.MuiTypography-body2, & .assistantBubble-response p.MuiTypography-body2": {
-        fontSize: ".7rem",
+        fontSize: ".4rem",
       },
     },
   },
@@ -95,7 +95,20 @@ const useStyles = makeStyles((theme) => ({
   },
   carouselSlider: {
     minHeight: "330px",
-    backgroundColor: "#ccc",
+    [theme.breakpoints.down("sm")]: {
+      minHeight: "250px",
+    },
+  },
+  carouselDotContainer: {
+    paddingBottom: theme.spacing(2),
+  },
+  carouselDot: {
+    backgroundColor: "transparent",
+    borderWidth: "0",
+    fontFamily: theme.typography.fontFamily,
+    "&.carousel__dot--selected": {
+      fontWeight: "bold",
+    },
   },
 }));
 
@@ -135,6 +148,7 @@ export const questionAndAnswer = (
 interface QuestionsAndAnswer {
   question: string;
   answer: string;
+  label: string;
 }
 
 function Onboarding() {
@@ -145,14 +159,17 @@ function Onboarding() {
     {
       question: t("onboarding.q1"),
       answer: t("onboarding.a1"),
+      label: t("onboarding.l1"),
     },
     {
       question: t("onboarding.q2"),
       answer: t("onboarding.a2"),
+      label: t("onboarding.l2"),
     },
     {
       question: t("onboarding.q3"),
       answer: t("onboarding.a3"),
+      label: t("onboarding.l3"),
     },
   ];
 
@@ -188,6 +205,18 @@ function Onboarding() {
                 </Slide>
               ))}
             </Slider>
+          </Grid>
+          <Grid item className={classes.carouselDotContainer}>
+            {questionsAndAnswers.map((item, index) => (
+              <Dot
+                className={classes.carouselDot}
+                disabled={false}
+                key={`carouselDot-${index}`}
+                slide={index}
+              >
+                {item.label}
+              </Dot>
+            ))}
           </Grid>
         </Grid>
       </Container>

@@ -25,6 +25,9 @@ jest.mock("pure-react-carousel", () => {
     Slide: (props: any) => {
       return <>{props.children}</>;
     },
+    Dot: (props: any) => {
+      return <>{props.children}</>;
+    },
   };
 });
 

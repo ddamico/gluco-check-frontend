@@ -199,6 +199,13 @@ exports[`Onboarding renders the component 1`] = `
         </div>
       </div>
     </div>
+    <div
+      class="MuiGrid-root makeStyles-carouselDotContainer-6 MuiGrid-item"
+    >
+      onboarding.l1
+      onboarding.l2
+      onboarding.l3
+    </div>
   </div>
 </div>
 `;

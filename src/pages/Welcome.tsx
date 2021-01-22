@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     "& p": {
       marginBottom: theme.spacing(1),
+      [theme.breakpoints.down("sm")]: {
+        fontSize: ".7rem",
+      },
     },
   },
   ctaContainer: {
