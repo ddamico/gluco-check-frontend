@@ -9,7 +9,10 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: process.env.REACT_APP_I18N_FALLBACK_LANGUAGE || "en",
+    fallbackLng: (code) => {
+      const fallback = process.env.REACT_APP_I18N_FALLBACK_LANGUAGE || "en-US";
+      return [fallback];
+    },
     detection: {
       // this is just the defaults with navigator moved to the front of the line
       order: [
