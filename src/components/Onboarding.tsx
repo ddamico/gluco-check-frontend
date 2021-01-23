@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   callResponseContainer: {
     height: "100%",
-    maxHeight: "330px",
+    maxHeight: "300px",
     width: "100%",
     "& .assistantBubble img": {
       width: "54px",
@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: ".9rem",
       },
       "& .assistantBubble-question p.MuiTypography-body2, & .assistantBubble-response p.MuiTypography-body2": {
-        fontSize: ".4rem",
+        fontSize: ".6rem",
       },
     },
   },
@@ -94,9 +94,9 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   carouselSlider: {
-    minHeight: "330px",
+    minHeight: "300px",
     [theme.breakpoints.down("sm")]: {
-      minHeight: "250px",
+      minHeight: "210px",
     },
   },
   carouselDotContainer: {
@@ -179,7 +179,7 @@ function Onboarding() {
       infinite={true}
       interval={DEFAULT_ONBOARDING_CAROUSEL_INTERVAL}
       isPlaying={true}
-      naturalSlideHeight={330}
+      naturalSlideHeight={300}
       naturalSlideWidth={600}
       totalSlides={questionsAndAnswers.length}
     >

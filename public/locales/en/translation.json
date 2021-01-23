@@ -25,7 +25,7 @@
     "a2": "There are 10 carbs on board.",
     "l2": "Carbs on Board",
     "q3": "Hey Google, ask Gluco Check for everything",
-    "a3": "Blood sugar is 5.6 and rising slowly as of 2 minutes ago. There are -0.1 insulin units on board. There are 0 carbs on board. The sensor was inserted 5 days ago. The cannula was inserted 2 days ago.",
+    "a3": "Blood sugar is 6.1. There's 12 carbs on board. Sensor age is...",
     "l3": "Everything"
   },
   "boilerplate": {
@@ -37,7 +37,7 @@
   "welcome": {
     "title": "Welcome to Gluco Check",
     "subtitle": "Gluco Check brings Nightscout to your Google Home",
-    "cta": "Add configuration for your Nightscout site"
+    "cta": "Link your Nightscout"
   },
   "login": {
     "title": "Login",
