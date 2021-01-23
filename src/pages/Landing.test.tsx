@@ -1,9 +1,45 @@
 import React from "react";
 import { cleanup, render } from "@testing-library/react";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { axe } from "jest-axe";
 import Landing from "./Landing";
 
-expect.extend(toHaveNoViolations);
+jest.mock("react-i18next", () => ({
+  useTranslation: () => {
+    return {
+      t: jest.fn().mockImplementation((i) => {
+        return i;
+      }),
+    };
+  },
+}));
+
+jest.mock("../lib/firebase");
+jest.mock("react-firebaseui/StyledFirebaseAuth", () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return <>This is where the login would be</>;
+    },
+  };
+});
+
+jest.mock("../components/Onboarding", () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return <>Onboarding</>;
+    },
+  };
+});
+
+jest.mock("../components/Boilerplate", () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return <>Boilerplate</>;
+    },
+  };
+});
 
 afterEach(cleanup);
 

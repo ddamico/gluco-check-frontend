@@ -6,29 +6,46 @@
       "error": "Something has gone horribly wrong"
     }
   },
+  "urls": {
+    "termsAndConditions": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/en-US/terms.md#license-terms",
+    "healthDisclaimer": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/en-US/terms.md#health-information-disclaimer",
+    "privacy": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/en-US/terms.md#privacy-policy",
+    "nightscoutProject": "http://nightscout.info/",
+    "faqs": "https://github.com/nielsmaerten/gluco-check/blob/89821bc8743ef577002b5e327cd132c6056896c1/gluco-check-common/strings/en-US/faq.md"
+  },
   "landing": {
     "title": "Welcome to Gluco Check",
-    "introduction": {
-      "p1": "Gluco Check brings Nightscout to your Google Assistant. Ask it things like Hey Google, ask Gluco Check...",
-      "features1": "my blood sugar / my BG / my glucose / ...",
-      "features2": "my insulin on board / IOB / insulin",
-      "features3": "my carbs on board / COB / carbs",
-      "features4": "pump battery",
-      "features5": "How old is my cannula / When did I insert my cannula?",
-      "features6": "What's the sensor's age?",
-      "features7": "Everything / all values"
-    }
+    "subtitle": "Gluco Check brings Nightscout to your Google Home"
+  },
+  "onboarding": {
+    "q1": "Hey Google, ask Gluco Check my blood sugar.",
+    "a1": "6.5 and steady as of five minutes ago.",
+    "l1": "Blood Sugar",
+    "q2": "Hey Google, ask Gluco Check my COB",
+    "a2": "There are 10 carbs on board.",
+    "l2": "Carbs on Board",
+    "q3": "Hey Google, ask Gluco Check for everything",
+    "a3": "Blood sugar is 6.1. There's 12 carbs on board. Sensor age is...",
+    "l3": "Everything"
+  },
+  "boilerplate": {
+    "terms": "By continuing, you are indicating that you accept our <2>Terms of Service</2> and <5>Privacy Policy</5>.",
+    "google": "Google Assistant is a trademark of Google Inc.",
+    "nightscout": "Not affiliated with the <2>Nightscout Project</2>",
+    "faqs": "Help & FAQ"
   },
   "welcome": {
     "title": "Welcome to Gluco Check",
-    "content": "Content about the product, more practical scenarios featuring ways to use it in your life in novel ways."
+    "subtitle": "Gluco Check brings Nightscout to your Google Home",
+    "cta": "Link your Nightscout"
   },
   "login": {
-    "title": "Login"
+    "title": "Login",
+    "buttonLabel": "Sign in with Google"
   },
   "settings": {
     "title": "Edit Settings",
-    "content": "Content about how the product must connect to your nightscout site in order to work.",
+    "content": "Gluco Check works by talking to your Nightscout site. Enter details about your site below. Additional metrics (beyond current blood glucose) require a valid token.",
     "form": {
       "validationInProgress": "Checking your Nightscout site",
       "labels": {
@@ -113,7 +130,7 @@
       "image_alt": ""
     },
     "step6": {
-      "description": "Copy the value in the \"Access Token\" column, paste it into the Nightscout Token field in <2>Gluco-Check Settings</2>, and click save.",
+      "description": "Copy the value in the \"Access Token\" column, paste it into the Nightscout Token field in <2>Gluco Check Settings</2>, and click save.",
       "image": "copy-token.png",
       "image_alt": ""
     }

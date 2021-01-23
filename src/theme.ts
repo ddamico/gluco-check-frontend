@@ -1,15 +1,22 @@
 /* istanbul ignore file */
 import red from "@material-ui/core/colors/red";
 import orange from "@material-ui/core/colors/orange";
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 
-const theme = createMuiTheme({
+let theme = createMuiTheme({
+  typography: {
+    fontFamily: ["Poppins", "sans-serif"].join(","),
+  },
   palette: {
+    text: {
+      primary: "#202124",
+    },
     primary: {
-      main: "#4F517D",
+      main: "#1a73e8",
+      contrastText: "#fff",
     },
     secondary: {
-      main: "#A997DF",
+      main: "#4285f4",
     },
     error: {
       main: red[500],
@@ -23,5 +30,6 @@ const theme = createMuiTheme({
     },
   },
 });
+theme = responsiveFontSizes(theme);
 
 export default theme;

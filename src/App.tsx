@@ -2,9 +2,6 @@ import React from "react";
 import { auth } from "./lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Login from "./pages/Login";
-import Landing from "./pages/Landing";
-import EditSettings from "./pages/EditSettings";
 import { getDocumentPathForUser } from "./lib/firebase-helpers";
 import { useTranslation } from "react-i18next";
 import {
@@ -12,17 +9,27 @@ import {
   Container,
   IconButton,
   makeStyles,
+  Paper,
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { ExitToApp, Home, MeetingRoom, Settings } from "@material-ui/icons";
+import { ExitToApp, Home, Settings } from "@material-ui/icons";
+
+import Landing from "./pages/Landing";
+import EditSettings from "./pages/EditSettings";
+import Welcome from "./pages/Welcome";
+import "./App.css";
 
 export const FirebaseUserDocumentContext = React.createContext("");
 
 const useStyles = makeStyles((theme) => ({
   root: {},
   container: {
-    paddingTop: theme.spacing(2),
+    height: "100%",
+  },
+  surface: {
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   leftToolbar: {},
   rightToolbar: {
@@ -47,18 +54,11 @@ export default function App() {
   const classes = useStyles();
   const [user, loading] = useAuthState(auth);
   const { t } = useTranslation();
-  let Content: React.ReactElement | null = null;
   const docPath = user ? getDocumentPathForUser(user) : ""; // TODO: we don't want this empty path to be possible, AND we want to auth protect any other authed routes
+
+  let Content: React.ReactElement | null = null;
   if (user) {
-    // @TODO: extract
-    Content = (
-      <Container maxWidth="xl" className={classes.container}>
-        <Typography variant="h6" component="h2">
-          {t("welcome.title")}
-        </Typography>
-        <p>{t("welcome.content")}</p>
-      </Container>
-    );
+    Content = <Welcome />;
   } else {
     if (!loading) {
       Content = <Landing />;
@@ -66,7 +66,7 @@ export default function App() {
   }
 
   const navigation = (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Toolbar variant="regular" className={classes.toolbar}>
         <section className={classes.leftToolbar}>
           <Typography
@@ -80,17 +80,19 @@ export default function App() {
         </section>
         <section className={classes.rightToolbar}>
           <ul className={classes.nav}>
-            <li>
-              <IconButton
-                aria-label={t("navigation.home")}
-                color="inherit"
-                component={Link}
-                data-testid="navigation-home"
-                to="/"
-              >
-                <Home />
-              </IconButton>
-            </li>
+            {user && (
+              <li>
+                <IconButton
+                  aria-label={t("navigation.home")}
+                  color="inherit"
+                  component={Link}
+                  data-testid="navigation-home"
+                  to="/"
+                >
+                  <Home />
+                </IconButton>
+              </li>
+            )}
             {user && (
               <li>
                 <IconButton
@@ -118,19 +120,6 @@ export default function App() {
                 </IconButton>
               </li>
             )}
-            {!user && (
-              <li>
-                <IconButton
-                  aria-label={t("navigation.login")}
-                  color="inherit"
-                  component={Link}
-                  data-testid="navigation-login"
-                  to="/login"
-                >
-                  <MeetingRoom />
-                </IconButton>
-              </li>
-            )}
           </ul>
         </section>
       </Toolbar>
@@ -140,21 +129,22 @@ export default function App() {
   return (
     <Router>
       {navigation}
-      <Switch>
-        <Route exact path="/">
-          {Content}
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        {user && (
-          <Route path="/settings">
-            <FirebaseUserDocumentContext.Provider value={docPath}>
-              <EditSettings />
-            </FirebaseUserDocumentContext.Provider>
-          </Route>
-        )}
-      </Switch>
+      <Container maxWidth="lg" className={classes.container}>
+        <Paper variant="elevation" className={classes.surface}>
+          <Switch>
+            <Route exact path="/">
+              {Content}
+            </Route>
+            {user && (
+              <Route path="/settings">
+                <FirebaseUserDocumentContext.Provider value={docPath}>
+                  <EditSettings />
+                </FirebaseUserDocumentContext.Provider>
+              </Route>
+            )}
+          </Switch>
+        </Paper>
+      </Container>
     </Router>
   );
 }

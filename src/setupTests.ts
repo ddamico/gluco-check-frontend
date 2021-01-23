@@ -4,6 +4,7 @@
 // learn more: https://github.com/testing-library/jest-dom
 import "reflect-metadata";
 import "@testing-library/jest-dom/extend-expect";
+import { toHaveNoViolations } from "jest-axe";
 import "mutationobserver-shim";
 
 jest.mock("react-i18next", () => ({
@@ -13,3 +14,5 @@ jest.mock("react-i18next", () => ({
     };
   },
 }));
+
+expect.extend(toHaveNoViolations);

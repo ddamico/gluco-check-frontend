@@ -2,38 +2,35 @@
 
 exports[`Landing page renders the component 1`] = `
 <div
-  class="MuiContainer-root makeStyles-container-1 MuiContainer-maxWidthXl"
+  class="MuiGrid-root makeStyles-contentGrid-3 MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
 >
-  <h2
-    class="MuiTypography-root MuiTypography-h6"
+  <div
+    class="MuiGrid-root makeStyles-subtitle-2 MuiGrid-item"
   >
-    landing.title
-  </h2>
-  <p>
-    landing.introduction.p1
-  </p>
-  <ul>
-    <li>
-      landing.introduction.features1
-    </li>
-    <li>
-      landing.introduction.features2
-    </li>
-    <li>
-      landing.introduction.features3
-    </li>
-    <li>
-      landing.introduction.features4
-    </li>
-    <li>
-      landing.introduction.features5
-    </li>
-    <li>
-      landing.introduction.features6
-    </li>
-    <li>
-      landing.introduction.features7
-    </li>
-  </ul>
+    <div
+      class="MuiContainer-root MuiContainer-maxWidthSm"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h5"
+      >
+        landing.subtitle
+      </h2>
+    </div>
+  </div>
+  <div
+    class="MuiGrid-root MuiGrid-item"
+  >
+    Onboarding
+  </div>
+  <div
+    class="MuiGrid-root makeStyles-ctaContainer-6 MuiGrid-item"
+  >
+    This is where the login would be
+  </div>
+  <div
+    class="MuiGrid-root makeStyles-boilerplate-5 MuiGrid-item"
+  >
+    Boilerplate
+  </div>
 </div>
 `;

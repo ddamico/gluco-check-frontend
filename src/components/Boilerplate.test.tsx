@@ -1,11 +1,7 @@
 import React from "react";
 import { cleanup, render } from "@testing-library/react";
 import { axe } from "jest-axe";
-import TokenSetup from "./TokenSetup";
-
-afterEach(() => {
-  cleanup();
-});
+import Boilerplate from "./Boilerplate";
 
 jest.mock("react-i18next", () => ({
   useTranslation: () => {
@@ -20,14 +16,16 @@ jest.mock("react-i18next", () => ({
   },
 }));
 
-describe("TokenSetup component", () => {
+afterEach(cleanup);
+
+describe("Landing page", () => {
   it("renders the component", () => {
-    const { container } = render(<TokenSetup />);
+    const { container } = render(<Boilerplate />);
     expect(container.firstChild).toMatchSnapshot();
   });
 
   it("has no axe violations", async () => {
-    const { container } = render(<TokenSetup />);
+    const { container } = render(<Boilerplate />);
     expect(await axe(container)).toHaveNoViolations();
   });
 });

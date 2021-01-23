@@ -1,6 +1,6 @@
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { axe } from "jest-axe";
 import userEvent from "@testing-library/user-event";
 import { auth } from "./lib/firebase";
 import * as firebaseAuthHooks from "react-firebase-hooks/auth";
@@ -25,16 +25,23 @@ jest.mock("./pages/EditSettings.tsx", () => {
   };
 });
 
-jest.mock("./pages/Login.tsx", () => {
+jest.mock("./pages/Landing.tsx", () => {
   return {
     __esModule: true,
     default: () => {
-      return <div>Login</div>;
+      return <div>Landing</div>;
     },
   };
 });
 
-expect.extend(toHaveNoViolations);
+jest.mock("./pages/Welcome.tsx", () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return <div>Welcome</div>;
+    },
+  };
+});
 
 afterEach(() => {
   jest.clearAllMocks();

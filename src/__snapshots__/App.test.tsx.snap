@@ -2,85 +2,26 @@
 
 exports[`App component renders the component when no user and no loading 1`] = `
 <header
-  class="MuiPaper-root MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary MuiPaper-elevation4"
+  class="MuiPaper-root MuiAppBar-root MuiAppBar-positionSticky MuiAppBar-colorPrimary MuiPaper-elevation4"
 >
   <div
-    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-20 MuiToolbar-gutters"
+    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-23 MuiToolbar-gutters"
   >
     <section
-      class="makeStyles-leftToolbar-17"
+      class="makeStyles-leftToolbar-20"
     >
       <h1
-        class="MuiTypography-root makeStyles-navTitle-21 MuiTypography-h6 MuiTypography-colorInherit"
+        class="MuiTypography-root makeStyles-navTitle-24 MuiTypography-h6 MuiTypography-colorInherit"
       >
         title
       </h1>
     </section>
     <section
-      class="makeStyles-rightToolbar-18"
+      class="makeStyles-rightToolbar-21"
     >
       <ul
-        class="makeStyles-nav-19"
-      >
-        <li>
-          <a
-            aria-disabled="false"
-            aria-label="navigation.home"
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
-            data-testid="navigation-home"
-            href="/"
-            role="button"
-            tabindex="0"
-          >
-            <span
-              class="MuiIconButton-label"
-            >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
-                />
-              </svg>
-            </span>
-            <span
-              class="MuiTouchRipple-root"
-            />
-          </a>
-        </li>
-        <li>
-          <a
-            aria-disabled="false"
-            aria-label="navigation.login"
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
-            data-testid="navigation-login"
-            href="/login"
-            role="button"
-            tabindex="0"
-          >
-            <span
-              class="MuiIconButton-label"
-            >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M14 6v15H3v-2h2V3h9v1h5v15h2v2h-4V6h-3zm-4 5v2h2v-2h-2z"
-                />
-              </svg>
-            </span>
-            <span
-              class="MuiTouchRipple-root"
-            />
-          </a>
-        </li>
-      </ul>
+        class="makeStyles-nav-22"
+      />
     </section>
   </div>
 </header>
@@ -88,25 +29,25 @@ exports[`App component renders the component when no user and no loading 1`] = `
 
 exports[`App component renders the component when user loaded 1`] = `
 <header
-  class="MuiPaper-root MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary MuiPaper-elevation4"
+  class="MuiPaper-root MuiAppBar-root MuiAppBar-positionSticky MuiAppBar-colorPrimary MuiPaper-elevation4"
 >
   <div
-    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-13 MuiToolbar-gutters"
+    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-15 MuiToolbar-gutters"
   >
     <section
-      class="makeStyles-leftToolbar-10"
+      class="makeStyles-leftToolbar-12"
     >
       <h1
-        class="MuiTypography-root makeStyles-navTitle-14 MuiTypography-h6 MuiTypography-colorInherit"
+        class="MuiTypography-root makeStyles-navTitle-16 MuiTypography-h6 MuiTypography-colorInherit"
       >
         title
       </h1>
     </section>
     <section
-      class="makeStyles-rightToolbar-11"
+      class="makeStyles-rightToolbar-13"
     >
       <ul
-        class="makeStyles-nav-12"
+        class="makeStyles-nav-14"
       >
         <li>
           <a
@@ -202,85 +143,26 @@ exports[`App component renders the component when user loaded 1`] = `
 
 exports[`App component renders the component when user loading 1`] = `
 <header
-  class="MuiPaper-root MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary MuiPaper-elevation4"
+  class="MuiPaper-root MuiAppBar-root MuiAppBar-positionSticky MuiAppBar-colorPrimary MuiPaper-elevation4"
 >
   <div
-    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-6 MuiToolbar-gutters"
+    class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-7 MuiToolbar-gutters"
   >
     <section
-      class="makeStyles-leftToolbar-3"
+      class="makeStyles-leftToolbar-4"
     >
       <h1
-        class="MuiTypography-root makeStyles-navTitle-7 MuiTypography-h6 MuiTypography-colorInherit"
+        class="MuiTypography-root makeStyles-navTitle-8 MuiTypography-h6 MuiTypography-colorInherit"
       >
         title
       </h1>
     </section>
     <section
-      class="makeStyles-rightToolbar-4"
+      class="makeStyles-rightToolbar-5"
     >
       <ul
-        class="makeStyles-nav-5"
-      >
-        <li>
-          <a
-            aria-disabled="false"
-            aria-label="navigation.home"
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
-            data-testid="navigation-home"
-            href="/"
-            role="button"
-            tabindex="0"
-          >
-            <span
-              class="MuiIconButton-label"
-            >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
-                />
-              </svg>
-            </span>
-            <span
-              class="MuiTouchRipple-root"
-            />
-          </a>
-        </li>
-        <li>
-          <a
-            aria-disabled="false"
-            aria-label="navigation.login"
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
-            data-testid="navigation-login"
-            href="/login"
-            role="button"
-            tabindex="0"
-          >
-            <span
-              class="MuiIconButton-label"
-            >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M14 6v15H3v-2h2V3h9v1h5v15h2v2h-4V6h-3zm-4 5v2h2v-2h-2z"
-                />
-              </svg>
-            </span>
-            <span
-              class="MuiTouchRipple-root"
-            />
-          </a>
-        </li>
-      </ul>
+        class="makeStyles-nav-6"
+      />
     </section>
   </div>
 </header>

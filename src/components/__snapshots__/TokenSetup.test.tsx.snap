@@ -19,7 +19,7 @@ exports[`TokenSetup component renders the component 1`] = `
     </dt>
     <dd>
       <span>
-        Trans
+        tokenDialog.step1.description
       </span>
       <img
         alt=""
@@ -33,7 +33,7 @@ exports[`TokenSetup component renders the component 1`] = `
     </dt>
     <dd>
       <span>
-        Trans
+        tokenDialog.step2.description
       </span>
     </dd>
     <dt
@@ -65,7 +65,7 @@ exports[`TokenSetup component renders the component 1`] = `
       />
       <p>
         <span>
-          Trans
+          tokenDialog.step6.description
         </span>
       </p>
       <img

@@ -13,6 +13,7 @@ import {
   FormGroup,
   FormHelperText,
   FormLabel,
+  Grid,
   IconButton,
   Input,
   InputAdornment,
@@ -564,28 +565,31 @@ export default function SettingsForm({
         )}
       </FormControl>
 
-      {formState.isValidating && (
-        <Container disableGutters={true} maxWidth="lg">
-          <FormHelperText
-            component="div"
-            data-testid="settings-form-validation-progress-indicator"
-          >
-            <CircularProgress size={10} />{" "}
-            {t("settings.form.validationInProgress")}
-          </FormHelperText>
-        </Container>
-      )}
-
       <Container disableGutters={true} maxWidth="lg">
-        <Button
-          color="primary"
-          data-testid="settings-form-submit"
-          type="submit"
-          variant="contained"
-          disabled={!canSubmitForm}
-        >
-          {t("settings.form.submitButton")}
-        </Button>
+        <Grid container direction="row" alignItems="center" spacing={2}>
+          <Grid item>
+            <Button
+              color="primary"
+              data-testid="settings-form-submit"
+              type="submit"
+              variant="contained"
+              disabled={!canSubmitForm}
+            >
+              {t("settings.form.submitButton")}
+            </Button>
+          </Grid>
+          {formState.isValidating && (
+            <Grid item>
+              <FormHelperText
+                component="div"
+                data-testid="settings-form-validation-progress-indicator"
+              >
+                <CircularProgress size={10} />{" "}
+                {t("settings.form.validationInProgress")}
+              </FormHelperText>
+            </Grid>
+          )}
+        </Grid>
       </Container>
     </form>
   );
