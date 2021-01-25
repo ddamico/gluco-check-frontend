@@ -176,6 +176,7 @@ function Onboarding() {
   return (
     <CarouselProvider
       className={classes.carousel}
+      dragEnabled={false}
       infinite={true}
       interval={DEFAULT_ONBOARDING_CAROUSEL_INTERVAL}
       isPlaying={true}

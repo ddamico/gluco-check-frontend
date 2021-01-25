@@ -23,7 +23,15 @@ import "./App.css";
 export const FirebaseUserDocumentContext = React.createContext("");
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    "@media (prefers-reduced-motion: reduce)": {
+      "& *": {
+        animationDuration: "0.001ms !important",
+        animationIterationCount: "1 !important",
+        transitionDuration: "0.001ms !important",
+      },
+    },
+  },
   container: {
     height: "100%",
   },
@@ -127,24 +135,26 @@ export default function App() {
   );
 
   return (
-    <Router>
-      {navigation}
-      <Container maxWidth="lg" className={classes.container}>
-        <Paper variant="elevation" className={classes.surface}>
-          <Switch>
-            <Route exact path="/">
-              {Content}
-            </Route>
-            {user && (
-              <Route path="/settings">
-                <FirebaseUserDocumentContext.Provider value={docPath}>
-                  <EditSettings />
-                </FirebaseUserDocumentContext.Provider>
+    <div className={classes.root}>
+      <Router>
+        {navigation}
+        <Container maxWidth="lg" className={classes.container}>
+          <Paper variant="elevation" className={classes.surface}>
+            <Switch>
+              <Route exact path="/">
+                {Content}
               </Route>
-            )}
-          </Switch>
-        </Paper>
-      </Container>
-    </Router>
+              {user && (
+                <Route path="/settings">
+                  <FirebaseUserDocumentContext.Provider value={docPath}>
+                    <EditSettings />
+                  </FirebaseUserDocumentContext.Provider>
+                </Route>
+              )}
+            </Switch>
+          </Paper>
+        </Container>
+      </Router>
+    </div>
   );
 }
