@@ -12,6 +12,7 @@ import { CarouselProvider, Dot, Slide, Slider } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 
 import { DEFAULT_ONBOARDING_CAROUSEL_INTERVAL } from "../lib/constants";
+import usePrefersReducedMotion from "../lib/hooks/usePrefersReducedMotion";
 
 const assistantIcon = require("../images/icon-assistant.svg");
 
@@ -110,6 +111,12 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: "bold",
     },
   },
+  carouselAnimation: {
+    // "@media (prefers-reduced-motion)": {
+    //   // TODO: figure out why this is getting applied all the time, fix it
+    //   animationName: "dissolve"
+    // },
+  },
 }));
 
 export const questionAndAnswer = (
@@ -155,6 +162,9 @@ function Onboarding() {
   const classes = useStyles();
   const { t } = useTranslation();
 
+  const userPrefersReducedMotion = usePrefersReducedMotion();
+  const shouldAnimateCarousel = !userPrefersReducedMotion;
+
   const questionsAndAnswers: QuestionsAndAnswer[] = [
     {
       question: t("onboarding.q1"),
@@ -176,9 +186,10 @@ function Onboarding() {
   return (
     <CarouselProvider
       className={classes.carousel}
+      dragEnabled={false}
       infinite={true}
       interval={DEFAULT_ONBOARDING_CAROUSEL_INTERVAL}
-      isPlaying={true}
+      isPlaying={shouldAnimateCarousel}
       naturalSlideHeight={300}
       naturalSlideWidth={600}
       totalSlides={questionsAndAnswers.length}
@@ -192,7 +203,12 @@ function Onboarding() {
           spacing={2}
         >
           <Grid item className={classes.carouselSliderContainer}>
-            <Slider className={classes.carouselSlider}>
+            <Slider
+              className={classes.carouselSlider}
+              classNameAnimation={
+                shouldAnimateCarousel ? undefined : classes.carouselAnimation
+              }
+            >
               {questionsAndAnswers.map((item, index) => (
                 <Slide index={index} key={`slide-${index}`}>
                   {questionAndAnswer(
