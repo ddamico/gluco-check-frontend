@@ -409,10 +409,14 @@ export default function SettingsForm({
           name="nightscoutUrl"
         ></Input>
         {errors.nightscoutUrl && (
-          <FormHelperText>{errors.nightscoutUrl.message}</FormHelperText>
+          <FormHelperText id="settings-form-field-url-errors">
+            {errors.nightscoutUrl.message}
+          </FormHelperText>
         )}
         {warnings.nightscoutUrl && (
-          <FormHelperText>{warnings.nightscoutUrl.message}</FormHelperText>
+          <FormHelperText id="settings-form-field-url-warnings">
+            {warnings.nightscoutUrl.message}
+          </FormHelperText>
         )}
       </FormControl>
 
@@ -438,7 +442,10 @@ export default function SettingsForm({
           }
         ></Input>
         {warnings.nightscoutToken && (
-          <FormHelperText className={classes.helperWarning}>
+          <FormHelperText
+            className={classes.helperWarning}
+            id="settings-form-field-token-warnings"
+          >
             {warnings.nightscoutToken.message}
           </FormHelperText>
         )}
@@ -517,15 +524,20 @@ export default function SettingsForm({
           />
         </FormGroup>
         {warnings.defaultMetrics && (
-          <FormHelperText className={classes.helperWarning}>
+          <FormHelperText
+            className={classes.helperWarning}
+            id="settings-form-field-defaultMetrics-warnings"
+          >
             {warnings.defaultMetrics[0]?.message}
           </FormHelperText>
         )}
         {errors.defaultMetrics && (
-          <FormHelperText>{errors.defaultMetrics[0]?.message}</FormHelperText>
+          <FormHelperText id="settings-form-field-defaultMetrics-errors">
+            {errors.defaultMetrics[0]?.message}
+          </FormHelperText>
         )}
         {!warnings.defaultMetrics && !errors.defaultMetrics && (
-          <FormHelperText>
+          <FormHelperText id="settings-form-field-defaultMetrics-helper">
             {t("settings.form.helperText.defaultMetrics.default")}
           </FormHelperText>
         )}
@@ -561,7 +573,9 @@ export default function SettingsForm({
           }
         />
         {warnings.glucoseUnit && (
-          <FormHelperText>{warnings.glucoseUnit.message}</FormHelperText>
+          <FormHelperText id="settings-form-field-glucoseUnit-warnings">
+            {warnings.glucoseUnit.message}
+          </FormHelperText>
         )}
       </FormControl>
 
