@@ -13,7 +13,7 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { ExitToApp, Home, Settings } from "@material-ui/icons";
+import { ExitToApp, Home, Settings, Help } from "@material-ui/icons";
 
 import Landing from "./pages/Landing";
 import EditSettings from "./pages/EditSettings";
@@ -88,6 +88,18 @@ export default function App() {
         </section>
         <section className={classes.rightToolbar}>
           <ul className={classes.nav}>
+            <li>
+              <IconButton
+                aria-label={t("boilerplate.faqs")}
+                color="inherit"
+                component={Link}
+                data-testid="navigation-home"
+                to="/faq"
+                // @David: Help, I don't know how to make /faq redirect to GitHub 😂😳
+              >
+                <Help />
+              </IconButton>
+            </li>
             {user && (
               <li>
                 <IconButton
