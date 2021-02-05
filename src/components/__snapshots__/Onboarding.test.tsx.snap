@@ -16,7 +16,7 @@ exports[`Onboarding questionAndAnswer renders the subcomponent 1`] = `
     >
       <ForwardRef(WithStyles)
         component="p"
-        variant="h5"
+        variant="body2"
       >
         What it is
       </ForwardRef(WithStyles)>
@@ -40,7 +40,7 @@ exports[`Onboarding questionAndAnswer renders the subcomponent 1`] = `
       />
       <ForwardRef(WithStyles)
         component="p"
-        variant="h5"
+        variant="body2"
       >
         It is good
       </ForwardRef(WithStyles)>
@@ -65,7 +65,7 @@ exports[`Onboarding questionAndAnswer renders the subcomponent with a long answe
     >
       <ForwardRef(WithStyles)
         component="p"
-        variant="h5"
+        variant="body2"
       >
         What it is
       </ForwardRef(WithStyles)>
