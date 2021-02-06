@@ -15,6 +15,28 @@
         "source": "**",
         "destination": "/index.html"
       }
+    ],
+    "redirects": [
+      {
+        "source": "/terms",
+        "destination": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/en-US/terms.md",
+        "type": 301
+      },
+      {
+        "source": "/faq",
+        "destination": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/en-US/faq.md",
+        "type": 301
+      },
+      {
+        "source": "/terms/nl",
+        "destination": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/nl-NL/terms.md",
+        "type": 301
+      },
+      {
+        "source": "/faq/nl",
+        "destination": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/nl-NL/faq.md",
+        "type": 301
+      }
     ]
   }
 }
