@@ -19,22 +19,22 @@
     "redirects": [
       {
         "source": "/terms",
-        "destination": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/en-US/terms.md#gluco-check",
+        "destination": "/terms/en-US",
         "type": 307
       },
       {
         "source": "/faq",
-        "destination": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/en-US/faq.md#gluco-check",
+        "destination": "/terms/en-US",
         "type": 307
       },
       {
-        "source": "/terms/nl",
-        "destination": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/en-US/terms.md#gluco-check",
+        "source": "/terms/:locale",
+        "destination": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/:locale/terms.md#gluco-check",
         "type": 307
       },
       {
-        "source": "/faq/nl",
-        "destination": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/en-US/faq.md#gluco-check",
+        "source": "/faq/:locale",
+        "destination": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/:locale/faq.md#frequently-asked-questions",
         "type": 307
       }
     ]
