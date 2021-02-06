@@ -20,22 +20,22 @@
       {
         "source": "/terms",
         "destination": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/en-US/terms.md#gluco-check",
-        "type": 301
+        "type": 307
       },
       {
         "source": "/faq",
         "destination": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/en-US/faq.md#gluco-check",
-        "type": 301
+        "type": 307
       },
       {
         "source": "/terms/nl",
         "destination": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/en-US/terms.md#gluco-check",
-        "type": 301
+        "type": 307
       },
       {
         "source": "/faq/nl",
         "destination": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/en-US/faq.md#gluco-check",
-        "type": 301
+        "type": 307
       }
     ]
   }
