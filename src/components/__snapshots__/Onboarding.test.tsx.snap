@@ -16,7 +16,7 @@ exports[`Onboarding questionAndAnswer renders the subcomponent 1`] = `
     >
       <ForwardRef(WithStyles)
         component="p"
-        variant="body2"
+        variant="body1"
       >
         What it is
       </ForwardRef(WithStyles)>
@@ -40,7 +40,7 @@ exports[`Onboarding questionAndAnswer renders the subcomponent 1`] = `
       />
       <ForwardRef(WithStyles)
         component="p"
-        variant="body2"
+        variant="body1"
       >
         It is good
       </ForwardRef(WithStyles)>
@@ -65,7 +65,7 @@ exports[`Onboarding questionAndAnswer renders the subcomponent with a long answe
     >
       <ForwardRef(WithStyles)
         component="p"
-        variant="body2"
+        variant="body1"
       >
         What it is
       </ForwardRef(WithStyles)>
@@ -89,7 +89,7 @@ exports[`Onboarding questionAndAnswer renders the subcomponent with a long answe
       />
       <ForwardRef(WithStyles)
         component="p"
-        variant="body2"
+        variant="body1"
       >
         It is really really really really really good
       </ForwardRef(WithStyles)>
@@ -118,7 +118,7 @@ exports[`Onboarding renders the component 1`] = `
             class="MuiGrid-root assistantBubble assistantBubble-question MuiGrid-item"
           >
             <p
-              class="MuiTypography-root MuiTypography-h5"
+              class="MuiTypography-root MuiTypography-body1"
             >
               onboarding.q1
             </p>
@@ -131,7 +131,7 @@ exports[`Onboarding renders the component 1`] = `
               src="[object Object]"
             />
             <p
-              class="MuiTypography-root MuiTypography-h5"
+              class="MuiTypography-root MuiTypography-body1"
             >
               onboarding.a1
             </p>
@@ -148,7 +148,7 @@ exports[`Onboarding renders the component 1`] = `
             class="MuiGrid-root assistantBubble assistantBubble-question MuiGrid-item"
           >
             <p
-              class="MuiTypography-root MuiTypography-h5"
+              class="MuiTypography-root MuiTypography-body1"
             >
               onboarding.q2
             </p>
@@ -161,7 +161,7 @@ exports[`Onboarding renders the component 1`] = `
               src="[object Object]"
             />
             <p
-              class="MuiTypography-root MuiTypography-h5"
+              class="MuiTypography-root MuiTypography-body1"
             >
               onboarding.a2
             </p>
@@ -178,7 +178,7 @@ exports[`Onboarding renders the component 1`] = `
             class="MuiGrid-root assistantBubble assistantBubble-question MuiGrid-item"
           >
             <p
-              class="MuiTypography-root MuiTypography-h5"
+              class="MuiTypography-root MuiTypography-body1"
             >
               onboarding.q3
             </p>
@@ -191,7 +191,7 @@ exports[`Onboarding renders the component 1`] = `
               src="[object Object]"
             />
             <p
-              class="MuiTypography-root MuiTypography-h5"
+              class="MuiTypography-root MuiTypography-body1"
             >
               onboarding.a3
             </p>

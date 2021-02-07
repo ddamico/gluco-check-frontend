@@ -95,7 +95,6 @@ export default function App() {
                 component={Link}
                 data-testid="navigation-home"
                 to="/faq"
-                // @David: Help, I don't know how to make /faq redirect to GitHub 😂😳
               >
                 <Help />
               </IconButton>
