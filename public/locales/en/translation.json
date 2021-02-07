@@ -11,7 +11,7 @@
     "healthDisclaimer": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/en-US/terms.md#health-information-disclaimer",
     "privacy": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/en-US/terms.md#privacy-policy",
     "nightscoutProject": "http://nightscout.info/",
-    "faqs": "/faqs"
+    "faqs": "/faq"
   },
   "landing": {
     "title": "Welcome to Gluco Check",
