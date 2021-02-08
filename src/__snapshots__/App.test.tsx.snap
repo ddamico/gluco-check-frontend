@@ -32,7 +32,6 @@ exports[`App component renders the component when no user and no loading 1`] = `
               class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
               data-testid="navigation-home"
               href="/faq"
-              role="button"
               tabindex="0"
             >
               <span
@@ -104,7 +103,6 @@ exports[`App component renders the component when user loaded 1`] = `
               class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
               data-testid="navigation-home"
               href="/faq"
-              role="button"
               tabindex="0"
             >
               <span
@@ -262,7 +260,6 @@ exports[`App component renders the component when user loading 1`] = `
               class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
               data-testid="navigation-home"
               href="/faq"
-              role="button"
               tabindex="0"
             >
               <span

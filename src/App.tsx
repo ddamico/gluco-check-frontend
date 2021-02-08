@@ -92,9 +92,8 @@ export default function App() {
               <IconButton
                 aria-label={t("boilerplate.faqs")}
                 color="inherit"
-                component={Link}
                 data-testid="navigation-home"
-                to="/faq"
+                href="/faq"
               >
                 <Help />
               </IconButton>
