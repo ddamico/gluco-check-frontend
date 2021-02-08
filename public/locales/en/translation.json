@@ -8,8 +8,8 @@
   },
   "urls": {
     "termsAndConditions": "/terms",
-    "healthDisclaimer": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/en-US/terms.md#health-information-disclaimer",
-    "privacy": "https://github.com/nielsmaerten/gluco-check/blob/chore/doc-updates/gluco-check-common/strings/en-US/terms.md#privacy-policy",
+    "healthDisclaimer": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/en-US/terms.md#gluco-check",
+    "privacy": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/en-US/terms.md#gluco-check",
     "nightscoutProject": "http://nightscout.info/",
     "faqs": "/faq"
   },

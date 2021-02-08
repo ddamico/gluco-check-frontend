@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   contentGrid: {
-    minHeight: "90vh",
+    minHeight: "80vh",
   },
   boilerplate: {
     textAlign: "center",

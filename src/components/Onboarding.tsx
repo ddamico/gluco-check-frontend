@@ -119,7 +119,6 @@ export const questionAndAnswer = (
   answer: string,
   index: number
 ) => {
-  const answerVariant = answer.length > 40 ? "body2" : "h5";
   return (
     <Card className={innerContainerClass}>
       <Grid
@@ -130,13 +129,13 @@ export const questionAndAnswer = (
         wrap="nowrap"
       >
         <Grid item className="assistantBubble assistantBubble-question">
-          <Typography variant="h5" component="p">
+          <Typography variant="body1" component="p">
             {question}
           </Typography>
         </Grid>
         <Grid item className="assistantBubble assistantBubble-response">
           <img src={assistantIcon} alt="" />
-          <Typography variant={answerVariant} component="p">
+          <Typography variant="body1" component="p">
             {answer}
           </Typography>
         </Grid>

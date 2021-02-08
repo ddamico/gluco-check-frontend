@@ -16,9 +16,10 @@ const useStyles = makeStyles((theme) => ({
   },
   subtitle: {
     marginBottom: theme.spacing(3),
+    textAlign: "center",
   },
   contentGrid: {
-    minHeight: "90vh",
+    minHeight: "80vh",
   },
   utterance: {
     fontWeight: "bold",
