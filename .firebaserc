@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "gluco-check-nightly"
+    "default": "gluco-check-nightly",
+    "production": "gluco-check-prod"
   }
 }
