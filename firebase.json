@@ -24,7 +24,7 @@
       },
       {
         "source": "/faq",
-        "destination": "/terms/en-US",
+        "destination": "/faq/en-US",
         "type": 307
       },
       {
