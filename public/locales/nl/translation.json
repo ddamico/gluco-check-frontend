@@ -8,8 +8,8 @@
   },
   "urls": {
     "termsAndConditions": "/terms/nl",
-    "healthDisclaimer": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/nl-NL/terms.md#gluco-check",
-    "privacy": "https://github.com/nielsmaerten/gluco-check/blob/main/gluco-check-common/strings/nl-NL/terms.md#gluco-check",
+    "healthDisclaimer": "/terms/nl",
+    "privacy": "/terms/nl",
     "nightscoutProject": "http://nightscout.info/",
     "faqs": "/faq/nl"
   },
