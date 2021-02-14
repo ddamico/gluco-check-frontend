@@ -477,6 +477,7 @@ export default function SettingsForm({
               return metrics.map((metric) => {
                 const shouldPresentWarningLabel =
                   metric.value !== DiabetesMetric.Everything &&
+                  props.value.includes(metric.value) &&
                   !errors.nightscoutUrl &&
                   !warnings.nightscoutUrl &&
                   !warnings.nightscoutToken &&
