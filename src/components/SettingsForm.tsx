@@ -247,6 +247,7 @@ export default function SettingsForm({
             throw new Error("No response returned");
           }
         } catch (e) {
+          /* istanbul ignore if  */
           if (APP_DEBUG) {
             console.error(
               "Unable to fetch validation info for Nightscout site",
