@@ -272,7 +272,6 @@ export default function SettingsForm({
     };
   };
 
-  // eslint-disable-next-line
   const {
     control,
     errors,
@@ -480,7 +479,6 @@ export default function SettingsForm({
                   props.value.includes(metric.value) &&
                   !errors.nightscoutUrl &&
                   !warnings.nightscoutUrl &&
-                  !warnings.nightscoutToken &&
                   !supportedMetrics.includes(metric.value);
 
                 return (
