@@ -9,62 +9,84 @@ export const STATUS_OK = 200;
 
 export class NightscoutValidationClient {
   private endpointUrl: string;
-  private controller: AbortController;
-  private signal: AbortSignal;
+  private controller: AbortController | null;
+  private signal: AbortSignal | null;
+  private requestInProgress: boolean;
 
   constructor(options: NightscoutValidationClientOptions) {
     this.endpointUrl = options.endpointUrl;
     this.controller = new AbortController();
     this.signal = this.controller.signal;
+    this.requestInProgress = false;
   }
 
   async fetchValidationStatus(
     nightscoutUrl: string,
     nightscoutToken: string
   ): Promise<NightscoutValidationEndpointResponseDto> {
-    const requestBody: NightscoutValidationEndpointRequest = {
-      url: nightscoutUrl,
-      token: nightscoutToken,
-    };
-    const requestBodyRaw = JSON.stringify(requestBody);
-    const headers = new Headers();
-    headers.append("Content-Type", "application/json; charset=utf-8");
-
-    let response;
-    try {
-      response = await fetch(`${this.endpointUrl}${NSV_PATH}`, {
-        method: "POST",
-        body: requestBodyRaw,
-        redirect: "follow",
-        headers,
-        signal: this.signal,
-      });
-      if (response.status !== 200) {
-        throw new Error("Received non-200 response status");
-      }
-    } catch (e) {
-      throw new Error(`Failed to fetch from nsv endpoint: ${e}`);
+    if (this.requestInProgress === true) {
+      this.cancel();
     }
-
-    const responseJson = await response?.json();
     try {
-      const classifiedResponse = plainToClass(
-        NightscoutValidationEndpointResponseDto,
-        responseJson
-      );
+      this.requestInProgress = true;
+      const requestBody: NightscoutValidationEndpointRequest = {
+        url: nightscoutUrl,
+        token: nightscoutToken,
+      };
+      const requestBodyRaw = JSON.stringify(requestBody);
+      const headers = new Headers();
+      headers.append("Content-Type", "application/json; charset=utf-8");
 
-      const errors = await validate(classifiedResponse);
-      if (errors.length) {
-        throw errors;
+      let response;
+      try {
+        response = await fetch(`${this.endpointUrl}${NSV_PATH}`, {
+          method: "POST",
+          body: requestBodyRaw,
+          redirect: "follow",
+          headers,
+          signal: this.signal,
+        });
+        if (response.status !== 200) {
+          throw new Error("Received non-200 response status");
+        }
+      } catch (e) {
+        throw new Error(`Failed to fetch from nsv endpoint: ${e}`);
       }
 
-      return classifiedResponse;
+      const responseJson = await response?.json();
+      try {
+        const classifiedResponse = plainToClass(
+          NightscoutValidationEndpointResponseDto,
+          responseJson
+        );
+
+        const errors = await validate(classifiedResponse);
+        if (errors.length) {
+          throw errors;
+        }
+
+        return classifiedResponse;
+      } catch (e) {
+        throw new Error(`Invalid response from nsv endpoint: ${e}`);
+      }
     } catch (e) {
-      throw new Error(`Invalid response from nsv endpoint: ${e}`);
+      throw e;
+    } finally {
+      this.requestInProgress = false;
     }
   }
 
-  cancel() {
-    this.controller.abort();
+  async cancel() {
+    this.controller?.abort();
+
+    this.controller = null;
+    this.signal = null;
+
+    this.controller = new AbortController();
+    this.signal = this.controller.signal;
+  }
+
+  requestIsInProgress(): boolean {
+    return this.requestInProgress;
   }
 }
