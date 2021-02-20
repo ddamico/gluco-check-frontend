@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { debounce } from "debounce-promise-with-cancel";
+import React, { useEffect, useState } from "react";
+import { debounce } from "debounce";
+
 import {
   Button,
   Checkbox,
@@ -33,6 +34,7 @@ import { BloodGlucoseUnit, DiabetesMetric } from "../lib/enums";
 import { SettingsFormData } from "../lib/types";
 import {
   ALERT_AUTOHIDE_DURATION,
+  APP_DEBUG,
   VALIDATION_DEBOUNCE_DURATION,
 } from "../lib/constants";
 import TokenSetup from "../components/TokenSetup";
@@ -139,150 +141,136 @@ export default function SettingsForm({
     Object.values(DiabetesMetric)
   );
 
-  const memoizedValidator = useCallback(
-    async (data: SettingsFormData) => {
-      let errors: DeepMap<SettingsFormData, FieldError> = {};
-      let warnings: DeepMap<SettingsFormData, FieldError> = {};
-      let augmentedValues: Partial<SettingsFormData> = {};
-      if (data.nightscoutUrl === "") {
-        errors.nightscoutUrl = {
-          type: "required",
-          message: t("settings.form.helperText.nightscoutUrl.required"),
-        };
-      } else {
-        if (nightscoutValidator) {
-          try {
-            const nsvResponse = await nightscoutValidator.fetchValidationStatus(
-              data.nightscoutUrl,
-              data.nightscoutToken
-            );
-            if (nsvResponse) {
-              if (
-                nsvResponse.url.isValid &&
-                nsvResponse.url.pointsToNightscout
-              ) {
-                augmentedValues.nightscoutUrl = nsvResponse.url.parsed;
-              }
-              if (nsvResponse.token.isValid) {
-                augmentedValues.nightscoutToken = nsvResponse.token.parsed;
-              }
-              if (!nsvResponse.url.pointsToNightscout) {
-                warnings.nightscoutUrl = {
+  const validator = async (data: SettingsFormData) => {
+    let errors: DeepMap<SettingsFormData, FieldError> = {};
+    let warnings: DeepMap<SettingsFormData, FieldError> = {};
+    let augmentedValues: Partial<SettingsFormData> = {};
+    if (data.nightscoutUrl === "") {
+      errors.nightscoutUrl = {
+        type: "required",
+        message: t("settings.form.helperText.nightscoutUrl.required"),
+      };
+    } else {
+      if (nightscoutValidator) {
+        try {
+          const nsvResponse = await nightscoutValidator.fetchValidationStatus(
+            data.nightscoutUrl,
+            data.nightscoutToken
+          );
+          if (nsvResponse) {
+            if (nsvResponse.url.isValid && nsvResponse.url.pointsToNightscout) {
+              augmentedValues.nightscoutUrl = nsvResponse.url.parsed;
+            }
+            if (nsvResponse.token.isValid) {
+              augmentedValues.nightscoutToken = nsvResponse.token.parsed;
+            }
+            if (!nsvResponse.url.pointsToNightscout) {
+              warnings.nightscoutUrl = {
+                type: "validate",
+                message: t(
+                  "settings.form.helperText.nightscoutUrl.notNightscout"
+                ),
+              };
+            }
+            if (nsvResponse.url.pointsToNightscout) {
+              if (data.nightscoutToken === "") {
+                warnings.nightscoutToken = {
+                  type: "validate",
+                  message: t("settings.form.helperText.nightscoutToken.empty"),
+                };
+              } else if (!nsvResponse.token.isValid) {
+                warnings.nightscoutToken = {
                   type: "validate",
                   message: t(
-                    "settings.form.helperText.nightscoutUrl.notNightscout"
+                    "settings.form.helperText.nightscoutToken.invalid"
                   ),
                 };
               }
-              if (nsvResponse.url.pointsToNightscout) {
-                if (data.nightscoutToken === "") {
-                  warnings.nightscoutToken = {
-                    type: "validate",
-                    message: t(
-                      "settings.form.helperText.nightscoutToken.empty"
-                    ),
-                  };
-                } else if (!nsvResponse.token.isValid) {
-                  warnings.nightscoutToken = {
-                    type: "validate",
-                    message: t(
-                      "settings.form.helperText.nightscoutToken.invalid"
-                    ),
-                  };
-                }
-                if (
-                  nsvResponse.nightscout.glucoseUnit !==
-                  NightscoutBloodGlucoseUnitMapping[data.glucoseUnit]
-                ) {
-                  warnings.glucoseUnit = {
-                    type: "validate",
-                    message: t(
-                      "settings.form.helperText.glucoseUnits.mismatch"
-                    ),
-                  };
-                }
-                if (
-                  semver.valid(nsvResponse.nightscout.version) &&
-                  semver.valid(nsvResponse.nightscout.minSupportedVersion) &&
-                  semver.lt(
-                    nsvResponse.nightscout.version,
-                    nsvResponse.nightscout.minSupportedVersion
-                  )
-                ) {
-                  warnings.nightscoutUrl = {
-                    type: "validate",
-                    message: t(
-                      "settings.form.helperText.nightscoutUrl.needsUpgrade",
-                      {
-                        version: nsvResponse.nightscout.minSupportedVersion.toString(),
-                      }
-                    ),
-                  };
-                }
-                const userHasSelectedUnsupportedMetrics = data.defaultMetrics
-                  .filter((metric) => metric !== DiabetesMetric.Everything)
-                  .map((metric) =>
-                    nsvResponse.discoveredMetrics.includes(metric)
-                  )
-                  .includes(false);
-                if (userHasSelectedUnsupportedMetrics === true) {
-                  warnings.defaultMetrics = [
-                    {
-                      type: "validate",
-                      message: t(
-                        "settings.form.helperText.defaultMetrics.notAvailable"
-                      ),
-                    },
-                  ];
-                }
-                if (data.defaultMetrics.length === 0) {
-                  errors.defaultMetrics = [
-                    {
-                      type: "validate",
-                      message: t(
-                        "settings.form.helperText.defaultMetrics.required"
-                      ),
-                    },
-                  ];
-                }
+              if (
+                nsvResponse.nightscout.glucoseUnit !==
+                NightscoutBloodGlucoseUnitMapping[data.glucoseUnit]
+              ) {
+                warnings.glucoseUnit = {
+                  type: "validate",
+                  message: t("settings.form.helperText.glucoseUnits.mismatch"),
+                };
               }
-
-              // can't do this if component has already been unmounted,
-              // you'll leave it (and the connection) hanging
-              setSupportedMetrics(nsvResponse.discoveredMetrics);
-              setWarnings(warnings);
-            } else {
-              throw new Error("No response returned");
+              if (
+                semver.valid(nsvResponse.nightscout.version) &&
+                semver.valid(nsvResponse.nightscout.minSupportedVersion) &&
+                semver.lt(
+                  nsvResponse.nightscout.version,
+                  nsvResponse.nightscout.minSupportedVersion
+                )
+              ) {
+                warnings.nightscoutUrl = {
+                  type: "validate",
+                  message: t(
+                    "settings.form.helperText.nightscoutUrl.needsUpgrade",
+                    {
+                      version: nsvResponse.nightscout.minSupportedVersion.toString(),
+                    }
+                  ),
+                };
+              }
+              const userHasSelectedUnsupportedMetrics = data.defaultMetrics
+                .filter((metric) => metric !== DiabetesMetric.Everything)
+                .map((metric) => nsvResponse.discoveredMetrics.includes(metric))
+                .includes(false);
+              if (userHasSelectedUnsupportedMetrics === true) {
+                warnings.defaultMetrics = [
+                  {
+                    type: "validate",
+                    message: t(
+                      "settings.form.helperText.defaultMetrics.notAvailable"
+                    ),
+                  },
+                ];
+              }
+              if (data.defaultMetrics.length === 0) {
+                errors.defaultMetrics = [
+                  {
+                    type: "validate",
+                    message: t(
+                      "settings.form.helperText.defaultMetrics.required"
+                    ),
+                  },
+                ];
+              }
             }
-          } catch (e) {
-            console.log(
+
+            // can't do this if component has already been unmounted,
+            // you'll leave it (and the connection) hanging
+            setSupportedMetrics(nsvResponse.discoveredMetrics);
+            setWarnings(warnings);
+          } else {
+            throw new Error("No response returned");
+          }
+        } catch (e) {
+          /* istanbul ignore if  */
+          if (APP_DEBUG) {
+            console.error(
               "Unable to fetch validation info for Nightscout site",
               e
             );
           }
         }
       }
+    }
 
-      // always return no errors, we are using resolver
-      // for its lifecycle, but never want to block submission
-      if (Object.keys(errors).length) {
-        return {
-          values: {},
-          errors,
-        };
-      }
+    // always return no errors, we are using resolver
+    // for its lifecycle, but never want to block submission
+    if (Object.keys(errors).length) {
       return {
-        values: { ...data, ...augmentedValues },
-        errors: {},
+        values: {},
+        errors,
       };
-    },
-    [nightscoutValidator, t]
-  );
-
-  const debouncedValidator = debounce(
-    memoizedValidator,
-    validationDebounceDuration!
-  );
+    }
+    return {
+      values: { ...data, ...augmentedValues },
+      errors: {},
+    };
+  };
 
   // eslint-disable-next-line
   const {
@@ -294,14 +282,17 @@ export default function SettingsForm({
     register,
     trigger,
   } = useForm<SettingsFormData>({
-    mode: "onChange",
-    resolver: nightscoutValidator ? debouncedValidator : undefined,
+    resolver: nightscoutValidator ? validator : undefined,
   });
 
   // trigger form validation on first component render
   useEffect(() => {
     nightscoutValidator && trigger();
   }, [nightscoutValidator, trigger]);
+
+  const debouncedOnChangeHandler = debounce(async () => {
+    await trigger();
+  }, validationDebounceDuration);
 
   const [formIsSubmitting, setFormIsSubmitting] = useState(false);
   const [formHasSubmissionError, setFormHasSubmissionError] = useState(false);
@@ -404,7 +395,10 @@ export default function SettingsForm({
           fullWidth={true}
           disabled={!canEditFields}
           id="settings-form-field-url"
-          inputProps={{ "data-testid": "settings-form-field-url" }}
+          inputProps={{
+            "data-testid": "settings-form-field-url",
+            onChange: debouncedOnChangeHandler,
+          }}
           inputRef={register}
           name="nightscoutUrl"
         ></Input>
@@ -428,7 +422,10 @@ export default function SettingsForm({
           fullWidth={true}
           disabled={!canEditFields}
           id="settings-form-field-token"
-          inputProps={{ "data-testid": "settings-form-field-token" }}
+          inputProps={{
+            "data-testid": "settings-form-field-token",
+            onChange: debouncedOnChangeHandler,
+          }}
           inputRef={register}
           name="nightscoutToken"
           startAdornment={
@@ -494,9 +491,10 @@ export default function SettingsForm({
                     }
                     control={
                       <Checkbox
-                        onChange={() =>
-                          props.onChange(handleCheck(metric.value))
-                        }
+                        onChange={() => {
+                          props.onChange(handleCheck(metric.value));
+                          debouncedOnChangeHandler();
+                        }}
                         checked={
                           everythingIsSelected ||
                           props.value.includes(metric.value)
@@ -551,6 +549,7 @@ export default function SettingsForm({
                 "data-testid": "settings-form-field-bg",
               }}
               id="settings-form-field-bg"
+              onChange={debouncedOnChangeHandler}
             >
               {glucoseUnits.map((item) => (
                 <MenuItem value={item.value} key={item.value}>
@@ -636,5 +635,5 @@ export default function SettingsForm({
 
 SettingsForm.defaultProps = {
   autohideDuration: ALERT_AUTOHIDE_DURATION,
-  alertAutohideDuration: VALIDATION_DEBOUNCE_DURATION,
+  validationDebounceDuration: VALIDATION_DEBOUNCE_DURATION,
 };

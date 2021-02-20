@@ -14,3 +14,5 @@ export const DEFAULT_GLUCOSE_UNITS = BloodGlucoseUnit.mmol;
 export const ALERT_AUTOHIDE_DURATION = 7000;
 export const VALIDATION_DEBOUNCE_DURATION = 500;
 export const DEFAULT_ONBOARDING_CAROUSEL_INTERVAL = 5000;
+
+export const APP_DEBUG = process.env.REACT_APP_DEBUG === "true" || false;

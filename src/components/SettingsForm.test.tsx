@@ -215,21 +215,44 @@ describe("SettingsForm component", () => {
     });
 
     it("Can still render when validation request throws", async () => {
+      expect.assertions(1);
       mockValidationMethodSpy.mockRejectedValue(new Error());
 
-      const { container } = render(
-        <SettingsForm
-          nightscoutToken={mockNsToken}
-          nightscoutUrl={mockNsUrl}
-          glucoseUnit={mockGlucoseUnits}
-          defaultMetrics={mockDefaultMetrics}
-          onSubmit={mockOnSubmit}
-          nightscoutValidator={nsvClient}
-          validationDebounceDuration={0}
-        />
-      );
+      await act(async () => {
+        const { container } = render(
+          <SettingsForm
+            nightscoutToken={mockNsToken}
+            nightscoutUrl={mockNsUrl}
+            glucoseUnit={mockGlucoseUnits}
+            defaultMetrics={mockDefaultMetrics}
+            onSubmit={mockOnSubmit}
+            nightscoutValidator={nsvClient}
+            validationDebounceDuration={0}
+          />
+        );
+        expect(container).toBeDefined();
+      });
+    });
 
-      expect(container).toBeDefined();
+    it("Can still render when validation request returns nothing", async () => {
+      expect.assertions(1);
+      // @ts-expect-error
+      mockValidationMethodSpy.mockResolvedValueOnce(undefined);
+
+      await act(async () => {
+        const { container } = render(
+          <SettingsForm
+            nightscoutToken={mockNsToken}
+            nightscoutUrl={mockNsUrl}
+            glucoseUnit={mockGlucoseUnits}
+            defaultMetrics={mockDefaultMetrics}
+            onSubmit={mockOnSubmit}
+            nightscoutValidator={nsvClient}
+            validationDebounceDuration={0}
+          />
+        );
+        expect(container).toBeDefined();
+      });
     });
 
     describe("errors", () => {
