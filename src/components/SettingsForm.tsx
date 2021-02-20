@@ -218,12 +218,18 @@ export default function SettingsForm({
                 .map((metric) => nsvResponse.discoveredMetrics.includes(metric))
                 .includes(false);
               if (userHasSelectedUnsupportedMetrics === true) {
+                const message =
+                  data.nightscoutToken === ""
+                    ? t(
+                        "settings.form.helperText.defaultMetrics.notAvailableEmptyToken"
+                      )
+                    : t(
+                        "settings.form.helperText.defaultMetrics.notAvailableInvalidToken"
+                      );
                 warnings.defaultMetrics = [
                   {
                     type: "validate",
-                    message: t(
-                      "settings.form.helperText.defaultMetrics.notAvailable"
-                    ),
+                    message,
                   },
                 ];
               }
