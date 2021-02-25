@@ -69,8 +69,8 @@
         "defaultMetrics": {
           "default": "[Assistant will read these items to you by default]",
           "required": "[You must select at least one metric]",
-          "notAvailableEmptyToken": "[* We did not find a recent value for these metrics, but you can still select them]",
-          "notAvailableInvalidToken": "[* You must provide a valid token to access these metrics]"
+          "notAvailableInvalidToken": "[* You'll need a valid token to access these metrics]",
+          "notAvailableValidToken": "[* We did not find a recent value for these metrics, but you can still select them]"
         },
         "glucoseUnits": {
           "mismatch": "[Chosen unit differs from your Nightscout site's units]"
