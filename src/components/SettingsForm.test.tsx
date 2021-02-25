@@ -9,6 +9,7 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe } from "jest-axe";
+import { clone } from "ramda";
 import { BloodGlucoseUnit, DiabetesMetric } from "../lib/enums";
 import SettingsForm, { returnHandleOpenTokenDialog } from "./SettingsForm";
 import { NightscoutValidationClient } from "../lib/NightscoutValidationClient/NightscoutValidationClient";
@@ -453,7 +454,39 @@ describe("SettingsForm component", () => {
 
         expect(
           await screen.findByText(
-            "settings.form.helperText.defaultMetrics.notAvailableEmptyToken"
+            "settings.form.helperText.defaultMetrics.notAvailableInvalidToken"
+          )
+        ).toBeTruthy();
+      });
+
+      it("Displays warning message for unsupported metrics, when token is valid but some metrics are not found", async () => {
+        const allMetrics = [
+          DiabetesMetric.BloodSugar,
+          DiabetesMetric.CannulaAge,
+          DiabetesMetric.CarbsOnBoard,
+          DiabetesMetric.InsulinOnBoard,
+          DiabetesMetric.PumpBattery,
+          DiabetesMetric.SensorAge,
+        ];
+        const alteredResponseDto = clone(mockNsvResponseDtoValid);
+        alteredResponseDto.discoveredMetrics = [DiabetesMetric.BloodSugar];
+        mockValidationMethodSpy.mockResolvedValue(alteredResponseDto);
+
+        render(
+          <SettingsForm
+            nightscoutToken={mockNsToken}
+            nightscoutUrl={mockNsUrl}
+            glucoseUnit={mockGlucoseUnits}
+            defaultMetrics={allMetrics}
+            onSubmit={mockOnSubmit}
+            nightscoutValidator={nsvClient}
+            validationDebounceDuration={0}
+          />
+        );
+
+        expect(
+          await screen.findByText(
+            "settings.form.helperText.defaultMetrics.notAvailableValidToken"
           )
         ).toBeTruthy();
       });
