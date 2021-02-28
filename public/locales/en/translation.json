@@ -57,8 +57,8 @@
       "helperText": {
         "nightscoutToken": {
           "default": "Not sure how to get a token? Read on!",
-          "empty": "A token is required to read additional metrics",
-          "invalid": "Your Nightscout site is not accepting this token"
+          "empty": "You may not have access to all metrics without a valid token",
+          "invalid": "This token didn't work"
         },
         "nightscoutUrl": {
           "default": "URL of your Nightscout site",
@@ -69,7 +69,8 @@
         "defaultMetrics": {
           "default": "Assistant will read these items to you by default",
           "required": "You must select at least one metric",
-          "notAvailable": "* We did not find a recent value for these metrics, but you can still select them"
+          "notAvailableInvalidToken": "* You'll need a valid token to access these metrics",
+          "notAvailableValidToken": "* We did not find a recent value for these metrics, but you can still select them"
         },
         "glucoseUnits": {
           "mismatch": "Chosen unit differs from your Nightscout site's units"

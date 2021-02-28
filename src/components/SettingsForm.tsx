@@ -218,12 +218,17 @@ export default function SettingsForm({
                 .map((metric) => nsvResponse.discoveredMetrics.includes(metric))
                 .includes(false);
               if (userHasSelectedUnsupportedMetrics === true) {
+                const message = warnings.nightscoutToken
+                  ? t(
+                      "settings.form.helperText.defaultMetrics.notAvailableInvalidToken"
+                    )
+                  : t(
+                      "settings.form.helperText.defaultMetrics.notAvailableValidToken"
+                    );
                 warnings.defaultMetrics = [
                   {
                     type: "validate",
-                    message: t(
-                      "settings.form.helperText.defaultMetrics.notAvailable"
-                    ),
+                    message,
                   },
                 ];
               }
@@ -272,7 +277,6 @@ export default function SettingsForm({
     };
   };
 
-  // eslint-disable-next-line
   const {
     control,
     errors,
@@ -477,9 +481,9 @@ export default function SettingsForm({
               return metrics.map((metric) => {
                 const shouldPresentWarningLabel =
                   metric.value !== DiabetesMetric.Everything &&
+                  props.value.includes(metric.value) &&
                   !errors.nightscoutUrl &&
                   !warnings.nightscoutUrl &&
-                  !warnings.nightscoutToken &&
                   !supportedMetrics.includes(metric.value);
 
                 return (
