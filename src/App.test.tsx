@@ -16,6 +16,15 @@ jest.mock("./lib/firebase.ts", () => {
   };
 });
 
+jest.mock("./components/LanguageSelector.tsx", () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return <div>LanguageSelector</div>;
+    },
+  };
+});
+
 jest.mock("./pages/EditSettings.tsx", () => {
   return {
     __esModule: true,

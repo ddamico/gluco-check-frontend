@@ -20,6 +20,7 @@ import EditSettings from "./pages/EditSettings";
 import Welcome from "./pages/Welcome";
 import "./App.css";
 import LanguageSelector from "./components/LanguageSelector";
+import { AvailableLanguage } from "./lib/enums";
 
 export const FirebaseUserDocumentContext = React.createContext("");
 
@@ -89,9 +90,11 @@ export default function App() {
         </section>
         <section className={classes.rightToolbar}>
           <ul className={classes.nav}>
-            <li>
-              <LanguageSelector></LanguageSelector>
-            </li>
+            {Object.values(AvailableLanguage).length > 1 && (
+              <li>
+                <LanguageSelector />
+              </li>
+            )}
             <li>
               <IconButton
                 aria-label={t("boilerplate.faqs")}

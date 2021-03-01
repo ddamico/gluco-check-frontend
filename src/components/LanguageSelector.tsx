@@ -1,5 +1,12 @@
-import React, { useRef, useState } from "react";
-import { Button, Hidden, Menu, MenuItem, Paper } from "@material-ui/core";
+import React from "react";
+import {
+  Button,
+  Hidden,
+  makeStyles,
+  Menu,
+  MenuItem,
+  Paper,
+} from "@material-ui/core";
 import { ExpandMore, Translate } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
 import {
@@ -7,69 +14,75 @@ import {
   bindTrigger,
   bindMenu,
 } from "material-ui-popup-state/hooks";
+import { AvailableLanguage } from "../lib/enums";
 
-export enum AvailableLanguages {
-  English = "en",
-  Dutch = "nl",
-}
+const useStyles = makeStyles((theme) => ({
+  selectorLabel: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+}));
+
+const MENU_ITEM_ATTRIBUTE = "data-language";
 
 export default function LanguageSelector() {
   const { t, i18n } = useTranslation();
+
+  const classes = useStyles();
 
   const menuState = usePopupState({
     variant: "popover",
     popupId: "languageMenu",
   });
 
-  const [open, setOpen] = useState(false);
-  const anchorRef = useRef<HTMLButtonElement | null>(null);
-
   const handleItemClick = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>
   ) => {
-    const incomingSelection = event.currentTarget.getAttribute("data-language");
+    const incomingSelection = event.currentTarget.getAttribute(
+      MENU_ITEM_ATTRIBUTE
+    );
     if (
       incomingSelection &&
-      Object.values(AvailableLanguages).includes(
-        incomingSelection as AvailableLanguages
+      Object.values(AvailableLanguage).includes(
+        incomingSelection as AvailableLanguage
       )
     ) {
-      // get language-in-array check working
       i18n.changeLanguage(incomingSelection);
     }
 
     menuState.close();
   };
 
-  // return focus to the button when we transitioned from !open -> open
-  const prevOpen = useRef(open);
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef?.current?.focus();
-    }
-    prevOpen.current = open;
-  }, [open]);
-
   return (
     <div>
       <Button
         color="inherit"
-        endIcon={<ExpandMore />}
-        startIcon={<Translate />}
         {...bindTrigger(menuState)}
+        aria-label={t(`languageSelector.buttonLabel`)}
       >
-        <Hidden xsDown>Language</Hidden>
+        <Translate />
+        <Hidden xsDown>
+          <span className={classes.selectorLabel}>
+            {t(`languageSelector.buttonLabel`)}
+          </span>
+        </Hidden>
+        <ExpandMore />
       </Button>
       <Paper>
         <Menu {...bindMenu(menuState)}>
-          {Object.entries(AvailableLanguages).map((value, index) => {
+          {Object.values(AvailableLanguage).map((value, index) => {
+            // console.log("what the heck");
+            const dataProp = {
+              [MENU_ITEM_ATTRIBUTE]: value,
+            };
             return (
               <MenuItem
-                onClick={handleItemClick}
-                data-language={value[1]}
                 key={`language-selector-${index}`}
+                onClick={handleItemClick}
+                selected={value === i18n.language}
+                {...dataProp}
               >
-                {t(`availableLanguageLabels.${value[1]}`)}
+                {t(`languageSelector.availableLanguageLabels.${value}`)}
               </MenuItem>
             );
           })}

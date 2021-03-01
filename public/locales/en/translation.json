@@ -136,8 +136,11 @@
       "image_alt": ""
     }
   },
-  "availableLanguageLabels": {
-    "en": "English",
-    "nl": "Dutch"
+  "languageSelector": {
+    "buttonLabel": "Language",
+    "availableLanguageLabels": {
+      "en": "English",
+      "nl": "Dutch"
+    }
   }
 }

@@ -26,6 +26,11 @@ exports[`App component renders the component when no user and no loading 1`] = `
           class="makeStyles-nav-22"
         >
           <li>
+            <div>
+              LanguageSelector
+            </div>
+          </li>
+          <li>
             <a
               aria-disabled="false"
               aria-label="boilerplate.faqs"
@@ -96,6 +101,11 @@ exports[`App component renders the component when user loaded 1`] = `
         <ul
           class="makeStyles-nav-14"
         >
+          <li>
+            <div>
+              LanguageSelector
+            </div>
+          </li>
           <li>
             <a
               aria-disabled="false"
@@ -253,6 +263,11 @@ exports[`App component renders the component when user loading 1`] = `
         <ul
           class="makeStyles-nav-6"
         >
+          <li>
+            <div>
+              LanguageSelector
+            </div>
+          </li>
           <li>
             <a
               aria-disabled="false"
