@@ -34,13 +34,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface TokenStep {
-  label: string;
-  description: string;
-  image?: string;
-  image_alt?: string;
-}
-
 const TOKEN_IMAGE_PATH = `${process.env.PUBLIC_URL}/images/token-instructions`;
 
 export default function TokenSetup() {

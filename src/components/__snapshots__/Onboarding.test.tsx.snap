@@ -1,27 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Onboarding questionAndAnswer renders the subcomponent 1`] = `
-<ForwardRef(WithStyles)
+<WithStyles(ForwardRef(Card))
   className="innerClass"
 >
-  <ForwardRef(WithStyles)
+  <WithStyles(ForwardRef(Grid))
     className="outerClass"
     container={true}
     direction="column"
     wrap="nowrap"
   >
-    <ForwardRef(WithStyles)
+    <WithStyles(ForwardRef(Grid))
       className="assistantBubble assistantBubble-question"
       item={true}
     >
-      <ForwardRef(WithStyles)
+      <WithStyles(ForwardRef(Typography))
         component="p"
         variant="body1"
       >
         What it is
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)
+      </WithStyles(ForwardRef(Typography))>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
       className="assistantBubble assistantBubble-response"
       item={true}
     >
@@ -38,39 +38,39 @@ exports[`Onboarding questionAndAnswer renders the subcomponent 1`] = `
           }
         }
       />
-      <ForwardRef(WithStyles)
+      <WithStyles(ForwardRef(Typography))
         component="p"
         variant="body1"
       >
         It is good
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-  </ForwardRef(WithStyles)>
-</ForwardRef(WithStyles)>
+      </WithStyles(ForwardRef(Typography))>
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+</WithStyles(ForwardRef(Card))>
 `;
 
 exports[`Onboarding questionAndAnswer renders the subcomponent with a long answer string 1`] = `
-<ForwardRef(WithStyles)
+<WithStyles(ForwardRef(Card))
   className="innerClass"
 >
-  <ForwardRef(WithStyles)
+  <WithStyles(ForwardRef(Grid))
     className="outerClass"
     container={true}
     direction="column"
     wrap="nowrap"
   >
-    <ForwardRef(WithStyles)
+    <WithStyles(ForwardRef(Grid))
       className="assistantBubble assistantBubble-question"
       item={true}
     >
-      <ForwardRef(WithStyles)
+      <WithStyles(ForwardRef(Typography))
         component="p"
         variant="body1"
       >
         What it is
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-    <ForwardRef(WithStyles)
+      </WithStyles(ForwardRef(Typography))>
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
       className="assistantBubble assistantBubble-response"
       item={true}
     >
@@ -87,15 +87,15 @@ exports[`Onboarding questionAndAnswer renders the subcomponent with a long answe
           }
         }
       />
-      <ForwardRef(WithStyles)
+      <WithStyles(ForwardRef(Typography))
         component="p"
         variant="body1"
       >
         It is really really really really really good
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-  </ForwardRef(WithStyles)>
-</ForwardRef(WithStyles)>
+      </WithStyles(ForwardRef(Typography))>
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+</WithStyles(ForwardRef(Card))>
 `;
 
 exports[`Onboarding renders the component 1`] = `
