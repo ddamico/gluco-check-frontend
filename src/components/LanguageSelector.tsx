@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Button,
+  Divider,
   Hidden,
   makeStyles,
   Menu,
@@ -71,7 +72,6 @@ export default function LanguageSelector() {
       <Paper>
         <Menu {...bindMenu(menuState)}>
           {Object.values(AvailableLanguage).map((value, index) => {
-            // console.log("what the heck");
             const dataProp = {
               [MENU_ITEM_ATTRIBUTE]: value,
             };
@@ -86,6 +86,14 @@ export default function LanguageSelector() {
               </MenuItem>
             );
           })}
+          <Divider />
+          <MenuItem
+            onClick={() => {
+              window.open(t("urls.translations"), "_blank");
+            }}
+          >
+            {t(`languageSelector.contribute`)}
+          </MenuItem>
         </Menu>
       </Paper>
     </div>
