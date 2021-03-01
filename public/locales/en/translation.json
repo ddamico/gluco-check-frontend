@@ -135,5 +135,9 @@
       "image": "copy-token.png",
       "image_alt": ""
     }
+  },
+  "availableLanguageLabels": {
+    "en": "English",
+    "nl": "Dutch"
   }
 }

@@ -9,8 +9,9 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    lng: "en",
     fallbackLng: (code) => {
-      const fallback = process.env.REACT_APP_I18N_FALLBACK_LANGUAGE || "en-US";
+      const fallback = process.env.REACT_APP_I18N_FALLBACK_LANGUAGE || "en";
       return [fallback];
     },
     detection: {

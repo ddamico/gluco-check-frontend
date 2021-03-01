@@ -19,6 +19,7 @@ import Landing from "./pages/Landing";
 import EditSettings from "./pages/EditSettings";
 import Welcome from "./pages/Welcome";
 import "./App.css";
+import LanguageSelector from "./components/LanguageSelector";
 
 export const FirebaseUserDocumentContext = React.createContext("");
 
@@ -88,6 +89,9 @@ export default function App() {
         </section>
         <section className={classes.rightToolbar}>
           <ul className={classes.nav}>
+            <li>
+              <LanguageSelector></LanguageSelector>
+            </li>
             <li>
               <IconButton
                 aria-label={t("boilerplate.faqs")}
