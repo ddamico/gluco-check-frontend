@@ -27,16 +27,7 @@ exports[`Onboarding questionAndAnswer renders the subcomponent 1`] = `
     >
       <img
         alt=""
-        src={
-          Object {
-            "ReactComponent": Object {
-              "$$typeof": Symbol(react.forward_ref),
-              "render": [Function],
-            },
-            "__esModule": true,
-            "default": "icon-assistant.svg",
-          }
-        }
+        src="icon-assistant.svg"
       />
       <WithStyles(ForwardRef(Typography))
         component="p"
@@ -76,16 +67,7 @@ exports[`Onboarding questionAndAnswer renders the subcomponent with a long answe
     >
       <img
         alt=""
-        src={
-          Object {
-            "ReactComponent": Object {
-              "$$typeof": Symbol(react.forward_ref),
-              "render": [Function],
-            },
-            "__esModule": true,
-            "default": "icon-assistant.svg",
-          }
-        }
+        src="icon-assistant.svg"
       />
       <WithStyles(ForwardRef(Typography))
         component="p"
@@ -128,7 +110,7 @@ exports[`Onboarding renders the component 1`] = `
           >
             <img
               alt=""
-              src="[object Object]"
+              src="icon-assistant.svg"
             />
             <p
               class="MuiTypography-root MuiTypography-body1"
@@ -158,7 +140,7 @@ exports[`Onboarding renders the component 1`] = `
           >
             <img
               alt=""
-              src="[object Object]"
+              src="icon-assistant.svg"
             />
             <p
               class="MuiTypography-root MuiTypography-body1"
@@ -188,7 +170,7 @@ exports[`Onboarding renders the component 1`] = `
           >
             <img
               alt=""
-              src="[object Object]"
+              src="icon-assistant.svg"
             />
             <p
               class="MuiTypography-root MuiTypography-body1"
