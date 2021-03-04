@@ -5,6 +5,9 @@ import {
   DEFAULT_USER_DOCUMENT,
   FIRESTORE_DEFAULT_SET_OPTIONS,
 } from "../lib/firebase-helpers";
+import { Alert } from "@material-ui/lab";
+import { Container, makeStyles, Typography, Link } from "@material-ui/core";
+import { useTranslation, Trans } from "react-i18next";
 
 import SettingsForm from "../components/SettingsForm";
 import { SettingsFormData } from "../lib/types";
@@ -18,8 +21,6 @@ import {
 } from "../lib/constants";
 import { userSettingsFormDataToUserSettingsDocument } from "../lib/transform";
 import { FirebaseUserDocumentContext } from "../App";
-import { useTranslation } from "react-i18next";
-import { Container, makeStyles, Typography } from "@material-ui/core";
 import { NightscoutValidationClient } from "../lib/NightscoutValidationClient/NightscoutValidationClient";
 
 export const returnHandleSettingsSave = (userDocumentPath: string) => {
@@ -46,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: theme.spacing(2),
     },
   },
+  alert: {
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 export default function EditSettings() {
@@ -71,7 +75,14 @@ export default function EditSettings() {
       <Typography variant="h6" component="h2">
         {t("settings.title")}
       </Typography>
-      <p>{t("settings.content")}</p>
+
+      <Alert severity="warning" className={classes.alert}>
+        <Trans i18nKey="settings.betaBanner">
+          Gluco Check is currently in beta.{" "}
+          <Link href={t("urls.betaInvite")}>Click here to join the beta</Link>
+        </Trans>
+      </Alert>
+
       {loading && <>{t("status.general.loading")}</>}
       {error && (
         <>

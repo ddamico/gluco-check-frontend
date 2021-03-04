@@ -11,7 +11,8 @@
     "healthDisclaimer": "/terms",
     "privacy": "/terms",
     "nightscoutProject": "http://nightscout.info/",
-    "faqs": "/faq"
+    "faqs": "/faq",
+    "betaInvite": "https://glucocheck.app/beta/invite"
   },
   "landing": {
     "title": "Welcome to Gluco Check",
@@ -45,7 +46,7 @@
   },
   "settings": {
     "title": "Edit Settings",
-    "content": "Gluco Check works by talking to your Nightscout site. Enter details about your site below. Additional metrics (beyond current blood glucose) require a valid token.",
+    "betaBanner": "Gluco Check is currently in beta. <2>Click here to join the beta</2>.",
     "form": {
       "validationInProgress": "Checking your Nightscout site",
       "labels": {

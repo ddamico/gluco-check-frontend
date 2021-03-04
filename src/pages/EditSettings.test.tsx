@@ -20,6 +20,19 @@ jest.mock("../lib/firebase.ts", () => {
   };
 });
 
+jest.mock("react-i18next", () => ({
+  useTranslation: () => {
+    return {
+      t: jest.fn().mockImplementation((i) => {
+        return i;
+      }),
+    };
+  },
+  Trans: function (props: any) {
+    return <span>{props.i18nKey}</span>;
+  },
+}));
+
 jest.mock("../components/SettingsForm.tsx", () => {
   return {
     __esModule: true,
