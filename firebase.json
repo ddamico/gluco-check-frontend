@@ -2,9 +2,6 @@
   "hosting": {
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "predeploy": [
-      "yarn build"
-    ],
     "rewrites": [
       {
         "source": "/api/v1/validate-nightscout",
