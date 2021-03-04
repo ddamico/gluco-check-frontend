@@ -8,12 +8,12 @@ import {
   Typography,
 } from "@material-ui/core";
 
+import assistantIcon from "../images/icon-assistant.svg";
+
 import { CarouselProvider, Dot, Slide, Slider } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 
 import { DEFAULT_ONBOARDING_CAROUSEL_INTERVAL } from "../lib/constants";
-
-const assistantIcon = require("../images/icon-assistant.svg");
 
 const useStyles = makeStyles((theme) => ({
   slideContainer: {
