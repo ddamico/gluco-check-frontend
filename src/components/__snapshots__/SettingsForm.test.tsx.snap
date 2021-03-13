@@ -387,53 +387,21 @@ exports[`SettingsForm component renders the component 1`] = `
         </span>
       </label>
     </div>
-    <p
-      class="MuiFormHelperText-root"
-    >
-      settings.form.helperText.defaultMetrics.default
-    </p>
   </fieldset>
   <div
-    class="MuiFormControl-root MuiFormControl-fullWidth"
+    class="MuiFormControl-root MuiTextField-root"
   >
-    <label
-      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
-      data-shrink="true"
-      for="settings-form-field-bg"
-    >
-      settings.form.labels.glucoseUnits
-    </label>
     <div
-      class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+      class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
     >
-      <div
-        aria-haspopup="listbox"
-        aria-labelledby="settings-form-field-bg"
-        class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
-        id="settings-form-field-bg"
-        role="button"
-        tabindex="0"
-      >
-        mg/dl
-      </div>
       <input
-        aria-hidden="true"
-        class="MuiSelect-nativeInput"
+        aria-invalid="false"
+        class="MuiInputBase-input MuiInput-input"
         data-testid="settings-form-field-bg"
         name="glucoseUnit"
-        tabindex="-1"
+        type="hidden"
         value="mg/dl"
       />
-      <svg
-        aria-hidden="true"
-        class="MuiSvgIcon-root MuiSelect-icon"
-        focusable="false"
-        viewBox="0 0 24 24"
-      >
-        <path
-          d="M7 10l5 5 5-5z"
-        />
-      </svg>
     </div>
   </div>
   <div
@@ -462,4 +430,15 @@ exports[`SettingsForm component renders the component 1`] = `
     </div>
   </div>
 </form>
+`;
+
+exports[`SettingsForm component renders the component when glucose units field is visible 1`] = `
+<input
+  aria-hidden="true"
+  class="MuiSelect-nativeInput"
+  data-testid="settings-form-field-bg"
+  name="glucoseUnit"
+  tabindex="-1"
+  value="mg/dl"
+/>
 `;

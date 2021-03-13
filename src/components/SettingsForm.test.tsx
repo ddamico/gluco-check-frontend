@@ -71,6 +71,26 @@ describe("SettingsForm component", () => {
     expect(glucoseUnitsSelect).toHaveValue(mockGlucoseUnits);
   });
 
+  it("renders the component when glucose units field is visible", async () => {
+    const { container } = render(
+      <SettingsForm
+        nightscoutToken={mockNsToken}
+        nightscoutUrl={mockNsUrl}
+        glucoseUnit={mockGlucoseUnits}
+        defaultMetrics={mockDefaultMetrics}
+        onSubmit={mockOnSubmit}
+        shouldShowGlucoseUnitsField={true}
+      />
+    );
+    const tokenField = await screen.findByTestId("settings-form-field-token");
+    const urlField = await screen.findByTestId("settings-form-field-url");
+    const glucoseUnitsSelect = await screen.findByTestId(
+      "settings-form-field-bg"
+    );
+    expect(glucoseUnitsSelect).toMatchSnapshot();
+    expect(glucoseUnitsSelect).toHaveValue(mockGlucoseUnits);
+  });
+
   it("submits the form and saves settings", async () => {
     expect.assertions(12);
     mockOnSubmit.mockImplementationOnce(async (data) => {
