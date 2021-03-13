@@ -11,8 +11,7 @@
     "healthDisclaimer": "/terms",
     "privacy": "/terms",
     "nightscoutProject": "http://nightscout.info/",
-    "faqs": "/faq",
-    "betaInvite": "https://glucocheck.app/beta/invite"
+    "faqs": "/faq"
   },
   "landing": {
     "title": "Welcome to Gluco Check",
@@ -46,7 +45,7 @@
   },
   "settings": {
     "title": "Edit Settings",
-    "betaBanner": "Gluco Check is currently in beta. <2>Click here to join the beta</2>.",
+    "betaBanner": "While we’re in Beta, the app won’t immediately work. You will receive an email once you’ve been added to the Beta.",
     "form": {
       "validationInProgress": "Checking your Nightscout site",
       "labels": {

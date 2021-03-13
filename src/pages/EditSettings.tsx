@@ -6,13 +6,14 @@ import {
   FIRESTORE_DEFAULT_SET_OPTIONS,
 } from "../lib/firebase-helpers";
 import { Alert } from "@material-ui/lab";
-import { Container, makeStyles, Typography, Link } from "@material-ui/core";
-import { useTranslation, Trans } from "react-i18next";
+import { Container, makeStyles, Typography } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 
 import SettingsForm from "../components/SettingsForm";
 import { SettingsFormData } from "../lib/types";
 import {
   DEFAULT_GLUCOSE_UNITS,
+  FIRESTORE_FIELD_HEARD_DISCLAIMER,
   FIRESTORE_FIELD_PATH_DEFAULT_METRICS,
   FIRESTORE_FIELD_PATH_GLUCOSE_UNITS,
   FIRESTORE_FIELD_PATH_NIGHTSCOUT_TOKEN,
@@ -69,19 +70,19 @@ export default function EditSettings() {
     document?.get(FIRESTORE_FIELD_PATH_DEFAULT_METRICS) ?? [];
   const glucoseUnit =
     document?.get(FIRESTORE_FIELD_PATH_GLUCOSE_UNITS) ?? DEFAULT_GLUCOSE_UNITS;
+  const hasHeardDisclaimer =
+    document?.get(FIRESTORE_FIELD_HEARD_DISCLAIMER) ?? false;
 
   return (
     <Container maxWidth="md" className={classes.container}>
       <Typography variant="h6" component="h2">
         {t("settings.title")}
       </Typography>
-
-      <Alert severity="warning" className={classes.alert}>
-        <Trans i18nKey="settings.betaBanner">
-          Gluco Check is currently in beta.{" "}
-          <Link href={t("urls.betaInvite")}>Click here to join the beta</Link>
-        </Trans>
-      </Alert>
+      {!hasHeardDisclaimer && (
+        <Alert severity="warning" className={classes.alert}>
+          {t("settings.betaBanner")}
+        </Alert>
+      )}
 
       {loading && <>{t("status.general.loading")}</>}
       {error && (

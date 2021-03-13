@@ -1,5 +1,5 @@
 import React from "react";
-import { cleanup, render } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import { axe } from "jest-axe";
 import * as firestoreHooks from "react-firebase-hooks/firestore";
 import EditSettings, { returnHandleSettingsSave } from "./EditSettings";
@@ -28,9 +28,6 @@ jest.mock("react-i18next", () => ({
       }),
     };
   },
-  Trans: function (props: any) {
-    return <span>{props.i18nKey}</span>;
-  },
 }));
 
 jest.mock("../components/SettingsForm.tsx", () => {
@@ -54,7 +51,7 @@ describe("EditSettings", () => {
     ...mockUserDocument,
     get: jest.fn().mockReturnValue("a value"),
   };
-  it("Renders the component when loading, with no axe violations", async () => {
+  it("Renders the component when loaded, with no axe violations", async () => {
     // @ts-ignore
     firestoreHooks.useDocument = jest
       .fn()
@@ -66,6 +63,27 @@ describe("EditSettings", () => {
       </FirebaseUserDocumentContext.Provider>
     );
     expect(container.firstChild).toMatchSnapshot();
+    expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it("Renders the component when loaded and user has heard disclaimer, with no axe violations", async () => {
+    // @ts-ignore
+    firestoreHooks.useDocument = jest.fn().mockReturnValue([
+      {
+        ...mockFirestoreDoc,
+        heardDiscalimer: true,
+      },
+      false,
+      undefined,
+    ]);
+
+    const { container } = render(
+      <FirebaseUserDocumentContext.Provider value={mockDocPath}>
+        <EditSettings />
+      </FirebaseUserDocumentContext.Provider>
+    );
+
+    expect(await screen.findByText("settings.betaBanner")).toBeTruthy();
     expect(await axe(container)).toHaveNoViolations();
   });
 
