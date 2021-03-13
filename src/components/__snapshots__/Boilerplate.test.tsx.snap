@@ -1,11 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Landing page renders the component 1`] = `
-<p
-  class="MuiTypography-root MuiTypography-body2"
+<div
+  class="makeStyles-container-1"
 >
-  <span>
-    boilerplate.terms
-  </span>
-</p>
+  <p
+    class="MuiTypography-root MuiTypography-body1"
+  >
+    <span>
+      boilerplate.terms
+    </span>
+  </p>
+  <p
+    class="MuiTypography-root MuiTypography-body1"
+  >
+    boilerplate.google
+  </p>
+  <p
+    class="MuiTypography-root MuiTypography-body1"
+  >
+    <span>
+      boilerplate.nightscout
+    </span>
+  </p>
+</div>
 `;

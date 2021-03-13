@@ -14,9 +14,13 @@ exports[`App component renders the component when no user and no loading 1`] = `
         class="makeStyles-leftToolbar-20"
       >
         <h1
-          class="MuiTypography-root makeStyles-navTitle-24 MuiTypography-h6 MuiTypography-colorInherit"
+          class="MuiTypography-root makeStyles-navTitle-24 MuiTypography-h6"
         >
-          title
+          <a
+            href="/"
+          >
+            title
+          </a>
         </h1>
       </section>
       <section
@@ -85,9 +89,13 @@ exports[`App component renders the component when user loaded 1`] = `
         class="makeStyles-leftToolbar-12"
       >
         <h1
-          class="MuiTypography-root makeStyles-navTitle-16 MuiTypography-h6 MuiTypography-colorInherit"
+          class="MuiTypography-root makeStyles-navTitle-16 MuiTypography-h6"
         >
-          title
+          <a
+            href="/"
+          >
+            title
+          </a>
         </h1>
       </section>
       <section
@@ -116,65 +124,6 @@ exports[`App component renders the component when user loaded 1`] = `
                 >
                   <path
                     d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
-                  />
-                </svg>
-              </span>
-              <span
-                class="MuiTouchRipple-root"
-              />
-            </a>
-          </li>
-          <li>
-            <a
-              aria-disabled="false"
-              aria-label="navigation.home"
-              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
-              data-testid="navigation-home"
-              href="/"
-              role="button"
-              tabindex="0"
-            >
-              <span
-                class="MuiIconButton-label"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="MuiSvgIcon-root"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
-                  />
-                </svg>
-              </span>
-              <span
-                class="MuiTouchRipple-root"
-              />
-            </a>
-          </li>
-          <li>
-            <a
-              aria-disabled="false"
-              aria-label="navigation.settings"
-              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
-              data-testid="navigation-settings"
-              href="/settings"
-              role="button"
-              tabindex="0"
-            >
-              <span
-                class="MuiIconButton-label"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="MuiSvgIcon-root"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M15.95 10.78c.03-.25.05-.51.05-.78s-.02-.53-.06-.78l1.69-1.32c.15-.12.19-.34.1-.51l-1.6-2.77c-.1-.18-.31-.24-.49-.18l-1.99.8c-.42-.32-.86-.58-1.35-.78L12 2.34c-.03-.2-.2-.34-.4-.34H8.4c-.2 0-.36.14-.39.34l-.3 2.12c-.49.2-.94.47-1.35.78l-1.99-.8c-.18-.07-.39 0-.49.18l-1.6 2.77c-.1.18-.06.39.1.51l1.69 1.32c-.04.25-.07.52-.07.78s.02.53.06.78L2.37 12.1c-.15.12-.19.34-.1.51l1.6 2.77c.1.18.31.24.49.18l1.99-.8c.42.32.86.58 1.35.78l.3 2.12c.04.2.2.34.4.34h3.2c.2 0 .37-.14.39-.34l.3-2.12c.49-.2.94-.47 1.35-.78l1.99.8c.18.07.39 0 .49-.18l1.6-2.77c.1-.18.06-.39-.1-.51l-1.67-1.32zM10 13c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"
-                    transform="scale(1.2, 1.2)"
                   />
                 </svg>
               </span>
@@ -242,9 +191,13 @@ exports[`App component renders the component when user loading 1`] = `
         class="makeStyles-leftToolbar-4"
       >
         <h1
-          class="MuiTypography-root makeStyles-navTitle-8 MuiTypography-h6 MuiTypography-colorInherit"
+          class="MuiTypography-root makeStyles-navTitle-8 MuiTypography-h6"
         >
-          title
+          <a
+            href="/"
+          >
+            title
+          </a>
         </h1>
       </section>
       <section

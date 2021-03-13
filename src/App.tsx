@@ -13,7 +13,7 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { ExitToApp, Home, Settings, Help } from "@material-ui/icons";
+import { ExitToApp, Help } from "@material-ui/icons";
 
 import Landing from "./pages/Landing";
 import EditSettings from "./pages/EditSettings";
@@ -55,7 +55,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   toolbar: {},
-  navTitle: {},
+  navTitle: {
+    "& a": {
+      color: "white",
+      textDecoration: "none",
+    },
+  },
 }));
 
 export default function App() {
@@ -77,13 +82,8 @@ export default function App() {
     <AppBar position="sticky">
       <Toolbar variant="regular" className={classes.toolbar}>
         <section className={classes.leftToolbar}>
-          <Typography
-            variant="h6"
-            component="h1"
-            color="inherit"
-            className={classes.navTitle}
-          >
-            {t("title")}
+          <Typography variant="h6" component="h1" className={classes.navTitle}>
+            <Link to="/">{t("title")}</Link>
           </Typography>
         </section>
         <section className={classes.rightToolbar}>
@@ -98,32 +98,6 @@ export default function App() {
                 <Help />
               </IconButton>
             </li>
-            {user && (
-              <li>
-                <IconButton
-                  aria-label={t("navigation.home")}
-                  color="inherit"
-                  component={Link}
-                  data-testid="navigation-home"
-                  to="/"
-                >
-                  <Home />
-                </IconButton>
-              </li>
-            )}
-            {user && (
-              <li>
-                <IconButton
-                  aria-label={t("navigation.settings")}
-                  color="inherit"
-                  component={Link}
-                  data-testid="navigation-settings"
-                  to="/settings"
-                >
-                  <Settings />
-                </IconButton>
-              </li>
-            )}
             {user && (
               <li>
                 <IconButton
