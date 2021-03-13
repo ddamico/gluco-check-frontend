@@ -529,11 +529,6 @@ export default function SettingsForm({
         {errors.defaultMetrics && (
           <FormHelperText>{errors.defaultMetrics[0]?.message}</FormHelperText>
         )}
-        {!warnings.defaultMetrics && !errors.defaultMetrics && (
-          <FormHelperText>
-            {t("settings.form.helperText.defaultMetrics.default")}
-          </FormHelperText>
-        )}
       </FormControl>
 
       {/* only show the glucose units field when in debug mode,

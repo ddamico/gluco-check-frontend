@@ -52,7 +52,7 @@
         "glucoseUnits": "Glucose Eenheden",
         "nightscoutToken": "Nightscout Token",
         "nightscoutUrl": "Nightscout URL",
-        "defaultMetrics": "[Default Metrics]"
+        "defaultMetrics": "[Assistant will read these items to you by default]"
       },
       "helperText": {
         "nightscoutToken": {
@@ -67,7 +67,6 @@
           "needsUpgrade": "[Your Nightscout site requires an update to work with Gluco Check, please update to at least {{version}}]"
         },
         "defaultMetrics": {
-          "default": "[Assistant will read these items to you by default]",
           "required": "[You must select at least one metric]",
           "notAvailableInvalidToken": "[* You'll need a valid token to access these metrics]",
           "notAvailableValidToken": "[* We did not find a recent value for these metrics, but you can still select them]"
