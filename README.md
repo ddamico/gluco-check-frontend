@@ -8,6 +8,7 @@
 - [ ] Merge GitHub workflows (/.github)
 - [ ] Issue: vscode-jest support? (Workaround: open frontend in its own window)
 - [ ] Explore: how to deploy to Firebase now?
+- [ ] Merge husky and lint-staged config into main repo, remove from this repo
 - [ ] ...
 
 This repo contains the frontend app for user-management of Gluco Check settings. It is a plain old Create React App app, built in [Typescript](http://typescriptlang.org).
