@@ -151,9 +151,6 @@ export default function App() {
         <Container maxWidth="lg" className={classes.container}>
           <Paper variant="elevation" className={classes.surface}>
             <Switch>
-              <Route exact path="/">
-                {Content}
-              </Route>
               {user && (
                 <Route path="/settings">
                   <FirebaseUserDocumentContext.Provider value={docPath}>
@@ -161,6 +158,7 @@ export default function App() {
                   </FirebaseUserDocumentContext.Provider>
                 </Route>
               )}
+              <Route path="/">{Content}</Route>
             </Switch>
           </Paper>
         </Container>
