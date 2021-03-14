@@ -1,7 +1,7 @@
 import React from "react";
 import { cleanup, render } from "@testing-library/react";
 import { axe } from "jest-axe";
-import Welcome from "./Welcome";
+import Welcome, { handleSignoutClicked } from "./Welcome";
 
 jest.mock("react-i18next", () => ({
   useTranslation: () => {
@@ -15,6 +15,15 @@ jest.mock("react-i18next", () => ({
     return <span>{props.i18nKey}</span>;
   },
 }));
+
+import { auth } from "../lib/firebase";
+jest.mock("../lib/firebase.ts", () => {
+  return {
+    auth: {
+      signOut: jest.fn(),
+    },
+  };
+});
 
 jest.mock("../components/Onboarding", () => {
   return {
@@ -45,5 +54,15 @@ describe("Welcome page", () => {
   it("has no axe violations", async () => {
     const { container } = render(<Welcome />);
     expect(await axe(container)).toHaveNoViolations();
+  });
+});
+
+describe("handleSignoutClicked", () => {
+  beforeEach(() => {
+    (auth.signOut as jest.Mock).mockReset();
+  });
+  it("Logs the user out when called", () => {
+    handleSignoutClicked();
+    expect(auth.signOut as jest.Mock).toHaveBeenCalled();
   });
 });

@@ -1,7 +1,16 @@
 import React from "react";
-import { cleanup, render } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import { axe } from "jest-axe";
 import Boilerplate from "./Boilerplate";
+import userEvent from "@testing-library/user-event";
+
+jest.mock("../lib/firebase.ts", () => {
+  return {
+    auth: {
+      signOut: jest.fn(),
+    },
+  };
+});
 
 jest.mock("react-i18next", () => ({
   useTranslation: () => {
@@ -19,13 +28,32 @@ jest.mock("react-i18next", () => ({
 afterEach(cleanup);
 
 describe("Landing page", () => {
-  it("renders the component", () => {
+  const mockHandleSignoutClicked = jest.fn();
+  beforeEach(() => {
+    mockHandleSignoutClicked.mockReset();
+  });
+  it("renders the component", async () => {
+    const { container } = render(
+      <Boilerplate handleSignoutClicked={mockHandleSignoutClicked} />
+    );
+    expect(container.firstChild).toMatchSnapshot();
+
+    const logoutButton = await screen.findByText("boilerplate.logout");
+    expect(logoutButton).toBeTruthy();
+
+    await userEvent.click(logoutButton);
+    expect(mockHandleSignoutClicked).toHaveBeenCalled();
+  });
+
+  it("renders the component when not authenticated", () => {
     const { container } = render(<Boilerplate />);
     expect(container.firstChild).toMatchSnapshot();
   });
 
   it("has no axe violations", async () => {
-    const { container } = render(<Boilerplate />);
+    const { container } = render(
+      <Boilerplate handleSignoutClicked={mockHandleSignoutClicked} />
+    );
     expect(await axe(container)).toHaveNoViolations();
   });
 });

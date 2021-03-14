@@ -23,5 +23,36 @@ exports[`Landing page renders the component 1`] = `
       boilerplate.nightscout
     </span>
   </p>
+  <a
+    class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+  >
+    boilerplate.logout
+  </a>
+</div>
+`;
+
+exports[`Landing page renders the component when not authenticated 1`] = `
+<div
+  class="makeStyles-container-2"
+>
+  <p
+    class="MuiTypography-root MuiTypography-body1"
+  >
+    <span>
+      boilerplate.terms
+    </span>
+  </p>
+  <p
+    class="MuiTypography-root MuiTypography-body1"
+  >
+    boilerplate.google
+  </p>
+  <p
+    class="MuiTypography-root MuiTypography-body1"
+  >
+    <span>
+      boilerplate.nightscout
+    </span>
+  </p>
 </div>
 `;
