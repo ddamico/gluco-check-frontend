@@ -13,7 +13,7 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { ExitToApp, Help } from "@material-ui/icons";
+import { GitHub, Help } from "@material-ui/icons";
 
 import Landing from "./pages/Landing";
 import EditSettings from "./pages/EditSettings";
@@ -90,7 +90,7 @@ export default function App() {
           <ul className={classes.nav}>
             <li>
               <IconButton
-                aria-label={t("boilerplate.faqs")}
+                aria-label={t("navigation.faqs")}
                 color="inherit"
                 data-testid="navigation-home"
                 href="/faq"
@@ -98,20 +98,17 @@ export default function App() {
                 <Help />
               </IconButton>
             </li>
-            {user && (
-              <li>
-                <IconButton
-                  aria-label={t("navigation.logout")}
-                  color="inherit"
-                  onClick={() => {
-                    auth.signOut();
-                  }}
-                  data-testid="logout"
-                >
-                  <ExitToApp />
-                </IconButton>
-              </li>
-            )}
+            <li>
+              <IconButton
+                aria-label={t("navigation.github")}
+                color="inherit"
+                data-testid="navigation-contribute"
+                href={t("urls.glucoCheckGithub")}
+                target="_contribute"
+              >
+                <GitHub />
+              </IconButton>
+            </li>
           </ul>
         </section>
       </Toolbar>

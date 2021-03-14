@@ -11,7 +11,8 @@
     "healthDisclaimer": "/terms",
     "privacy": "/terms",
     "nightscoutProject": "http://nightscout.info/",
-    "faqs": "/faq"
+    "faqs": "/faq",
+    "glucoCheckGithub": "https://github.com/nielsmaerten/gluco-check"
   },
   "landing": {
     "title": "Welcome to Gluco Check",
@@ -84,10 +85,8 @@
     }
   },
   "navigation": {
-    "home": "Home",
-    "login": "Login",
-    "logout": "Logout",
-    "settings": "Settings"
+    "faqs": "Help & FAQs",
+    "github": "Find Us On Github"
   },
   "diabetesMetrics": {
     "Everything": "everything",
