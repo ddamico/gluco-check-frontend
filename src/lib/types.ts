@@ -1,6 +1,7 @@
 import { BloodGlucoseUnit, DiabetesMetric } from "./enums";
 
 export interface GlucoCheckUserDocument {
+  heardDisclaimer?: boolean;
   defaultMetrics: DiabetesMetric[];
   glucoseUnit: BloodGlucoseUnit;
   nightscout: {

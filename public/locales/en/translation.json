@@ -45,7 +45,7 @@
   },
   "settings": {
     "title": "Edit Settings",
-    "content": "Gluco Check works by talking to your Nightscout site. Enter details about your site below. Additional metrics (beyond current blood glucose) require a valid token.",
+    "betaBanner": "While we’re in Beta, the app won’t immediately work. You will receive an email once you’ve been added to the Beta.",
     "form": {
       "validationInProgress": "Checking your Nightscout site",
       "labels": {

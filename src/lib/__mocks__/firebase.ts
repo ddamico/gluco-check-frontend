@@ -7,6 +7,7 @@ export const mockUser: Partial<firebase.User> = {
 };
 
 export const mockUserDocument: GlucoCheckUserDocument = {
+  heardDisclaimer: false,
   defaultMetrics: [DiabetesMetric.BloodSugar],
   glucoseUnit: BloodGlucoseUnit.mgdl,
   nightscout: {
