@@ -1,58 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Landing page renders the component 1`] = `
-<div
-  class="makeStyles-container-1"
+<p
+  class="MuiTypography-root MuiTypography-body1"
 >
-  <p
-    class="MuiTypography-root MuiTypography-body1"
-  >
-    <span>
-      boilerplate.terms
-    </span>
-  </p>
-  <p
-    class="MuiTypography-root MuiTypography-body1"
-  >
-    boilerplate.google
-  </p>
-  <p
-    class="MuiTypography-root MuiTypography-body1"
-  >
-    <span>
-      boilerplate.nightscout
-    </span>
-  </p>
   <a
-    class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+    class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-body2 MuiTypography-colorError"
   >
     boilerplate.logout
   </a>
-</div>
+</p>
 `;
 
 exports[`Landing page renders the component when not authenticated 1`] = `
-<div
-  class="makeStyles-container-2"
->
-  <p
-    class="MuiTypography-root MuiTypography-body1"
-  >
-    <span>
-      boilerplate.terms
-    </span>
-  </p>
-  <p
-    class="MuiTypography-root MuiTypography-body1"
-  >
-    boilerplate.google
-  </p>
-  <p
-    class="MuiTypography-root MuiTypography-body1"
-  >
-    <span>
-      boilerplate.nightscout
-    </span>
-  </p>
-</div>
+<p
+  class="MuiTypography-root MuiTypography-body1"
+/>
 `;

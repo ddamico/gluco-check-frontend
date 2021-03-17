@@ -3,12 +3,12 @@ import { Trans, useTranslation } from "react-i18next";
 import { Link, makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  container: {
+  legal: {
     "& p": {
-      fontSize: ".5rem",
+      fontSize: ".7rem",
     },
     "& a": {
-      fontSize: ".6rem",
+      fontSize: ".7rem",
       cursor: "pointer",
     },
   },
@@ -23,25 +23,31 @@ function Boilerplate({ handleSignoutClicked }: BoilerplateProps) {
   const classes = useStyles();
 
   return (
-    <div className={classes.container}>
+    <>
       <Typography>
-        <Trans i18nKey="boilerplate.terms">
-          By continuing, you are indicating that you accept our{" "}
-          <Link href={t("urls.termsAndConditions")}>Terms of Service</Link> and{" "}
-          <Link href={t("urls.privacy")}>Privacy Policy</Link>.
-        </Trans>
+        {handleSignoutClicked && (
+          <Link variant="body2" color="error" onClick={handleSignoutClicked}>
+            {t("boilerplate.logout")}
+          </Link>
+        )}
       </Typography>
-      <Typography>{t("boilerplate.google")}</Typography>
-      <Typography>
-        <Trans i18nKey="boilerplate.nightscout">
-          Not affiliated with the{" "}
-          <Link href={t("urls.nightscoutProject")}>Nightscout Project</Link>
-        </Trans>
-      </Typography>
-      {handleSignoutClicked && (
-        <Link onClick={handleSignoutClicked}>{t("boilerplate.logout")}</Link>
-      )}
-    </div>
+      <div className={classes.legal}>
+        <Typography>
+          <Trans i18nKey="boilerplate.terms">
+            By continuing, you are indicating that you accept our{" "}
+            <Link href={t("urls.termsAndConditions")}>Terms of Service</Link>{" "}
+            and <Link href={t("urls.privacy")}>Privacy Policy</Link>.
+          </Trans>
+        </Typography>
+        <Typography>{t("boilerplate.google")}</Typography>
+        <Typography>
+          <Trans i18nKey="boilerplate.nightscout">
+            Not affiliated with the{" "}
+            <Link href={t("urls.nightscoutProject")}>Nightscout Project</Link>
+          </Trans>
+        </Typography>
+      </div>
+    </>
   );
 }
 
