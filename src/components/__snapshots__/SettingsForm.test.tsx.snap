@@ -387,11 +387,6 @@ exports[`SettingsForm component renders the component 1`] = `
         </span>
       </label>
     </div>
-    <p
-      class="MuiFormHelperText-root"
-    >
-      settings.form.helperText.defaultMetrics.default
-    </p>
   </fieldset>
   <div
     class="MuiFormControl-root MuiFormControl-fullWidth"
