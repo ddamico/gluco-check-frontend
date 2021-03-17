@@ -65,16 +65,11 @@ const useStyles = makeStyles((theme) => ({
       "& .assistantBubble p": {
         padding: "7px 15px",
         borderRadius: "20px",
+        fontSize: ".7rem",
       },
       "& .assistantBubble img": {
         margin: "0",
         paddingBottom: theme.spacing(1),
-      },
-      "& .assistantBubble-question p.MuiTypography-h5, & .assistantBubble-response p.MuiTypography-h5": {
-        fontSize: ".9rem",
-      },
-      "& .assistantBubble-question p.MuiTypography-body2, & .assistantBubble-response p.MuiTypography-body2": {
-        fontSize: ".6rem",
       },
     },
   },
@@ -96,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
   carouselSlider: {
     minHeight: "300px",
     [theme.breakpoints.down("sm")]: {
-      minHeight: "210px",
+      minHeight: "215px",
     },
   },
   carouselDotContainer: {
