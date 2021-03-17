@@ -12,7 +12,6 @@ import { useTranslation } from "react-i18next";
 import SettingsForm from "../components/SettingsForm";
 import { SettingsFormData } from "../lib/types";
 import {
-  APP_DEBUG,
   DEFAULT_GLUCOSE_UNITS,
   FIRESTORE_FIELD_HEARD_DISCLAIMER,
   FIRESTORE_FIELD_PATH_DEFAULT_METRICS,
@@ -103,7 +102,6 @@ export default function EditSettings() {
               endpointUrl: NIGHTSCOUT_VALIDATION_ENDPOINT_URL,
             })
           }
-          shouldShowGlucoseUnitsField={APP_DEBUG}
         />
       )}
     </Container>
