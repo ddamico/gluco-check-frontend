@@ -24,6 +24,7 @@ import {
   MenuItem,
   Select,
   Snackbar,
+  TextField,
 } from "@material-ui/core";
 import semver from "semver";
 import { Close, Lock } from "@material-ui/icons";
@@ -42,13 +43,14 @@ import { NightscoutValidationClient } from "../lib/NightscoutValidationClient/Ni
 import { NightscoutBloodGlucoseUnitMapping } from "../lib/mappings";
 
 type SettingsFormProps = {
-  nightscoutUrl: string;
-  nightscoutToken: string;
-  glucoseUnit: BloodGlucoseUnit;
-  defaultMetrics: DiabetesMetric[];
-  onSubmit: (data: SettingsFormData) => {};
-  nightscoutValidator?: NightscoutValidationClient;
   alertAutohideDuration?: number;
+  defaultMetrics: DiabetesMetric[];
+  glucoseUnit: BloodGlucoseUnit;
+  nightscoutToken: string;
+  nightscoutUrl: string;
+  nightscoutValidator?: NightscoutValidationClient;
+  onSubmit: (data: SettingsFormData) => {};
+  shouldShowGlucoseUnitsField?: boolean;
   validationDebounceDuration?: number;
 };
 
@@ -119,13 +121,14 @@ export const returnHandleOpenTokenDialog = (
 };
 
 export default function SettingsForm({
-  nightscoutUrl,
-  nightscoutToken,
-  glucoseUnit,
-  defaultMetrics,
-  onSubmit,
-  nightscoutValidator,
   alertAutohideDuration,
+  defaultMetrics,
+  glucoseUnit,
+  nightscoutToken,
+  nightscoutUrl,
+  nightscoutValidator,
+  onSubmit,
+  shouldShowGlucoseUnitsField,
   validationDebounceDuration,
 }: SettingsFormProps) {
   const classes = useStyles();
@@ -528,40 +531,55 @@ export default function SettingsForm({
         )}
       </FormControl>
 
-      <FormControl
-        className={warnings.glucoseUnit ? classes.helperWarning : undefined}
-        fullWidth={true}
-      >
-        <InputLabel htmlFor="settings-form-field-bg">
-          {t("settings.form.labels.glucoseUnits")}
-        </InputLabel>
-        <Controller
-          name="glucoseUnit"
-          rules={{ required: true }}
-          control={control}
+      {/* only show the glucose units field when in debug mode,
+          otherwise we're just going to pass the discovered units
+          in a hidden field */}
+      {shouldShowGlucoseUnitsField ? (
+        <FormControl
+          className={warnings.glucoseUnit ? classes.helperWarning : undefined}
+          fullWidth={true}
+        >
+          <InputLabel htmlFor="settings-form-field-bg">
+            {t("settings.form.labels.glucoseUnits")}
+          </InputLabel>
+          <Controller
+            name="glucoseUnit"
+            rules={{ required: true }}
+            control={control}
+            defaultValue={glucoseUnit}
+            as={
+              <Select
+                disabled={!canEditFields}
+                fullWidth={true}
+                inputProps={{
+                  "data-testid": "settings-form-field-bg",
+                }}
+                id="settings-form-field-bg"
+                onChange={debouncedOnChangeHandler}
+              >
+                {glucoseUnits.map((item) => (
+                  <MenuItem value={item.value} key={item.value}>
+                    {item.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            }
+          />
+          {warnings.glucoseUnit && (
+            <FormHelperText>{warnings.glucoseUnit.message}</FormHelperText>
+          )}
+        </FormControl>
+      ) : (
+        <TextField
           defaultValue={glucoseUnit}
-          as={
-            <Select
-              disabled={!canEditFields}
-              fullWidth={true}
-              inputProps={{
-                "data-testid": "settings-form-field-bg",
-              }}
-              id="settings-form-field-bg"
-              onChange={debouncedOnChangeHandler}
-            >
-              {glucoseUnits.map((item) => (
-                <MenuItem value={item.value} key={item.value}>
-                  {item.label}
-                </MenuItem>
-              ))}
-            </Select>
-          }
+          inputRef={register}
+          inputProps={{
+            "data-testid": "settings-form-field-bg",
+          }}
+          name="glucoseUnit"
+          type="hidden"
         />
-        {warnings.glucoseUnit && (
-          <FormHelperText>{warnings.glucoseUnit.message}</FormHelperText>
-        )}
-      </FormControl>
+      )}
 
       <Container disableGutters={true} maxWidth="lg">
         <Grid container direction="row" alignItems="center" spacing={2}>
@@ -634,5 +652,6 @@ export default function SettingsForm({
 
 SettingsForm.defaultProps = {
   autohideDuration: ALERT_AUTOHIDE_DURATION,
+  shouldShowGlucoseUnitsField: false,
   validationDebounceDuration: VALIDATION_DEBOUNCE_DURATION,
 };
