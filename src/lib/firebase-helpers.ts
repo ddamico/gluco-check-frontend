@@ -2,7 +2,12 @@ import { BloodGlucoseUnit, DiabetesMetric } from "./enums";
 import { GlucoCheckUserDocument } from "./types";
 
 export const FIRESTORE_DEFAULT_SET_OPTIONS: firebase.firestore.SetOptions = {
-  mergeFields: ['defaultMetrics', 'glucoseUnit', 'nightscout.token', 'nightscout.url']
+  mergeFields: [
+    "defaultMetrics",
+    "glucoseUnit",
+    "nightscout.token",
+    "nightscout.url",
+  ],
 };
 
 export const DEFAULT_USER_DOCUMENT: GlucoCheckUserDocument = {

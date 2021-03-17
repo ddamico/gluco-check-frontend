@@ -13,7 +13,7 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { ExitToApp, Home, Settings, Help } from "@material-ui/icons";
+import { GitHub, Help } from "@material-ui/icons";
 
 import Landing from "./pages/Landing";
 import EditSettings from "./pages/EditSettings";
@@ -55,7 +55,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   toolbar: {},
-  navTitle: {},
+  navTitle: {
+    "& a": {
+      color: "white",
+      textDecoration: "none",
+    },
+  },
 }));
 
 export default function App() {
@@ -77,20 +82,15 @@ export default function App() {
     <AppBar position="sticky">
       <Toolbar variant="regular" className={classes.toolbar}>
         <section className={classes.leftToolbar}>
-          <Typography
-            variant="h6"
-            component="h1"
-            color="inherit"
-            className={classes.navTitle}
-          >
-            {t("title")}
+          <Typography variant="h6" component="h1" className={classes.navTitle}>
+            <Link to="/">{t("title")}</Link>
           </Typography>
         </section>
         <section className={classes.rightToolbar}>
           <ul className={classes.nav}>
             <li>
               <IconButton
-                aria-label={t("boilerplate.faqs")}
+                aria-label={t("navigation.faqs")}
                 color="inherit"
                 data-testid="navigation-home"
                 href="/faq"
@@ -98,46 +98,17 @@ export default function App() {
                 <Help />
               </IconButton>
             </li>
-            {user && (
-              <li>
-                <IconButton
-                  aria-label={t("navigation.home")}
-                  color="inherit"
-                  component={Link}
-                  data-testid="navigation-home"
-                  to="/"
-                >
-                  <Home />
-                </IconButton>
-              </li>
-            )}
-            {user && (
-              <li>
-                <IconButton
-                  aria-label={t("navigation.settings")}
-                  color="inherit"
-                  component={Link}
-                  data-testid="navigation-settings"
-                  to="/settings"
-                >
-                  <Settings />
-                </IconButton>
-              </li>
-            )}
-            {user && (
-              <li>
-                <IconButton
-                  aria-label={t("navigation.logout")}
-                  color="inherit"
-                  onClick={() => {
-                    auth.signOut();
-                  }}
-                  data-testid="logout"
-                >
-                  <ExitToApp />
-                </IconButton>
-              </li>
-            )}
+            <li>
+              <IconButton
+                aria-label={t("navigation.github")}
+                color="inherit"
+                data-testid="navigation-contribute"
+                href={t("urls.glucoCheckGithub")}
+                target="_contribute"
+              >
+                <GitHub />
+              </IconButton>
+            </li>
           </ul>
         </section>
       </Toolbar>
@@ -151,9 +122,6 @@ export default function App() {
         <Container maxWidth="lg" className={classes.container}>
           <Paper variant="elevation" className={classes.surface}>
             <Switch>
-              <Route exact path="/">
-                {Content}
-              </Route>
               {user && (
                 <Route path="/settings">
                   <FirebaseUserDocumentContext.Provider value={docPath}>
@@ -161,6 +129,7 @@ export default function App() {
                   </FirebaseUserDocumentContext.Provider>
                 </Route>
               )}
+              <Route path="/">{Content}</Route>
             </Switch>
           </Paper>
         </Container>

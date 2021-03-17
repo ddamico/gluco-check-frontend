@@ -65,12 +65,6 @@ describe("App component", () => {
       .mockReturnValue([mockUser, false]);
     const { container, findByTestId } = render(<App />);
     expect(container.firstChild).toMatchSnapshot();
-
-    const logoutButton = await findByTestId("logout");
-    act(() => {
-      userEvent.click(logoutButton);
-    });
-    expect(auth.signOut as jest.Mock).toHaveBeenCalled();
   });
 
   it("renders the component when no user and no loading", () => {

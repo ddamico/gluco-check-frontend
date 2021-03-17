@@ -9,6 +9,11 @@ import {
 } from "@material-ui/core";
 import Onboarding from "../components/Onboarding";
 import Boilerplate from "../components/Boilerplate";
+import { auth } from "../lib/firebase";
+
+export const handleSignoutClicked = () => {
+  auth.signOut();
+};
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -79,7 +84,7 @@ function Welcome() {
         </Button>
       </Grid>
       <Grid item className={classes.boilerplate}>
-        <Boilerplate />
+        <Boilerplate handleSignoutClicked={handleSignoutClicked} />
       </Grid>
     </Grid>
   );
