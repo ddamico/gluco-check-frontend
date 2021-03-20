@@ -82,7 +82,7 @@ exports[`Onboarding questionAndAnswer renders the subcomponent with a long answe
 
 exports[`Onboarding renders the component 1`] = `
 <div
-  class="MuiContainer-root MuiContainer-maxWidthSm"
+  class="MuiContainer-root MuiContainer-maxWidthXs"
 >
   <div
     class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"

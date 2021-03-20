@@ -17,6 +17,13 @@ const useStyles = makeStyles((theme) => ({
   subtitle: {
     marginBottom: theme.spacing(3),
     textAlign: "center",
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: 0,
+      "& h2": {
+        fontSize: "1.125rem",
+        lineHeight: 1.6,
+      },
+    },
   },
   contentGrid: {
     minHeight: "80vh",
