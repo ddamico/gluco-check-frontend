@@ -65,7 +65,8 @@ const useStyles = makeStyles((theme) => ({
       "& .assistantBubble p": {
         padding: "7px 15px",
         borderRadius: "20px",
-        fontSize: ".7rem",
+        fontSize: ".9rem",
+        lineHeight: "1.1rem",
       },
       "& .assistantBubble img": {
         margin: "0",
@@ -91,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
   carouselSlider: {
     minHeight: "300px",
     [theme.breakpoints.down("sm")]: {
-      minHeight: "215px",
+      minHeight: "220px",
     },
   },
   carouselDotContainer: {
@@ -178,7 +179,7 @@ function Onboarding() {
       naturalSlideWidth={600}
       totalSlides={questionsAndAnswers.length}
     >
-      <Container maxWidth="sm">
+      <Container maxWidth="xs">
         <Grid
           alignItems="center"
           container
