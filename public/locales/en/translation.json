@@ -46,7 +46,7 @@
   },
   "settings": {
     "title": "Edit Settings",
-    "betaBanner": "While we’re in Beta, the app won’t immediately work. You will receive an email once you’ve been added to the Beta.",
+    "betaBanner": "Gluco Check is in Beta. Your account will take approx. 24 hours to activate. Link your Nightscout in the meantime, and we'll send you an email once you can start using Gluco Check.",
     "form": {
       "validationInProgress": "Checking your Nightscout site",
       "labels": {
