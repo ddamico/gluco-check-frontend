@@ -3,13 +3,12 @@ import { Trans, useTranslation } from "react-i18next";
 import { Link, makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
+  signout: {
+    cursor: "pointer",
+  },
   legal: {
     "& p": {
       fontSize: ".7rem",
-    },
-    "& a": {
-      fontSize: ".7rem",
-      cursor: "pointer",
     },
   },
 }));
@@ -26,7 +25,12 @@ function Boilerplate({ handleSignoutClicked }: BoilerplateProps) {
     <>
       <Typography>
         {handleSignoutClicked && (
-          <Link variant="body2" color="error" onClick={handleSignoutClicked}>
+          <Link
+            className={classes.signout}
+            variant="body2"
+            color="error"
+            onClick={handleSignoutClicked}
+          >
             {t("boilerplate.logout")}
           </Link>
         )}
