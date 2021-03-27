@@ -16,6 +16,9 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 import { DEFAULT_ONBOARDING_CAROUSEL_INTERVAL } from "../lib/constants";
 
 const useStyles = makeStyles((theme) => ({
+  gridContainer: {
+    maxWidth: "500px",
+  },
   slideContainer: {
     padding: theme.spacing(2),
     margin: theme.spacing(1),
@@ -179,7 +182,7 @@ function Onboarding() {
       naturalSlideWidth={600}
       totalSlides={questionsAndAnswers.length}
     >
-      <Container maxWidth="xs">
+      <Container className={classes.gridContainer} maxWidth={false}>
         <Grid
           alignItems="center"
           container
