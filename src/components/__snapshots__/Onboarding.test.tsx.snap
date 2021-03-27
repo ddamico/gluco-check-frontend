@@ -82,19 +82,19 @@ exports[`Onboarding questionAndAnswer renders the subcomponent with a long answe
 
 exports[`Onboarding renders the component 1`] = `
 <div
-  class="MuiContainer-root MuiContainer-maxWidthXs"
+  class="MuiContainer-root makeStyles-gridContainer-1"
 >
   <div
     class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
   >
     <div
-      class="MuiGrid-root makeStyles-carouselSliderContainer-4 MuiGrid-item"
+      class="MuiGrid-root makeStyles-carouselSliderContainer-5 MuiGrid-item"
     >
       <div
-        class="MuiPaper-root MuiCard-root makeStyles-slideContainer-1 MuiPaper-elevation1 MuiPaper-rounded"
+        class="MuiPaper-root MuiCard-root makeStyles-slideContainer-2 MuiPaper-elevation1 MuiPaper-rounded"
       >
         <div
-          class="MuiGrid-root makeStyles-callResponseContainer-2 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap"
+          class="MuiGrid-root makeStyles-callResponseContainer-3 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap"
         >
           <div
             class="MuiGrid-root assistantBubble assistantBubble-question MuiGrid-item"
@@ -121,10 +121,10 @@ exports[`Onboarding renders the component 1`] = `
         </div>
       </div>
       <div
-        class="MuiPaper-root MuiCard-root makeStyles-slideContainer-1 MuiPaper-elevation1 MuiPaper-rounded"
+        class="MuiPaper-root MuiCard-root makeStyles-slideContainer-2 MuiPaper-elevation1 MuiPaper-rounded"
       >
         <div
-          class="MuiGrid-root makeStyles-callResponseContainer-2 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap"
+          class="MuiGrid-root makeStyles-callResponseContainer-3 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap"
         >
           <div
             class="MuiGrid-root assistantBubble assistantBubble-question MuiGrid-item"
@@ -151,10 +151,10 @@ exports[`Onboarding renders the component 1`] = `
         </div>
       </div>
       <div
-        class="MuiPaper-root MuiCard-root makeStyles-slideContainer-1 MuiPaper-elevation1 MuiPaper-rounded"
+        class="MuiPaper-root MuiCard-root makeStyles-slideContainer-2 MuiPaper-elevation1 MuiPaper-rounded"
       >
         <div
-          class="MuiGrid-root makeStyles-callResponseContainer-2 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap"
+          class="MuiGrid-root makeStyles-callResponseContainer-3 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap"
         >
           <div
             class="MuiGrid-root assistantBubble assistantBubble-question MuiGrid-item"
@@ -182,7 +182,7 @@ exports[`Onboarding renders the component 1`] = `
       </div>
     </div>
     <div
-      class="MuiGrid-root makeStyles-carouselDotContainer-6 MuiGrid-item"
+      class="MuiGrid-root makeStyles-carouselDotContainer-7 MuiGrid-item"
     >
       onboarding.l1
       onboarding.l2
