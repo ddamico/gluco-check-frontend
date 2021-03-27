@@ -3,7 +3,7 @@ import red from "@material-ui/core/colors/red";
 import orange from "@material-ui/core/colors/orange";
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 
-let theme = createMuiTheme({
+export const themeObj = {
   typography: {
     fontFamily: ["Poppins", "sans-serif"].join(","),
   },
@@ -29,7 +29,4 @@ let theme = createMuiTheme({
       default: "#fff",
     },
   },
-});
-theme = responsiveFontSizes(theme);
-
-export default theme;
+};
