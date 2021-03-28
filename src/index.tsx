@@ -6,6 +6,7 @@ import App from "./App";
 
 import "./lib/i18n";
 import ThemeWithMediaProvider from "./components/ThemeWithMediaProvider";
+import { themeOptions } from "./theme";
 
 ReactDOM.render(
   <Suspense
@@ -23,7 +24,7 @@ ReactDOM.render(
       </Grid>
     }
   >
-    <ThemeWithMediaProvider>
+    <ThemeWithMediaProvider themeOptions={themeOptions}>
       <CssBaseline />
       <App />
     </ThemeWithMediaProvider>

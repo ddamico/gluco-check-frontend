@@ -1,8 +1,9 @@
 /* istanbul ignore file */
 import red from "@material-ui/core/colors/red";
 import orange from "@material-ui/core/colors/orange";
+import { ThemeOptions } from "@material-ui/core";
 
-export const themeObj = {
+export const themeOptions: ThemeOptions = {
   typography: {
     fontFamily: ["Poppins", "sans-serif"].join(","),
   },
