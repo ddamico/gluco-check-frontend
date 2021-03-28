@@ -105,6 +105,7 @@ const useStyles = makeStyles((theme) => ({
   carouselDot: {
     backgroundColor: "transparent",
     borderWidth: "0",
+    color: theme.palette.text.primary,
     fontFamily: theme.typography.fontFamily,
     "&.carousel__dot--selected": {
       fontWeight: "bold",
