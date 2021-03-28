@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
       borderColor: "#e8eaed",
       textAlign: "inline-end",
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       "& .assistantBubble p": {
         padding: "7px 15px",
         borderRadius: "20px",
@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
   },
   carouselSlider: {
     minHeight: "300px",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       minHeight: "220px",
     },
   },

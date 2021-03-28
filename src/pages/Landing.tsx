@@ -26,7 +26,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   contentGrid: {
-    minHeight: "80vh",
+    [theme.breakpoints.up("sm")]: {
+      minHeight: "80vh",
+    },
   },
   utterance: {
     fontWeight: "bold",
