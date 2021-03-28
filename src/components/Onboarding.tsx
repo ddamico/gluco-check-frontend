@@ -53,8 +53,9 @@ const useStyles = makeStyles((theme) => ({
       alignSelf: "flex-start",
     },
     "& .assistantBubble-question p": {
-      backgroundColor: "#ccc",
-      borderColor: "#ccc",
+      backgroundColor: theme.palette.grey[300],
+      borderColor: theme.palette.grey[300],
+      color: theme.palette.grey[900],
     },
     "& .assistantBubble-response": {
       textAlign: "end",
