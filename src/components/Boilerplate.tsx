@@ -10,6 +10,8 @@ const useStyles = makeStyles((theme) => ({
     "& a": {
       fontSize: ".7rem",
       cursor: "pointer",
+      color: theme.palette.text.primary,
+      textDecoration: "underline",
     },
   },
 }));

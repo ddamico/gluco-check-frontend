@@ -1,16 +1,12 @@
 import "reflect-metadata";
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
-import {
-  CircularProgress,
-  CssBaseline,
-  Grid,
-  ThemeProvider,
-} from "@material-ui/core";
+import { CircularProgress, CssBaseline, Grid } from "@material-ui/core";
 import App from "./App";
-import theme from "./theme";
 
 import "./lib/i18n";
+import ThemeWithMediaProvider from "./components/ThemeWithMediaProvider";
+import { themeOptions } from "./theme";
 
 ReactDOM.render(
   <Suspense
@@ -28,10 +24,10 @@ ReactDOM.render(
       </Grid>
     }
   >
-    <ThemeProvider theme={theme}>
+    <ThemeWithMediaProvider themeOptions={themeOptions}>
       <CssBaseline />
       <App />
-    </ThemeProvider>
+    </ThemeWithMediaProvider>
   </Suspense>,
   document.getElementById("root")
 );

@@ -53,8 +53,9 @@ const useStyles = makeStyles((theme) => ({
       alignSelf: "flex-start",
     },
     "& .assistantBubble-question p": {
-      backgroundColor: "#ccc",
-      borderColor: "#ccc",
+      backgroundColor: theme.palette.grey[300],
+      borderColor: theme.palette.grey[300],
+      color: theme.palette.grey[900],
     },
     "& .assistantBubble-response": {
       textAlign: "end",
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
       borderColor: "#e8eaed",
       textAlign: "inline-end",
     },
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       "& .assistantBubble p": {
         padding: "7px 15px",
         borderRadius: "20px",
@@ -94,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
   },
   carouselSlider: {
     minHeight: "300px",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       minHeight: "220px",
     },
   },
@@ -104,6 +105,7 @@ const useStyles = makeStyles((theme) => ({
   carouselDot: {
     backgroundColor: "transparent",
     borderWidth: "0",
+    color: theme.palette.text.primary,
     fontFamily: theme.typography.fontFamily,
     "&.carousel__dot--selected": {
       fontWeight: "bold",

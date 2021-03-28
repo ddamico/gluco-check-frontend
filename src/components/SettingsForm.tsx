@@ -69,6 +69,10 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiFormControl-root": {
       marginBottom: theme.spacing(4),
     },
+    "& .MuiFormHelperText-root .MuiLink-button": {
+      color: theme.palette.text.secondary,
+      textDecoration: "underline",
+    },
   },
   checkboxArray: {
     "& label": {
