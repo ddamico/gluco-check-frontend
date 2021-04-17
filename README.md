@@ -1,3 +1,7 @@
+# Inactive Repo
+
+This repo is being merged into the main https://github.com/nielsmaerten/gluco-check repo. It will be left here to preserve the original commit history, but further development will be taking place in the main repo.
+
 # Gluco Check Frontend Client
 
 This repo contains the frontend app for user-management of Gluco Check settings. It is a plain old Create React App app, built in [Typescript](http://typescriptlang.org).
