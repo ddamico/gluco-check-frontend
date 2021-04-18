@@ -4,6 +4,17 @@ This repo is being merged into the main https://github.com/nielsmaerten/gluco-ch
 
 # Gluco Check Frontend Client
 
+## Merge TODOs
+- [ ] Remove .gitignore
+- [ ] Update the docs
+- [ ] Can we move firebase.json and .firebaserc to the root ?
+- [ ] Explore: maybe use `git-crypt` for .env files ?
+- [ ] Merge GitHub workflows (/.github)
+- [ ] Issue: vscode-jest support? (Workaround: open frontend in its own window)
+- [ ] Explore: how to deploy to Firebase now?
+- [ ] Merge husky and lint-staged config into main repo, remove from this repo
+- [ ] ...
+
 This repo contains the frontend app for user-management of Gluco Check settings. It is a plain old Create React App app, built in [Typescript](http://typescriptlang.org).
 
 We've used [i18n](https://www.i18next.com) for supporting multiple languages in the frontend. The translation files are hosted directly in the project for now, but should be moving out to crowdin soon enough.
